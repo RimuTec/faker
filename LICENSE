@@ -24,7 +24,7 @@ SOFTWARE.
 
 This project is using files from the Ruby project https://github.com/stympy/faker
 This includes in particular most (all?) of the yaml files with data from which
-test data is generated. The files from the Ruby project faker are using under
+test data is generated. The files from the Ruby project faker are used under
 the following MIT license:
 
 Copyright (c) 2007-2010 Benjamin Curtis
@@ -51,7 +51,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -------------------------------------------------------------------------------
 
 Some portions of the source code are based on the project faker-cs available at
-https://github.com/oriches/faker-cs That source code is used under the following
+https://github.com/oriches/faker-cs Those portions are used under the following
 MIT license:
 
 Copyright (c) 2009 Ben Smith
