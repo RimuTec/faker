@@ -1,2 +1,2 @@
 # Faker
-A port from Ruby to C# of https://github.com/stympy/faker
+A port of https://github.com/stympy/faker from Ruby to C#
