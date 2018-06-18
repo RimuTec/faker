@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+     <TargetFramework>netstandard2.0</TargetFramework>
+     <AssemblyName>RimuTec.Faker</AssemblyName>
+    <RootNamespace>RimuTec.Faker</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="locales\en\name.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="locales\en\name.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Net.Compilers" Version="2.8.2" />
+    <PackageReference Include="YamlDotNet" Version="4.3.2" />
+  </ItemGroup>
+
+</Project>

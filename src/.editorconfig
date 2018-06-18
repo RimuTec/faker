@@ -1,0 +1,8 @@
+[*]
+indent_style = space
+indent_size = 3
+end_of_line = crlf
+insert_final_newline = true
+
+[*.cs]
+csharp_new_line_before_open_brace = none
