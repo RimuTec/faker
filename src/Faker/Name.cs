@@ -21,16 +21,27 @@ namespace RimuTec.Faker {
          }
       }
 
+      /// <summary>
+      /// Generates a random first name
+      /// </summary>
+      /// <returns>A string containing a first name</returns>
       public static string FirstName() {
          return _locale.en.faker.name.FirstName.Random().Trim();
       }
 
+      /// <summary>
+      /// Generates a random last name
+      /// </summary>
+      /// <returns>A string containing a last name</returns>
       public static string LastName() {
          return _locale.en.faker.name.LastName.Random().Trim();
       }
 
       private static locale _locale;
    }
+
+   // Helper classes for reading the yaml file. Note that the class names are
+   // intentionally lower case.
 
    internal class locale {
       public en en { get; set; }
