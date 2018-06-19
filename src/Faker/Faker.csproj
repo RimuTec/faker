@@ -4,13 +4,29 @@
      <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
      <AssemblyName>RimuTec.Faker</AssemblyName>
     <RootNamespace>RimuTec.Faker</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.2.0</Version>
+    <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
+    <PackageTags>test testing</PackageTags>
+    <Copyright>Copyright (c) 2018 RimuTec Ltd.</Copyright>
+    <PackageLicenseUrl>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageReleaseNotes>Rudimentary start with only a tiny fraction implemented.</PackageReleaseNotes>
+    <Authors>RimuTec Ltd.</Authors>
+    <Description>A library that helps authoring tests by providing generators for fake data such as names, phone numbers, job titles, etc.</Description>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="locales\en\job.yml" />
+    <None Remove="locales\en\lorem.yml" />
     <None Remove="locales\en\name.yml" />
+    <None Remove="locales\en\phone_number.yml" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="locales\en\phone_number.yml" />
+    <EmbeddedResource Include="locales\en\lorem.yml" />
+    <EmbeddedResource Include="locales\en\job.yml" />
     <EmbeddedResource Include="locales\en\name.yml" />
   </ItemGroup>
 

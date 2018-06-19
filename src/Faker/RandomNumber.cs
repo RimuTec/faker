@@ -22,22 +22,24 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Returns a random number not exceeding a given maximum value.
+      /// Returns a random integer that is less than the specified maximum.
       /// </summary>
-      /// <param name="max">Value that the returned value must not exceed.</param>
+      /// <param name="maxValue">Upper limit of random integer to return excluding this value.</param>
       /// <returns>A random number not exceeding a given maximum value.</returns>
-      public static int Next(int max) {
-         return _random.Next(max);
+      /// <exception cref="ArgumentOutOfRangeException"></exception>
+      public static int Next(int maxValue) {
+         return _random.Next(maxValue);
       }
 
       /// <summary>
-      /// Returns a random number that is within a specified range.
+      /// Returns a random integer that is within a specified range.
       /// </summary>
-      /// <param name="min">Minimum value of the random number</param>
-      /// <param name="max">Maximum value of the random number</param>
+      /// <param name="minValue">Lower limit of random integer to return including this value.</param>
+      /// <param name="maxValue">Upper limit of random integer to return excluding this value.</param>
       /// <returns>A random number within the specified range.</returns>
-      public static int Next(int min, int max) {
-         return _random.Next(min, max);
+      /// <exception cref="ArgumentOutOfRangeException"></exception>
+      public static int Next(int minValue, int maxValue) {
+         return _random.Next(minValue, maxValue);
       }
 
       private static Random _random = new Random();

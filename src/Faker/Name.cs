@@ -38,43 +38,46 @@ namespace RimuTec.Faker {
       }
 
       private static locale _locale;
-   }
 
-   // Helper classes for reading the yaml file. Note that the class names are
-   // intentionally lower case.
 
-   internal class locale {
-      public en en { get; set; }
-   }
+#pragma warning disable IDE1006 // Naming Styles
+      // Helper classes for reading the yaml file. Note that the class names are
+      // intentionally lower case.
 
-   internal class en {
-      public faker faker { get; set; }
-   }
+      internal class locale {
+         public en en { get; set; }
+      }
 
-   internal class faker {
-      public name name { get; set; }
-   }
+      internal class en {
+         public faker faker { get; set; }
+      }
 
-   internal class name {
-      [YamlMember(Alias = "first_name", ApplyNamingConventions = false)]
-      public string[] FirstName { get; set; }
+      internal class faker {
+         public name name { get; set; }
+      }
 
-      [YamlMember(Alias = "middle_name", ApplyNamingConventions = false)]
-      public string[] MiddleName { get; set; }
+      internal class name {
+         [YamlMember(Alias = "first_name", ApplyNamingConventions = false)]
+         public string[] FirstName { get; set; }
 
-      [YamlMember(Alias = "last_name", ApplyNamingConventions = false)]
-      public string[] LastName { get; set; }
+         [YamlMember(Alias = "middle_name", ApplyNamingConventions = false)]
+         public string[] MiddleName { get; set; }
 
-      [YamlMember(Alias = "prefix", ApplyNamingConventions = false)]
-      public string[] Prefix { get; set; }
+         [YamlMember(Alias = "last_name", ApplyNamingConventions = false)]
+         public string[] LastName { get; set; }
 
-      [YamlMember(Alias = "suffix", ApplyNamingConventions = false)]
-      public string[] Suffix { get; set; }
+         [YamlMember(Alias = "prefix", ApplyNamingConventions = false)]
+         public string[] Prefix { get; set; }
 
-      [YamlMember(Alias = "name", ApplyNamingConventions = false)]
-      public List<string> NamePatterns { get; set; }
+         [YamlMember(Alias = "suffix", ApplyNamingConventions = false)]
+         public string[] Suffix { get; set; }
 
-      [YamlMember(Alias = "name_with_middle", ApplyNamingConventions = false)]
-      public List<string> NameWithMiddlePatterns { get; set; }
+         [YamlMember(Alias = "name", ApplyNamingConventions = false)]
+         public List<string> NamePatterns { get; set; }
+
+         [YamlMember(Alias = "name_with_middle", ApplyNamingConventions = false)]
+         public List<string> NameWithMiddlePatterns { get; set; }
+      }
+#pragma warning restore IDE1006 // Naming Styles
    }
 }
