@@ -5,13 +5,13 @@
      <AssemblyName>RimuTec.Faker</AssemblyName>
     <RootNamespace>RimuTec.Faker</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
     <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
     <PackageTags>test testing</PackageTags>
     <Copyright>Copyright (c) 2018 RimuTec Ltd.</Copyright>
     <PackageLicenseUrl>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>Rudimentary start with only a tiny fraction implemented.</PackageReleaseNotes>
+    <PackageReleaseNotes>Relase notes are available at https://github.com/RimuTec/Faker/blob/master/releasenotes.md</PackageReleaseNotes>
     <Authors>RimuTec Ltd.</Authors>
     <Description>A library that helps authoring tests by providing generators for fake data such as names, phone numbers, job titles, etc.</Description>
   </PropertyGroup>

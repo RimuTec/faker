@@ -26,5 +26,28 @@ namespace RimuTec.Faker.Tests {
          // assert
          Assert.AreNotEqual(title1, title2);
       }
+
+      [Test]
+      public void KeySkill_HappyDays() {
+         // arrange
+
+         // act
+         var keySkill = Job.KeySkill();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(keySkill));
+      }
+
+      [Test]
+      public void KeySkill_Twice_NotEqual() {
+         // arrange
+
+         // act
+         var keySkill1 = Job.KeySkill();
+         var keySkill2 = Job.KeySkill();
+
+         // assert
+         Assert.AreNotEqual(keySkill1, keySkill2);
+      }
    }
 }

@@ -26,6 +26,10 @@ namespace RimuTec.Faker {
          }
       }
 
+      public static string KeySkill() {
+         return _locale.en.faker.job.KeySkills.Random().Trim();
+      }
+
       public static string Title() {
          var titleTemplate = _locale.en.faker.job.Title.Random().Trim();
          var seniority = _locale.en.faker.job.Seniority.Random().Trim();

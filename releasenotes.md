@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.3.0
+### New Features
+- Job.KeySkill()
+
 ## Version 0.2.0
 ### New features
 - Job.Title()
