@@ -4,9 +4,18 @@ A C# port of the Ruby Faker gem (https://github.com/stympy/faker)
 # Available Classes and Method
 ## Job
 - Title()
+## Lorem
+- Words(int count)
+- GetFirstWord()
+- Sentence(int minWordCount)
+- Sentences(int sentenceCount)
+- Paragraph(int minSentenceCount)
+- Paragraphs(int paragraphCount)
 ## Name
 - FirstName()
 - LastName()
+## PhoneNumber
+- CellPhone()
 ## RandomNumber
 - ResetSeed(int seed)
 - Next()
