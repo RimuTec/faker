@@ -1,5 +1,13 @@
 # Release Notes
 
+## Version 0.5.0
+### New Features
+- Job.Field()
+- Job.Seniority()
+- Job.Position()
+- Job.EmploymentType()
+- Job.EducationLevel()
+
 ## Version 0.4.0
 ### New Features
 - Name.FullName() (equivalent to Ruby's Faker::Name.name)

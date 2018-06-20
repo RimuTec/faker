@@ -5,7 +5,7 @@
      <AssemblyName>RimuTec.Faker</AssemblyName>
     <RootNamespace>RimuTec.Faker</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.4.0</Version>
+    <Version>0.5.0</Version>
     <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
     <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks</PackageTags>
@@ -13,7 +13,12 @@
     <PackageLicenseUrl>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicenseUrl>
     <PackageReleaseNotes>Relase notes are available at https://github.com/RimuTec/Faker/blob/master/releasenotes.md</PackageReleaseNotes>
     <Authors>RimuTec Ltd.</Authors>
-    <Description>A library that helps authoring tests by providing generators for fake data such as names, phone numbers, job titles, etc.</Description>
+    <Description>A library that helps authoring tests by providing generators for fake data such as names, phone numbers, job titles, etc. This libary is a C# port of the Ruby Faker gem https://github.com/stympy/faker</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
