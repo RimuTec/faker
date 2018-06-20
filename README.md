@@ -13,8 +13,8 @@ The RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 
 - EmploymentType()
 - EducationLevel()
 ## Lorem
-- Words(int count)
-- GetFirstWord()
+- Word()
+- Words(int count = 3, bool supplemental = false)
 - Sentence(int minWordCount)
 - Sentences(int sentenceCount)
 - Paragraph(int minSentenceCount)

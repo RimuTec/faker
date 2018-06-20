@@ -42,6 +42,7 @@ namespace RimuTec.Faker {
          return _random.Next(minValue, maxValue);
       }
 
-      private static Random _random = new Random();
+      // ThreadStatic added, ref: https://stackoverflow.com/a/1262619/411428
+      [ThreadStatic] private static Random _random = new Random();
    }
 }

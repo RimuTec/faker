@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Linq;
 
 namespace RimuTec.Faker.Tests {
@@ -10,7 +11,43 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void Word_HappyDays() {
+         // arrange
+
+         // act
+         var word = Lorem.Word();
+
+         // assert
+         Assert.AreEqual("libero", word);
+      }
+
+      [Test]
+      public void Word_Twice_NotEqual() {
+         // arrange
+
+         // act
+         var word1 = Lorem.Word();
+         var word2 = Lorem.Word();
+
+         // assert
+         Assert.AreNotEqual(word1, word2);
+      }
+
+      [Test]
       public void Words_HappyDays() {
+         // arrange
+
+         // act
+         var words = Lorem.Words();
+
+         // assert
+         Assert.AreEqual(3, words.Count());
+         Assert.AreEqual("cupiditate dolorem voluptatem", string.Join(" ", words));
+         Assert.AreEqual(0, words.Count(x => string.IsNullOrWhiteSpace(x)));
+      }
+
+      [Test]
+      public void Words_With_WordCount() {
          // arrange
          const int wordCount = 42;
 
@@ -23,14 +60,52 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void GetFirstWord() {
+      public void Words_With_Invalid_WordCount() {
+         // arrange
+         var invalidWordCount = 0;
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Words(invalidWordCount));
+
+         // assert
+         Assert.AreEqual("Must be greater than zero.\r\nParameter name: wordCount", ex.Message);
+      }
+
+      [Test]
+      public void Words_With_Supplemental() {
+         // arrange
+         const int defaultWordCount = 3;
+
+         // act
+         var words = Lorem.Words(supplemental: true);
+
+         // assert
+         Assert.AreEqual(defaultWordCount, words.Count());
+         Assert.AreEqual("deficio candidus vel", string.Join(" ", words));
+      }
+
+      [Test]
+      public void Words_Twice_Are_Different() {
          // arrange
 
          // act
-         var firstWord = Lorem.GetFirstWord();
+         var words1 = Lorem.Words();
+         var words2 = Lorem.Words();
 
          // assert
-         Assert.AreEqual("alias", firstWord);
+         Assert.AreNotEqual(words1, words2);
+      }
+
+      [Test]
+      public void Words_WithSupplementalWords_Twice_Are_Different() {
+         // arrange
+
+         // act
+         var words1 = Lorem.Words(supplemental: true);
+         var words2 = Lorem.Words(supplemental: true);
+
+         // assert
+         Assert.AreNotEqual(words1, words2);
       }
 
       [Test]

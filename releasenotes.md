@@ -1,5 +1,13 @@
 # Release Notes
 
+## Version 0.6.0
+### New Features
+- Lorem.Word()
+- Lorem.Words(int count = 3, bool supplemental = false): Optional parameters and default values added.
+
+### Breaking Changes
+- Removed Lorem.GetFirstWord(). If you need to generate a defined word, use `RandomNumber.Seed(int)` and then `Lorem.Word()` instead. We believe the impact of this change is minimal as the method was used for testing only. It does not exist in the Roby gem.
+
 ## Version 0.5.0
 ### New Features
 - Job.Field()

@@ -14,24 +14,30 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Get a random collection of words.
+      /// Generates a random word. Example: "repellendus".
       /// </summary>
-      /// <param name="count">Number of words required</param>
       /// <returns></returns>
-      public static IEnumerable<string> Words(int count) {
-         if (count <= 0) {
-            throw new ArgumentException($"'{nameof(count)}' must be greater than zero", nameof(count));
-         }
-
-         return count.Times(x => _lorem.Words.Random());
+      public static string Word() {
+         return _lorem.Words.Random();
       }
 
       /// <summary>
-      /// Get the first word of the random word collection. Useful for unit tests.
+      /// Get a random collection of Lorem words or a random collection that includes words from a supplementary list of Lorem-like words.
       /// </summary>
+      /// <param name="wordCount">Number of words required</param>
+      /// <param name="supplemental">If true, include words from supplementary list of Lorem-like words.</param>
       /// <returns></returns>
-      public static string GetFirstWord() {
-         return _lorem.Words.First();
+      public static IEnumerable<string> Words(int wordCount = 3, bool supplemental = false) {
+         if (wordCount < 1) {
+            throw new ArgumentOutOfRangeException(nameof(wordCount), "Must be greater than zero.");
+         }
+         if(supplemental) {
+            var combined = wordCount.Times(x => _lorem.Words.Random()).Concat(wordCount.Times(x => _lorem.Supplemental.Random()));
+            return combined.Shuffle().Take(wordCount);
+         }
+         else {
+            return wordCount.Times(x => _lorem.Words.Random());
+         }
       }
 
       /// <summary>
@@ -94,7 +100,7 @@ namespace RimuTec.Faker {
          public string[] Words { get; set; }
 
          [YamlMember(Alias = "supplemental", ApplyNamingConventions = false)]
-         public string[] Seniority { get; set; }
+         public string[] Supplemental { get; set; }
 
          [YamlMember(Alias = "punctuation", ApplyNamingConventions = false)]
          public punctuation Punctuation { get; set; }
