@@ -3,6 +3,11 @@
 namespace RimuTec.Faker.Tests {
    [TestFixture]
    public class JobTests {
+      [SetUp]
+      public void SetUp() {
+         RandomNumber.ResetSeed(42);
+      }
+
       [Test]
       public void Title_HappyDays() {
          // arrange

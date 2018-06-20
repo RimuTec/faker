@@ -1,11 +1,7 @@
 ﻿using RimuTec.Faker.Extensions;
-using System;
+using RimuTec.Faker.Helper;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Text;
 using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace RimuTec.Faker {
    public static class Job {
@@ -13,28 +9,20 @@ namespace RimuTec.Faker {
       // [Manfred, 03jun2018]
 
       static Job() {
-         var executingAssembly = Assembly.GetExecutingAssembly();
-         var resourceNames = executingAssembly.GetManifestResourceNames();
-         using (var resourceStream = executingAssembly.GetManifestResourceStream("RimuTec.Faker.locales.en.job.yml")) {
-            using (var textReader = new StreamReader(resourceStream)) {
-               var deserializer = new DeserializerBuilder()
-                  .WithNamingConvention(new CamelCaseNamingConvention())
-                  .Build()
-                  ;
-               _locale = deserializer.Deserialize<locale>(textReader.ReadToEnd());
-            }
-         }
+         const string yamlFileName = "RimuTec.Faker.locales.en.job.yml";
+         locale locale = YamlLoader.Read<locale>(yamlFileName);
+         _job = locale.en.faker.job;
       }
 
       public static string KeySkill() {
-         return _locale.en.faker.job.KeySkills.Random().Trim();
+         return _job.KeySkills.Random().Trim();
       }
 
       public static string Title() {
-         var titleTemplate = _locale.en.faker.job.Title.Random().Trim();
-         var seniority = _locale.en.faker.job.Seniority.Random().Trim();
-         var field = _locale.en.faker.job.Field.Random().Trim();
-         var position = _locale.en.faker.job.Position.Random().Trim();
+         var titleTemplate = _job.Title.Random().Trim();
+         var seniority = _job.Seniority.Random().Trim();
+         var field = _job.Field.Random().Trim();
+         var position = _job.Position.Random().Trim();
 
          var result = titleTemplate.Replace("#{seniority}", seniority);
          result = result.Replace("#{field}", field);
@@ -43,7 +31,7 @@ namespace RimuTec.Faker {
          return result;
       }
 
-      private static locale _locale;
+      private static job _job;
 
 #pragma warning disable IDE1006 // Naming Styles
       // Helper classes for reading the yaml file. Note that the class names are

@@ -4,6 +4,11 @@ using System.Linq;
 namespace RimuTec.Faker.Tests {
    [TestFixture]
    public class LoremTests {
+      [SetUp]
+      public void SetUp() {
+         RandomNumber.ResetSeed(42);
+      }
+
       [Test]
       public void Words_HappyDays() {
          // arrange

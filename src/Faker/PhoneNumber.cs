@@ -1,34 +1,21 @@
 ﻿using RimuTec.Faker.Extensions;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Text;
+using RimuTec.Faker.Helper;
 using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace RimuTec.Faker {
    public static class PhoneNumber {
       static PhoneNumber() {
-         var executingAssembly = Assembly.GetExecutingAssembly();
-         var resourceNames = executingAssembly.GetManifestResourceNames();
-         using (var resourceStream = executingAssembly.GetManifestResourceStream("RimuTec.Faker.locales.en.phone_number.yml")) {
-            using (var textReader = new StreamReader(resourceStream)) {
-               var deserializer = new DeserializerBuilder()
-                  .WithNamingConvention(new CamelCaseNamingConvention())
-                  .Build()
-                  ;
-               _locale = deserializer.Deserialize<locale>(textReader.ReadToEnd());
-            }
-         }
+         const string yamlFileName = "RimuTec.Faker.locales.en.phone_number.yml";
+         locale locale = YamlLoader.Read<locale>(yamlFileName);
+         _faker = locale.en.faker;
       }
 
       public static string CellPhone() {
-         var numberTemplate = _locale.en.faker.CellPhone.Formats.Random();
+         var numberTemplate = _faker.CellPhone.Formats.Random();
          return numberTemplate.Numerify();
       }
 
-      private static locale _locale;
+      private static faker _faker;
 
 #pragma warning disable IDE1006 // Naming Styles
       // Helper classes for reading the yaml file. Note that the class names are

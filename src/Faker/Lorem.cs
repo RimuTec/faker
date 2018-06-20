@@ -1,26 +1,16 @@
 ﻿using RimuTec.Faker.Extensions;
+using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace RimuTec.Faker {
    public static class Lorem {
       static Lorem() {
-         var executingAssembly = Assembly.GetExecutingAssembly();
-         var resourceNames = executingAssembly.GetManifestResourceNames();
-         using (var resourceStream = executingAssembly.GetManifestResourceStream("RimuTec.Faker.locales.en.lorem.yml")) {
-            using (var textReader = new StreamReader(resourceStream)) {
-               var deserializer = new DeserializerBuilder()
-                  .WithNamingConvention(new CamelCaseNamingConvention())
-                  .Build()
-                  ;
-               _locale = deserializer.Deserialize<locale>(textReader.ReadToEnd());
-            }
-         }
+         const string yamlFileName = "RimuTec.Faker.locales.en.lorem.yml";
+         locale locale = YamlLoader.Read<locale>(yamlFileName);
+         _lorem = locale.en.faker.lorem;
       }
 
       /// <summary>
@@ -33,7 +23,7 @@ namespace RimuTec.Faker {
             throw new ArgumentException($"'{nameof(count)}' must be greater than zero", nameof(count));
          }
 
-         return count.Times(x => _locale.en.faker.lorem.Words.Random());
+         return count.Times(x => _lorem.Words.Random());
       }
 
       /// <summary>
@@ -41,7 +31,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string GetFirstWord() {
-         return _locale.en.faker.lorem.Words.First();
+         return _lorem.Words.First();
       }
 
       /// <summary>
@@ -81,7 +71,7 @@ namespace RimuTec.Faker {
          return paragraphCount.Times(x => Paragraph());
       }
 
-      private static locale _locale;
+      private static lorem _lorem;
 
 #pragma warning disable IDE1006 // Naming Styles
       // Helper classes for reading the yaml file. Note that the class names are

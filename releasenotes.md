@@ -1,5 +1,14 @@
 # Release Notes
 
+## Version 0.4.0
+### New Features
+- Name.FullName() (equivalent to Ruby's Faker::Name.name)
+- Name.NameWithMiddle()
+- Name.MiddleName()
+- Name.Prefix()
+- Name.Suffix()
+- Name.Initials(int characterCount)
+
 ## Version 0.3.0
 ### New Features
 - Job.KeySkill()
