@@ -11,7 +11,7 @@
     <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks</PackageTags>
     <Copyright>Copyright (c) 2018 RimuTec Ltd.</Copyright>
     <PackageLicenseUrl>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>Relase notes are available at https://github.com/RimuTec/Faker/blob/master/releasenotes.md</PackageReleaseNotes>
+    <PackageReleaseNotes>Relase notes listing new features and other changes are available at https://github.com/RimuTec/Faker/blob/master/releasenotes.md</PackageReleaseNotes>
     <Authors>RimuTec Ltd.</Authors>
     <Description>A library to generate fake data e.g. for authoring tests, for preparing software demos or for creating screenshots. It includes generators for fake data such as names, phone numbers, job titles, etc. This libary is a C# port of the Ruby Faker gem https://github.com/stympy/faker</Description>
   </PropertyGroup>
