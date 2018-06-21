@@ -2,6 +2,8 @@
 
 ## Version 0.7.0
 ### New Features
+- Lorem.Character()
+- Lorem.Characters(int charCount = 255)
 - Lorem.Multibyte()
 
 ## Version 0.6.0

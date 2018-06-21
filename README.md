@@ -15,6 +15,8 @@ The RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 
 - Seniority()
 - Title()
 ## Lorem
+- Character()
+- Characters(int charCount = 255)
 - Multibyte()
 - Paragraph(int minSentenceCount)
 - Paragraphs(int paragraphCount)

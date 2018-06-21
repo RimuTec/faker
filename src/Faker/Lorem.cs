@@ -3,6 +3,7 @@ using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
@@ -41,12 +42,36 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Returns a random multibyte character. Example: 😀
+      /// Returns a string with a single random multibyte character. Example: 😀
       /// </summary>
       /// <returns></returns>
-      public static char Multibyte() {
-         return En.Multibyte();
+      public static string Multibyte() {
+         return new String(new char[] { En.Multibyte() });
       }
+
+      /// <summary>
+      /// Returns a string with a single random character from [0...9a...z]. Example: "y"
+      /// </summary>
+      /// <returns></returns>
+      public static string Character() {
+         return Characters(1);
+      }
+
+      /// <summary>
+      /// Returns a string with 'charCount' random characeters from [0...9a...z]. Example: Characters(11) returns "pprf5wrj85f".
+      /// </summary>
+      /// <param name="charCount">Number of characters. Default is 255.</param>
+      /// <returns></returns>
+      /// <remarks>Zero is a valid value for parameter 'charCount' and returns an empty string.</remarks>
+      /// <example><code>Lorem.Characters(11);</code> returns <code>"pprf5wrj85f"</code></example>
+      public static string Characters(int charCount = 255) {
+         if(charCount < 0) {
+            throw new ArgumentOutOfRangeException(nameof(charCount), $"'{nameof(charCount)}' must be equal or greater than zero.");
+         }
+         return string.Join(string.Empty, charCount.Times(x => _characters.Random()));
+      }
+
+      private static readonly char[] _characters = "0123456789abcdefghijklmnopqrstuvwxyz".ToCharArray();
 
       /// <summary>
       /// Generates a capitalised sentence of random words.

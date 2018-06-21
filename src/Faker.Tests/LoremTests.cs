@@ -12,6 +12,64 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void Character_HappyDays() {
+         // arrange
+
+         // act
+         var character = Lorem.Character();
+
+         // assert
+         Assert.AreEqual(1, character.Length);
+      }
+
+      [Test]
+      public void Characters_With_Default_Value() {
+         // arrange
+
+         // act
+         var characters = Lorem.Characters();
+
+         // assert
+         Assert.AreEqual(255, characters.Length);
+         Assert.AreEqual(0, characters.Count(c => c == ' '));
+      }
+
+      [Test]
+      public void Characters_With_Random_CharCount() {
+         // arrange
+         var charCount = RandomNumber.Next(42, 84);
+
+         // act
+         var characters = Lorem.Characters(charCount);
+
+         // assert
+         Assert.AreEqual(charCount, characters.Length);
+         Assert.AreEqual(0, characters.Count(c => c == ' '));
+      }
+
+      [Test]
+      public void Characters_With_Invalid_CharCount() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Characters(-1));
+
+         // assert
+         Assert.AreEqual("'charCount' must be equal or greater than zero.\r\nParameter name: charCount", ex.Message);
+      }
+
+      [Test]
+      public void Characters_Returns_Empty_String_When_CharCount_Zero() {
+         // arrange
+
+         // act
+         var characters = Lorem.Characters(0);
+
+         // assert
+         Assert.AreEqual(string.Empty, characters);
+      }
+
+      [Test]
       public void Word_HappyDays() {
          // arrange
 
@@ -117,9 +175,8 @@ namespace RimuTec.Faker.Tests {
          var multibyte = Lorem.Multibyte();
 
          // assert
-         var asString = new String(new char[] { multibyte });
-         Assert.AreEqual(1, asString.Length);
-         var withoutNonAscii = Regex.Replace(asString, @"[^\u0000-\u007F]", string.Empty);
+         Assert.AreEqual(1, multibyte.Length);
+         var withoutNonAscii = Regex.Replace(multibyte, @"[^\u0000-\u007F]", string.Empty);
          Assert.AreEqual(0, withoutNonAscii.Length);
       }
 
