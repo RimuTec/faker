@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace RimuTec.Faker.Tests {
    [TestFixture]
@@ -106,6 +107,20 @@ namespace RimuTec.Faker.Tests {
 
          // assert
          Assert.AreNotEqual(words1, words2);
+      }
+
+      [Test]
+      public void Multibyte_HappyDays() {
+         // arrange
+
+         // act
+         var multibyte = Lorem.Multibyte();
+
+         // assert
+         var asString = new String(new char[] { multibyte });
+         Assert.AreEqual(1, asString.Length);
+         var withoutNonAscii = Regex.Replace(asString, @"[^\u0000-\u007F]", string.Empty);
+         Assert.AreEqual(0, withoutNonAscii.Length);
       }
 
       [Test]

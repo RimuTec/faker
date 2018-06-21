@@ -7,7 +7,7 @@ namespace RimuTec.Faker.Extensions {
       /// <summary>
       /// Select a random element from the array.
       /// </summary>
-      public static string Random(this string[] array) {
+      public static T Random<T>(this T[] array) {
          if (array.Count() == 0) {
             throw new InvalidOperationException($"Array {nameof(array)} must contain at least one item");
          }

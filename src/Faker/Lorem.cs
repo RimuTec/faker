@@ -41,6 +41,14 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Returns a random multibyte character. Example: 😀
+      /// </summary>
+      /// <returns></returns>
+      public static char Multibyte() {
+         return En.Multibyte();
+      }
+
+      /// <summary>
       /// Generates a capitalised sentence of random words.
       /// </summary>
       /// <param name="minWordCount">Minimum number of words required</param>

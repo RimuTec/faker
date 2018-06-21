@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.7.0
+### New Features
+- Lorem.Multibyte()
+
 ## Version 0.6.0
 ### New Features
 - Company.Name()
