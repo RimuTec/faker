@@ -4,6 +4,8 @@ A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github
 The RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462).
 
 # Available Fake Data Generators
+## Company
+- Name()
 ## Job
 - Title()
 - Field()
