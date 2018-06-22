@@ -25,12 +25,12 @@ namespace RimuTec.Faker {
       /// <summary>
       /// Get a random collection of Lorem words or a random collection that includes words from a supplementary list of Lorem-like words.
       /// </summary>
-      /// <param name="wordCount">Number of words required</param>
+      /// <param name="wordCount">Number of words required. Zero is a valid value.</param>
       /// <param name="supplemental">If true, include words from supplementary list of Lorem-like words.</param>
       /// <returns></returns>
       public static IEnumerable<string> Words(int wordCount = 3, bool supplemental = false) {
-         if (wordCount < 1) {
-            throw new ArgumentOutOfRangeException(nameof(wordCount), "Must be greater than zero.");
+         if (wordCount < 0) {
+            throw new ArgumentOutOfRangeException(nameof(wordCount), "Must be equal to or greater than zero.");
          }
          if(supplemental) {
             var combined = wordCount.Times(x => _lorem.Words.Random()).Concat(wordCount.Times(x => _lorem.Supplemental.Random()));
@@ -60,30 +60,40 @@ namespace RimuTec.Faker {
       /// <summary>
       /// Returns a string with 'charCount' random characeters from [0...9a...z]. Example: Characters(11) returns "pprf5wrj85f".
       /// </summary>
-      /// <param name="charCount">Number of characters. Default is 255.</param>
+      /// <param name="charCount">Number of characters. Default is 255. Zero is a valid valud and return an empty string.</param>
       /// <returns></returns>
-      /// <remarks>Zero is a valid value for parameter 'charCount' and returns an empty string.</remarks>
       /// <example><code>Lorem.Characters(11);</code> returns <code>"pprf5wrj85f"</code></example>
       public static string Characters(int charCount = 255) {
          if(charCount < 0) {
-            throw new ArgumentOutOfRangeException(nameof(charCount), $"'{nameof(charCount)}' must be equal or greater than zero.");
+            throw new ArgumentOutOfRangeException(nameof(charCount), "Must be equal to or greater than zero.");
          }
          return string.Join(string.Empty, charCount.Times(x => _characters.Random()));
       }
 
-      private static readonly char[] _characters = "0123456789abcdefghijklmnopqrstuvwxyz".ToCharArray();
-
       /// <summary>
-      /// Generates a capitalised sentence of random words.
+      /// Generates a capitalised sentence of random words. To specify an exact word count for a 
+      /// sentence, set wordCount to the number you want and randomWordsToAdd equal to 0. By 
+      /// default (i.e. a call without any parameter values), sentences will have a random number 
+      /// of words within the range (4..10).
       /// </summary>
-      /// <param name="minWordCount">Minimum number of words required</param>
+      /// <param name="wordCount">Minimum number of words in the sentence. Default is 4.</param>
+      /// <param name="supplemental">Flag to indicate whether to include words from a supplementary list of Lorem-like words. Default is false.</param>
+      /// <param name="randomWordsToAdd">The 'randomWordsToAdd' argument increases the sentence's word 
+      /// count by a random value within the range (0..randomWordsToAdd). Default value is 6.</param>
       /// <returns></returns>
-      public static string Sentence(int minWordCount = 4) {
-         if (minWordCount <= 0) {
-            throw new ArgumentException($"'{nameof(minWordCount)}' must be greater than zero", nameof(minWordCount));
+      public static string Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 6) {
+         if (wordCount < 0) {
+            throw new ArgumentOutOfRangeException(nameof(wordCount), "Must be equal to or greater than zero.");
+         }
+         if (randomWordsToAdd < 0) {
+            throw new ArgumentOutOfRangeException(nameof(randomWordsToAdd), "Must be equal to or greater than zero.");
          }
 
-         return string.Join(" ", Words(minWordCount + RandomNumber.Next(6)).ToArray()).Capitalise() + ".";
+         string sentence = string.Join(" ", Words(wordCount + RandomNumber.Next(randomWordsToAdd)).ToArray()).Capitalise();
+         if(sentence.Length > 0) {
+            sentence += ".";
+         }
+         return sentence;
       }
 
       public static IEnumerable<string> Sentences(int sentenceCount) {
@@ -109,6 +119,10 @@ namespace RimuTec.Faker {
 
          return paragraphCount.Times(x => Paragraph());
       }
+
+      internal static string[] SupplementalWords => _lorem.Supplemental;
+
+      private static readonly char[] _characters = "0123456789abcdefghijklmnopqrstuvwxyz".ToCharArray();
 
       private static lorem _lorem;
 

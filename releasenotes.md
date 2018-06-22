@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.8.0
+### New Features
+- Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 6): Optional parameters and default values added.
+
 ## Version 0.7.0
 ### New Features
 - Lorem.Character()
