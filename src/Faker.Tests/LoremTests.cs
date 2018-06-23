@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using RimuTec.Faker.Tests.Extensions;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -299,7 +300,7 @@ namespace RimuTec.Faker.Tests {
 
          // assert
          var checkCount = 0;
-         foreach(var word in sentence.ToLower().Trim('.').Split(' ')) {
+         foreach(var word in sentence.ToWordList()) {
             if(!_jointWords.Contains(word)
                && _supplementalWordList.Contains(word)) {
                return;
@@ -358,6 +359,18 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void Sentences_With_Default_Value() {
+         // arrange
+         const int defaultValue = 3;
+
+         // act
+         var sentences = Lorem.Sentences();
+
+         // assert
+         Assert.AreEqual(defaultValue, sentences.Count());
+      }
+
+      [Test]
       public void Sentences_With_Words_From_Supplementary_List() {
          // arrange
 
@@ -367,7 +380,7 @@ namespace RimuTec.Faker.Tests {
          // assert
          var checkCount = 0;
          foreach(var sentence in sentences) {
-            foreach(var word in sentence.ToLower().Trim('.').Split(' ')) {
+            foreach(var word in sentence.ToWordList()) {
                if(_supplementalWordList.Contains(word)
                   && !_jointWords.Contains(word) ) {
                   return;
@@ -411,6 +424,78 @@ namespace RimuTec.Faker.Tests {
          // assert
          Assert.GreaterOrEqual(paragraph.Count(c => c == '.'), 3);
          Assert.Greater(paragraph.Count(c => c == ' '), 9);
+      }
+
+      [Test]
+      public void Paragraph_NonDefault_Value() {
+         // arrange
+         const int sentenceCount = 42;
+
+         // act
+         var paragraph = Lorem.Paragraph(sentenceCount);
+
+         // assert
+         Assert.GreaterOrEqual(paragraph.Count(c => c == '.'), sentenceCount);
+         foreach(var word in paragraph.ToWordList()) {
+            if(_supplementalWordList.Contains(word)) {
+               continue;
+            }
+            Assert.IsTrue(_wordList.Contains(word));
+            Assert.IsFalse(_supplementalWordList.Contains(word));
+         }
+      }
+
+      [Test]
+      public void Paragraph_SentenceCount_Zero_Returns_Empty_Paragraph() {
+         // arrange
+
+         // act
+         var paragraph = Lorem.Paragraph(0);
+
+         // assert
+         Assert.AreEqual(string.Empty, paragraph);
+      }
+
+      [Test]
+      public void Paragraph_Invalid_SentenceCount() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Paragraph(-1));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: sentenceCount", ex.Message);
+      }
+
+      [Test]
+      public void Paragraph_Use_Supplementary_List() {
+         // arrange
+
+         // act
+         var paragraph = Lorem.Paragraph(supplemental: true);
+
+         // assert
+         var checkCount = 0;
+         foreach(var word in paragraph.ToWordList()) {
+            checkCount++;
+            if (!_jointWords.Contains(word)
+               && _supplementalWordList.Contains(word)) {
+               return;
+            }
+         }
+         Assert.AreEqual(checkCount, paragraph.ToWordList().Count());
+         Assert.Fail("Paragraph() does not consider supplementary list.");
+      }
+
+      [Test]
+      public void Paragraph_With_Invalid_RandomSentencesToAdd() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Paragraph(randomSentencesToAdd: -1));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: randomSentencesToAdd", ex.Message);
       }
 
       [Test]

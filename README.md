@@ -1,7 +1,7 @@
 # Faker
 A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker).
 
-The RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462).
+RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462).
 
 # Available Fake Data Generators
 
@@ -21,7 +21,7 @@ The RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 
 - Character()
 - Characters(int charCount = 255)
 - Multibyte()
-- Paragraph(int minSentenceCount)
+- Paragraph(int sentenceCount = 3, bool supplemental = false, int randomSentencesToAdd = 0)
 - Paragraphs(int paragraphCount)
 - Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 6)
 - Sentences(int sentenceCount = 3, bool supplemental = false)

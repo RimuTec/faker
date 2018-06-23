@@ -103,23 +103,36 @@ namespace RimuTec.Faker {
       /// Lorem-like words. Example: Sentences() returns array similar to "["Vero earum commodi soluta.", 
       /// "Quaerat fuga cumque et vero eveniet omnis ut.", "Cumque sit dolor ut est consequuntur."]"
       /// </summary>
-      /// <param name="sentenceCount">Number of sentences. Zero is a valid value.</param>
+      /// <param name="sentenceCount">Number of sentences. Zero is a valid value. Default value is 3.</param>
       /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If 'sentenceCount' is less than zero.</exception>
-      public static IEnumerable<string> Sentences(int sentenceCount, bool supplemental = false) {
+      public static IEnumerable<string> Sentences(int sentenceCount = 3, bool supplemental = false) {
          if (sentenceCount < 0) {
             throw new ArgumentOutOfRangeException(nameof(sentenceCount), "Must be equal to or greater than zero.");
          }
          return sentenceCount.Times(x => Sentence(3, supplemental));
       }
 
-      public static string Paragraph(int minSentenceCount = 3) {
-         if (minSentenceCount <= 0) {
-            throw new ArgumentException($"'{nameof(minSentenceCount)}' must be greater than zero", nameof(minSentenceCount));
+      /// <summary>
+      /// Generates a random paragraph, optionally considering words from a supplementary list of
+      /// Lorem-like words. Example: Paragraph() returns a sentence similar to "Neque dicta enim quasi. 
+      /// Qui corrupti est quisquam. Facere animi quod aut. Qui nulla consequuntur consectetur sapiente."
+      /// </summary>
+      /// <param name="sentenceCount">Number of sentences. Zero is a valid value. Default value is 3.</param>
+      /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
+      /// <param name="randomSentencesToAdd">Number of random sentences to add. Default value 0.</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">If 'sentenceCount' or 'randomSentencesToAdd' is less than zero.</exception>
+      public static string Paragraph(int sentenceCount = 3, bool supplemental = false, int randomSentencesToAdd = 0) {
+         if (sentenceCount < 0) {
+            throw new ArgumentOutOfRangeException(nameof(sentenceCount), "Must be equal to or greater than zero.");
+         }
+         if(randomSentencesToAdd < 0) {
+            throw new ArgumentOutOfRangeException(nameof(randomSentencesToAdd), "Must be equal to or greater than zero.");
          }
 
-         return string.Join(" ", Sentences(minSentenceCount + RandomNumber.Next(3)).ToArray());
+         return string.Join(" ", Sentences(sentenceCount + RandomNumber.Next(randomSentencesToAdd), supplemental).ToArray());
       }
 
       public static IEnumerable<string> Paragraphs(int paragraphCount) {
@@ -134,7 +147,7 @@ namespace RimuTec.Faker {
 
       private static readonly char[] _characters = "0123456789abcdefghijklmnopqrstuvwxyz".ToCharArray();
 
-      private static lorem _lorem;
+      private static readonly lorem _lorem;
 
 #pragma warning disable IDE1006 // Naming Styles
       // Helper classes for reading the yaml file. Note that the class names are
