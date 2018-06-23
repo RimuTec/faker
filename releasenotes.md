@@ -8,6 +8,9 @@
 ### Bug Fixes
 - Lorem.Words() does not consider list of supplementary words.
 
+### Other Changes
+- Updated package YamlDotNet to version 5.0.1
+
 ## Version 0.7.0
 ### New Features
 - Lorem.Character()

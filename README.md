@@ -4,8 +4,10 @@ A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github
 The RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462).
 
 # Available Fake Data Generators
+
 ## Company
 - Name()
+
 ## Job
 - EmploymentType()
 - EducationLevel()
@@ -14,6 +16,7 @@ The RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 
 - Position()
 - Seniority()
 - Title()
+
 ## Lorem
 - Character()
 - Characters(int charCount = 255)
@@ -24,6 +27,7 @@ The RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 
 - Sentences(int sentenceCount = 3, bool supplemental = false)
 - Word()
 - Words(int wordCount = 3, bool supplemental = false)
+
 ## Name
 - FirstName()
 - FullName() (equivalent to Ruby's Faker::Name.name)
@@ -33,8 +37,10 @@ The RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 
 - NameWithMiddle()
 - Prefix()
 - Suffix()
+
 ## PhoneNumber
 - CellPhone()
+
 ## RandomNumber
 - Next()
 - Next(int maxValue)
