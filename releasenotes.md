@@ -2,7 +2,11 @@
 
 ## Version 0.8.0
 ### New Features
-- Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 6): Optional parameters and default values added.
+- Lorem.Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 6): Optional parameters and default values added.
+- Lorem.Sentences(int sentenceCount = 3, bool supplemental = false): Optional parameters and default values added.
+
+### Bug Fixes
+- Lorem.Words() does not consider list of supplementary words.
 
 ## Version 0.7.0
 ### New Features

@@ -21,9 +21,9 @@ The RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 
 - Paragraph(int minSentenceCount)
 - Paragraphs(int paragraphCount)
 - Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 6)
-- Sentences(int sentenceCount)
+- Sentences(int sentenceCount = 3, bool supplemental = false)
 - Word()
-- Words(int count = 3, bool supplemental = false)
+- Words(int wordCount = 3, bool supplemental = false)
 ## Name
 - FirstName()
 - FullName() (equivalent to Ruby's Faker::Name.name)

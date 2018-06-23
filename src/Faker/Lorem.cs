@@ -23,10 +23,11 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Get a random collection of Lorem words or a random collection that includes words from a supplementary list of Lorem-like words.
+      /// Generates a set of random Lorem words optionally considering words from a supplementary list of Lorem-like words.
       /// </summary>
       /// <param name="wordCount">Number of words required. Zero is a valid value.</param>
       /// <param name="supplemental">If true, include words from supplementary list of Lorem-like words.</param>
+      /// <exception cref="ArgumentOutOfRangeException">If 'wordCount' is less than zero.</exception>
       /// <returns></returns>
       public static IEnumerable<string> Words(int wordCount = 3, bool supplemental = false) {
          if (wordCount < 0) {
@@ -58,10 +59,11 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Returns a string with 'charCount' random characeters from [0...9a...z]. Example: Characters(11) returns "pprf5wrj85f".
+      /// Returns a string with 'charCount' random characters from [0...9a...z]. Example: Characters(11) returns "pprf5wrj85f".
       /// </summary>
       /// <param name="charCount">Number of characters. Default is 255. Zero is a valid valud and return an empty string.</param>
       /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">If 'charCount' is less than zero.</exception>
       /// <example><code>Lorem.Characters(11);</code> returns <code>"pprf5wrj85f"</code></example>
       public static string Characters(int charCount = 255) {
          if(charCount < 0) {
@@ -77,10 +79,11 @@ namespace RimuTec.Faker {
       /// of words within the range (4..10).
       /// </summary>
       /// <param name="wordCount">Minimum number of words in the sentence. Default is 4.</param>
-      /// <param name="supplemental">Flag to indicate whether to include words from a supplementary list of Lorem-like words. Default is false.</param>
+      /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
       /// <param name="randomWordsToAdd">The 'randomWordsToAdd' argument increases the sentence's word 
       /// count by a random value within the range (0..randomWordsToAdd). Default value is 6.</param>
       /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">If either 'wordCount' or 'randomWordsToAdd' is less than zero.</exception>
       public static string Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 6) {
          if (wordCount < 0) {
             throw new ArgumentOutOfRangeException(nameof(wordCount), "Must be equal to or greater than zero.");
@@ -88,20 +91,27 @@ namespace RimuTec.Faker {
          if (randomWordsToAdd < 0) {
             throw new ArgumentOutOfRangeException(nameof(randomWordsToAdd), "Must be equal to or greater than zero.");
          }
-
-         string sentence = string.Join(" ", Words(wordCount + RandomNumber.Next(randomWordsToAdd)).ToArray()).Capitalise();
+         string sentence = string.Join(" ", Words(wordCount + RandomNumber.Next(randomWordsToAdd), supplemental).ToArray()).Capitalise();
          if(sentence.Length > 0) {
             sentence += ".";
          }
          return sentence;
       }
 
-      public static IEnumerable<string> Sentences(int sentenceCount) {
-         if (sentenceCount <= 0) {
-            throw new ArgumentException($"'{nameof(sentenceCount)}' must be greater than zero", nameof(sentenceCount));
+      /// <summary>
+      /// Generates a set of random sentences, optionally considering words from a supplementary list of 
+      /// Lorem-like words. Example: Sentences() returns array similar to "["Vero earum commodi soluta.", 
+      /// "Quaerat fuga cumque et vero eveniet omnis ut.", "Cumque sit dolor ut est consequuntur."]"
+      /// </summary>
+      /// <param name="sentenceCount">Number of sentences. Zero is a valid value.</param>
+      /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">If 'sentenceCount' is less than zero.</exception>
+      public static IEnumerable<string> Sentences(int sentenceCount, bool supplemental = false) {
+         if (sentenceCount < 0) {
+            throw new ArgumentOutOfRangeException(nameof(sentenceCount), "Must be equal to or greater than zero.");
          }
-
-         return sentenceCount.Times(x => Sentence());
+         return sentenceCount.Times(x => Sentence(3, supplemental));
       }
 
       public static string Paragraph(int minSentenceCount = 3) {
@@ -116,11 +126,11 @@ namespace RimuTec.Faker {
          if (paragraphCount <= 0) {
             throw new ArgumentException($"'{nameof(paragraphCount)}' must be greater than zero", nameof(paragraphCount));
          }
-
          return paragraphCount.Times(x => Paragraph());
       }
 
-      internal static string[] SupplementalWords => _lorem.Supplemental;
+      internal static string[] _WordList => _lorem.Words;
+      internal static string[] _SupplementalWordList => _lorem.Supplemental;
 
       private static readonly char[] _characters = "0123456789abcdefghijklmnopqrstuvwxyz".ToCharArray();
 
