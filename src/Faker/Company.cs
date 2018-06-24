@@ -1,5 +1,6 @@
 ﻿using RimuTec.Faker.Extensions;
 using RimuTec.Faker.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -142,6 +143,74 @@ namespace RimuTec.Faker {
          digits.AddRange(6.Times(x => RandomNumber.Next(10)));
          digits.Add(digits.CheckDigit());
          return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
+      }
+
+      /// <summary>
+      /// Get a random Czech organization number. Example: "77778171"
+      /// </summary>
+      /// <returns></returns>
+      public static string CzechOrganizationNumber() {
+         var sum = 0;
+         var digits = new List<int>();
+         var weights = new int[] { 8, 7, 6, 5, 4, 3, 2 };
+         foreach(var weight in weights) {
+            digits.Add(RandomNumber.Next(10));
+            sum += (weight * digits.Last());
+         }
+         digits.Add((11 - (sum % 11)) % 10);
+         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
+      }
+
+      /// <summary>
+      /// Get a random French SIREN number. Example: "819489626"
+      /// </summary>
+      /// <returns></returns>
+      public static string FrenchSirenNumber() {
+         // See more here https://fr.wikipedia.org/wiki/Syst%C3%A8me_d%27identification_du_r%C3%A9pertoire_des_entreprises
+         throw new NotImplementedException();
+      }
+
+      /// <summary>
+      /// Get a random Norwegian organization number. Example: "839071558"
+      /// </summary>
+      /// <returns></returns>
+      public static string NorwegianOrganizationNumber() {
+         // Info: https://www.brreg.no/om-oss/samfunnsoppdraget-vart/registera-vare/einingsregisteret/organisasjonsnummeret/
+         throw new NotImplementedException();
+      }
+
+      /// <summary>
+      /// Gets a random Australian business number. Example: "81137773602"
+      /// </summary>
+      /// <returns></returns>
+      public static string AustralianBusinessNumber() {
+         throw new NotImplementedException();
+      }
+
+      /// <summary>
+      /// Gets a random Spanish organization number. Example: "P2344979"
+      /// </summary>
+      /// <returns></returns>
+      public static string SpanishOrganizationNumber() {
+         throw new NotImplementedException();
+      }
+
+      /// <summary>
+      /// Get a random Polish taxpayer identification number.
+      /// </summary>
+      /// <returns></returns>
+      public static string PolishTaxpayerIdentificationNumber() {
+         // More info https://pl.wikipedia.org/wiki/NIP
+         throw new NotImplementedException();
+      }
+
+      /// <summary>
+      /// Get a random Polish register of national economy number. 
+      /// </summary>
+      /// <returns></returns>
+      public static string PolishRegisterOfNationalEconomy() {
+         // More info https://pl.wikipedia.org/wiki/REGON
+         throw new NotImplementedException();
       }
 
       private static company _company;

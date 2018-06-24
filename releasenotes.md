@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 0.10.0
+### New Features
+- Company.CzechOrganizationNumber()
+
+
 ## Version 0.9.0
 Lorem is now on par with Ruby Faker for default locale ("en").
 ### New Features

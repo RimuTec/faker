@@ -154,5 +154,17 @@ namespace RimuTec.Faker.Tests {
          // assert
          Assert.IsTrue(son.HasValidCheckDigit());
       }
+
+      [Test]
+      public void CzechOrganizationNumber_HappyDays() {
+         // arrange
+
+         // act
+         var con = Company.CzechOrganizationNumber();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(con));
+         Assert.AreEqual(8, con.Length);
+      }
    }
 }
