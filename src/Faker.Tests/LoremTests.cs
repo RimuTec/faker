@@ -658,6 +658,127 @@ namespace RimuTec.Faker.Tests {
          Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: chars", ex.Message);
       }
 
+      [Test]
+      public void ParagraphByChars_Without_Supplementary_List() {
+         // arrange
+
+         // act
+         var paragraph = Lorem.ParagraphByChars(supplemental: false);
+
+         // assert
+         var checkCount = 0;
+         foreach(var word in paragraph.ToWordList()) {
+            checkCount++;
+            if(paragraph.ToLower().EndsWith(word + ".")) {
+               // don't check last word as it might be truncated or padded
+               return;
+            }
+            // but check all others
+            Assert.IsTrue(_wordList.Contains(word));
+         }
+         Assert.AreEqual(checkCount, paragraph.ToWordList());
+      }
+
+      [Test]
+      public void ParagraphByChars_With_Supplementary_List() {
+         // arrange
+
+         // act
+         var paragraph = Lorem.ParagraphByChars(supplemental: true);
+
+         // assert
+         foreach(var word in paragraph.ToWordList()) {
+            if(!_jointWords.Contains(word)
+               && _supplementalWordList.Contains(word)) {
+               return;
+            }
+         }
+         Assert.Fail("ParagraphByChars() does not consider supplementary list.");
+      }
+
+      [Test]
+      public void Question_With_Default_Values() {
+         // arrange
+
+         // act
+         var question = Lorem.Question();
+
+         // assert
+         Assert.AreEqual(4, question.Split(' ').Count());
+         Assert.IsTrue(question.EndsWith("?"));
+      }
+
+      [Test]
+      public void Question_With_Zero_Length_Returns_Empty_String() {
+         // arrange
+
+         // act
+         var question = Lorem.Question(0);
+
+         // assert
+         Assert.AreEqual(string.Empty, question);
+      }
+
+      [Test]
+      public void Question_Without_Supplementary_List() {
+         // arrange
+         const int wordCount = 50;
+
+         // act
+         var question = Lorem.Question(wordCount);
+
+         // assert
+         var checkCount = 0;
+         foreach(var word in question.ToWordList()) {
+            checkCount++;
+            Assert.IsTrue(_wordList.Contains(word));
+         }
+         Assert.AreEqual(wordCount, checkCount);
+      }
+
+      [Test]
+      public void Question_With_Supplementary_List() {
+         // arrange
+         const int wordCount = 50;
+
+         // act
+         var question = Lorem.Question(wordCount, supplemental: true);
+
+         // assert
+         var checkCount = 0;
+         foreach (var word in question.ToWordList()) {
+            checkCount++;
+            if(!_jointWords.Contains(word)
+               && _supplementalWordList.Contains(word)) {
+               return;
+            }
+         }
+         Assert.AreEqual(wordCount, checkCount);
+         Assert.Fail("Question() does not consider supplementary words.");
+      }
+
+      [Test]
+      public void Question_With_Invalid_WordCount() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Question(wordCount: -1));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: wordCount", ex.Message);
+      }
+
+      [Test]
+      public void Question_With_Invalid_RandomWordsToAdd() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Question(wordCount: -1));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: wordCount", ex.Message);
+      }
+
       /// <summary>
       /// Words in the standard list. Duplicates removed.
       /// </summary>

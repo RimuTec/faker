@@ -24,6 +24,7 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 - Paragraph(int sentenceCount = 3, bool supplemental = false, int randomSentencesToAdd = 0)
 - ParagraphByChars(int chars = 256, bool supplemental = false)
 - Paragraphs(int paragraphCount = 3, bool supplemental = false)
+- Question(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
 - Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
 - Sentences(int sentenceCount = 3, bool supplemental = false)
 - Word()

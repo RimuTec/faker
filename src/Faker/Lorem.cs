@@ -3,7 +3,6 @@ using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
@@ -94,9 +93,9 @@ namespace RimuTec.Faker {
          if (randomWordsToAdd < 0) {
             throw new ArgumentOutOfRangeException(nameof(randomWordsToAdd), "Must be equal to or greater than zero.");
          }
-         string sentence = string.Join(" ", Words(wordCount + RandomNumber.Next(randomWordsToAdd), supplemental).ToArray()).Capitalise();
+         string sentence = string.Join(_lorem.Punctuation.Space, Words(wordCount + RandomNumber.Next(randomWordsToAdd), supplemental).ToArray()).Capitalise();
          if(sentence.Length > 0) {
-            sentence += ".";
+            sentence += _lorem.Punctuation.Period;
          }
          return sentence;
       }
@@ -135,7 +134,7 @@ namespace RimuTec.Faker {
             throw new ArgumentOutOfRangeException(nameof(randomSentencesToAdd), "Must be equal to or greater than zero.");
          }
 
-         return string.Join(" ", Sentences(sentenceCount + RandomNumber.Next(randomSentencesToAdd), supplemental).ToArray());
+         return string.Join(_lorem.Punctuation.Space, Sentences(sentenceCount + RandomNumber.Next(randomSentencesToAdd), supplemental).ToArray());
       }
 
       /// <summary>
@@ -174,17 +173,36 @@ namespace RimuTec.Faker {
          }
          var paragraph = Paragraph(3, supplemental);
          while(paragraph.Length < chars) {
-            paragraph += " " + Paragraph(3, supplemental);
+            paragraph += _lorem.Punctuation.Space + Paragraph(3, supplemental);
          }
          paragraph = paragraph.Substring(0, chars);
-         if (paragraph.EndsWith(" ")) { 
+         if (paragraph.EndsWith(_lorem.Punctuation.Space)) { 
             // pad with random letter if paragraph would end in " ." otherwise
             paragraph = paragraph.Trim() + _characters[RandomNumber.Next(10, _characters.Length)];
          }
-         if (!string.IsNullOrEmpty(paragraph)) {
-            paragraph += ".";
+         if (!string.IsNullOrWhiteSpace(paragraph)) {
+            paragraph += _lorem.Punctuation.Period;
          }
          return paragraph;
+      }
+
+      /// <summary>
+      /// Generates a question with random words, optionally considering words from a supplementary
+      /// list of Lorem-like words. Example: Question() returns something similar to "Aliquid culpa 
+      /// aut ipsam unde ullam labore?"
+      /// </summary>
+      /// <param name="wordCount">Number of words in the question. Zero is a valid value. Default value is 4</param>
+      /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
+      /// <param name="randomWordsToAdd">The 'randomWordsToAdd' argument increases the sentence's word 
+      /// count by a random value within the range (0..randomWordsToAdd). Default value is 0.</param>
+      /// <returns></returns>
+      public static string Question(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0) {
+         string question = Sentence(wordCount, supplemental, randomWordsToAdd)
+            .Trim(_lorem.Punctuation.Period.ToCharArray());
+         if(!string.IsNullOrWhiteSpace(question)) {
+            question = question + _lorem.Punctuation.QuestionMark;
+         }
+         return question;
       }
 
       internal static string[] _WordList => _lorem.Words; // access for tests
