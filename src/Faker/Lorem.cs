@@ -205,6 +205,22 @@ namespace RimuTec.Faker {
          return question;
       }
 
+      /// <summary>
+      /// Generates questions with random words, optionally considering words from a supplementary
+      /// list of Lorem-like words. Example: Questions(3) returns something similar to ["Necessitatibus 
+      /// deserunt animi?", "At hic dolores autem consequatur ut?", "Aliquam velit ex adipisci voluptatem 
+      /// placeat?"]
+      /// </summary>
+      /// <param name="questionCount">Number of questions. Zero is a valid value. Default value is 3.</param>
+      /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
+      /// <returns></returns>
+      public static IEnumerable<string> Questions(int questionCount = 3, bool supplemental = false) {
+         if(questionCount < 0) {
+            throw new ArgumentOutOfRangeException(nameof(questionCount), "Must be equal to or greater than zero.");
+         }
+         return questionCount.Times(x => Question(supplemental: supplemental));
+      }
+
       internal static string[] _WordList => _lorem.Words; // access for tests
       internal static string[] _SupplementalWordList => _lorem.Supplemental; // access for tests
 

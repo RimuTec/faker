@@ -18,6 +18,7 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 - Title()
 
 ## Lorem
+This class is on par with Ruby Faker.
 - Character()
 - Characters(int charCount = 255)
 - Multibyte()
@@ -25,6 +26,7 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 - ParagraphByChars(int chars = 256, bool supplemental = false)
 - Paragraphs(int paragraphCount = 3, bool supplemental = false)
 - Question(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
+- Questions(int questionCount = 3, bool supplemental = false)
 - Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
 - Sentences(int sentenceCount = 3, bool supplemental = false)
 - Word()
@@ -68,9 +70,16 @@ In case of name clashes with other classes in your code base, use one of the fol
 Release notes are available at [https://github.com/RimuTec/Faker/blob/master/releasenotes.md](https://github.com/RimuTec/Faker/blob/master/releasenotes.md)
 
 ## Reporting Issues
-If you find a bug or have a support question plase file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). We also consider pull requests (PR). Thank you!
+The test suite for RimuTec.Faker currently consists of about 90 unit tests. However, that is no proof of absence of bugs. If you find a bug please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) including steps to reproduce. We also consider pull requests (PR). Thank you!
+
+## Support & Suggestions
+If you have a support question please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). Thank you!
+
+If you have a suggestion for improvement please file an issue as well. Thank you!
 
 # Credits
-The project uses some portions of the source code of [https://github.com/slashdotdash/faker-cs](https://github.com/slashdotdash/faker-cs) under a MIT license.
+The project uses some portions of [faker-cs](https://github.com/slashdotdash/faker-cs) under a MIT license.
 
-This project also uses the yaml files of the Ruby Faker gem from [https://github.com/stympy/faker](https://github.com/stympy/faker) under a MIT license.
+This project also uses the yaml files of the [Ruby Faker gem](https://github.com/stympy/faker) under a MIT license.
+
+Thank you to the contributors to those two projects. Their work is much appreciated.

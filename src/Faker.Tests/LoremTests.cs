@@ -779,6 +779,88 @@ namespace RimuTec.Faker.Tests {
          Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: wordCount", ex.Message);
       }
 
+      [Test]
+      public void Questions_With_Default_Values() {
+         // arrange
+
+         // act
+         var questions = Lorem.Questions();
+
+         // assert
+         Assert.AreEqual(3, questions.Count());
+      }
+
+      [Test]
+      public void Questions_No_Supplementary_Words() {
+         // arrange
+
+         // act
+         var questions = Lorem.Questions(supplemental: false);
+
+         // assert
+         var checkCount = 0;
+         foreach(var question in questions) {
+            foreach(var word in question.ToWordList()) {
+               checkCount++;
+               Assert.IsTrue(_wordList.Contains(word));
+            }
+         }
+      }
+
+      [Test]
+      public void Questions_With_Words_From_Supplementary_List() {
+         // arrange
+
+         // act
+         var questions = Lorem.Questions(supplemental: true);
+
+         // assert
+         var supplementalWordCount = 0;
+         foreach(var question in questions) {
+            foreach(var word in question.ToWordList()) {
+               if(!_jointWords.Contains(word)
+                  && _supplementalWordList.Contains(word)) {
+                  supplementalWordCount++;
+               }
+            }
+         }
+         Assert.Greater(supplementalWordCount, 0);
+      }
+
+      [Test]
+      public void Questions_With_QuestionCount() {
+         // arrange
+         const int questionCount = 7;
+
+         // act
+         var questions = Lorem.Questions(questionCount);
+
+         // assert
+         Assert.AreEqual(questionCount, questions.Count());
+      }
+
+      [Test]
+      public void Questions_With_MinimumValue() {
+         // arrange
+
+         // act
+         var questions = Lorem.Questions(0);
+
+         // assert
+         Assert.AreEqual(0, questions.Count()); ;
+      }
+
+      [Test]
+      public void Questions_With_Invalid_QuestionCount() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Questions(-1));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: questionCount", ex.Message);
+      }
+
       /// <summary>
       /// Words in the standard list. Duplicates removed.
       /// </summary>
