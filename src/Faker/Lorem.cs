@@ -7,6 +7,10 @@ using System.Text;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
+   /// <summary>
+   /// Equivalent to Faker::Lorem in Ruby's Faker gem. In some cases their documentation appears to use different
+   /// default values than what the code appears to use. In those cases we went for what the code indicates.
+   /// </summary>
    public static class Lorem {
       static Lorem() {
          const string yamlFileName = "RimuTec.Faker.locales.en.lorem.yml";
@@ -25,8 +29,8 @@ namespace RimuTec.Faker {
       /// <summary>
       /// Generates a set of random Lorem words optionally considering words from a supplementary list of Lorem-like words.
       /// </summary>
-      /// <param name="wordCount">Number of words required. Zero is a valid value.</param>
-      /// <param name="supplemental">If true, include words from supplementary list of Lorem-like words.</param>
+      /// <param name="wordCount">Number of words required. Zero is a valid value. Default value is 3.</param>
+      /// <param name="supplemental">If true, include words from supplementary list of Lorem-like words. Default value is 'false'.</param>
       /// <exception cref="ArgumentOutOfRangeException">If 'wordCount' is less than zero.</exception>
       /// <returns></returns>
       public static IEnumerable<string> Words(int wordCount = 3, bool supplemental = false) {
@@ -61,7 +65,7 @@ namespace RimuTec.Faker {
       /// <summary>
       /// Returns a string with 'charCount' random characters from [0...9a...z]. Example: Characters(11) returns "pprf5wrj85f".
       /// </summary>
-      /// <param name="charCount">Number of characters. Default is 255. Zero is a valid valud and return an empty string.</param>
+      /// <param name="charCount">Number of characters. Default is 255. Zero is a valid valud and returns an empty string.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If 'charCount' is less than zero.</exception>
       /// <example><code>Lorem.Characters(11);</code> returns <code>"pprf5wrj85f"</code></example>
@@ -75,16 +79,15 @@ namespace RimuTec.Faker {
       /// <summary>
       /// Generates a capitalised sentence of random words. To specify an exact word count for a 
       /// sentence, set wordCount to the number you want and randomWordsToAdd equal to 0. By 
-      /// default (i.e. a call without any parameter values), sentences will have a random number 
-      /// of words within the range (4..10).
+      /// default (i.e. a call without any parameter values), sentences will have 4 words.
       /// </summary>
       /// <param name="wordCount">Minimum number of words in the sentence. Default is 4.</param>
       /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
       /// <param name="randomWordsToAdd">The 'randomWordsToAdd' argument increases the sentence's word 
-      /// count by a random value within the range (0..randomWordsToAdd). Default value is 6.</param>
+      /// count by a random value within the range (0..randomWordsToAdd). Default value is 0.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If either 'wordCount' or 'randomWordsToAdd' is less than zero.</exception>
-      public static string Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 6) {
+      public static string Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0) {
          if (wordCount < 0) {
             throw new ArgumentOutOfRangeException(nameof(wordCount), "Must be equal to or greater than zero.");
          }
@@ -135,11 +138,21 @@ namespace RimuTec.Faker {
          return string.Join(" ", Sentences(sentenceCount + RandomNumber.Next(randomSentencesToAdd), supplemental).ToArray());
       }
 
-      public static IEnumerable<string> Paragraphs(int paragraphCount) {
-         if (paragraphCount <= 0) {
-            throw new ArgumentException($"'{nameof(paragraphCount)}' must be greater than zero", nameof(paragraphCount));
+      /// <summary>
+      /// Generates a collection of random paragraphs, optionally considering words from a supplementary
+      /// list of Lorem-like words. Example: Paragraphs() returns something like: ["Dolores quis quia ad quo voluptates. 
+      /// Maxime delectus totam numquam. Necessitatibus vel atque qui dolore.", "Id neque nemo. Dolores iusto facere est ad. 
+      /// Accusamus ipsa dolor ut.", "Et officiis ut hic. Sunt asperiores minus distinctio debitis ipsa dolor. Minima eos deleniti."]
+      /// </summary>
+      /// <param name="paragraphCount">Number of paragraphs. Zero is a valid valie. Default value is 3.</param>
+      /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">IF 'paragraphCount' is less than zero.</exception>
+      public static IEnumerable<string> Paragraphs(int paragraphCount = 3, bool supplemental = false) {
+         if (paragraphCount < 0) {
+            throw new ArgumentOutOfRangeException(nameof(paragraphCount), "Must be equal to or greater than zero.");
          }
-         return paragraphCount.Times(x => Paragraph());
+         return paragraphCount.Times(x => Paragraph(supplemental: supplemental));
       }
 
       internal static string[] _WordList => _lorem.Words;

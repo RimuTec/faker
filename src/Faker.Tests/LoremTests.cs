@@ -422,8 +422,8 @@ namespace RimuTec.Faker.Tests {
          var paragraph = Lorem.Paragraph(/* 3 is default */);
 
          // assert
-         Assert.GreaterOrEqual(paragraph.Count(c => c == '.'), 3);
-         Assert.Greater(paragraph.Count(c => c == ' '), 9);
+         Assert.AreEqual(3, paragraph.Count(c => c == '.'));
+         Assert.AreEqual(8, paragraph.Count(c => c == ' '));
       }
 
       [Test]
@@ -501,14 +501,91 @@ namespace RimuTec.Faker.Tests {
       [Test]
       public void Paragraphs_HappyDays() {
          // arrange
+         const int paragraphCount = 7;
 
          // act
-         var paragraphs = Lorem.Paragraphs(7);
+         var paragraphs = Lorem.Paragraphs(paragraphCount);
 
          // assert
-         Assert.AreEqual(7, paragraphs.Count());
-         Assert.AreEqual(7, paragraphs.Count(x => x.EndsWith(".")));
-         Assert.AreEqual(7, paragraphs.Count(x => x.Contains(" ")));
+         Assert.AreEqual(paragraphCount, paragraphs.Count());
+         Assert.AreEqual(paragraphCount, paragraphs.Count(x => x.EndsWith(".")));
+         Assert.AreEqual(paragraphCount, paragraphs.Count(x => x.Contains(" ")));
+      }
+
+      [Test]
+      public void Paragraphs_With_Zero() {
+         // arrange
+
+         // act
+         var paragraph = Lorem.Paragraphs(0);
+
+         // assert
+         Assert.AreEqual(0, paragraph.Count());
+      }
+
+      [Test]
+      public void Paragraphs_With_DefaultValues() {
+         // arrange
+
+         // act
+         var paragraphs = Lorem.Paragraphs();
+
+         // assert
+         Assert.AreEqual(3, paragraphs.Count());
+      }
+
+      [Test]
+      public void Paragraphs_With_Invalid_ParagraphCount() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Paragraphs(-1));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: paragraphCount", ex.Message);
+      }
+
+      [Test]
+      public void Paragraphs_With_Supplemental() {
+         // arrange
+
+         // act
+         var paragraphs = Lorem.Paragraphs(supplemental: true);
+
+         // assert
+         var checkCount = 0;
+         foreach(var paragraph in paragraphs) {
+            foreach(var word in paragraph.ToWordList()) {
+               checkCount++;
+               if(!_jointWords.Contains(word)
+                  && _supplementalWordList.Contains(word)) {
+                  return;
+               }
+            }
+         }
+         Assert.Greater(checkCount, paragraphs.Count());
+         Assert.Fail("Paragraphs() doesn't consider supplementary list.");
+      }
+
+      [Test]
+      public void Paragraphs_Without_Supplemental() {
+         // arrange
+
+         // act
+         var paragraphs = Lorem.Paragraphs(supplemental: false);
+
+         // assert
+         var checkCount = 0;
+         foreach (var paragraph in paragraphs) {
+            foreach (var word in paragraph.ToWordList()) {
+               checkCount++;
+               if (!_jointWords.Contains(word)
+                  && _supplementalWordList.Contains(word)) {
+                  Assert.Fail("Paragraphs() shouldn't consider supplementary list.");
+               }
+            }
+         }
+         Assert.Greater(checkCount, paragraphs.Count());
       }
 
       /// <summary>
