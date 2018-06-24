@@ -7,6 +7,7 @@
 - Lorem.Paragraphs(int paragraphCount = 3, bool supplemental = false): Optional parameters and default values added.
 - Lorem.Question(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
 - Lorem.Questions(int questionCount = 3, bool supplemental = false)
+- PhoneNumber.LandLine(): Equivalent to Ruby Faker::PhoneNumber.phone_number
 
 ## Version 0.8.0
 ### New Features

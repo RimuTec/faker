@@ -10,6 +10,20 @@ namespace RimuTec.Faker {
          _faker = locale.en.faker;
       }
 
+      /// <summary>
+      /// Generates a land line number in one of several formats.
+      /// </summary>
+      /// <returns></returns>
+      /// <remarks>This method is the equivalent to Ruby's Faker::PhoneNumber.phone_number.</remarks>
+      public static string LandLine() {
+         var numberTemplate = _faker.PhoneNumber.Formats.Random();
+         return numberTemplate.Numerify();
+      }
+
+      /// <summary>
+      /// Generates a cell phone number in one of several formats.
+      /// </summary>
+      /// <returns></returns>
       public static string CellPhone() {
          var numberTemplate = _faker.CellPhone.Formats.Random();
          return numberTemplate.Numerify();

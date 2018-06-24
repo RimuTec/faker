@@ -44,6 +44,7 @@ This class is on par with Ruby Faker.
 
 ## PhoneNumber
 - CellPhone()
+- LandLine(): Equivalent to Ruby Faker::PhoneNumber.phone_number
 
 ## RandomNumber
 - Next()
