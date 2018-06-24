@@ -29,9 +29,9 @@ namespace RimuTec.Faker.Extensions {
       /// <summary>
       /// Select a random string from a list containing string objects.
       /// </summary>
-      public static string Random(this List<string> list) {
+      public static T Random<T>(this List<T> list) {
          if (list.Count() == 0) {
-            throw new InvalidOperationException($"List<string> {nameof(list)} must contain at least one item");
+            throw new InvalidOperationException($"List<{typeof(T).Name}> {nameof(list)} must contain at least one item");
          }
          return list.ElementAt(RandomNumber.Next(0, list.Count()));
       }

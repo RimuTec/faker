@@ -1,6 +1,7 @@
 # Release Notes
 
 ## Version 0.9.0
+Lorem is now on par with Ruby Faker for default locale ("en").
 ### New Features
 - Lorem.Paragraph(int sentenceCount = 3, bool supplemental = false, int randomSentencesToAdd = 0): Optional parameters and default values added.
 - Lorem.ParagraphByChars(int chars = 256, bool supplemental = false)
@@ -8,6 +9,17 @@
 - Lorem.Question(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
 - Lorem.Questions(int questionCount = 3, bool supplemental = false)
 - PhoneNumber.LandLine(): Equivalent to Ruby Faker::PhoneNumber.phone_number
+- Company.Bs()
+- Company.Buzzword()
+- Company.CatchPhrase()
+- Company.DunsNumber()
+- Company.Ein()
+- Company.Industry()
+- Company.Logo()
+- Company.Profession()
+- Company.Suffix()
+- Company.SwedishOrganizationNumber()
+- Company.Type()
 
 ## Version 0.8.0
 ### New Features

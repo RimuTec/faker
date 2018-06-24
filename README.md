@@ -1,12 +1,23 @@
 # Faker
-A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker).
+A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker). It uses the latest versions of their yaml files.
 
-RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462).
+RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462). 
 
 # Available Fake Data Generators
-
+Because Ruby Faker has a large number of generators, we had to start with a small set of classes. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
 ## Company
+- Bs()
+- Buzzword()
+- CatchPhrase()
+- DunsNumber()
+- Ein()
+- Industry()
+- Logo()
 - Name()
+- Profession()
+- Suffix()
+- SwedishOrganizationNumber()
+- Type()
 
 ## Job
 - EmploymentType()
@@ -71,7 +82,7 @@ In case of name clashes with other classes in your code base, use one of the fol
 Release notes are available at [https://github.com/RimuTec/Faker/blob/master/releasenotes.md](https://github.com/RimuTec/Faker/blob/master/releasenotes.md)
 
 ## Reporting Issues
-The test suite for RimuTec.Faker currently consists of about 90 unit tests. However, that is no proof of absence of bugs. If you find a bug please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) including steps to reproduce. We also consider pull requests (PR). Thank you!
+Although RimuTec.Faker has about 110 unit tests, that is no proof of absence of bugs. To help making this library more valuable for other users please report bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). Thank you!
 
 ## Support & Suggestions
 If you have a support question please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). Thank you!
@@ -79,8 +90,8 @@ If you have a support question please file an issue at [https://github.com/RimuT
 If you have a suggestion for improvement please file an issue as well. Thank you!
 
 # Credits
-The project uses some portions of [faker-cs](https://github.com/slashdotdash/faker-cs) under a MIT license.
-
-This project also uses the yaml files of the [Ruby Faker gem](https://github.com/stympy/faker) under a MIT license.
-
-Thank you to the contributors to those two projects. Their work is much appreciated.
+Thank you to all contributors of the following projects. Their work is much appreciated.
+## faker-cs
+This project uses some code portions from [faker-cs](https://github.com/slashdotdash/faker-cs) under a MIT license.
+## Ruby Faker gem
+This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker) under a MIT license.
