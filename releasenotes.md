@@ -3,6 +3,7 @@
 ## Version 0.9.0
 ### New Features
 - Lorem.Paragraph(int sentenceCount = 3, bool supplemental = false, int randomSentencesToAdd = 0): Optional parameters and default values added.
+- Lorem.ParagraphByChars(int chars = 256, bool supplemental = false)
 - Lorem.Paragraphs(int paragraphCount = 3, bool supplemental = false): Optional parameters and default values added.
 
 ## Version 0.8.0

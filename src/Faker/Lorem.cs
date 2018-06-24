@@ -155,11 +155,42 @@ namespace RimuTec.Faker {
          return paragraphCount.Times(x => Paragraph(supplemental: supplemental));
       }
 
-      internal static string[] _WordList => _lorem.Words;
-      internal static string[] _SupplementalWordList => _lorem.Supplemental;
+      /// <summary>
+      /// Returns a paragraph with a specified amount of characters, optionally considering words
+      /// from a supplementary list of Lorem-like words. If needed the last word may be truncated. 
+      /// Example: ParagraphByChars() returns something similar to "Truffaut stumptown trust fund 8-bit 
+      /// messenger bag portland. Meh kombucha selvage swag biodiesel. Lomo kinfolk jean shorts 
+      /// asymmetrical diy. Wayfarers portland twee stumptown. Wes anderson biodiesel retro 90's pabst. 
+      /// Diy echo 90's mixtape semiotics. Cornho."
+      /// </summary>
+      /// <param name="chars">Number of characters in the paragraph. Zero is a valid value. Default value is 256.</param>
+      /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
+      /// <returns></returns>
+      /// <remarks>If the sentence would add in " ." then the space is replaced by a random letter. In other words that
+      /// random letter is appended to the last word.</remarks>
+      public static string ParagraphByChars(int chars = 256, bool supplemental = false) {
+         if(chars < 0) {
+            throw new ArgumentOutOfRangeException(nameof(chars), "Must be equal to or greater than zero.");
+         }
+         var paragraph = Paragraph(3, supplemental);
+         while(paragraph.Length < chars) {
+            paragraph += " " + Paragraph(3, supplemental);
+         }
+         paragraph = paragraph.Substring(0, chars);
+         if (paragraph.EndsWith(" ")) { 
+            // pad with random letter if paragraph would end in " ." otherwise
+            paragraph = paragraph.Trim() + _characters[RandomNumber.Next(10, _characters.Length)];
+         }
+         if (!string.IsNullOrEmpty(paragraph)) {
+            paragraph += ".";
+         }
+         return paragraph;
+      }
+
+      internal static string[] _WordList => _lorem.Words; // access for tests
+      internal static string[] _SupplementalWordList => _lorem.Supplemental; // access for tests
 
       private static readonly char[] _characters = "0123456789abcdefghijklmnopqrstuvwxyz".ToCharArray();
-
       private static readonly lorem _lorem;
 
 #pragma warning disable IDE1006 // Naming Styles

@@ -588,6 +588,76 @@ namespace RimuTec.Faker.Tests {
          Assert.Greater(checkCount, paragraphs.Count());
       }
 
+      [Test]
+      public void ParagraphByChars_Default_Values() {
+         // arrange
+         const int defaultChars = 256 + 1; // +1 for period
+
+         // act
+         var paragraph = Lorem.ParagraphByChars();
+
+         // assert
+         Assert.AreEqual(defaultChars, paragraph.Length);
+         var checkCount = 0;
+         foreach(var word in paragraph.ToWordList()) {
+            checkCount++;
+            Assert.IsFalse(_supplementalWordList.Contains(word));
+         }
+         Assert.Greater(checkCount, 10);
+      }
+
+      [Test]
+      public void ParagraphByChars_With_NonDefault_Chars() {
+         // arrange
+
+         // act
+         var paragraph = Lorem.ParagraphByChars(42);
+
+         // assert
+         Assert.AreEqual(42 + 1, paragraph.Length);
+      }
+
+      [Test]
+      public void ParagraphByChars_Zero_Returns_Empty_String() {
+         // arrange
+
+         // act
+         var paragraph = Lorem.ParagraphByChars(0);
+
+         // assert
+         Assert.AreEqual(string.Empty, paragraph);
+      }
+
+      [Test]
+      public void ParagraphByChars_Does_Not_End_With_Space_Dot() {
+         // arrange
+         RandomNumber.ResetSeed(42);
+         var maxWordLength = 0;
+         _wordList.All(x => { maxWordLength = Math.Max(maxWordLength, x.Length); return true; });
+         _supplementalWordList.All(x => { maxWordLength = Math.Max(maxWordLength, x.Length); return true; });
+
+         // act
+         var startValue = 50;
+         var charCount = startValue;
+         while(charCount++ <= startValue + maxWordLength) {
+            var paragraph = Lorem.ParagraphByChars(43);
+
+         // assert
+            Assert.IsFalse(paragraph.EndsWith(" ."));
+         }
+      }
+
+      [Test]
+      public void ParagraphByChars_Invalid_Chars_Value() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.ParagraphByChars(-1));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: chars", ex.Message);
+      }
+
       /// <summary>
       /// Words in the standard list. Duplicates removed.
       /// </summary>
