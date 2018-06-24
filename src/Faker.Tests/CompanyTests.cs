@@ -166,5 +166,29 @@ namespace RimuTec.Faker.Tests {
          Assert.IsFalse(string.IsNullOrWhiteSpace(con));
          Assert.AreEqual(8, con.Length);
       }
+
+      [Test]
+      public void FrenchSirenNumber_HappyDays() {
+         // arrange
+
+         // act
+         var siren = Company.FrenchSirenNumber();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(siren));
+         Assert.AreEqual(9, siren.Length);
+      }
+
+      [Test]
+      public void FrenchSiretNumber_HappyDays() {
+         // arrange
+
+         // act
+         var siret = Company.FrenchSiretNumber();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(siret));
+         Assert.AreEqual(14, siret.Length);
+      }
    }
 }

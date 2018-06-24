@@ -167,7 +167,27 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       public static string FrenchSirenNumber() {
          // See more here https://fr.wikipedia.org/wiki/Syst%C3%A8me_d%27identification_du_r%C3%A9pertoire_des_entreprises
-         throw new NotImplementedException();
+         List<int> digits = FrenchSirenNumberDigits();
+         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
+      }
+
+      private static List<int> FrenchSirenNumberDigits() {
+         var digits = new List<int>();
+         digits.AddRange(8.Times(x => RandomNumber.Next(10)));
+         digits.AppendCheckDigit();
+         return digits;
+      }
+
+      /// <summary>
+      /// Get a random French SIRET number. Example: "81948962600013"
+      /// </summary>
+      /// <returns></returns>
+      public static string FrenchSiretNumber() {
+         var location = RandomNumber.Next(100).ToString().PadLeft(4, '0');
+         var digits = new List<int>(FrenchSirenNumberDigits());
+         digits.AddRange(location.Select(x => int.Parse(x.ToString())));
+         digits.AppendCheckDigit();
+         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
       }
 
       /// <summary>

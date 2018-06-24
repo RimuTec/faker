@@ -12,6 +12,8 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 - CzechOrganizationNumber()
 - DunsNumber()
 - Ein()
+- FrenchSirenNumber()
+- FrenchSiretNumber()
 - Industry()
 - Logo()
 - Name()
