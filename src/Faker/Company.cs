@@ -25,7 +25,7 @@ namespace RimuTec.Faker {
          var nameTemplate = _company.Name.Random();
          const string placeholder = "#{Name.last_name}";
          var place = nameTemplate.IndexOf(placeholder);
-         while (place >= 0){
+         while (place >= 0) {
             nameTemplate = nameTemplate.Remove(place, placeholder.Length).Insert(place, Faker.Name.LastName());
             place = nameTemplate.IndexOf(placeholder);
          }
@@ -142,7 +142,7 @@ namespace RimuTec.Faker {
          };
          digits.AddRange(6.Times(x => RandomNumber.Next(10)));
          digits.Add(digits.CheckDigit());
-         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
+         return ConvertToString(digits);
       }
 
       /// <summary>
@@ -153,12 +153,12 @@ namespace RimuTec.Faker {
          var sum = 0;
          var digits = new List<int>();
          var weights = new int[] { 8, 7, 6, 5, 4, 3, 2 };
-         foreach(var weight in weights) {
+         foreach (var weight in weights) {
             digits.Add(RandomNumber.Next(10));
             sum += (weight * digits.Last());
          }
          digits.Add((11 - (sum % 11)) % 10);
-         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
+         return ConvertToString(digits);
       }
 
       /// <summary>
@@ -168,7 +168,7 @@ namespace RimuTec.Faker {
       public static string FrenchSirenNumber() {
          // See more here https://fr.wikipedia.org/wiki/Syst%C3%A8me_d%27identification_du_r%C3%A9pertoire_des_entreprises
          List<int> digits = FrenchSirenNumberDigits();
-         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
+         return ConvertToString(digits);
       }
 
       private static List<int> FrenchSirenNumberDigits() {
@@ -187,7 +187,7 @@ namespace RimuTec.Faker {
          var digits = new List<int>(FrenchSirenNumberDigits());
          digits.AddRange(location.Select(x => int.Parse(x.ToString())));
          digits.AppendCheckDigit();
-         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
+         return ConvertToString(digits);
       }
 
       /// <summary>
@@ -206,7 +206,7 @@ namespace RimuTec.Faker {
             mod11Check = digits.Mod11();
          }
          digits.Add(mod11Check.Value);
-         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
+         return ConvertToString(digits);
       }
 
       /// <summary>
@@ -222,7 +222,7 @@ namespace RimuTec.Faker {
          var digits = new List<int>();
          digits.Add(99 - (AbnChecksum(toCheck) % 89));
          digits.AddRange(@base);
-         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
+         return ConvertToString(digits);
       }
 
       /// <summary>
@@ -230,7 +230,12 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string SpanishOrganizationNumber() {
-         throw new NotImplementedException();
+         // Valid leading characters: A, B, C, D, E, F, G, H, J, N, P, Q, R, S, U, V, W
+         // 7 digit numbers
+         var letters = "A, B, C, D, E, F, G, H, J, N, P, Q, R, S, U, V, W".Replace(",", string.Empty).Split(' ');
+         var digits = new List<int>();
+         digits.AddRange(7.Times(x => RandomNumber.Next(10)));
+         return $"{letters.Random()}{ConvertToString(digits)}";
       }
 
       /// <summary>
@@ -249,6 +254,10 @@ namespace RimuTec.Faker {
       public static string PolishRegisterOfNationalEconomy() {
          // More info https://pl.wikipedia.org/wiki/REGON
          throw new NotImplementedException();
+      }
+
+      private static string ConvertToString(List<int> digits) {
+         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
       }
 
       private static int AbnChecksum(List<int> digits) {

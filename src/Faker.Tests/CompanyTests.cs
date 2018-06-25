@@ -215,5 +215,18 @@ namespace RimuTec.Faker.Tests {
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
          Assert.AreEqual(11, Regex.Matches(number, @"[0-9]").Count);
       }
+
+      [Test]
+      public void SpanishOrganizationNumber_HappyDays() {
+         // arrange
+
+         // act
+         var number = Company.SpanishOrganizationNumber();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(number));
+         Assert.AreEqual(1, Regex.Matches(number, @"^[BCDEFGHJNPQRSUVW]").Count);
+         Assert.AreEqual(7, Regex.Matches(number, @"[0-9]").Count);
+      }
    }
 }

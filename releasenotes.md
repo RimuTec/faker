@@ -7,6 +7,7 @@
 - Company.FrenchSirenNumber()
 - Company.FrenchSiretNumber()
 - Company.NorwegianOrganizationNumber()
+- Company.SpanishOrganizationNumber()
 
 ## Version 0.9.0
 Lorem is now on par with Ruby Faker for default locale ("en").
@@ -35,7 +36,7 @@ Lorem is now on par with Ruby Faker for default locale ("en").
 - Lorem.Sentences(int sentenceCount = 3, bool supplemental = false): Optional parameters and default values added.
 
 ### Bug Fixes
-- Lorem.Words() does not consider list of supplementary words.
+- FIX: Lorem.Words() does not consider list of supplementary words.
 
 ### Other Changes
 - Updated package YamlDotNet to version 5.0.1
