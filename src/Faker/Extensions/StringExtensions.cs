@@ -7,6 +7,8 @@ namespace RimuTec.Faker.Extensions {
       /// <summary>
       /// Get a string with every occurence of '#' replaced with a random number.
       /// </summary>
+      /// <param name="s"></param>
+      /// <returns></returns>
       public static string Numerify(this string s) {
          return Regex.Replace(s, "#", new MatchEvaluator((m) => RandomNumber.Next(0, 9).ToString()), RegexOptions.Compiled);
       }
@@ -14,10 +16,27 @@ namespace RimuTec.Faker.Extensions {
       /// <summary>
       /// Get a string with every '?' replaced with a random character from the alphabet.
       /// </summary>
+      /// <param name="s"></param>
+      /// <returns></returns>
       public static string Letterify(this string s) {
          return Regex.Replace(s, @"\?", new MatchEvaluator((m) => _alphabet.Random()), RegexOptions.Compiled);
       }
 
+      /// <summary>
+      /// Gets a string with every '?' replaced with a random character from the alphabet and 
+      /// with occurence of '#' replaced with a random number.
+      /// </summary>
+      /// <param name="s"></param>
+      /// <returns></returns>
+      public static string Bothify(this string s) {
+         return s.Letterify().Numerify();
+      }
+
+      /// <summary>
+      /// Removes all whitespaces from the string.
+      /// </summary>
+      /// <param name="s"></param>
+      /// <returns></returns>
       public static string AlphanumericOnly(this string s) {
          return Regex.Replace(s, @"\W", string.Empty);
       }

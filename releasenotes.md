@@ -1,6 +1,14 @@
 # Release Notes
 
+## Version 0.11.0
+### New Features
+- Address.SecondaryAddress()
+- Address.StreetAddress(bool includeSecondary = false)
+- Address.StreetName()
+
 ## Version 0.10.0
+Company is now on pare with Ruby Faker for default local ("en").
+
 ### New Features
 - Company.AustralianBusinessNumber()
 - Company.CzechOrganizationNumber()
@@ -13,6 +21,7 @@
 
 ## Version 0.9.0
 Lorem is now on par with Ruby Faker for default locale ("en").
+
 ### New Features
 - Lorem.Paragraph(int sentenceCount = 3, bool supplemental = false, int randomSentencesToAdd = 0): Optional parameters and default values added.
 - Lorem.ParagraphByChars(int chars = 256, bool supplemental = false)

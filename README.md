@@ -3,10 +3,21 @@ A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github
 
 RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462). 
 
+| Metric      | Status      |
+| ----- | ----- |
+| Nuget             | [![NuGet Badge](https://buildstats.info/nuget/RimuTec.Faker)](https://www.nuget.org/packages/RimuTec.Faker/) |
+
 # Available Fake Data Generators
 Because Ruby Faker has a large number of generators, we had to start with a small set of classes. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
+
+## Address
+- SecondaryAddress()
+- StreetAddress(bool includeSecondary = false)
+- StreetName()
+
 ## Company
 This class is on par with Ruby Faker.
+
 Basic methods:
 - Bs()
 - Buzzword()
@@ -19,7 +30,8 @@ Basic methods:
 - Profession()
 - Suffix()
 - Type()
-Country specific:
+
+Country specific methods:
 - AustralianBusinessNumber()
 - CzechOrganizationNumber()
 - FrenchSirenNumber()
