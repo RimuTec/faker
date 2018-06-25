@@ -7,6 +7,7 @@
 - Company.FrenchSirenNumber()
 - Company.FrenchSiretNumber()
 - Company.NorwegianOrganizationNumber()
+- Company.PolishRegisterOfNationalEconomy(int length = 9)
 - Company.PolishTaxpayerIdentificationNumber()
 - Company.SpanishOrganizationNumber()
 

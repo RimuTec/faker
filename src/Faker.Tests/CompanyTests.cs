@@ -80,8 +80,8 @@ namespace RimuTec.Faker.Tests {
          var bs = Company.Bs();
 
          // assert
-         var matches = Regex.Matches(bs, @"[0-9a-z]+");
-         Assert.GreaterOrEqual(matches.Count, 3);
+         var matches = Regex.Matches(bs, @"[0-9a-zA-Z]+");
+         Assert.GreaterOrEqual(matches.Count, 3, $"Failed BS was '{bs}'");
       }
 
       [Test]
@@ -225,7 +225,7 @@ namespace RimuTec.Faker.Tests {
 
          // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
-         Assert.AreEqual(1, Regex.Matches(number, @"^[BCDEFGHJNPQRSUVW]").Count);
+         Assert.AreEqual(1, Regex.Matches(number, @"^[ABCDEFGHJNPQRSUVW]").Count, $"Invalid number is '{number}'.");
          Assert.AreEqual(7, Regex.Matches(number, @"[0-9]").Count);
       }
 
@@ -240,6 +240,54 @@ namespace RimuTec.Faker.Tests {
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
          Assert.AreEqual(1, Regex.Matches(number, @"^[1-8][1-8][1-8]").Count);
          Assert.AreEqual(10, Regex.Matches(number, @"[0-9]").Count);
+      }
+
+      [Test]
+      public void PolishRegisterOfNationalEconomy_DefaultValue() {
+         // arrange
+
+         // act
+         var number = Company.PolishRegisterOfNationalEconomy();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(number));
+         Assert.AreEqual(9, number.Length);
+      }
+
+      [Test]
+      public void PolishRegisterOfNationalEconomy_With_Length_9() {
+         // arrange
+
+         // act
+         var number = Company.PolishRegisterOfNationalEconomy(9);
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(number));
+         Assert.AreEqual(9, number.Length);
+
+      }
+
+      [Test]
+      public void PolishRegisterOfNationalEconomy_With_Length_14() {
+         // arrange
+
+         // act
+         var number = Company.PolishRegisterOfNationalEconomy(14);
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(number));
+         Assert.AreEqual(14, number.Length);
+      }
+
+      [Test]
+      public void PolishRegisterOfNationalEconomy_With_Invalid_Length() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Company.PolishRegisterOfNationalEconomy(11));
+
+         // assert
+         Assert.AreEqual("Must be either 9 or 14.\r\nParameter name: length", ex.Message);
       }
    }
 }

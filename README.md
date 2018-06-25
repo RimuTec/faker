@@ -6,6 +6,7 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 # Available Fake Data Generators
 Because Ruby Faker has a large number of generators, we had to start with a small set of classes. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
 ## Company
+This class is on par with Ruby Faker.
 Basic methods:
 - Bs()
 - Buzzword()
@@ -24,6 +25,7 @@ Country specific:
 - FrenchSirenNumber()
 - FrenchSiretNumber()
 - NorwegianOrganizationNumber()
+- PolishRegisterOfNationalEconomy(int length = 9)
 - PolishTaxpayerIdentificationNumber()
 - SpanishOrganizationNumber()
 - SwedishOrganizationNumber()
@@ -53,6 +55,7 @@ This class is on par with Ruby Faker.
 - Words(int wordCount = 3, bool supplemental = false)
 
 ## Name
+This class is on par with Ruby Faker.
 - FirstName()
 - FullName() (equivalent to Ruby's Faker::Name.name)
 - Initials(int characterCount)
@@ -91,7 +94,7 @@ In case of name clashes with other classes in your code base, use one of the fol
 Release notes are available at [https://github.com/RimuTec/Faker/blob/master/releasenotes.md](https://github.com/RimuTec/Faker/blob/master/releasenotes.md)
 
 ## Reporting Issues
-Although RimuTec.Faker has about 110 unit tests, that is no proof of absence of bugs. To help making this library more valuable for other users please report bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). Thank you!
+Although RimuTec.Faker has about 120 unit tests, that is no proof of absence of bugs. To help making this library more valuable for other users please report bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). Thank you!
 
 ## Support & Suggestions
 If you have a support question please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). Thank you!

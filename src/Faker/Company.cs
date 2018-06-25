@@ -76,7 +76,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       /// <example>"empower one-to-one web-readiness"</example>
-      public static string Bs() {
+      public static string Bs () {
          var sb = new StringBuilder();
          _company.Bs.ForEach(x => sb.Append(x.Random() + " "));
          return sb.ToString().Trim();
@@ -254,21 +254,39 @@ namespace RimuTec.Faker {
          return ConvertToString(digits);
       }
 
+      /// <summary>
+      /// Get a random Polish register of national economy number. 
+      /// </summary>
+      /// <param name="length">Length of number. Valid values are 9 and 14.</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">Thrown when 'length' is a value other than 9 or 14.</exception>
+      public static string PolishRegisterOfNationalEconomy(int length = 9) {
+         // More info https://pl.wikipedia.org/wiki/REGON
+         if(length != 9 && length != 14) {
+            throw new ArgumentOutOfRangeException(nameof(length), "Must be either 9 or 14.");
+         }
+         List<int> digits;
+         do {
+            digits = new List<int>();
+            digits.AddRange(length.Times(x => RandomNumber.Next(10)));
+         } while (CollectRegonSum(digits) != digits.Last());
+         return ConvertToString(digits);
+      }
+
       private static int WeightSum(List<int> array, List<int> weights) {
          var sum = 0;
-         for(int i = 0; i < weights.Count(); i++ ) {
+         for (int i = 0; i < weights.Count(); i++) {
             sum += array[i] * weights[i];
          }
          return sum;
       }
 
-      /// <summary>
-      /// Get a random Polish register of national economy number. 
-      /// </summary>
-      /// <returns></returns>
-      public static string PolishRegisterOfNationalEconomy() {
-         // More info https://pl.wikipedia.org/wiki/REGON
-         throw new NotImplementedException();
+      private static int CollectRegonSum(List<int> digits) {
+         var weights = digits.Count() == 9 ?
+            new List<int> { 8, 9, 2, 3, 4, 5, 6, 7 }
+            : new List<int> { 2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8 };
+         var sum = WeightSum(digits, weights) % 11;
+         return sum == 10 ? 0 : sum;
       }
 
       private static string ConvertToString(List<int> digits) {
