@@ -6,24 +6,27 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 # Available Fake Data Generators
 Because Ruby Faker has a large number of generators, we had to start with a small set of classes. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
 ## Company
-- AustralianBusinessNumber()
+Basic methods:
 - Bs()
 - Buzzword()
 - CatchPhrase()
-- CzechOrganizationNumber()
 - DunsNumber()
 - Ein()
-- FrenchSirenNumber()
-- FrenchSiretNumber()
 - Industry()
 - Logo()
 - Name()
-- NorwegianOrganizationNumber()
 - Profession()
-- SpanishOrganizationNumber()
 - Suffix()
-- SwedishOrganizationNumber()
 - Type()
+Country specific:
+- AustralianBusinessNumber()
+- CzechOrganizationNumber()
+- FrenchSirenNumber()
+- FrenchSiretNumber()
+- NorwegianOrganizationNumber()
+- PolishTaxpayerIdentificationNumber()
+- SpanishOrganizationNumber()
+- SwedishOrganizationNumber()
 
 ## Job
 - EmploymentType()

@@ -228,5 +228,18 @@ namespace RimuTec.Faker.Tests {
          Assert.AreEqual(1, Regex.Matches(number, @"^[BCDEFGHJNPQRSUVW]").Count);
          Assert.AreEqual(7, Regex.Matches(number, @"[0-9]").Count);
       }
+
+      [Test]
+      public void PolishTaxpayerIdentificationNumber_HappyDays() {
+         // arrange
+
+         // act
+         var number = Company.PolishTaxpayerIdentificationNumber();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(number));
+         Assert.AreEqual(1, Regex.Matches(number, @"^[1-8][1-8][1-8]").Count);
+         Assert.AreEqual(10, Regex.Matches(number, @"[0-9]").Count);
+      }
    }
 }

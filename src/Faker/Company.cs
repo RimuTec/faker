@@ -239,12 +239,27 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Get a random Polish taxpayer identification number.
+      /// Get a random Polish taxpayer identification number. Example: "1060000062"
       /// </summary>
       /// <returns></returns>
       public static string PolishTaxpayerIdentificationNumber() {
          // More info https://pl.wikipedia.org/wiki/NIP
-         throw new NotImplementedException();
+         List<int> digits;
+         var weights = new List<int> { 6, 5, 7, 2, 3, 4, 5, 6, 7 };
+         do {
+            digits = new List<int>();
+            digits.AddRange(3.Times(x => RandomNumber.Next(1, 9)));
+            digits.AddRange(7.Times(x => RandomNumber.Next(10)));
+         } while (WeightSum(digits, weights) %11 != digits[9]);
+         return ConvertToString(digits);
+      }
+
+      private static int WeightSum(List<int> array, List<int> weights) {
+         var sum = 0;
+         for(int i = 0; i < weights.Count(); i++ ) {
+            sum += array[i] * weights[i];
+         }
+         return sum;
       }
 
       /// <summary>

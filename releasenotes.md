@@ -7,6 +7,7 @@
 - Company.FrenchSirenNumber()
 - Company.FrenchSiretNumber()
 - Company.NorwegianOrganizationNumber()
+- Company.PolishTaxpayerIdentificationNumber()
 - Company.SpanishOrganizationNumber()
 
 ## Version 0.9.0
