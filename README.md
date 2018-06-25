@@ -1,5 +1,5 @@
 # Faker
-A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker). It uses the latest versions of their yaml files.
+A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker). It uses the latest version of their yaml files.
 
 RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462). 
 
@@ -17,6 +17,7 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 - Industry()
 - Logo()
 - Name()
+- NorwegianOrganizationNumber()
 - Profession()
 - Suffix()
 - SwedishOrganizationNumber()

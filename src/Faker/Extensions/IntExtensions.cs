@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RimuTec.Faker.Extensions {
    internal static class IntExtensions {

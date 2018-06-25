@@ -5,6 +5,7 @@
 - Company.CzechOrganizationNumber()
 - Company.FrenchSirenNumber()
 - Company.FrenchSiretNumber()
+- Company.NorwegianOrganizationNumber()
 
 ## Version 0.9.0
 Lorem is now on par with Ruby Faker for default locale ("en").

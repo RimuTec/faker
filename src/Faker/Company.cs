@@ -195,8 +195,18 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string NorwegianOrganizationNumber() {
-         // Info: https://www.brreg.no/om-oss/samfunnsoppdraget-vart/registera-vare/einingsregisteret/organisasjonsnummeret/
-         throw new NotImplementedException();
+         // Valid leading digits: 8, 9
+         int? mod11Check = null;
+         List<int> digits = new List<int>();
+         while (mod11Check == null) {
+            digits = new List<int> {
+               RandomNumber.Next(8, 10)
+            };
+            digits.AddRange(7.Times(x => RandomNumber.Next(10)));
+            mod11Check = digits.Mod11();
+         }
+         digits.Add(mod11Check.Value);
+         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
       }
 
       /// <summary>

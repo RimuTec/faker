@@ -13,7 +13,7 @@
     <PackageLicenseUrl>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicenseUrl>
     <PackageReleaseNotes>Relase notes listing new features and other changes are available at https://github.com/RimuTec/Faker/blob/master/releasenotes.md</PackageReleaseNotes>
     <Authors>RimuTec Ltd.</Authors>
-    <Description>A library to generate fake data e.g. for authoring tests, for preparing software demos or for creating screenshots. It includes generators for fake data such as names, phone numbers, job titles, etc. This libary is a C# port of the Ruby Faker gem https://github.com/stympy/faker and target netstandard2.0 and net462</Description>
+    <Description>A library to generate fake data e.g. for authoring tests, for preparing software demos or for creating screenshots. It includes generators for fake data such as Lorem text, names for persons and company, phone numbers, job titles, etc. This libary is a C# port of the Ruby Faker gem https://github.com/stympy/faker and target netstandard2.0 and net462</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">

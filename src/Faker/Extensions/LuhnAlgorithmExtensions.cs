@@ -7,7 +7,7 @@ namespace RimuTec.Faker.Extensions {
    /// <summary>
    /// Extensions for Luhn Alrorithm check digits calculations.
    /// </summary>
-   public static class LuhnAlgorithmExtensions {
+   internal static class LuhnAlgorithmExtensions {
       // Code for this class from https://stackoverflow.com/a/23640453/411428
 
       static readonly int[] Results = { 0, 2, 4, 6, 8, 1, 3, 5, 7, 9 };

@@ -190,5 +190,18 @@ namespace RimuTec.Faker.Tests {
          Assert.IsFalse(string.IsNullOrWhiteSpace(siret));
          Assert.AreEqual(14, siret.Length);
       }
+
+      [Test]
+      public void NorwegianOrganizationNumber_HappyDays() {
+         // arrange
+
+         // act
+         var number = Company.NorwegianOrganizationNumber();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(number));
+         Assert.AreEqual(1, Regex.Matches(number, @"^[89]").Count);
+         Assert.AreEqual(9, Regex.Matches(number, @"[0-9]").Count);
+      }
    }
 }
