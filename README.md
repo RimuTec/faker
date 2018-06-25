@@ -6,6 +6,7 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 # Available Fake Data Generators
 Because Ruby Faker has a large number of generators, we had to start with a small set of classes. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
 ## Company
+- AustralianBusinessNumber()
 - Bs()
 - Buzzword()
 - CatchPhrase()

@@ -214,7 +214,15 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string AustralianBusinessNumber() {
-         throw new NotImplementedException();
+         var @base = new List<int>();
+         @base.AddRange(9.Times(x => RandomNumber.Next(10)));
+         var toCheck = new List<int>();
+         toCheck.AddRange(2.Times(x => 0));
+         toCheck.AddRange(@base);
+         var digits = new List<int>();
+         digits.Add(99 - (AbnChecksum(toCheck) % 89));
+         digits.AddRange(@base);
+         return digits.Aggregate(new StringBuilder(), (sb, d) => sb.Append($"{d}")).ToString();
       }
 
       /// <summary>
@@ -241,6 +249,15 @@ namespace RimuTec.Faker {
       public static string PolishRegisterOfNationalEconomy() {
          // More info https://pl.wikipedia.org/wiki/REGON
          throw new NotImplementedException();
+      }
+
+      private static int AbnChecksum(List<int> digits) {
+         var abnWeights = new int[] { 10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 };
+         var sum = 0;
+         for (int i = 0; i < abnWeights.Length; i++) {
+            sum += abnWeights[i] * digits[i];
+         }
+         return sum;
       }
 
       private static company _company;
