@@ -77,5 +77,19 @@ namespace RimuTec.Faker.Tests {
          Assert.IsFalse(buildingNumber.Contains("?"));
          Assert.GreaterOrEqual(Regex.Matches(buildingNumber, @"[0-9]").Count, 3);
       }
+
+      [Test]
+      public void Community_HappyDays() {
+         // arrange
+
+         // act
+         var community = Address.Community();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(community));
+         Assert.IsFalse(community.Contains("#"));
+         Assert.IsFalse(community.Contains("?"));
+         Assert.AreEqual(1, Regex.Matches(community, @" ").Count);
+      }
    }
 }

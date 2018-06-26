@@ -26,6 +26,17 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generates a community name. Example: "University Crossing"
+      /// </summary>
+      /// <returns></returns>
+      public static string Community() {
+         var template = _address.Community.Random();
+         template = template.Replace("#{community_prefix}", _address.CommunityPrefix.Random());
+         template = template.Replace("#{community_suffix}", _address.CommunitySuffix.Random());
+         return template;
+      }
+
+      /// <summary>
       /// Generates a secondary address. Example: "Apt. 057"
       /// </summary>
       /// <returns></returns>

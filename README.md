@@ -12,6 +12,7 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 
 ## Address
 - BuildingNumber()
+- Community()
 - SecondaryAddress()
 - StreetAddress(bool includeSecondary = false)
 - StreetName()
@@ -115,8 +116,4 @@ If you have a support question please file an issue at [https://github.com/RimuT
 If you have a suggestion for improvement please file an issue as well. Thank you!
 
 # Credits
-Thank you to all contributors of the following projects. Their work is much appreciated.
-## faker-cs
-This project uses some code portions from [faker-cs](https://github.com/slashdotdash/faker-cs) under a MIT license.
-## Ruby Faker gem
-This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker) under a MIT license.
+This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker) under a MIT license. Thank you to all their contributors!
