@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RimuTec.Faker.Tests {
@@ -61,6 +62,20 @@ namespace RimuTec.Faker.Tests {
          Assert.IsFalse(string.IsNullOrWhiteSpace(streetName));
          Assert.IsFalse(streetName.Contains("#"));
          Assert.IsFalse(streetName.Contains("?"));
+      }
+
+      [Test]
+      public void BuildingNumber_HappyDays() {
+         // arrange
+
+         // act
+         var buildingNumber = Address.BuildingNumber();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(buildingNumber));
+         Assert.IsFalse(buildingNumber.Contains("#"));
+         Assert.IsFalse(buildingNumber.Contains("?"));
+         Assert.GreaterOrEqual(Regex.Matches(buildingNumber, @"[0-9]").Count, 3);
       }
    }
 }

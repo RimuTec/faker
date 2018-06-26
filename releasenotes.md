@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.12.0
+### New Features
+- Address.BuildingNumber()
+
 ## Version 0.11.0
 ### New Features
 - Address.SecondaryAddress()

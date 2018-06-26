@@ -17,6 +17,15 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generates a building number. Example: "7304"
+      /// </summary>
+      /// <returns></returns>
+      public static string BuildingNumber() {
+         var template = _address.BuildingNumber.Random();
+         return template.Bothify();
+      }
+
+      /// <summary>
       /// Generates a secondary address. Example: "Apt. 057"
       /// </summary>
       /// <returns></returns>
