@@ -5,7 +5,7 @@
      <AssemblyName>RimuTec.Faker</AssemblyName>
     <RootNamespace>RimuTec.Faker</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.12.0</Version>
+    <Version>0.13.0</Version>
     <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
     <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks</PackageTags>
@@ -19,9 +19,24 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\Debug\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
+  </PropertyGroup>
+
+   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net462|AnyCPU'">
+      <DebugType>full</DebugType>
+      <DebugSymbols>true</DebugSymbols>
+      <DocumentationFile>bin\Debug\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
+   </PropertyGroup>
+
+   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
+      <DocumentationFile>bin\Release\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
+   </PropertyGroup>
+
+   <ItemGroup>
     <None Remove="locales\en\address.yml" />
     <None Remove="locales\en\company.yml" />
     <None Remove="locales\en\job.yml" />
