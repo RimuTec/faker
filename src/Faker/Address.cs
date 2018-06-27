@@ -6,6 +6,9 @@ using System.Linq;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
+   /// <summary>
+   /// Generators for address related data.
+   /// </summary>
    public static class Address {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/address.yml
       // [Manfred, 21jun2018]
@@ -14,6 +17,7 @@ namespace RimuTec.Faker {
          const string yamlFileName = "RimuTec.Faker.locales.en.address.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _address = locale.en.faker.address;
+         _citySuffix = _address.CitySuffix;
          _streetSuffix = _address.StreetSuffix;
       }
 
@@ -24,6 +28,14 @@ namespace RimuTec.Faker {
       public static string BuildingNumber() {
          var template = _address.BuildingNumber.Random();
          return template.Bothify();
+      }
+
+      /// <summary>
+      /// Returns a city suffix. Example: "fort"
+      /// </summary>
+      /// <returns></returns>
+      public static string CitySuffix() {
+         return _address.CitySuffix.Random();
       }
 
       /// <summary>
@@ -125,6 +137,7 @@ namespace RimuTec.Faker {
       }
 
       internal static string[] _streetSuffix;
+      internal static string[] _citySuffix;
 
       private static address _address;
 

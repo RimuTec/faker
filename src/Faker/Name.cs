@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
+   /// <summary>
+   /// Generators for names for humans.
+   /// </summary>
    public static class Name {
       static Name() {
          const string yamlFileName = "RimuTec.Faker.locales.en.name.yml";

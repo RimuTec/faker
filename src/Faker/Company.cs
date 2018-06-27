@@ -7,6 +7,9 @@ using System.Text;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
+   /// <summary>
+   /// Generators for company related data.
+   /// </summary>
    public static class Company {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/company.yml
       // [Manfred, 21jun2018]

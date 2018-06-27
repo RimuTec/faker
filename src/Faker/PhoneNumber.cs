@@ -3,6 +3,9 @@ using RimuTec.Faker.Helper;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
+   /// <summary>
+   /// Generators for phone numbers
+   /// </summary>
    public static class PhoneNumber {
       static PhoneNumber() {
          const string yamlFileName = "RimuTec.Faker.locales.en.phone_number.yml";

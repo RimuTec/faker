@@ -32,7 +32,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Returns a random integer that is within a specified range.
+      /// Returns a random integer that is within a specified range. Includes the lower boundary and excludes the upper boundary.
       /// </summary>
       /// <param name="minValue">Lower limit of random integer to return including this value.</param>
       /// <param name="maxValue">Upper limit of random integer to return excluding this value.</param>
