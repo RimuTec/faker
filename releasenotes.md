@@ -3,7 +3,7 @@
 ## Version 0.13.0
 ### New Features
 - NuGet package now also deploys XML documentation file for RimuTec.Faker.
-
+- Address.TimeZone()
 
 ## Version 0.12.0
 ### New Features

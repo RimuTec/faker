@@ -72,6 +72,14 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Returns a random time zone. Example: "Asia/Yakutsk"
+      /// </summary>
+      /// <returns></returns>
+      public static string TimeZone() {
+         return _address.TimeZone.Random();
+      }
+
+      /// <summary>
       /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905"
       /// </summary>
       /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>

@@ -93,6 +93,19 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void TimeZone_HappyDays() {
+         // arrange
+
+         // act
+         var timezone = Address.TimeZone();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(timezone));
+         Assert.IsFalse(timezone.Contains("#"));
+         Assert.IsFalse(timezone.Contains("?"));
+      }
+
+      [Test]
       public void ZipCode_With_Default_Value() {
          // arrange
 

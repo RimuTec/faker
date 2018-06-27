@@ -3,6 +3,8 @@ A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github
 
 RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462). 
 
+The library including its source code are available under a MIT license. This means you can use this libary and/or the source for free in your own projects, including closed-source and commercial projects. Terms and conditions are as per the MIT license in this project.
+
 | Metric      | Status      |
 | ----- | ----- |
 | Nuget             | [![NuGet Badge](https://buildstats.info/nuget/RimuTec.Faker)](https://www.nuget.org/packages/RimuTec.Faker/) |
@@ -16,6 +18,7 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 - SecondaryAddress()
 - StreetAddress(bool includeSecondary = false)
 - StreetName()
+- TimeZone()
 - ZipCode(string stateAbbreviation = "")
 
 ## Company
@@ -91,12 +94,7 @@ This class is on par with Ruby Faker.
 - ResetSeed(int seed)
 
 # Usage
-## Installation
-This library is available as NuGet package at [https://www.nuget.org/packages/RimuTec.Faker](https://www.nuget.org/packages/RimuTec.Faker)
-
-The source code and the library are available under a MIT license. This means you can use this libary and/or the source for free in your own projects, including closed-source and commercial projects. Terms and conditions are as per the MIT license in this project.
-
-## Generating Fake Data
+## Quick Start
 1. Install NuGet package. See [https://www.nuget.org/packages/RimuTec.Faker](https://www.nuget.org/packages/RimuTec.Faker) for instructions
 1. Add `using RimuTec.Faker;` at the beginning of your C# source file (or the equivalent for your preferred .NET language)
 1. Generate fake data, e.g. `var firstName = Name.NameWithMiddle();`
@@ -108,13 +106,11 @@ In case of name clashes with other classes in your code base, use one of the fol
 ## Release Notes
 Release notes are available at [https://github.com/RimuTec/Faker/blob/master/releasenotes.md](https://github.com/RimuTec/Faker/blob/master/releasenotes.md)
 
-## Reporting Issues
-Although RimuTec.Faker has about 130 unit tests, that is no proof of absence of bugs. To help making this library more valuable for other users please report bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). Thank you!
-
 ## Support & Suggestions
-If you have a support question please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). Thank you!
+If you need support of have a suggest for improvement please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). Thank you!
 
-If you have a suggestion for improvement please file an issue as well. Thank you!
+## Reporting Bugs
+Although RimuTec.Faker has about 130 unit tests, it doesn't guarantee it's defect-free. To help making this library more valuable for other users as well please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). Thank you!
 
 # Credits
 This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker) under a MIT license. Thank you to all their contributors!
