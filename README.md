@@ -18,6 +18,7 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 - SecondaryAddress()
 - StreetAddress(bool includeSecondary = false)
 - StreetName()
+- StreetSuffix()
 - TimeZone()
 - ZipCode(string stateAbbreviation = "")
 

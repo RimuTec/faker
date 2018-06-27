@@ -72,6 +72,14 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Returns a street suffix. Example: "Street"
+      /// </summary>
+      /// <returns></returns>
+      public static string StreetSuffix() {
+         return _address.StreetSuffix.Random();
+      }
+
+      /// <summary>
       /// Returns a random time zone. Example: "Asia/Yakutsk"
       /// </summary>
       /// <returns></returns>
