@@ -3,8 +3,10 @@
 ## Version 0.13.0
 ### New Features
 - NuGet package now also deploys XML documentation file for RimuTec.Faker.
+- Address.Postcode(string stateAbbreviation = "")
 - Address.StreetSuffix()
 - Address.TimeZone()
+- Address.Zip(string stateAbbreviation = "")
 
 ## Version 0.12.0
 ### New Features

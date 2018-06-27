@@ -38,6 +38,16 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905"
+      /// </summary>
+      /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">Parameter 'Abbreviation' has an invalid value.</exception>
+      public static string Postcode(string stateAbbreviation = "") {
+         return ZipCode(stateAbbreviation);
+      }
+
+      /// <summary>
       /// Generates a secondary address. Example: "Apt. 057"
       /// </summary>
       /// <returns></returns>
@@ -85,6 +95,16 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       public static string TimeZone() {
          return _address.TimeZone.Random();
+      }
+
+      /// <summary>
+      /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905"
+      /// </summary>
+      /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">Parameter 'Abbreviation' has an invalid value.</exception>
+      public static string Zip(string stateAbbreviation = "") {
+         return ZipCode(stateAbbreviation);
       }
 
       /// <summary>

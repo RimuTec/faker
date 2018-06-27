@@ -15,11 +15,13 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 ## Address
 - BuildingNumber()
 - Community()
+- Postcode(string stateAbbreviation = "")
 - SecondaryAddress()
 - StreetAddress(bool includeSecondary = false)
 - StreetName()
 - StreetSuffix()
 - TimeZone()
+- Zip(string stateAbbreviation = "")
 - ZipCode(string stateAbbreviation = "")
 
 ## Company
@@ -111,7 +113,7 @@ Release notes are available at [https://github.com/RimuTec/Faker/blob/master/rel
 If you need support of have a suggest for improvement please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). Thank you!
 
 ## Reporting Bugs
-Although RimuTec.Faker has about 130 unit tests, it doesn't guarantee it's defect-free. To help making this library more valuable for other users as well please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). Thank you!
+Although RimuTec.Faker has about 140 unit tests, it doesn't guarantee the library is defect-free. To help making this library more valuable for other users as well please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). Thank you!
 
 # Credits
 This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker) under a MIT license. Thank you to all their contributors!

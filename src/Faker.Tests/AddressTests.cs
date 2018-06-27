@@ -120,6 +120,100 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void Postcode_With_Default_Value() {
+         // arrange
+
+         // act
+         var postcode = Address.Postcode();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(postcode));
+         Assert.IsFalse(postcode.Contains("#"));
+         Assert.IsFalse(postcode.Contains("?"));
+         Assert.GreaterOrEqual(Regex.Matches(postcode, @"[0-9]").Count, 3);
+      }
+
+      [Test]
+      public void Postcode_For_Specific_US_State() {
+         // arrange
+
+         // act
+         var postcode = Address.Postcode("ME");
+
+         // assert
+         Assert.IsTrue(postcode.StartsWith("042"));
+      }
+
+      [Test]
+      public void Postcode_For_Invalid_State_Abbreviation() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Postcode("ZZZ"));
+
+         // assert
+         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+      }
+
+      [Test]
+      public void Postcode_With_Null_As_Abbreviation() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Postcode(null));
+
+         // assert
+         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+      }
+
+      [Test]
+      public void Zip_With_Default_Value() {
+         // arrange
+
+         // act
+         var zip = Address.Zip();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(zip));
+         Assert.IsFalse(zip.Contains("#"));
+         Assert.IsFalse(zip.Contains("?"));
+         Assert.GreaterOrEqual(Regex.Matches(zip, @"[0-9]").Count, 3);
+      }
+
+      [Test]
+      public void Zip_For_Specific_US_State() {
+         // arrange
+
+         // act
+         var zip = Address.Zip("ME");
+
+         // assert
+         Assert.IsTrue(zip.StartsWith("042"));
+      }
+
+      [Test]
+      public void Zip_For_Invalid_State_Abbreviation() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Zip("ZZZ"));
+
+         // assert
+         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+      }
+
+      [Test]
+      public void Zip_With_Null_As_Abbreviation() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Zip(null));
+
+         // assert
+         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+      }
+
+      [Test]
       public void ZipCode_With_Default_Value() {
          // arrange
 
