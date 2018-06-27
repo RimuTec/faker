@@ -16,6 +16,7 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 - SecondaryAddress()
 - StreetAddress(bool includeSecondary = false)
 - StreetName()
+- ZipCode(string stateAbbreviation = "")
 
 ## Company
 This class is on par with Ruby Faker.
@@ -108,7 +109,7 @@ In case of name clashes with other classes in your code base, use one of the fol
 Release notes are available at [https://github.com/RimuTec/Faker/blob/master/releasenotes.md](https://github.com/RimuTec/Faker/blob/master/releasenotes.md)
 
 ## Reporting Issues
-Although RimuTec.Faker has about 120 unit tests, that is no proof of absence of bugs. To help making this library more valuable for other users please report bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). Thank you!
+Although RimuTec.Faker has about 130 unit tests, that is no proof of absence of bugs. To help making this library more valuable for other users please report bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). Thank you!
 
 ## Support & Suggestions
 If you have a support question please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). Thank you!

@@ -91,5 +91,52 @@ namespace RimuTec.Faker.Tests {
          Assert.IsFalse(community.Contains("?"));
          Assert.AreEqual(1, Regex.Matches(community, @" ").Count);
       }
+
+      [Test]
+      public void ZipCode_With_Default_Value() {
+         // arrange
+
+         // act
+         var zipCode = Address.ZipCode();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(zipCode));
+         Assert.IsFalse(zipCode.Contains("#"));
+         Assert.IsFalse(zipCode.Contains("?"));
+         Assert.GreaterOrEqual(Regex.Matches(zipCode, @"[0-9]").Count, 3);
+      }
+
+      [Test]
+      public void ZipCode_For_Specific_US_State() {
+         // arrange
+
+         // act
+         var zipCode = Address.ZipCode("ME");
+
+         // assert
+         Assert.IsTrue(zipCode.StartsWith("042"));
+      }
+
+      [Test]
+      public void ZipCode_For_Invalid_State_Abbreviation() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.ZipCode("ZZZ"));
+
+         // assert
+         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+      }
+
+      [Test]
+      public void ZipCode_With_Null_As_Abbreviation() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.ZipCode(null));
+
+         // assert
+         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+      }
    }
 }

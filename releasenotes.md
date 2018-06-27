@@ -4,6 +4,7 @@
 ### New Features
 - Address.BuildingNumber()
 - Address.Community()
+- Address.ZipCode(string stateAbbreviation = "")
 
 ## Version 0.11.0
 ### New Features

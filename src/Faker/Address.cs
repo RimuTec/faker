@@ -1,5 +1,6 @@
 ﻿using RimuTec.Faker.Extensions;
 using RimuTec.Faker.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using YamlDotNet.Serialization;
@@ -68,6 +69,23 @@ namespace RimuTec.Faker {
          template = template.Replace("#{Name.last_name}", Name.LastName());
          template = template.Replace("#{street_suffix}", _address.StreetSuffix.Random());
          return template;
+      }
+
+      /// <summary>
+      /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905"
+      /// </summary>
+      /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">Parameter 'Abbreviation' has an invalid value.</exception>
+      public static string ZipCode(string stateAbbreviation = "") {
+         if(stateAbbreviation == "") {
+            return _address.Postcode.Random().Letterify().Numerify();
+         }
+         if(stateAbbreviation == null || !_address.PostcodeByState.ContainsKey(stateAbbreviation)) {
+            throw new ArgumentOutOfRangeException(nameof(stateAbbreviation), "Must be one of the US state abbreviations or empty.");
+         }
+         var template = _address.PostcodeByState[stateAbbreviation];
+         return template.Letterify().Numerify();
       }
 
       internal static string[] _streetSuffix;
