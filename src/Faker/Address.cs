@@ -20,11 +20,12 @@ namespace RimuTec.Faker {
          _cityPrefix = _address.CityPrefix;
          _citySuffix = _address.CitySuffix;
          _state = _address.State;
+         _stateAbbr = _address.StateAbbr;
          _streetSuffix = _address.StreetSuffix;
       }
 
       /// <summary>
-      /// Generates a building number. Example: "7304"
+      /// Generates a building number. Example: "7304".
       /// </summary>
       /// <returns></returns>
       public static string BuildingNumber() {
@@ -33,7 +34,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Resturns a city prefix. Example: "Lake"
+      /// Resturns a city prefix. Example: "Lake".
       /// </summary>
       /// <returns></returns>
       public static string CityPrefix() {
@@ -41,7 +42,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Returns a city suffix. Example: "fort"
+      /// Returns a city suffix. Example: "fort".
       /// </summary>
       /// <returns></returns>
       public static string CitySuffix() {
@@ -49,7 +50,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates a community name. Example: "University Crossing"
+      /// Generates a community name. Example: "University Crossing"..
       /// </summary>
       /// <returns></returns>
       public static string Community() {
@@ -60,7 +61,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905"
+      /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905".
       /// </summary>
       /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>
       /// <returns></returns>
@@ -70,7 +71,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates a secondary address. Example: "Apt. 057"
+      /// Generates a secondary address. Example: "Apt. 057".
       /// </summary>
       /// <returns></returns>
       public static string SecondaryAddress() {
@@ -79,7 +80,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Returns a state. Example: "California"
+      /// Returns a state. Example: "California".
       /// </summary>
       /// <returns></returns>
       public static string State() {
@@ -87,9 +88,18 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Returns a street address, optionally with secondary address. Examples: "282 Kevin Brook" (no secondary) or "156 Margarita Pass Apt. 057" (including secondary).
+      /// Returns a state abbreviation. Examples: "AP" (Armed Forces Pacific, in case you wondered) or "ME" (Maine).
       /// </summary>
-      /// <param name="includeSecondary"></param>
+      /// <returns></returns>
+      public static string StateAbbr() {
+         return _address.StateAbbr.Random();
+      }
+
+      /// <summary>
+      /// Returns a street address, optionally with secondary address. Examples: "282 Kevin Brook" (no secondary) 
+      /// or "156 Margarita Pass Apt. 057" (including secondary).
+      /// </summary>
+      /// <param name="includeSecondary">'true' to include, 'false' to exclude sencondary. Default value is 'false'.</param>
       /// <returns></returns>
       public static string StreetAddress(bool includeSecondary = false) {
          var template = _address.StreetAddress.First() + (includeSecondary ? " " + SecondaryAddress() : string.Empty);
@@ -112,7 +122,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Returns a street suffix. Example: "Street"
+      /// Returns a street suffix. Example: "Street".
       /// </summary>
       /// <returns></returns>
       public static string StreetSuffix() {
@@ -120,7 +130,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Returns a random time zone. Example: "Asia/Yakutsk"
+      /// Returns a random time zone. Example: "Asia/Yakutsk".
       /// </summary>
       /// <returns></returns>
       public static string TimeZone() {
@@ -128,7 +138,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905"
+      /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905".
       /// </summary>
       /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>
       /// <returns></returns>
@@ -138,7 +148,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905"
+      /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905".
       /// </summary>
       /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>
       /// <returns></returns>
@@ -158,6 +168,7 @@ namespace RimuTec.Faker {
       internal static string[] _cityPrefix;
       internal static string[] _citySuffix;
       internal static string[] _state;
+      internal static string[] _stateAbbr;
 
       private static address _address;
 

@@ -20,6 +20,7 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 - Postcode(string stateAbbreviation = "")
 - SecondaryAddress()
 - State()
+- StateAbbr()
 - StreetAddress(bool includeSecondary = false)
 - StreetName()
 - StreetSuffix()
