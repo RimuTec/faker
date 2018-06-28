@@ -4,6 +4,7 @@
 ### New Features
 - Address.CityPrefix()
 - Address.Country()
+- Address.CountryCode()
 - Address.State()
 - Address.StateAbbr()
 

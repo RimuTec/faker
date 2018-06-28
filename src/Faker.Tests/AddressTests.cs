@@ -135,6 +135,20 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void CountryCode_HappyDays() {
+         // arrange
+
+         // act
+         var countryCode = Address.CountryCode();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(countryCode));
+         Assert.IsFalse(countryCode.Contains("#"));
+         Assert.IsFalse(countryCode.Contains("?"));
+         Assert.IsTrue(Address._countryCode.Contains(countryCode));
+      }
+
+      [Test]
       public void State_HappyDays() {
          // arrange
 
