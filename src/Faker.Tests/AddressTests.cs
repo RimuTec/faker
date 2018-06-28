@@ -121,6 +121,20 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void State_HappyDays() {
+         // arrange
+
+         // act
+         var state = Address.State();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(state));
+         Assert.IsFalse(state.Contains("#"));
+         Assert.IsFalse(state.Contains("?"));
+         Assert.IsTrue(Address._state.Contains(state));
+      }
+
+      [Test]
       public void StreetSuffix_HappyDays() {
          // arrange
 

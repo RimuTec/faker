@@ -19,6 +19,7 @@ namespace RimuTec.Faker {
          _address = locale.en.faker.address;
          _cityPrefix = _address.CityPrefix;
          _citySuffix = _address.CitySuffix;
+         _state = _address.State;
          _streetSuffix = _address.StreetSuffix;
       }
 
@@ -75,6 +76,14 @@ namespace RimuTec.Faker {
       public static string SecondaryAddress() {
          var template = _address.SecondaryAddress.Random();
          return template.Bothify();
+      }
+
+      /// <summary>
+      /// Returns a state. Example: "California"
+      /// </summary>
+      /// <returns></returns>
+      public static string State() {
+         return _address.State.Random();
       }
 
       /// <summary>
@@ -148,6 +157,7 @@ namespace RimuTec.Faker {
       internal static string[] _streetSuffix;
       internal static string[] _cityPrefix;
       internal static string[] _citySuffix;
+      internal static string[] _state;
 
       private static address _address;
 

@@ -3,6 +3,7 @@
 ## Version 0.14.0
 ### New Features
 - Address.CityPrefix()
+- Address.State()
 
 ## Version 0.13.0
 ### New Features
