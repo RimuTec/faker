@@ -3,7 +3,7 @@ A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github
 
 RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462). 
 
-The library including its source code are available under a MIT license. This means you can use this libary and/or the source for free in your own projects, including closed-source and commercial projects. Terms and conditions are as per the MIT license in this project.
+The library including its source code are licensed under the MIT license.
 
 | Metric      | Status      |
 | ----- | ----- |
@@ -14,6 +14,7 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 
 ## Address
 - BuildingNumber()
+- CityPrefix()
 - CitySuffix()
 - Community()
 - Postcode(string stateAbbreviation = "")
@@ -117,4 +118,4 @@ If you need support of have a suggest for improvement please file an issue at [h
 Although RimuTec.Faker has about 140 unit tests, it doesn't guarantee the library is defect-free. To help making this library more valuable for other users as well please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). Thank you!
 
 # Credits
-This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker) under a MIT license. Thank you to all their contributors!
+This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker), licensed under the MIT license. Thank you to all their contributors!

@@ -93,6 +93,20 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void CityPrefix_HappyDays() {
+         // arrange
+
+         // act
+         var cityPrefix = Address.CityPrefix();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(cityPrefix));
+         Assert.IsFalse(cityPrefix.Contains("#"));
+         Assert.IsFalse(cityPrefix.Contains("?"));
+         Assert.IsTrue(Address._cityPrefix.Contains(cityPrefix));
+      }
+
+      [Test]
       public void CitySuffix_HappyDays() {
          // arrange
 
