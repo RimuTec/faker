@@ -17,6 +17,7 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 - CityPrefix()
 - CitySuffix()
 - Community()
+- Country()
 - Postcode(string stateAbbreviation = "")
 - SecondaryAddress()
 - State()

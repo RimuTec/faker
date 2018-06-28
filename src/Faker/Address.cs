@@ -19,6 +19,7 @@ namespace RimuTec.Faker {
          _address = locale.en.faker.address;
          _cityPrefix = _address.CityPrefix;
          _citySuffix = _address.CitySuffix;
+         _country = _address.Country;
          _state = _address.State;
          _stateAbbr = _address.StateAbbr;
          _streetSuffix = _address.StreetSuffix;
@@ -58,6 +59,14 @@ namespace RimuTec.Faker {
          template = template.Replace("#{community_prefix}", _address.CommunityPrefix.Random());
          template = template.Replace("#{community_suffix}", _address.CommunitySuffix.Random());
          return template;
+      }
+
+      /// <summary>
+      /// Returns a country name. Exmple: "French Guiana".
+      /// </summary>
+      /// <returns></returns>
+      public static string Country() {
+         return _address.Country.Random();
       }
 
       /// <summary>
@@ -164,9 +173,11 @@ namespace RimuTec.Faker {
          return template.Letterify().Numerify();
       }
 
+      // some internals to support testing
       internal static string[] _streetSuffix;
       internal static string[] _cityPrefix;
       internal static string[] _citySuffix;
+      internal static string[] _country;
       internal static string[] _state;
       internal static string[] _stateAbbr;
 
