@@ -42,6 +42,14 @@ namespace RimuTec.Faker {
          return _random.Next(minValue, maxValue);
       }
 
+      /// <summary>
+      /// Returns a random double that is greater than or equal to 0.0 and less than 1.0.
+      /// </summary>
+      /// <returns></returns>
+      public static double NextDouble() {
+         return _random.NextDouble();
+      }
+
       // ThreadStatic added, ref: https://stackoverflow.com/a/1262619/411428
       [ThreadStatic] private static Random _random = new Random();
    }

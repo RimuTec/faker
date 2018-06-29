@@ -88,6 +88,14 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Returns a latitude. Example: -58.17256227443719
+      /// </summary>
+      /// <returns></returns>
+      public static double Latitude() {
+         return (RandomNumber.NextDouble() * 180) - 90;
+      }
+
+      /// <summary>
       /// Generates a US ZIP code, optionally for a specific US state. Examples: "58517" or "23285-4905".
       /// </summary>
       /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>

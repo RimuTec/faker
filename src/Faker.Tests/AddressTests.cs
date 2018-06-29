@@ -163,6 +163,21 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void Latitude_HappyDays() {
+         // arrange
+         var tries = 10;
+         while (tries-- > 0) {
+
+            // act
+            var latitude = Address.Latitude();
+
+            // assert
+            Assert.GreaterOrEqual(latitude, -90);
+            Assert.LessOrEqual(latitude, 90);
+         }
+      }
+
+      [Test]
       public void State_HappyDays() {
          // arrange
 

@@ -20,6 +20,7 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 - Country()
 - CountryCode()
 - CountryCodeLong()
+- Latitude()
 - Postcode(string stateAbbreviation = "")
 - SecondaryAddress()
 - State()
@@ -99,6 +100,7 @@ This class is on par with Ruby Faker.
 
 ## RandomNumber
 - Next()
+- NextDouble()
 - Next(int maxValue)
 - Next(int minValue, int maxValue)
 - ResetSeed(int seed)
