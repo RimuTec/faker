@@ -1,69 +1,11 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace RimuTec.Faker.Tests {
    [TestFixture]
    public class AddressTests {
-      [Test]
-      public void SecondaryAddress_HappyDays() {
-         // arrange
-
-         // act
-         var secondaryAddress = Address.SecondaryAddress();
-
-         // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(secondaryAddress));
-         Assert.IsFalse(secondaryAddress.Contains("#"));
-         Assert.IsFalse(secondaryAddress.Contains("?"));
-      }
-
-      [Test]
-      public void StreetAddress_With_Default_Values() {
-         // arrange
-         var assembly = typeof(Address).Assembly;
-
-         // act
-         var streetAddress = Address.StreetAddress();
-
-         // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(streetAddress));
-         Assert.IsFalse(streetAddress.Contains("#"));
-         Assert.IsFalse(streetAddress.Contains("?"));
-      }
-
-      [Test]
-      public void StreetAddress_With_SecondaryAddress() {
-         // arrange
-
-         // act
-         var streetAddress = Address.StreetAddress(true);
-
-         // assert
-         Assert.IsFalse(streetAddress.Contains("#"));
-         Assert.IsFalse(streetAddress.Contains("?"));
-         var words = streetAddress.Split(' ');
-         var intersect = words.Intersect(Address._streetSuffix);
-         Assert.Greater(intersect.Count(), 0);
-      }
-
-      [Test]
-      public void StreetName_HappyDays() {
-         // arrange
-
-         // act
-         var streetName = Address.StreetName();
-
-         // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(streetName));
-         Assert.IsFalse(streetName.Contains("#"));
-         Assert.IsFalse(streetName.Contains("?"));
-      }
-
       [Test]
       public void BuildingNumber_HappyDays() {
          // arrange
@@ -79,17 +21,16 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Community_HappyDays() {
+      public void City_HappyDays() {
          // arrange
 
          // act
-         var community = Address.Community();
+         var city = Address.City();
 
          // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(community));
-         Assert.IsFalse(community.Contains("#"));
-         Assert.IsFalse(community.Contains("?"));
-         Assert.AreEqual(1, Regex.Matches(community, @" ").Count);
+         Assert.IsFalse(string.IsNullOrWhiteSpace(city));
+         Assert.IsFalse(city.Contains("#"), $"Incorrect value is: '{city}'");
+         Assert.IsFalse(city.Contains("?"), $"Incorrect value is: '{city}'");
       }
 
       [Test]
@@ -118,6 +59,20 @@ namespace RimuTec.Faker.Tests {
          Assert.IsFalse(citySuffix.Contains("#"));
          Assert.IsFalse(citySuffix.Contains("?"));
          Assert.IsTrue(Address._citySuffix.Contains(citySuffix));
+      }
+
+      [Test]
+      public void Community_HappyDays() {
+         // arrange
+
+         // act
+         var community = Address.Community();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(community));
+         Assert.IsFalse(community.Contains("#"));
+         Assert.IsFalse(community.Contains("?"));
+         Assert.AreEqual(1, Regex.Matches(community, @" ").Count);
       }
 
       [Test]
@@ -163,6 +118,19 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void FullAddress_HappyDays() {
+         // arrange
+
+         // act
+         var fullAddress = Address.FullAddress();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(fullAddress));
+         Assert.IsFalse(fullAddress.Contains("#"), $"Incorrect value is: '{fullAddress}'");
+         Assert.IsFalse(fullAddress.Contains("?"), $"Incorrect value is: '{fullAddress}'");
+      }
+
+      [Test]
       public void Latitude_HappyDays() {
          // arrange
          var tries = RandomNumber.Next(5, 15);
@@ -190,61 +158,6 @@ namespace RimuTec.Faker.Tests {
             Assert.GreaterOrEqual(longitude, -180);
             Assert.Less(longitude, 180);
          }
-      }
-
-      [Test]
-      public void State_HappyDays() {
-         // arrange
-
-         // act
-         var state = Address.State();
-
-         // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(state));
-         Assert.IsFalse(state.Contains("#"));
-         Assert.IsFalse(state.Contains("?"));
-         Assert.IsTrue(Address._state.Contains(state));
-      }
-
-      [Test]
-      public void StateAbbr_HappyDays() {
-         // arrange
-
-         // act
-         var stateAbbr = Address.StateAbbr();
-
-         // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(stateAbbr));
-         Assert.IsFalse(stateAbbr.Contains("#"));
-         Assert.IsFalse(stateAbbr.Contains("?"));
-         Assert.IsTrue(Address._stateAbbr.Contains(stateAbbr));
-      }
-
-      [Test]
-      public void StreetSuffix_HappyDays() {
-         // arrange
-
-         // act
-         var suffix = Address.StreetSuffix();
-
-         // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(suffix));
-         Assert.IsFalse(suffix.Contains("#"));
-         Assert.IsFalse(suffix.Contains("?"));
-         Assert.IsTrue(Address._streetSuffix.Contains(suffix));
-      }
-
-      [Test]
-      public void TimeZone_HappyDays() {
-         // arrange
-
-         // act
-         var timezone = Address.TimeZone();
-
-         // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(timezone));
-         Assert.IsFalse(timezone.Contains("#"));
-         Assert.IsFalse(timezone.Contains("?"));
       }
 
       [Test]
@@ -292,6 +205,116 @@ namespace RimuTec.Faker.Tests {
 
          // assert
          Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+      }
+
+      [Test]
+      public void SecondaryAddress_HappyDays() {
+         // arrange
+
+         // act
+         var secondaryAddress = Address.SecondaryAddress();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(secondaryAddress));
+         Assert.IsFalse(secondaryAddress.Contains("#"));
+         Assert.IsFalse(secondaryAddress.Contains("?"));
+      }
+
+      [Test]
+      public void State_HappyDays() {
+         // arrange
+
+         // act
+         var state = Address.State();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(state));
+         Assert.IsFalse(state.Contains("#"));
+         Assert.IsFalse(state.Contains("?"));
+         Assert.IsTrue(Address._state.Contains(state));
+      }
+
+      [Test]
+      public void StateAbbr_HappyDays() {
+         // arrange
+
+         // act
+         var stateAbbr = Address.StateAbbr();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(stateAbbr));
+         Assert.IsFalse(stateAbbr.Contains("#"));
+         Assert.IsFalse(stateAbbr.Contains("?"));
+         Assert.IsTrue(Address._stateAbbr.Contains(stateAbbr));
+      }
+
+      [Test]
+      public void StreetAddress_With_Default_Values() {
+         // arrange
+         var assembly = typeof(Address).Assembly;
+
+         // act
+         var streetAddress = Address.StreetAddress();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(streetAddress));
+         Assert.IsFalse(streetAddress.Contains("#"));
+         Assert.IsFalse(streetAddress.Contains("?"));
+      }
+
+      [Test]
+      public void StreetAddress_With_SecondaryAddress() {
+         // arrange
+
+         // act
+         var streetAddress = Address.StreetAddress(true);
+
+         // assert
+         Assert.IsFalse(streetAddress.Contains("#"));
+         Assert.IsFalse(streetAddress.Contains("?"));
+         var words = streetAddress.Split(' ');
+         var intersect = words.Intersect(Address._streetSuffix);
+         Assert.Greater(intersect.Count(), 0);
+      }
+
+      [Test]
+      public void StreetName_HappyDays() {
+         // arrange
+
+         // act
+         var streetName = Address.StreetName();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(streetName));
+         Assert.IsFalse(streetName.Contains("#"));
+         Assert.IsFalse(streetName.Contains("?"));
+      }
+
+      [Test]
+      public void StreetSuffix_HappyDays() {
+         // arrange
+
+         // act
+         var suffix = Address.StreetSuffix();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(suffix));
+         Assert.IsFalse(suffix.Contains("#"));
+         Assert.IsFalse(suffix.Contains("?"));
+         Assert.IsTrue(Address._streetSuffix.Contains(suffix));
+      }
+
+      [Test]
+      public void TimeZone_HappyDays() {
+         // arrange
+
+         // act
+         var timezone = Address.TimeZone();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(timezone));
+         Assert.IsFalse(timezone.Contains("#"));
+         Assert.IsFalse(timezone.Contains("?"));
       }
 
       [Test]

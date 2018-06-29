@@ -37,6 +37,19 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Returns a city. Example: "Imogeneborough"
+      /// </summary>
+      /// <returns></returns>
+      public static string City() {
+         var template = _address.City.Random();
+         template = template.Replace("#{city_prefix}", CityPrefix());
+         template = template.Replace("#{Name.first_name}", Name.FirstName());
+         template = template.Replace("#{Name.last_name}", Name.LastName());
+         template = template.Replace("#{city_suffix}", CitySuffix());
+         return template;
+      }
+
+      /// <summary>
       /// Resturns a city prefix. Example: "Lake".
       /// </summary>
       /// <returns></returns>
@@ -85,6 +98,20 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       public static string CountryCodeLong() {
          return _address.CountryCodeLong.Random();
+      }
+
+      /// <summary>
+      /// Returns a full address. Example: "282 Kevin Brook, Imogeneborough, CA 58517"
+      /// </summary>
+      /// <returns></returns>
+      public static string FullAddress() {
+         var template = _address.FullAddress.Random();
+         template = template.Replace("#{street_address}", StreetAddress());
+         template = template.Replace("#{city}", City());
+         template = template.Replace("#{state_abbr}", StateAbbr());
+         template = template.Replace("#{zip_code}", ZipCode());
+         template = template.Replace("#{secondary_address}", SecondaryAddress());
+         return template;
       }
 
       /// <summary>

@@ -1,8 +1,12 @@
 # Release Notes
 
 ## Version 0.15.0
+### Summary
+Address is now on par with Ruby Faker for default locale ("en").
 ### New Features
+- Address.City()
 - Address.CountryCodeLong()
+- Address.FullAddress()
 - Address.Latitude()
 - Address.Longitude()
 - RandomNumber.NextDouble()
@@ -37,8 +41,8 @@
 - Address.StreetName()
 
 ## Version 0.10.0
-Company is now on pare with Ruby Faker for default local ("en").
-
+### Summary
+Company is now on par with Ruby Faker for default local ("en").
 ### New Features
 - Company.AustralianBusinessNumber()
 - Company.CzechOrganizationNumber()
@@ -50,8 +54,8 @@ Company is now on pare with Ruby Faker for default local ("en").
 - Company.SpanishOrganizationNumber()
 
 ## Version 0.9.0
+### Summary
 Lorem is now on par with Ruby Faker for default locale ("en").
-
 ### New Features
 - Lorem.Paragraph(int sentenceCount = 3, bool supplemental = false, int randomSentencesToAdd = 0): Optional parameters and default values added.
 - Lorem.ParagraphByChars(int chars = 256, bool supplemental = false)
