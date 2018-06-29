@@ -21,6 +21,7 @@ Because Ruby Faker has a large number of generators, we had to start with a smal
 - CountryCode()
 - CountryCodeLong()
 - Latitude()
+- Longitude()
 - Postcode(string stateAbbreviation = "")
 - SecondaryAddress()
 - State()

@@ -165,7 +165,7 @@ namespace RimuTec.Faker.Tests {
       [Test]
       public void Latitude_HappyDays() {
          // arrange
-         var tries = 10;
+         var tries = RandomNumber.Next(5, 15);
          while (tries-- > 0) {
 
             // act
@@ -173,7 +173,22 @@ namespace RimuTec.Faker.Tests {
 
             // assert
             Assert.GreaterOrEqual(latitude, -90);
-            Assert.LessOrEqual(latitude, 90);
+            Assert.Less(latitude, 90);
+         }
+      }
+
+      [Test]
+      public void Longitude_HappyDays() {
+         // arrange
+         var tries = RandomNumber.Next(5, 15);
+         while (tries-- > 0) {
+
+            // act
+            var longitude = Address.Longitude();
+
+            // assert
+            Assert.GreaterOrEqual(longitude, -180);
+            Assert.Less(longitude, 180);
          }
       }
 

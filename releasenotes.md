@@ -4,6 +4,7 @@
 ### New Features
 - Address.CountryCodeLong()
 - Address.Latitude()
+- Address.Longitude()
 - RandomNumber.NextDouble()
 
 ## Version 0.14.0
