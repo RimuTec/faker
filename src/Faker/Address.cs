@@ -21,6 +21,7 @@ namespace RimuTec.Faker {
          _citySuffix = _address.CitySuffix;
          _country = _address.Country;
          _countryCode = _address.CountryCode;
+         _countryCodeLong = _address.CountryCodeLong;
          _state = _address.State;
          _stateAbbr = _address.StateAbbr;
          _streetSuffix = _address.StreetSuffix;
@@ -76,6 +77,14 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       public static string CountryCode() {
          return _address.CountryCode.Random();
+      }
+
+      /// <summary>
+      /// Returns a long country code. Example: "ITA"
+      /// </summary>
+      /// <returns></returns>
+      public static string CountryCodeLong() {
+         return _address.CountryCodeLong.Random();
       }
 
       /// <summary>
@@ -188,6 +197,7 @@ namespace RimuTec.Faker {
       internal static string[] _citySuffix;
       internal static string[] _country;
       internal static string[] _countryCode;
+      internal static string[] _countryCodeLong;
       internal static string[] _state;
       internal static string[] _stateAbbr;
 

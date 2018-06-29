@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.15.0
+### New Features
+- Address.CountryCodeLong()
+
 ## Version 0.14.0
 ### New Features
 - Address.CityPrefix()
