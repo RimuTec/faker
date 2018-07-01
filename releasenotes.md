@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.17.0
+### New Features
+- Internet.DomainWord()
+
 ## Version 0.16.0
 ### Summary
 IDNumber is now on par with Ruby Faker for default locale ("en").

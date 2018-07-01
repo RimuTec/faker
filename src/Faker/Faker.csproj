@@ -5,7 +5,7 @@
      <AssemblyName>RimuTec.Faker</AssemblyName>
     <RootNamespace>RimuTec.Faker</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.16.0</Version>
+    <Version>0.17.0</Version>
     <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
     <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks</PackageTags>
@@ -40,6 +40,7 @@
     <None Remove="locales\en\address.yml" />
     <None Remove="locales\en\company.yml" />
     <None Remove="locales\en\id_number.yml" />
+    <None Remove="locales\en\internet.yml" />
     <None Remove="locales\en\job.yml" />
     <None Remove="locales\en\lorem - Copy.yml" />
     <None Remove="locales\en\lorem.yml" />
@@ -52,6 +53,7 @@
     <EmbeddedResource Include="locales\en.yml" />
     <EmbeddedResource Include="locales\en\address.yml" />
     <EmbeddedResource Include="locales\en\id_number.yml" />
+    <EmbeddedResource Include="locales\en\internet.yml" />
     <EmbeddedResource Include="locales\en\phone_number.yml" />
     <EmbeddedResource Include="locales\en\lorem.yml" />
     <EmbeddedResource Include="locales\en\job.yml" />

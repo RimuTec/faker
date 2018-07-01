@@ -69,6 +69,9 @@ Country specific methods:
 - SpanishCitizenNumber()
 - Valid()
 
+## Internet
+- DomainWord()
+
 ## Job
 - EmploymentType()
 - EducationLevel()

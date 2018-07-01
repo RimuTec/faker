@@ -55,6 +55,41 @@ namespace RimuTec.Faker.Extensions {
       }
 
       /// <summary>
+      /// Romanizes cyrillics, fixes umlauts and makes the string lower case.
+      /// </summary>
+      /// <param name="s"></param>
+      /// <returns></returns>
+      public static string Prepare(this string s) {
+         var result = s.RomanizeCyrillicString();
+         result = s.FixUmlauts();
+         result = Regex.Replace(result, @"\W", "", RegexOptions.Compiled).ToLower();
+         return result;
+      }
+
+      private static string RomanizeCyrillicString(this string s) {
+         // To be implemented.
+         return s;
+      }
+
+      private static string FixUmlauts(this string s) {
+         var result = Regex.Replace(s, @"[äöüß]", match => {
+            switch (match.Value.ToLower()) {
+               case "ä":
+                  return "ae";
+               case "ö":
+                  return "oe";
+               case "ü":
+                  return "ue";
+               case "ß":
+                  return "ss";
+               default:
+                  return match.Value;
+            }
+         });
+         return s;
+      }
+
+      /// <summary>
       /// Returns a random character from the string.
       /// </summary>
       /// <param name="s"></param>
