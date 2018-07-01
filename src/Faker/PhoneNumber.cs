@@ -19,7 +19,7 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       /// <remarks>This method is the equivalent to Ruby's Faker::PhoneNumber.phone_number.</remarks>
       public static string LandLine() {
-         var numberTemplate = _faker.PhoneNumber.Formats.Random();
+         var numberTemplate = _faker.PhoneNumber.Formats.Sample();
          return numberTemplate.Numerify();
       }
 
@@ -28,7 +28,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string CellPhone() {
-         var numberTemplate = _faker.CellPhone.Formats.Random();
+         var numberTemplate = _faker.CellPhone.Formats.Sample();
          return numberTemplate.Numerify();
       }
 

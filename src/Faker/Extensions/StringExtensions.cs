@@ -23,7 +23,7 @@ namespace RimuTec.Faker.Extensions {
       /// <param name="s"></param>
       /// <returns></returns>
       public static string Letterify(this string s) {
-         return Regex.Replace(s, @"\?", new MatchEvaluator((m) => _alphabet.Random()), RegexOptions.Compiled);
+         return Regex.Replace(s, @"\?", new MatchEvaluator((m) => _alphabet.Sample()), RegexOptions.Compiled);
       }
 
       /// <summary>
@@ -95,7 +95,7 @@ namespace RimuTec.Faker.Extensions {
       /// <param name="s"></param>
       /// <returns></returns>
       public static string Random(this string s) {
-         return s.ToCharArray().Random().ToString();
+         return s.ToCharArray().Sample().ToString();
       }
 
       /// <summary>
@@ -140,7 +140,7 @@ namespace RimuTec.Faker.Extensions {
                var lowerBoundary = match.Groups[2].Value;
                var upperBoundary = match.Groups[3].Value;
                int[] intRange = new Range(lowerBoundary, upperBoundary).AsIntArray();
-               var result = string.Join("", intRange.Random().Times(x => toRepeat));
+               var result = string.Join("", intRange.Sample().Times(x => toRepeat));
                return result;
             }, RegexOptions.Compiled);
 
@@ -158,7 +158,7 @@ namespace RimuTec.Faker.Extensions {
          reg = Regex.Replace(reg, @"\[([^\]]+)\]", match => {
             string result = Regex.Replace(match.Value, @"(\w\-\w)", range => {
                var charRange = new Range(range.Value).ToArray();
-               return $"{charRange.Random()}";
+               return $"{charRange.Sample()}";
             });
             return result;
          }, RegexOptions.Compiled); 
@@ -166,11 +166,11 @@ namespace RimuTec.Faker.Extensions {
          // All [ABC] become B (or A or C)
          reg = Regex.Replace(reg, @"\[([^\]]+)\]", match => {
             var charRange = match.Groups[1].Value.ToCharArray();
-            return $"{charRange.Random()}";
+            return $"{charRange.Sample()}";
          }, RegexOptions.Compiled);
 
-         reg = Regex.Replace(reg, Regex.Escape(@"\d"), match => $"{Numbers.Random()}", RegexOptions.Compiled);
-         reg = Regex.Replace(reg, Regex.Escape(@"\w"), match => $"{Letters.Random().ToString()}", RegexOptions.Compiled);
+         reg = Regex.Replace(reg, Regex.Escape(@"\d"), match => $"{Numbers.Sample()}", RegexOptions.Compiled);
+         reg = Regex.Replace(reg, Regex.Escape(@"\w"), match => $"{Letters.Sample().ToString()}", RegexOptions.Compiled);
          return reg;
       }
 

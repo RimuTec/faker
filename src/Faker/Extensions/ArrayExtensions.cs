@@ -7,7 +7,7 @@ namespace RimuTec.Faker.Extensions {
       /// <summary>
       /// Select a random element from the array.
       /// </summary>
-      public static T Random<T>(this T[] array) {
+      public static T Sample<T>(this T[] array) {
          if (array.Count() == 0) {
             throw new InvalidOperationException($"Array {nameof(array)} must contain at least one item");
          }
@@ -18,7 +18,7 @@ namespace RimuTec.Faker.Extensions {
       /// <summary>
       /// Select a random string from the Enumerable list.
       /// </summary>
-      public static string Random(this IEnumerable<Func<string>> enumerable) {
+      public static string Sample(this IEnumerable<Func<string>> enumerable) {
          if (enumerable.Count() == 0) {
             throw new InvalidOperationException($"Enumerable {nameof(enumerable)} must contain at least one item");
          }
@@ -27,9 +27,9 @@ namespace RimuTec.Faker.Extensions {
       }
 
       /// <summary>
-      /// Select a random string from a list containing string objects.
+      /// Select a random element from a list.
       /// </summary>
-      public static T Random<T>(this List<T> list) {
+      public static T Sample<T>(this List<T> list) {
          if (list.Count() == 0) {
             throw new InvalidOperationException($"List<{typeof(T).Name}> {nameof(list)} must contain at least one item");
          }
@@ -39,7 +39,7 @@ namespace RimuTec.Faker.Extensions {
       /// <summary>
       /// Select a random string array from the Enumerable list.
       /// </summary>
-      public static string[] Random(this IEnumerable<Func<string[]>> enumerable) {
+      public static string[] Sample(this IEnumerable<Func<string[]>> enumerable) {
          if (enumerable.Count() == 0) {
             throw new InvalidOperationException($"Enumerable {nameof(enumerable)} must contain at least one item");
          }

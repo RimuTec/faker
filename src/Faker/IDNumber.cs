@@ -21,7 +21,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Invalid() {
-         return _idNumber.Invalid.Random().Numerify();
+         return _idNumber.Invalid.Sample().Numerify();
       }
 
       /// <summary>

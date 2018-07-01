@@ -22,7 +22,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Word() {
-         return _lorem.Words.Random();
+         return _lorem.Words.Sample();
       }
 
       /// <summary>
@@ -37,11 +37,11 @@ namespace RimuTec.Faker {
             throw new ArgumentOutOfRangeException(nameof(wordCount), "Must be equal to or greater than zero.");
          }
          if(supplemental) {
-            var combined = wordCount.Times(x => _lorem.Words.Random()).Concat(wordCount.Times(x => _lorem.Supplemental.Random()));
+            var combined = wordCount.Times(x => _lorem.Words.Sample()).Concat(wordCount.Times(x => _lorem.Supplemental.Sample()));
             return combined.Shuffle().Take(wordCount);
          }
          else {
-            return wordCount.Times(x => _lorem.Words.Random());
+            return wordCount.Times(x => _lorem.Words.Sample());
          }
       }
 
@@ -72,7 +72,7 @@ namespace RimuTec.Faker {
          if(charCount < 0) {
             throw new ArgumentOutOfRangeException(nameof(charCount), "Must be equal to or greater than zero.");
          }
-         return string.Join(string.Empty, charCount.Times(x => _characters.Random()));
+         return string.Join(string.Empty, charCount.Times(x => _characters.Sample()));
       }
 
       /// <summary>

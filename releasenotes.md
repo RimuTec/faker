@@ -5,6 +5,7 @@
 - Internet.DomainName()
 - Internet.DomainSuffix()
 - Internet.DomainWord()
+- Internet.UserName()
 
 ## Version 0.16.0
 ### Summary

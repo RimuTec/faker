@@ -21,7 +21,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string FullName() {
-         var result = _name.NamePatterns.Random().Trim();
+         var result = _name.NamePatterns.Sample().Trim();
          return result
             .Replace("#{prefix}", Prefix())
             .Replace("#{first_name}", FirstName())
@@ -36,7 +36,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string NameWithMiddle() {
-         var result = _name.NameWithMiddlePatterns.Random().Trim();
+         var result = _name.NameWithMiddlePatterns.Sample().Trim();
          return result
             .Replace("#{prefix}", Prefix())
             .Replace("#{first_name}", FirstName())
@@ -51,7 +51,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns>A string containing a first name</returns>
       public static string FirstName() {
-         return _name.FirstName.Random().Trim();
+         return _name.FirstName.Sample().Trim();
       }
 
       /// <summary>
@@ -59,7 +59,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string MiddleName() {
-         return _name.MiddleName.Random().Trim();
+         return _name.MiddleName.Sample().Trim();
       }
 
       /// <summary>
@@ -67,7 +67,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns>A string containing a last name</returns>
       public static string LastName() {
-         return _name.LastName.Random().Trim();
+         return _name.LastName.Sample().Trim();
       }
 
       /// <summary>
@@ -75,7 +75,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Prefix() {
-         return _name.Prefix.Random().Trim();
+         return _name.Prefix.Sample().Trim();
       }
 
       /// <summary>
@@ -83,7 +83,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Suffix() {
-         return _name.Suffix.Random().Trim();
+         return _name.Suffix.Sample().Trim();
       }
 
       /// <summary>
@@ -95,7 +95,7 @@ namespace RimuTec.Faker {
          if(!(characterCount > 0)) {
             throw new ArgumentOutOfRangeException(nameof(characterCount), "Must be greater than 0.");
          }
-         return string.Concat(characterCount.Times(x => _alphabetUpper.Random()));
+         return string.Concat(characterCount.Times(x => _alphabetUpper.Sample()));
       }
 
       private static readonly string[] _alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z".Split(' ');

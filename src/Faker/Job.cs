@@ -22,10 +22,10 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Title() {
-         var titleTemplate = _job.Title.Random();
-         var seniority = _job.Seniority.Random();
-         var field = _job.Field.Random();
-         var position = _job.Position.Random();
+         var titleTemplate = _job.Title.Sample();
+         var seniority = _job.Seniority.Sample();
+         var field = _job.Field.Sample();
+         var position = _job.Position.Sample();
 
          var result = titleTemplate.Replace("#{seniority}", seniority);
          result = result.Replace("#{field}", field);
@@ -39,7 +39,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Field() {
-         return _job.Field.Random();
+         return _job.Field.Sample();
       }
 
       /// <summary>
@@ -47,7 +47,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Seniority() {
-         return _job.Seniority.Random();
+         return _job.Seniority.Sample();
       }
 
       /// <summary>
@@ -55,7 +55,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Position() {
-         return _job.Position.Random();
+         return _job.Position.Sample();
       }
 
       /// <summary>
@@ -63,7 +63,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string KeySkill() {
-         return _job.KeySkills.Random();
+         return _job.KeySkills.Sample();
       }
 
       /// <summary>
@@ -71,7 +71,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string EmploymentType() {
-         return _job.EmploymentType.Random();
+         return _job.EmploymentType.Sample();
       }
 
       /// <summary>
@@ -79,7 +79,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string EducationLevel() {
-         return _job.EducationLevel.Random();
+         return _job.EducationLevel.Sample();
       }
 
       private static job _job;

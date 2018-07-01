@@ -25,14 +25,14 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Name() {
-         var nameTemplate = _company.Name.Random();
+         var nameTemplate = _company.Name.Sample();
          const string placeholder = "#{Name.last_name}";
          var place = nameTemplate.IndexOf(placeholder);
          while (place >= 0) {
             nameTemplate = nameTemplate.Remove(place, placeholder.Length).Insert(place, Faker.Name.LastName());
             place = nameTemplate.IndexOf(placeholder);
          }
-         nameTemplate = nameTemplate.Replace("#{suffix}", _company.Suffix.Random());
+         nameTemplate = nameTemplate.Replace("#{suffix}", _company.Suffix.Sample());
          return nameTemplate;
       }
 
@@ -41,7 +41,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Suffix() {
-         return _company.Suffix.Random();
+         return _company.Suffix.Sample();
       }
 
       /// <summary>
@@ -49,7 +49,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Industry() {
-         return _company.Industry.Random();
+         return _company.Industry.Sample();
       }
 
       /// <summary>
@@ -58,7 +58,7 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       public static string CatchPhrase() {
          var words = new List<string>();
-         _company.Buzzwords.ForEach(x => words.Add(x.Random()));
+         _company.Buzzwords.ForEach(x => words.Add(x.Sample()));
          return string.Join(" ", words);
       }
 
@@ -71,7 +71,7 @@ namespace RimuTec.Faker {
             list.AddRange(a.ToList());
             return list;
          });
-         return foo.Random().ToLower();
+         return foo.Sample().ToLower();
       }
 
       /// <summary>
@@ -81,7 +81,7 @@ namespace RimuTec.Faker {
       /// <example>"empower one-to-one web-readiness"</example>
       public static string Bs () {
          var sb = new StringBuilder();
-         _company.Bs.ForEach(x => sb.Append(x.Random() + " "));
+         _company.Bs.ForEach(x => sb.Append(x.Sample() + " "));
          return sb.ToString().Trim();
       }
 
@@ -102,7 +102,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Type() {
-         return _company.Type.Random();
+         return _company.Type.Sample();
       }
 
       /// <summary>
@@ -126,7 +126,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Profession() {
-         return _company.Profession.Random();
+         return _company.Profession.Sample();
       }
 
       /// <summary>
@@ -139,7 +139,7 @@ namespace RimuTec.Faker {
          // Last digit is a control digit
          var validLeadingDigits = new List<int> { 1, 2, 3, 5, 6, 7, 8, 9 };
          var digits = new List<int> {
-            validLeadingDigits.Random(),
+            validLeadingDigits.Sample(),
             RandomNumber.Next(10),
             RandomNumber.Next(2, 10)
          };
@@ -238,7 +238,7 @@ namespace RimuTec.Faker {
          var letters = "A, B, C, D, E, F, G, H, J, N, P, Q, R, S, U, V, W".Replace(",", string.Empty).Split(' ');
          var digits = new List<int>();
          digits.AddRange(7.Times(x => RandomNumber.Next(10)));
-         return $"{letters.Random()}{ConvertToString(digits)}";
+         return $"{letters.Sample()}{ConvertToString(digits)}";
       }
 
       /// <summary>

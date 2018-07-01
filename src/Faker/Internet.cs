@@ -1,9 +1,7 @@
 ﻿using RimuTec.Faker.Extensions;
 using RimuTec.Faker.Helper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
@@ -31,7 +29,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string DomainSuffix() {
-         return _internet.DomainSuffix.Random();
+         return _internet.DomainSuffix.Sample();
       }
 
       /// <summary>
@@ -40,6 +38,19 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       public static string DomainWord() {
          return Company.Name().Split(' ').First().Prepare();
+      }
+
+      /// <summary>
+      /// Generates a user name. Examples: "alexie", "johnson-nancy"
+      /// </summary>
+      /// <returns></returns>
+      public static string UserName() {
+         var separators = "._";
+         var candidates = new List<string> {
+            Name.FirstName().Prepare(),
+            $"{Name.FirstName().Prepare()}{separators.Random()}{Name.LastName().Prepare()}"
+         };
+         return candidates.Sample();
       }
 
       private static internet _internet;

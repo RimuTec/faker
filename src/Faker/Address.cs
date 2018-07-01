@@ -32,7 +32,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string BuildingNumber() {
-         var template = _address.BuildingNumber.Random();
+         var template = _address.BuildingNumber.Sample();
          return template.Bothify();
       }
 
@@ -41,7 +41,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string City() {
-         var template = _address.City.Random();
+         var template = _address.City.Sample();
          template = template.Replace("#{city_prefix}", CityPrefix());
          template = template.Replace("#{Name.first_name}", Name.FirstName());
          template = template.Replace("#{Name.last_name}", Name.LastName());
@@ -54,7 +54,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string CityPrefix() {
-         return _address.CityPrefix.Random();
+         return _address.CityPrefix.Sample();
       }
 
       /// <summary>
@@ -62,7 +62,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string CitySuffix() {
-         return _address.CitySuffix.Random();
+         return _address.CitySuffix.Sample();
       }
 
       /// <summary>
@@ -70,9 +70,9 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Community() {
-         var template = _address.Community.Random();
-         template = template.Replace("#{community_prefix}", _address.CommunityPrefix.Random());
-         template = template.Replace("#{community_suffix}", _address.CommunitySuffix.Random());
+         var template = _address.Community.Sample();
+         template = template.Replace("#{community_prefix}", _address.CommunityPrefix.Sample());
+         template = template.Replace("#{community_suffix}", _address.CommunitySuffix.Sample());
          return template;
       }
 
@@ -81,7 +81,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string Country() {
-         return _address.Country.Random();
+         return _address.Country.Sample();
       }
 
       /// <summary>
@@ -89,7 +89,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string CountryCode() {
-         return _address.CountryCode.Random();
+         return _address.CountryCode.Sample();
       }
 
       /// <summary>
@@ -97,7 +97,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string CountryCodeLong() {
-         return _address.CountryCodeLong.Random();
+         return _address.CountryCodeLong.Sample();
       }
 
       /// <summary>
@@ -105,7 +105,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string FullAddress() {
-         var template = _address.FullAddress.Random();
+         var template = _address.FullAddress.Sample();
          template = template.Replace("#{street_address}", StreetAddress());
          template = template.Replace("#{city}", City());
          template = template.Replace("#{state_abbr}", StateAbbr());
@@ -145,7 +145,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string SecondaryAddress() {
-         var template = _address.SecondaryAddress.Random();
+         var template = _address.SecondaryAddress.Sample();
          return template.Bothify();
       }
 
@@ -154,7 +154,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string State() {
-         return _address.State.Random();
+         return _address.State.Sample();
       }
 
       /// <summary>
@@ -162,7 +162,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string StateAbbr() {
-         return _address.StateAbbr.Random();
+         return _address.StateAbbr.Sample();
       }
 
       /// <summary>
@@ -173,7 +173,7 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       public static string StreetAddress(bool includeSecondary = false) {
          var template = _address.StreetAddress.First() + (includeSecondary ? " " + SecondaryAddress() : string.Empty);
-         template = template.Replace("#{building_number}", _address.BuildingNumber.Random());
+         template = template.Replace("#{building_number}", _address.BuildingNumber.Sample());
          template = template.Replace("#{street_name}", StreetName());
          var result = template.Numerify();
          return result;
@@ -184,10 +184,10 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string StreetName() {
-         var template = _address.StreetName.Random();
+         var template = _address.StreetName.Sample();
          template = template.Replace("#{Name.first_name}", Name.FirstName());
          template = template.Replace("#{Name.last_name}", Name.LastName());
-         template = template.Replace("#{street_suffix}", _address.StreetSuffix.Random());
+         template = template.Replace("#{street_suffix}", _address.StreetSuffix.Sample());
          return template;
       }
 
@@ -196,7 +196,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string StreetSuffix() {
-         return _address.StreetSuffix.Random();
+         return _address.StreetSuffix.Sample();
       }
 
       /// <summary>
@@ -204,7 +204,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string TimeZone() {
-         return _address.TimeZone.Random();
+         return _address.TimeZone.Sample();
       }
 
       /// <summary>
@@ -225,7 +225,7 @@ namespace RimuTec.Faker {
       /// <exception cref="ArgumentOutOfRangeException">Parameter 'Abbreviation' has an invalid value.</exception>
       public static string ZipCode(string stateAbbreviation = "") {
          if(stateAbbreviation == "") {
-            return _address.Postcode.Random().Letterify().Numerify();
+            return _address.Postcode.Sample().Letterify().Numerify();
          }
          if(stateAbbreviation == null || !_address.PostcodeByState.ContainsKey(stateAbbreviation)) {
             throw new ArgumentOutOfRangeException(nameof(stateAbbreviation), "Must be one of the US state abbreviations or empty.");

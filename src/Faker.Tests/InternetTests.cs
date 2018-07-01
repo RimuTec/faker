@@ -1,10 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace RimuTec.Faker.Tests {
    [TestFixture]
@@ -29,13 +24,13 @@ namespace RimuTec.Faker.Tests {
          // arrange
 
          // act
-         var suffix = Internet.DomainSuffix();
+         var domainSuffix = Internet.DomainSuffix();
 
          // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(suffix));
-         Assert.IsFalse(suffix.Contains("#"));
-         Assert.IsFalse(suffix.Contains("?"));
-         Assert.AreEqual(0, Regex.Matches(suffix, @"[A-Z]").Count);
+         Assert.IsFalse(string.IsNullOrWhiteSpace(domainSuffix));
+         Assert.IsFalse(domainSuffix.Contains("#"));
+         Assert.IsFalse(domainSuffix.Contains("?"));
+         Assert.AreEqual(0, Regex.Matches(domainSuffix, @"[A-Z]").Count);
       }
 
       [Test]
@@ -50,6 +45,20 @@ namespace RimuTec.Faker.Tests {
          Assert.IsFalse(domainWord.Contains("#"));
          Assert.IsFalse(domainWord.Contains("?"));
          Assert.AreEqual(0, Regex.Matches(domainWord, @"[A-Z]").Count);
+      }
+
+      [Test]
+      public void UserName_HappyDays() {
+         // arrange
+
+         // act
+         var userName = Internet.UserName();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
+         Assert.IsFalse(userName.Contains("#"));
+         Assert.IsFalse(userName.Contains("?"));
+         Assert.AreEqual(0, Regex.Matches(userName, @"[A-Z]").Count);
       }
    }
 }

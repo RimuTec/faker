@@ -11,7 +11,7 @@ namespace RimuTec.Faker {
       }
 
       public static char Multibyte() {
-         return _en.multibyte.Random();
+         return _en.multibyte.Sample();
       }
 
       private static en _en;
