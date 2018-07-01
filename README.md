@@ -73,6 +73,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - Valid()
 
 ## Internet
+- DomainName()
 - DomainSuffix()
 - DomainWord()
 

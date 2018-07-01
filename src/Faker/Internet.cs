@@ -19,6 +19,14 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Gets a random domain name. Example: "effertz.info"
+      /// </summary>
+      /// <returns></returns>
+      public static string DomainName() {
+         return $"{DomainWord()}.{DomainSuffix()}";
+      }
+
+      /// <summary>
       /// Gets a random but valid domain suffix. Example: "info"
       /// </summary>
       /// <returns></returns>
@@ -31,8 +39,7 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <returns></returns>
       public static string DomainWord() {
-         var result = Company.Name().Split(' ').First();
-         return result.Prepare();
+         return Company.Name().Split(' ').First().Prepare();
       }
 
       private static internet _internet;

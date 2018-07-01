@@ -10,6 +10,21 @@ namespace RimuTec.Faker.Tests {
    [TestFixture]
    public class InternetTests {
       [Test]
+      public void DomainName_HappyDays() {
+         // arrange
+
+         // act
+         var domainName = Internet.DomainName();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(domainName));
+         Assert.IsFalse(domainName.Contains("#"));
+         Assert.IsFalse(domainName.Contains("?"));
+         Assert.AreEqual(1, Regex.Matches(domainName, @"\.").Count);
+         Assert.AreEqual(0, Regex.Matches(domainName, @"[A-Z]").Count);
+      }
+
+      [Test]
       public void DomainSuffix_HappyDays() {
          // arrange
 

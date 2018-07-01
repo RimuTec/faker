@@ -2,6 +2,7 @@
 
 ## Version 0.17.0
 ### New Features
+- Internet.DomainName()
 - Internet.DomainSuffix()
 - Internet.DomainWord()
 
