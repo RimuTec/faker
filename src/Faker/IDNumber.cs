@@ -25,6 +25,17 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generate a Spanish citizen identifier (DNI) 
+      /// </summary>
+      /// <returns></returns>
+      public static string SpanishCitizenNumber() {
+         var num = Number.Create(8);
+         var mod = int.Parse(num) % 23;
+         var check = _checks[mod];
+         return $"{num}-{check}";
+      }
+
+      /// <summary>
       /// Generate a valid US Social Security number. Example: "552-56-3593"
       /// </summary>
       /// <returns></returns>
@@ -55,6 +66,8 @@ namespace RimuTec.Faker {
          @"666-\d{2}-\d{4}",
          @"9\d{2}-\d{2}-\d{4}"
       };
+
+      private static readonly string _checks = "TRWAGMYFPDXBNJZSQVHLCKE";
 
       private static id_number _idNumber;
 

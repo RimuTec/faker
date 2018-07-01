@@ -65,6 +65,7 @@ Country specific methods:
 
 ## IDNumber
 - Invalid()
+- SpanishCitizenNumber()
 - Valid()
 
 ## Job
