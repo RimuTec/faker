@@ -60,5 +60,20 @@ namespace RimuTec.Faker.Tests {
          Assert.AreEqual(1, Regex.Matches(dni, @"-\w").Count);
          Assert.AreEqual(10, dni.Length);
       }
+
+      [Test]
+      public void SpanishForeignCitizenNumber_HappyDays() {
+         // arrange
+
+         // act
+         var nie = IDNumber.SpanishForeignCitizenNumber();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(nie));
+         Assert.IsFalse(nie.Contains("#"));
+         Assert.IsFalse(nie.Contains("?"));
+         Assert.AreEqual(2, Regex.Matches(nie, @"-\w").Count);
+         Assert.AreEqual(11, nie.Length);
+      }
    }
 }

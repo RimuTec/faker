@@ -36,6 +36,20 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generate a Spanish foreign born citizen identifier (NIE)
+      /// </summary>
+      /// <returns></returns>
+      public static string SpanishForeignCitizenNumber() {
+         var code = "XYZ";
+         var digits = Number.Create(7);
+         var prefix = code.Random();
+         var prefixVal = code.IndexOf(prefix).ToString();
+         var mod = int.Parse($"{prefixVal}{digits}") % 23;
+         var check = _checks[mod];
+         return $"{prefix}-{digits}-{check}";
+      }
+
+      /// <summary>
       /// Generate a valid US Social Security number. Example: "552-56-3593"
       /// </summary>
       /// <returns></returns>

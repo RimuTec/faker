@@ -55,6 +55,15 @@ namespace RimuTec.Faker.Extensions {
       }
 
       /// <summary>
+      /// Returns a random character from the string.
+      /// </summary>
+      /// <param name="s"></param>
+      /// <returns></returns>
+      public static string Random(this string s) {
+         return s.ToCharArray().Random().ToString();
+      }
+
+      /// <summary>
       /// Given a regulare expression, attempt to generate a string that would match it. This is a rather
       /// simple implementation, so don't be shocked if it blows up on you in a spectacular fashion. It does
       /// not handle ., *, unbound ranges such as {1,}, extensions such as (?=), character classes, some

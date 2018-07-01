@@ -1,7 +1,10 @@
 # Release Notes
 
 ## Version 0.16.0
+### Summary
+IDNumber is now on par with Ruby Faker for default locale ("en").
 ### New Features
+- IDNumber.SpanishForeignCitizenNumber()
 - IDNumber.Invalid()
 - IDNumber.SpanishCitizenNumber()
 - IDNumber.Valid()
