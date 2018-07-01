@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.16.0
+### New Features
+- IDNumber.Valid()
+
 ## Version 0.15.0
 ### Summary
 Address is now on par with Ruby Faker for default locale ("en").

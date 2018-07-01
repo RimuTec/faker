@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using RimuTec.Faker.Extensions;
+using System.Text.RegularExpressions;
 
 namespace RimuTec.Faker.Tests.Extensions {
    [TestFixture]
@@ -25,6 +27,20 @@ namespace RimuTec.Faker.Tests.Extensions {
 
          // assert
          Assert.AreEqual("what||is||the||answer||to||all||questions", wordList);
+      }
+
+      [Test]
+      public void Regexify_Digits() {
+         // arrange
+         var template = @"[0-8]\d{2}-\d{2}-\d{4}";
+
+         // act
+         var result = template.Regexify();
+
+         // assert
+         Assert.AreEqual(9, Regex.Matches(result, @"\d").Count);
+         Assert.AreEqual(2, Regex.Matches(result, @"-").Count);
+         Assert.IsFalse(result.Contains("#"));
       }
    }
 }
