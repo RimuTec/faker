@@ -17,6 +17,14 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generate an invalid US Social Security Number. Example: "311-72-0000"
+      /// </summary>
+      /// <returns></returns>
+      public static string Invalid() {
+         return _idNumber.Invalid.Random().Numerify();
+      }
+
+      /// <summary>
       /// Generate a valid US Social Security number. Example: "552-56-3593"
       /// </summary>
       /// <returns></returns>
@@ -40,7 +48,7 @@ namespace RimuTec.Faker {
          return ssn;
       }
 
-      private static string[] _invalid_SSN = new string[] {
+      internal static string[] _invalid_SSN = new string[] {
          @"0{3}-\d{2}-\d{4}",
          @"\d{3}-0{2}-\d{4}",
          @"\d{3}-\d{2}-0{4}",

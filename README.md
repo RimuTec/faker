@@ -64,6 +64,7 @@ Country specific methods:
 - SwedishOrganizationNumber()
 
 ## IDNumber
+- Invalid()
 - Valid()
 
 ## Job
