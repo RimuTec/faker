@@ -19,6 +19,14 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Gets a random but valid domain suffix. Example: "info"
+      /// </summary>
+      /// <returns></returns>
+      public static string DomainSuffix() {
+         return _internet.DomainSuffix.Random();
+      }
+
+      /// <summary>
       /// Generates a word that can be used in a domain name. Example: "haleyziemann"
       /// </summary>
       /// <returns></returns>

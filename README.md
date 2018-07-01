@@ -1,5 +1,7 @@
 # Faker
-A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker). It uses the latest version of their yaml files.
+A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker). 
+
+RimuTec.Faker aims at achieving parity with Ruby Faker. Classes that are on par with Ruby Faker are marked accordingly (see below).
 
 RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462). 
 
@@ -64,12 +66,14 @@ Country specific methods:
 - SwedishOrganizationNumber()
 
 ## IDNumber
+This class is on par with Ruby Faker for default locale ("en").
 - SpanishForeignCitizenNumber()
 - Invalid()
 - SpanishCitizenNumber()
 - Valid()
 
 ## Internet
+- DomainSuffix()
 - DomainWord()
 
 ## Job
