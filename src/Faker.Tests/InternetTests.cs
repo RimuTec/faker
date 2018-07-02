@@ -47,10 +47,24 @@ namespace RimuTec.Faker.Tests {
 
          // assert
          AllAssertions(emailAddress);
+         Assert.AreEqual(1, Regex.Matches(emailAddress, @"@").Count);
       }
 
       [Test]
-      public void UserName_HappyDays() {
+      public void Email_With_Specific_Name() {
+         // arrange
+         var firstName = Name.FirstName(); // can also be any other name
+
+         // act
+         var emailAddress = Internet.Email(firstName);
+
+         // assert
+         AllAssertions(emailAddress);
+         Assert.IsTrue(emailAddress.StartsWith($"{firstName.ToLower()}@"), $"Email address is: '{emailAddress}'");
+      }
+
+      [Test]
+      public void UserName_With_Default_Values() {
          // arrange
 
          // act
@@ -58,6 +72,17 @@ namespace RimuTec.Faker.Tests {
 
          // assert
          AllAssertions(userName);
+      }
+
+      [Test]
+      public void UserName_With_Given_Name() {
+         // arrange
+
+         // act
+         var userName = Internet.UserName("Nancy");
+
+         // assert
+         Assert.AreEqual("nancy", userName);
       }
 
       private static void AllAssertions(string candidate) {

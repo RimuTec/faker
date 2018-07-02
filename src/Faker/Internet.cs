@@ -44,21 +44,29 @@ namespace RimuTec.Faker {
       /// Generates an email address. Example: "eliza@mann.net"
       /// </summary>
       /// <returns></returns>
-      public static string Email() {
-         return string.Join("@", UserName(), DomainName());
+      public static string Email(string name = null) {
+         return string.Join("@", UserName(name), DomainName());
       }
 
       /// <summary>
       /// Generates a user name. Examples: "alexie", "johnson-nancy"
       /// </summary>
+      /// <param name="name">Name to be used instead of a random one.</param>
       /// <returns></returns>
-      public static string UserName() {
-         var separators = "._";
-         var candidates = new List<string> {
-            Name.FirstName().Prepare(),
-            $"{Name.FirstName().Prepare()}{separators.Random()}{Name.LastName().Prepare()}"
-         };
-         return candidates.Sample();
+      public static string UserName(string name = null) {
+         string result;
+         if(name != null) {
+            result = name.Prepare();
+         }
+         else {
+            var separators = "._";
+            var candidates = new List<string> {
+               Name.FirstName().Prepare(),
+               $"{Name.FirstName().Prepare()}{separators.Random()}{Name.LastName().Prepare()}"
+            };
+            result = candidates.Sample();
+         }
+         return result;
       }
 
       private static internet _internet;
