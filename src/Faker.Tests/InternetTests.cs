@@ -12,11 +12,8 @@ namespace RimuTec.Faker.Tests {
          var domainName = Internet.DomainName();
 
          // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(domainName));
-         Assert.IsFalse(domainName.Contains("#"));
-         Assert.IsFalse(domainName.Contains("?"));
+         AllAssertions(domainName);
          Assert.AreEqual(1, Regex.Matches(domainName, @"\.").Count);
-         Assert.AreEqual(0, Regex.Matches(domainName, @"[A-Z]").Count);
       }
 
       [Test]
@@ -27,10 +24,7 @@ namespace RimuTec.Faker.Tests {
          var domainSuffix = Internet.DomainSuffix();
 
          // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(domainSuffix));
-         Assert.IsFalse(domainSuffix.Contains("#"));
-         Assert.IsFalse(domainSuffix.Contains("?"));
-         Assert.AreEqual(0, Regex.Matches(domainSuffix, @"[A-Z]").Count);
+         AllAssertions(domainSuffix);
       }
 
       [Test]
@@ -41,10 +35,18 @@ namespace RimuTec.Faker.Tests {
          var domainWord = Internet.DomainWord();
 
          // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(domainWord));
-         Assert.IsFalse(domainWord.Contains("#"));
-         Assert.IsFalse(domainWord.Contains("?"));
-         Assert.AreEqual(0, Regex.Matches(domainWord, @"[A-Z]").Count);
+         AllAssertions(domainWord);
+      }
+
+      [Test]
+      public void Email_Default_Values() {
+         // arrange
+
+         // act
+         var emailAddress = Internet.Email();
+
+         // assert
+         AllAssertions(emailAddress);
       }
 
       [Test]
@@ -55,10 +57,15 @@ namespace RimuTec.Faker.Tests {
          var userName = Internet.UserName();
 
          // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
-         Assert.IsFalse(userName.Contains("#"));
-         Assert.IsFalse(userName.Contains("?"));
-         Assert.AreEqual(0, Regex.Matches(userName, @"[A-Z]").Count);
+         AllAssertions(userName);
+      }
+
+      private static void AllAssertions(string candidate) {
+         Assert.IsFalse(string.IsNullOrWhiteSpace(candidate));
+         Assert.IsFalse(candidate.Contains("#"));
+         Assert.IsFalse(candidate.Contains("?"));
+         Assert.AreEqual(0, Regex.Matches(candidate, @"[\s]").Count);
+         Assert.AreEqual(0, Regex.Matches(candidate, @"[A-Z]").Count);
       }
    }
 }

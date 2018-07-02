@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.18.0
+### New Features
+- Internet.Email()
+
 ## Version 0.17.0
 ### New Features
 - Internet.DomainName()

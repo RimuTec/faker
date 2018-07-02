@@ -41,6 +41,14 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generates an email address. Example: "eliza@mann.net"
+      /// </summary>
+      /// <returns></returns>
+      public static string Email() {
+         return string.Join("@", UserName(), DomainName());
+      }
+
+      /// <summary>
       /// Generates a user name. Examples: "alexie", "johnson-nancy"
       /// </summary>
       /// <returns></returns>
