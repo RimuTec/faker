@@ -9,7 +9,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       public static T Sample<T>(this T[] array) {
          if (array.Count() == 0) {
-            throw new InvalidOperationException($"Array {nameof(array)} must contain at least one item");
+            return default(T);
+            //throw new InvalidOperationException($"Array {nameof(array)} must contain at least one item");
          }
 
          return array[RandomNumber.Next(0, array.Length)];

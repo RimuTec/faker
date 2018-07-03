@@ -2,6 +2,7 @@
 using RimuTec.Faker.Helper;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
@@ -52,17 +53,22 @@ namespace RimuTec.Faker {
       /// Generates a user name. Examples: "alexie", "johnson-nancy"
       /// </summary>
       /// <param name="name">Name to be used instead of a random one.</param>
+      /// <param name="separators">Separators to consider. May not appear in result. Default are '.' and '_'.</param>
       /// <returns></returns>
-      public static string UserName(string name = null) {
+      public static string UserName(string name = null, char[] separators = null) {
          string result;
-         if(name != null) {
-            result = name.Prepare();
+         if (separators == null) {
+            separators = "._".ToCharArray(); // if space is sampled, it will be removed by Prepare()
+         }
+         if (name != null) {
+            IEnumerable<string> parts = name.Scan(@"\w+").Shuffle();
+            char separator = separators.Sample();
+            result = string.Join(separator.ToString(), parts).ToLower();
          }
          else {
-            var separators = "._";
             var candidates = new List<string> {
                Name.FirstName().Prepare(),
-               $"{Name.FirstName().Prepare()}{separators.Random()}{Name.LastName().Prepare()}"
+               $"{Name.FirstName()}{separators.Sample()}{Name.LastName()}".Prepare()
             };
             result = candidates.Sample();
          }

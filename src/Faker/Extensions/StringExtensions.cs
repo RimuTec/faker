@@ -62,8 +62,23 @@ namespace RimuTec.Faker.Extensions {
       public static string Prepare(this string s) {
          var result = s.RomanizeCyrillicString();
          result = s.FixUmlauts();
-         result = Regex.Replace(result, @"\W", "", RegexOptions.Compiled).ToLower();
+         result = Regex.Replace(result, @"\W", string.Empty, RegexOptions.Compiled).ToLower();
          return result;
+      }
+
+      /// <summary>
+      /// Applies a regex pattern and returns a list of matches.
+      /// </summary>
+      /// <param name="s"></param>
+      /// <param name="pattern"></param>
+      /// <returns></returns>
+      internal static IList<string> Scan(this string s, string pattern) {
+         var matchList = new List<string>();
+         var matches = Regex.Matches(s, pattern, RegexOptions.Compiled);
+         for(var i = 0; i < matches.Count; i++) {
+            matchList.Add(matches[i].Value);
+         }
+         return matchList;
       }
 
       private static string RomanizeCyrillicString(this string s) {
@@ -87,15 +102,6 @@ namespace RimuTec.Faker.Extensions {
             }
          });
          return s;
-      }
-
-      /// <summary>
-      /// Returns a random character from the string.
-      /// </summary>
-      /// <param name="s"></param>
-      /// <returns></returns>
-      public static string Random(this string s) {
-         return s.ToCharArray().Sample().ToString();
       }
 
       /// <summary>
