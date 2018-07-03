@@ -77,7 +77,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - DomainSuffix()
 - DomainWord()
 - Email(string = null)
-- UserName(int minLength)
+- UserName(int minLength, int maxLength = int.MaxValue)
 - UserName(string name = null, char[] separators = null)
 
 ## Job

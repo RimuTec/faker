@@ -149,10 +149,59 @@ namespace RimuTec.Faker.Tests {
          // arrange
 
          // act
-         var ex = Assert.Throws<ArgumentOutOfRangeException>(() =>Internet.UserName((int)Math.Pow(10, 6) + 1));
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.UserName((int)Math.Pow(10, 6) + 1));
 
          // assert
          Assert.AreEqual("Must be equal to or less than 10^6.\r\nParameter name: minLength", ex.Message);
+      }
+
+      [Test]
+      public void UserName_With_Invalid_Value() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.UserName(0));
+
+         // assert
+         Assert.AreEqual("Must be greater than zero.\r\nParameter name: minLength", ex.Message);
+      }
+
+      [Test]
+      public void UserName_With_Min_Max_Length() {
+         // arrange
+         const int minLength = 5;
+         const int maxLength = 8;
+
+         // act
+         var userName = Internet.UserName(minLength, maxLength);
+
+         // assert
+         int actualLength = userName.Length;
+         Assert.IsTrue(actualLength >= minLength && actualLength <= maxLength);
+      }
+
+      [Test]
+      public void UserName_With_Common_Lengths() {
+         for(int i = 1; i < 32; i++ ) {
+            for(int j = i; j < i + 32; j++) {
+               var minLength = i;
+               var maxLength = j;
+               var userName = Internet.UserName(minLength, maxLength);
+               int actualLength = userName.Length;
+               Assert.IsTrue(actualLength >= minLength && actualLength <= maxLength);
+            }
+         }
+      }
+
+      [Test]
+      public void UserName_With_Min_Greater_Than_Min() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.UserName(7, 6));
+
+         // assert
+         Assert.AreEqual("maxLength must be equal to or greater than minLength.", ex.Message);
       }
 
       private static void AllAssertions(string candidate) {

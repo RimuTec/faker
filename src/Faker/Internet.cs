@@ -86,7 +86,9 @@ namespace RimuTec.Faker {
          if(minLength > 1000000) {
             throw new ArgumentOutOfRangeException(nameof(minLength), "Must be equal to or less than 10^6.");
          }
-
+         if(minLength <= 0) {
+            throw new ArgumentOutOfRangeException(nameof(minLength), "Must be greater than zero.");
+         }
          var separators = "._".ToCharArray();
          var tries = 0;
          string result = null;
@@ -98,6 +100,26 @@ namespace RimuTec.Faker {
             result = string.Join("", (minLength / result.Length + 1).Times(x => result));
          }
          return result;
+      }
+
+      /// <summary>
+      /// Generates a user name with minimum and maximum length. Example: UserName(5, 8) may return ""melany""
+      /// </summary>
+      /// <param name="minLength">Minimum length of the user name.</param>
+      /// <param name="maxLength">Maximum length of the user name.</param>
+      /// <returns></returns>
+      public static string UserName(int minLength, int maxLength = int.MaxValue) {
+         if(maxLength < minLength) {
+            throw new ArgumentOutOfRangeException($"{nameof(maxLength)} must be equal to or greater than {nameof(minLength)}.", (Exception) null);
+         }
+         var separators = "._".ToCharArray();
+         var tries = 0;
+         string result = null;
+         do {
+            result = UserName(minLength);
+            tries++;
+         } while (result.Length > maxLength && tries < 7);
+         return result.Substring(0, Math.Min(maxLength, result.Length));
       }
 
       private static internet _internet;
