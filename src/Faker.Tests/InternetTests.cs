@@ -65,6 +65,50 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void Email_With_Separator_Only() {
+         // arrange
+         string emailAddress;
+
+         // act
+         var tries = 0;
+         do {
+            emailAddress = Internet.Email(separators: "+");
+         } while (!emailAddress.Contains("+") && tries++ < 100);
+
+         // assert
+         AllAssertions(emailAddress);
+         Assert.IsTrue(emailAddress.Contains("+"));
+      }
+
+      [Test]
+      public void Email_With_No_Separator_Guaranteed() {
+         // arrange
+
+         // act
+         var tries = 100;
+         while(tries-- > 0) {
+            var emailAddress = Internet.Email(separators: "");
+            Assert.AreEqual(0, RegexMatchesCount(emailAddress, @"[-_+]"), $"{nameof(emailAddress)} was {emailAddress}");
+            Assert.AreEqual(0, RegexMatchesCount(emailAddress, @"\0"));
+         }
+
+         // assert
+      }
+
+      [Test]
+      public void Email_With_Name_And_Separator() {
+         // arrange
+         var name = "Janelle Santiago";
+         var separators = "+";
+
+         // act
+         var emailAddress = Internet.Email(name, separators);
+
+         // assert
+         Assert.IsTrue(Regex.Match(emailAddress, @".+\+.+@.+\.\w+").Success);
+      }
+
+      [Test]
       public void UserName_With_Default_Values() {
          // arrange
 
@@ -90,14 +134,14 @@ namespace RimuTec.Faker.Tests {
       [Test]
       public void UserName_With_Given_Separators() {
          // arrange
-         char[] separators = new[] { '-', '_', '+' };
+         string separators = "-_+";
 
          // act
          var userName = Internet.UserName(separators: separators);
 
          // assert
          AllAssertions(userName);
-         Assert.GreaterOrEqual(1, RegexMatchesCount(userName, @"[-_+]"));
+         Assert.GreaterOrEqual(1, RegexMatchesCount(userName, $@"[{separators}]"));
       }
 
       [Test]
@@ -105,7 +149,7 @@ namespace RimuTec.Faker.Tests {
          // arrange
 
          // act
-         var userName = Internet.UserName(null, new char[0]);
+         var userName = Internet.UserName(null, "");
 
          // assert
          AllAssertions(userName);
@@ -125,7 +169,7 @@ namespace RimuTec.Faker.Tests {
 
             // assert
             AllAssertions(userName);
-            Assert.IsTrue(Regex.Match(userName, @"(bo(_|\.)peep|peep(_|\.)bo)").Success, $"userName was '{userName}'");
+            Assert.IsTrue(Regex.Match(userName, $@"({firstName}(_|\.){lastName}|{lastName}(_|\.){firstName})").Success, $"userName was '{userName}'");
          }
       }
 

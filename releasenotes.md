@@ -2,9 +2,9 @@
 
 ## Version 0.18.0
 ### New Features
-- Internet.Email(string = null)
+- Internet.Email(string name = null, string separators = null)
 - Internet.UserName(int minLength, int maxLength = int.MaxValue)
-- Internet.UserName(string name = null, char[] separators = null)
+- Internet.UserName(string name = null, string separators = null)
 
 ## Version 0.17.0
 ### New Features

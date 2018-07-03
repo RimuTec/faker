@@ -67,6 +67,19 @@ namespace RimuTec.Faker.Extensions {
       }
 
       /// <summary>
+      /// Selects a random character from the string and returns it as a string.
+      /// </summary>
+      /// <param name="s"></param>
+      /// <returns></returns>
+      public static string Sample(this string s) {
+         int stringLength = s.Length;
+         if (stringLength > 0) {
+            return s[RandomNumber.Next(0, stringLength)].ToString();
+         }
+         return string.Empty;
+      }
+
+      /// <summary>
       /// Applies a regex pattern and returns a list of matches.
       /// </summary>
       /// <param name="s"></param>

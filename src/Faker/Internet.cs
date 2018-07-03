@@ -47,8 +47,8 @@ namespace RimuTec.Faker {
       /// Generates an email address. Example: "eliza@mann.net"
       /// </summary>
       /// <returns></returns>
-      public static string Email(string name = null) {
-         return string.Join("@", UserName(name), DomainName());
+      public static string Email(string name = null, string separators = null) {
+         return string.Join("@", UserName(name, separators), DomainName());
       }
 
       /// <summary>
@@ -57,20 +57,20 @@ namespace RimuTec.Faker {
       /// <param name="name">Name to be used instead of a random one.</param>
       /// <param name="separators">Separators to consider. May not appear in result. Default are '.' and '_'.</param>
       /// <returns></returns>
-      public static string UserName(string name = null, char[] separators = null) {
+      public static string UserName(string name = null, string separators = null) {
          string result;
          if (separators == null) {
-            separators = "._".ToCharArray(); // if space is sampled, it will be removed by Prepare()
+            separators = "._"; // if space is sampled, it will be removed by Prepare()
          }
+         var separator = separators.Sample();
          if (name != null) {
             IEnumerable<string> parts = name.Scan(@"\w+").Shuffle();
-            char separator = separators.Sample();
-            result = string.Join(separator.ToString(), parts).ToLower();
+            result = string.Join(separator, parts).ToLower();
          }
          else {
             var candidates = new List<string> {
                Name.FirstName().Prepare(),
-               $"{Name.FirstName()}{separators.Sample()}{Name.LastName()}".Prepare()
+               $"{Name.FirstName().Prepare()}{separator}{Name.LastName().Prepare()}"
             };
             result = candidates.Sample();
          }
@@ -89,11 +89,10 @@ namespace RimuTec.Faker {
          if(minLength <= 0) {
             throw new ArgumentOutOfRangeException(nameof(minLength), "Must be greater than zero.");
          }
-         var separators = "._".ToCharArray();
          var tries = 0;
          string result = null;
          do {
-            result = UserName(null, separators);
+            result = UserName(null, "._");
             tries++;
          } while (result?.Length < minLength && tries < 7);
          if(minLength > 0) {
@@ -112,7 +111,6 @@ namespace RimuTec.Faker {
          if(maxLength < minLength) {
             throw new ArgumentOutOfRangeException($"{nameof(maxLength)} must be equal to or greater than {nameof(minLength)}.", (Exception) null);
          }
-         var separators = "._".ToCharArray();
          var tries = 0;
          string result = null;
          do {

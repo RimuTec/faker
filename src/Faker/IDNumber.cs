@@ -42,7 +42,7 @@ namespace RimuTec.Faker {
       public static string SpanishForeignCitizenNumber() {
          var code = "XYZ";
          var digits = Number.Create(7);
-         var prefix = code.ToCharArray().Sample();
+         var prefix = code.Sample();
          var prefixVal = code.IndexOf(prefix).ToString();
          var mod = int.Parse($"{prefixVal}{digits}") % 23;
          var check = _checks[mod];
