@@ -1,7 +1,9 @@
 ﻿using RimuTec.Faker.Extensions;
 using RimuTec.Faker.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
@@ -71,6 +73,29 @@ namespace RimuTec.Faker {
                $"{Name.FirstName()}{separators.Sample()}{Name.LastName()}".Prepare()
             };
             result = candidates.Sample();
+         }
+         return result;
+      }
+
+      /// <summary>
+      /// Generates a user name with minimum length. Example: UserName(8) may return "bernhard_schiller"
+      /// </summary>
+      /// <param name="minLength">Minimal length of the user name.</param>
+      /// <returns></returns>
+      public static string UserName(int minLength) {
+         if(minLength > 1000000) {
+            throw new ArgumentOutOfRangeException(nameof(minLength), "Must be equal to or less than 10^6.");
+         }
+
+         var separators = "._".ToCharArray();
+         var tries = 0;
+         string result = null;
+         do {
+            result = UserName(null, separators);
+            tries++;
+         } while (result?.Length < minLength && tries < 7);
+         if(minLength > 0) {
+            result = string.Join("", (minLength / result.Length + 1).Times(x => result));
          }
          return result;
       }

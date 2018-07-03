@@ -77,6 +77,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - DomainSuffix()
 - DomainWord()
 - Email(string = null)
+- UserName(int minLength)
 - UserName(string name = null, char[] separators = null)
 
 ## Job
@@ -142,7 +143,7 @@ Release notes are available at [https://github.com/RimuTec/Faker/blob/master/rel
 If you need support or have a suggestion for improvement please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). Thank you!
 
 ## Reporting Bugs
-RimuTec.Faker has a test suite with about 160 unit tests. This does not guarantee absence of bugs. Please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). All your feedback will help make the library more valuable for other users as well. Thank you!
+RimuTec.Faker has a test suite with about 170 unit tests. This does not guarantee absence of bugs. Please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). All your feedback will help make the library more valuable for other users as well. Thank you!
 
 # Credits
 This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker), licensed under the MIT license. Thank you to all their contributors!

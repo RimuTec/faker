@@ -3,6 +3,7 @@
 ## Version 0.18.0
 ### New Features
 - Internet.Email(string = null)
+- Internet.UserName(int minLength)
 - Internet.UserName(string name = null, char[] separators = null)
 
 ## Version 0.17.0

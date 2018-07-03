@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Text.RegularExpressions;
 
 namespace RimuTec.Faker.Tests {
@@ -116,16 +117,42 @@ namespace RimuTec.Faker.Tests {
          // arrange
          var firstName = "bo";
          var lastName = "peep";
-
          var tries = 10;
-         while(tries-- > 0) {
-            // act
+
+         // act
+         while (tries-- > 0) {
             var userName = Internet.UserName($"{firstName} {lastName}");
 
             // assert
             AllAssertions(userName);
             Assert.IsTrue(Regex.Match(userName, @"(bo(_|\.)peep|peep(_|\.)bo)").Success, $"userName was '{userName}'");
          }
+      }
+
+      [Test]
+      public void UserName_With_Min_Length() {
+         // arrange
+         const int minLength = 7;
+         var tries = 10;
+
+         // act
+         while (tries-- > 0) {
+            var userName = Internet.UserName(minLength);
+
+            // assert
+            Assert.GreaterOrEqual(userName.Length, minLength);
+         }
+      }
+
+      [Test]
+      public void UserName_With_Ridiculous_Value() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() =>Internet.UserName((int)Math.Pow(10, 6) + 1));
+
+         // assert
+         Assert.AreEqual("Must be equal to or less than 10^6.\r\nParameter name: minLength", ex.Message);
       }
 
       private static void AllAssertions(string candidate) {
