@@ -149,6 +149,48 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void SafeEmail_With_Default_Values() {
+         // arrange
+         var expected = new string[] { "@example.org", "@example.net", "@example.com" };
+
+         // act
+         var emailAddress = Internet.SafeEmail();
+
+         // assert
+         AllAssertions(emailAddress);
+         Assert.IsTrue(expected.Any(x => emailAddress.EndsWith(x)), $"{nameof(emailAddress)} is '{emailAddress}'");
+      }
+
+      [Test]
+      public void SafeEmail_With_Desired_Name() {
+         // arrange
+         var expected = new string[] { "@example.org", "@example.net", "@example.com" };
+         const string desiredFirstName = "Nancy";
+
+         // act
+         var emailAddress = Internet.SafeEmail(desiredFirstName);
+
+         // assert
+         AllAssertions(emailAddress);
+         Assert.IsTrue(emailAddress.StartsWith(desiredFirstName.ToLower()));
+         Assert.IsTrue(expected.Any(x => emailAddress.EndsWith(x)), $"{nameof(emailAddress)} is '{emailAddress}'");
+      }
+
+      [Test]
+      public void SafeEmail_With_Empty_String() {
+         // arrange
+         var expected = new string[] { "@example.org", "@example.net", "@example.com" };
+
+         // act
+         var emailAddress = Internet.SafeEmail(string.Empty);
+
+         // assert
+         AllAssertions(emailAddress);
+         Assert.IsTrue(Regex.Match(emailAddress, @".+.+@.+\.\w+").Success, $"{nameof(emailAddress)} is '{emailAddress}'");
+         Assert.IsTrue(expected.Any(x => emailAddress.EndsWith(x)), $"{nameof(emailAddress)} is '{emailAddress}'");
+      }
+
+      [Test]
       public void UserName_With_Default_Values() {
          // arrange
 

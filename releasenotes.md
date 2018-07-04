@@ -3,6 +3,7 @@
 ## Version 0.19.0
 ### New Features
 - Internet.FreeEmail(string name = null)
+- Internet.SafeEmail(string name = null)
 
 ## Version 0.18.0
 ### New Features

@@ -68,6 +68,20 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generates an email address that is safe, i.e. @example.org / @example.com / @example.net, optionally with
+      /// a specific name. Examples: SafeEmail() => "christelle@example.org", SafeEmail("Nancy") => "nancy@example.net"
+      /// </summary>
+      /// <param name="name">Name to use for the email address. Default i null in which case a random first name will be used.</param>
+      /// <returns></returns>
+      public static string SafeEmail(string name = null) {
+         if (string.IsNullOrEmpty(name)) {
+            name = null;
+         }
+         var topLevelDomains = new string[] { "org", "com", "net" };
+         return string.Join("@", UserName(name), $"example.{topLevelDomains.Sample()}");
+      }
+
+      /// <summary>
       /// Generates a user name. Examples: "alexie", "johnson-nancy"
       /// </summary>
       /// <param name="name">Name to be used instead of a random one.</param>

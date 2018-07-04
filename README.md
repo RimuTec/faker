@@ -78,6 +78,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - DomainWord()
 - Email(string name = null, string separators = null)
 - FreeEmail(string name = null)
+- SafeEmail(string name = null)
 - UserName(int minLength, int maxLength = int.MaxValue)
 - UserName(string name = null, string separators = null)
 
