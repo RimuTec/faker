@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace RimuTec.Faker.Tests {
@@ -106,6 +107,45 @@ namespace RimuTec.Faker.Tests {
 
          // assert
          Assert.IsTrue(Regex.Match(emailAddress, @".+\+.+@.+\.\w+").Success);
+      }
+
+      [Test]
+      public void FreeEmail_With_Default_Values() {
+         // arrange
+
+         // act
+         var emailAddress = Internet.FreeEmail();
+
+         // assert
+         AllAssertions(emailAddress);
+         Assert.IsTrue(Internet._freeEmail.Any(x => emailAddress.EndsWith(x)));
+      }
+
+      [Test]
+      public void FreeEmail_With_Desired_Name() {
+         // arrange
+         const string desiredFirstName = "Nancy";
+
+         // act
+         var emailAddress = Internet.FreeEmail(desiredFirstName);
+
+         // assert
+         AllAssertions(emailAddress);
+         Assert.IsTrue(emailAddress.StartsWith(desiredFirstName.ToLower()));
+         Assert.IsTrue(Internet._freeEmail.Any(x => emailAddress.EndsWith(x)));
+      }
+
+      [Test]
+      public void FreeEmail_With_Empty_String() {
+         // arrange
+
+         // act
+         var emailAddress = Internet.FreeEmail(string.Empty);
+
+         // assert
+         AllAssertions(emailAddress);
+         Assert.IsTrue(Regex.Match(emailAddress, @".+.+@.+\.\w+").Success, $"{nameof(emailAddress)} is '{emailAddress}'");
+         Assert.IsTrue(Internet._freeEmail.Any(x => emailAddress.EndsWith(x)));
       }
 
       [Test]

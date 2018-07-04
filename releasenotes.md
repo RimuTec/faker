@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.19.0
+### New Features
+- Internet.FreeEmail(string name = null)
+
 ## Version 0.18.0
 ### New Features
 - Internet.Email(string name = null, string separators = null)

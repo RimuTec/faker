@@ -17,6 +17,7 @@ namespace RimuTec.Faker {
          const string yamlFileName = "RimuTec.Faker.locales.en.internet.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _internet = locale.en.faker.internet;
+         _freeEmail = _internet.FreeEmail;
       }
 
       /// <summary>
@@ -44,11 +45,26 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates an email address. Example: "eliza@mann.net"
+      /// Generates an email address, optionally with a specific and/or separator. Example: "eliza@mann.net"
       /// </summary>
+      /// <param name="name">Name to use for the email address. Default value is null in which case a random name will be used.</param>
+      /// <param name="separators">String with separators. Default is "._". Separator is used between first and last name.</param>
       /// <returns></returns>
       public static string Email(string name = null, string separators = null) {
          return string.Join("@", UserName(name, separators), DomainName());
+      }
+
+      /// <summary>
+      /// Generates an email address at a free email provider, optionally with a specific name. 
+      /// Examples: FreeEmail() => "freddy@gmail.com", FreeEmail("Nancy") => "nancy@yahoo.com"
+      /// </summary>
+      /// <param name="name">Name to use. Default is null in which case a random name will be used.</param>
+      /// <returns></returns>
+      public static string FreeEmail(string name = null) {
+         if (string.IsNullOrEmpty(name)) {
+            name = null;
+         }
+         return string.Join("@", UserName(name), _internet.FreeEmail.Sample());
       }
 
       /// <summary>
@@ -119,6 +135,8 @@ namespace RimuTec.Faker {
          } while (result.Length > maxLength && tries < 7);
          return result.Substring(0, Math.Min(maxLength, result.Length));
       }
+
+      internal static string[] _freeEmail;
 
       private static internet _internet;
 
