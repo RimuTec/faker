@@ -68,6 +68,7 @@ namespace RimuTec.Faker {
          var ssn = @"[0-8]\d{2}-\d{2}-\d{4}".Regexify();
          //We could still have all 0s in one segment or another
          if( _invalid_SSN.Any(r => Regex.Matches(ssn, r).Count > 0)) {
+            _SSN_Valid_recursive = true;
             ssn = SSN_Valid();
          }
          return ssn;
@@ -81,6 +82,7 @@ namespace RimuTec.Faker {
          @"9\d{2}-\d{2}-\d{4}"
       };
 
+      internal static bool _SSN_Valid_recursive = false;
       private static readonly string _checks = "TRWAGMYFPDXBNJZSQVHLCKE";
 
       private static id_number _idNumber;

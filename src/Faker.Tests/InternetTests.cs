@@ -149,6 +149,98 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void Password_With_Default_Values() {
+         // arrange
+
+         // act
+         var password = Internet.Password();
+
+         // assert
+         Assert.GreaterOrEqual(password.Length, 8);
+         Assert.LessOrEqual(password.Length, 15);
+         Assert.Greater(RegexMatchesCount(password, @"[A-Z]"), 0);
+         Assert.Greater(RegexMatchesCount(password, @"[a-z]"), 0);
+         Assert.Greater(RegexMatchesCount(password, @"[!@#$%^&*]"), 0, $"{nameof(password)} is '{password}'");
+      }
+
+      [Test]
+      public void Password_With_Invalid_MinLength() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Password(minLength: 0));
+
+         // assert
+         Assert.AreEqual("Must be greater than zero.\r\nParameter name: minLength", ex.Message);
+      }
+
+      [Test]
+      public void Password_With_Invalid_MaxLength() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Password(maxLength: 0));
+
+         // assert
+         Assert.AreEqual("Must be greater than zero.\r\nParameter name: maxLength", ex.Message);
+      }
+
+      [Test]
+      public void Password_With_MaxLength_Less_Than_MinLength() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Password(minLength: 5, maxLength: 4));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than minLength.\r\nParameter name: maxLength", ex.Message);
+      }
+
+      [Test]
+      public void Password_With_UpperCase_Letters() {
+         // arrange
+
+         // act
+         var password = Internet.Password(mixCase: true);
+
+         // assert
+         Assert.Greater(RegexMatchesCount(password, @"[A-Z]"), 0);
+      }
+
+      [Test]
+      public void Password_Without_UpperCase_Letters() {
+         // arrange
+
+         // act
+         var password = Internet.Password(mixCase: false);
+
+         // assert
+         Assert.AreEqual(0, RegexMatchesCount(password, @"[A-Z]"));
+      }
+
+      [Test]
+      public void Password_With_SpecialChars() {
+         // arrange
+
+         // act
+         var password = Internet.Password(specialChars: true);
+
+         // assert
+         Assert.Greater(RegexMatchesCount(password, @"[!@#$%^&*]"), 0);
+      }
+
+      [Test]
+      public void Password_Without_SpecialChars() {
+         // arrange
+
+         // act
+         var password = Internet.Password(specialChars: false);
+
+         // assert
+         Assert.AreEqual(0, RegexMatchesCount(password, @"[!@#$%^&*]"));
+      }
+
+      [Test]
       public void SafeEmail_With_Default_Values() {
          // arrange
          var expected = new string[] { "@example.org", "@example.net", "@example.com" };

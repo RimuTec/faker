@@ -28,11 +28,15 @@ namespace RimuTec.Faker.Tests {
 
          // arrange
          var tries = 500;
-         
+         IDNumber._SSN_Valid_recursive = false;
+
          // act
-         while(tries-- > 0) {
+         var recursive = false;
+         while(tries-- > 0 && !recursive) {
             var validSSN = IDNumber.Valid();
+            recursive = IDNumber._SSN_Valid_recursive;
          }
+         Assert.IsTrue(recursive);
       }
 
       [Test]

@@ -68,6 +68,48 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generates a password. Example: "*%NkOnJsH4"
+      /// </summary>
+      /// <param name="minLength">Minimum length of the password. Default value is 8.</param>
+      /// <param name="maxLength">Maximum length of the password. Default value is 15.</param>
+      /// <param name="mixCase">Flag whether to use upper case characters or not. Default value is true (i.e. use upper case).</param>
+      /// <param name="specialChars">Flag whether to use special characters (!@#$%^&*). Default value is true (i.e. use special characters).</param>
+      /// <returns></returns>
+      public static string Password(int minLength = 8, int maxLength = 15, bool mixCase = true, bool specialChars = true) {
+         if(minLength < 1) {
+            throw new ArgumentOutOfRangeException(nameof(minLength), "Must be greater than zero.");
+         }
+         if (maxLength < 1) {
+            throw new ArgumentOutOfRangeException(nameof(maxLength), "Must be greater than zero.");
+         }
+         if(maxLength < minLength) {
+            throw new ArgumentOutOfRangeException(nameof(maxLength), $"Must be equal to or greater than {nameof(minLength)}.");
+         }
+         var temp = Lorem.Characters(minLength);
+         var diffLength = maxLength - minLength;
+         if(diffLength > 0) {
+            var diffRand = RandomNumber.Next(diffLength + 1);
+            temp += Lorem.Characters(diffRand);
+         }
+         if(mixCase) {
+            var sb = new StringBuilder(temp);
+            for(var i = 0; i < temp.Length; i++) {
+               if(i%2 == 0) {
+                  sb[i] = char.ToUpper(sb[i]);
+               }
+            }
+            temp = sb.ToString();
+         }
+         if(specialChars) {
+            var chars = "!@#$%^&*";
+            var sb = new StringBuilder(temp);
+            RandomNumber.Next(1, minLength).Do(i => sb[i] = chars.Sample()[0]);
+            temp = sb.ToString();
+         }
+         return temp;
+      }
+
+      /// <summary>
       /// Generates an email address that is safe, i.e. @example.org / @example.com / @example.net, optionally with
       /// a specific name. Examples: SafeEmail() => "christelle@example.org", SafeEmail("Nancy") => "nancy@example.net"
       /// </summary>

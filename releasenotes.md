@@ -3,6 +3,7 @@
 ## Version 0.19.0
 ### New Features
 - Internet.FreeEmail(string name = null)
+- Internet.Password(int minLength = 8, int maxLength = 15, bool mixCase = true, bool specialChars = true)
 - Internet.SafeEmail(string name = null)
 
 ## Version 0.18.0
