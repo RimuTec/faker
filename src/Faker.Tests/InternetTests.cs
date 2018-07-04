@@ -153,7 +153,7 @@ namespace RimuTec.Faker.Tests {
          // arrange
 
          // act
-         var ipv4address = Internet.IPV4Address();
+         var ipv4address = Internet.IPv4Address();
 
          // assert
          var parts = ipv4address.Split('.');
@@ -162,6 +162,29 @@ namespace RimuTec.Faker.Tests {
             Assert.Greater(value, 1);
             Assert.Less(value, 255);
          }
+      }
+
+      [Test]
+      public void PrivateIPV4Address_HappyDays() {
+         // arrange
+
+         // act
+         var privateIpAddress = Internet.PrivateIPv4Address();
+
+         // assert
+         Assert.IsTrue(Internet.IsInPrivateNet(privateIpAddress), $"{nameof(privateIpAddress)} is '{privateIpAddress}'");
+      }
+
+      [Test]
+      public void PublicIPV4Address_HappyDays() {
+         // arrange
+
+         // act
+         var publicIpAddress = Internet.PublicIPv4Address();
+
+         // assert
+         Assert.IsFalse(Internet.IsInPrivateNet(publicIpAddress), $"{nameof(publicIpAddress)} is '{publicIpAddress}'");
+         Assert.IsFalse(Internet.IsInReservedNet(publicIpAddress), $"{nameof(publicIpAddress)} is '{publicIpAddress}'");
       }
 
       [Test]

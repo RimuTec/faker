@@ -70,9 +70,12 @@ namespace RimuTec.Faker {
       /// <summary>
       /// Generates an IP V4 address. Example: "24.29.18.175"
       /// </summary>
+      /// <remarks>The method may return IP V4 addresses that may be reserved, private or public. If you need 
+      /// a private address outside of any reserved range use <see cref="PrivateIPv4Address"/>. If you 
+      /// need a public address outside of any reserved range use <see cref="PublicIPv4Address"/>.</remarks>
       /// <returns></returns>
-      public static string IPV4Address() {
-         var ary = IntHelper.Repeat(2, 254, x => x).ToArray();
+      public static string IPv4Address() {
+         var ary = IntHelper.Repeat(0, 255, x => x).ToArray();
          return $"{ary.Sample()}.{ary.Sample()}.{ary.Sample()}.{ary.Sample()}";
       }
 
@@ -83,6 +86,7 @@ namespace RimuTec.Faker {
       /// <param name="maxLength">Maximum length of the password. Default value is 15.</param>
       /// <param name="mixCase">Flag whether to use upper case characters or not. Default value is true (i.e. use upper case).</param>
       /// <param name="specialChars">Flag whether to use special characters (!@#$%^&*). Default value is true (i.e. use special characters).</param>
+      /// <exception cref="ArgumentOutOfRangeException">If minLength or maxLength are outside of the valid ranges.</exception>
       /// <returns></returns>
       public static string Password(int minLength = 8, int maxLength = 15, bool mixCase = true, bool specialChars = true) {
          if(minLength < 1) {
@@ -112,10 +116,35 @@ namespace RimuTec.Faker {
          if(specialChars) {
             var chars = "!@#$%^&*";
             var sb = new StringBuilder(temp);
-            RandomNumber.Next(1, minLength).Do(i => sb[i] = chars.Sample()[0]);
+            RandomNumber.Next(1, minLength).TimesDo(i => sb[i] = chars.Sample()[0]);
             temp = sb.ToString();
          }
          return temp;
+      }
+
+      /// <summary>
+      /// Generates a private IP V4 address. Example: "10.0.0.1"
+      /// </summary>
+      /// <returns></returns>
+      public static string PrivateIPv4Address() {
+         string addr = null;
+         do {
+            addr = IPv4Address();
+         } while (!IsInPrivateNet(addr));
+         return addr;
+      }
+
+      /// <summary>
+      /// Generates a public IP V4 address, guaranteed not to be in the IP range from <see cref="PrivateIPv4Address"/>. 
+      /// Example: "24.29.18.175"
+      /// </summary>
+      /// <returns></returns>
+      public static string PublicIPv4Address() {
+         string addr = null;
+         do {
+            addr = IPv4Address();
+         } while (IsInPrivateNet(addr) || IsInReservedNet(addr));
+         return addr;
       }
 
       /// <summary>
@@ -188,6 +217,7 @@ namespace RimuTec.Faker {
       /// <param name="minLength">Minimum length of the user name.</param>
       /// <param name="maxLength">Maximum length of the user name.</param>
       /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">If minLength or maxLength are outside of accepted ranges.</exception>
       public static string UserName(int minLength, int maxLength = int.MaxValue) {
          if(maxLength < minLength) {
             throw new ArgumentOutOfRangeException($"{nameof(maxLength)} must be equal to or greater than {nameof(minLength)}.", (Exception) null);
@@ -201,7 +231,36 @@ namespace RimuTec.Faker {
          return result.Substring(0, Math.Min(maxLength, result.Length));
       }
 
+      internal static bool IsInPrivateNet(string addr) {
+         return _privateNetRegex.Any(net => Regex.Match(addr, net, RegexOptions.Compiled).Success);
+      }
+
+      internal static bool IsInReservedNet(string addr) {
+         return _reserved_nets_regex.Any(net => Regex.Match(addr, net, RegexOptions.Compiled).Success);
+      }
+
       internal static string[] _freeEmail;
+
+      private static string[] _privateNetRegex = {
+          @"^10\.",                                        // 10.0.0.0    - 10.255.255.255
+          @"^100\.(6[4-9]|[7-9]\d|1[0-1]\d|12[0-7])\.",   // 100.64.0.0  - 100.127.255.255
+          @"^127\.",                                      // 127.0.0.0   - 127.255.255.255
+          @"^169\.254\.",                                 // 169.254.0.0 - 169.254.255.255
+          @"^172\.(1[6-9]|2\d|3[0-1])\.",                 // 172.16.0.0  - 172.31.255.255
+          @"^192\.0\.0\.",                                // 192.0.0.0   - 192.0.0.255
+          @"^192\.168\.",                                 // 192.168.0.0 - 192.168.255.255
+          @"^198\.(1[8-9])\."                             // 198.18.0.0  - 198.19.255.255
+      };
+
+      private static string[] _reserved_nets_regex = {
+          @"^0\.",                 // 0.0.0.0      - 0.255.255.255
+          @"^192\.0\.2\.",         // 192.0.2.0    - 192.0.2.255
+          @"^192\.88\.99\.",       // 192.88.99.0  - 192.88.99.255
+          @"^198\.51\.100\.",      // 198.51.100.0 - 198.51.100.255
+          @"^203\.0\.113\.",       // 203.0.113.0  - 203.0.113.255
+          @"^(22[4-9]|23\d)\.",    // 224.0.0.0    - 239.255.255.255
+          @"^(24\d|25[0-5])\."     // 240.0.0.0    - 255.255.255.254  and  255.255.255.255
+      };
 
       private static internet _internet;
 

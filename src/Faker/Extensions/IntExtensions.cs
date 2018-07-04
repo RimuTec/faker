@@ -9,7 +9,7 @@ namespace RimuTec.Faker.Extensions {
          }
       }
 
-      public static void Do(this int count, Action<int> action) {
+      public static void TimesDo(this int count, Action<int> action) {
          for(var i = 0; i < count; i++) {
             action.Invoke(i);
          }

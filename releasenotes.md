@@ -2,7 +2,9 @@
 
 ## Version 0.20.0
 ### New Features
-- Internet.IPV4Address()
+- Internet.IPv4Address()
+- Internet.PrivateIPv4Address()
+- Internet.PublicIPv4Address()
 
 ## Version 0.19.0
 ### New Features
