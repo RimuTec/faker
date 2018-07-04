@@ -149,6 +149,22 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void IPV4Address_HappyDays() {
+         // arrange
+
+         // act
+         var ipv4address = Internet.IPV4Address();
+
+         // assert
+         var parts = ipv4address.Split('.');
+         foreach(var part in parts) {
+            var value = int.Parse(part);
+            Assert.Greater(value, 1);
+            Assert.Less(value, 255);
+         }
+      }
+
+      [Test]
       public void Password_With_Default_Values() {
          // arrange
 

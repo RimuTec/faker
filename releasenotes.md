@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.20.0
+### New Features
+- Internet.IPV4Address()
+
 ## Version 0.19.0
 ### New Features
 - Internet.FreeEmail(string name = null)

@@ -68,6 +68,15 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generates an IP V4 address. Example: "24.29.18.175"
+      /// </summary>
+      /// <returns></returns>
+      public static string IPV4Address() {
+         var ary = IntHelper.Repeat(2, 254, x => x).ToArray();
+         return $"{ary.Sample()}.{ary.Sample()}.{ary.Sample()}.{ary.Sample()}";
+      }
+
+      /// <summary>
       /// Generates a password. Example: "*%NkOnJsH4"
       /// </summary>
       /// <param name="minLength">Minimum length of the password. Default value is 8.</param>
