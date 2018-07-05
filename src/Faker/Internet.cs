@@ -68,7 +68,7 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates an IP v4 address. Example: "24.29.18.175"
+      /// Generates an IP v4 address without CIDR prefix. Example: "24.29.18.175"
       /// </summary>
       /// <remarks>The method may return IP V4 addresses that may be reserved, private or public. If you need 
       /// a private address outside of any reserved range use <see cref="PrivateIPv4Address"/>. If you 
@@ -80,21 +80,34 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Returns an IP v4 address including mask. Example: "24.29.18.175/21"
+      /// Returns an IP v4 address including CIDR prefix. Example: "24.29.18.175/21"
       /// </summary>
+      /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
       /// <returns></returns>
       public static string IPv4CIDR() {
+         // For details about CIDR see https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
          return $"{IPv4Address()}/{RandomNumber.Next(1, 31)}";
       }
 
       /// <summary>
-      /// Returns an IP v6 address. Example: "ac5f:d696:3807:1d72:2eb5:4e81:7d2b:e1df"
+      /// Returns an IP v6 address without CIDR prefix. Example: "ac5f:d696:3807:1d72:2eb5:4e81:7d2b:e1df"
       /// </summary>
+      /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
       /// <returns></returns>
       public static string IPv6Address() {
          var list = new List<string>();
          8.TimesDo(x => list.Add($"{RandomNumber.Next(65536):x4}"));
          return string.Join(":", list);
+      }
+
+      /// <summary>
+      /// Returns an IP v6 address including CIDR prefix. Example: "ac5f:d696:3807:1d72:2eb5:4e81:7d2b:e1df/78"
+      /// </summary>
+      /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
+      /// <returns></returns>
+      public static string IPv6CIDR() {
+         // For details about CIDR see https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
+         return $"{IPv6Address()}/{RandomNumber.Next(1,127)}";
       }
 
       /// <summary>
@@ -141,8 +154,9 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates a private IP v4 address. Example: "10.0.0.1"
+      /// Generates a private IP v4 address. The result will not include the CIDR prefix. Example: "10.0.0.1"
       /// </summary>
+      /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
       /// <returns></returns>
       public static string PrivateIPv4Address() {
          string addr = null;
@@ -153,9 +167,11 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates a public IP v4 address, guaranteed not to be in the IP range from <see cref="PrivateIPv4Address"/>. 
+      /// Generates a public IP v4 address, guaranteed not to be in the IP range from <see cref="PrivateIPv4Address"/>.
+      /// The result will not include the CIDR prefix.
       /// Example: "24.29.18.175"
       /// </summary>
+      /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
       /// <returns></returns>
       public static string PublicIPv4Address() {
          string addr = null;

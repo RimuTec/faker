@@ -3,7 +3,8 @@
 ## Version 0.21.0
 ### New Feataures
 - Internet.IPv4CIDR()
-- Internet.IPv6Address_HappyDays()
+- Internet.IPv6Address()
+- Internet.IPv6CIDR()
 
 ## Version 0.20.0
 ### New Features

@@ -189,6 +189,18 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void IPv6CIDR_HappyDays() {
+         // arrange
+
+         // act
+         var ipV6withMask = Internet.IPv6CIDR();
+
+         // assert
+         Assert.IsTrue(Regex.Match(ipV6withMask, @"[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}/[0-9]{1,3}").Success,
+            $"{nameof(ipV6withMask)} is '{ipV6withMask}'");
+      }
+
+      [Test]
       public void PrivateIPv4Address_HappyDays() {
          // arrange
 
