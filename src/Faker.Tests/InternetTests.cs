@@ -149,7 +149,7 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void IPV4Address_HappyDays() {
+      public void IPv4Address_HappyDays() {
          // arrange
 
          // act
@@ -165,7 +165,31 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void PrivateIPV4Address_HappyDays() {
+      public void IPv4CIDR_HappyDays() {
+         // arrange
+
+         // act
+         var ipV4cidr = Internet.IPv4CIDR();
+
+         // assert
+         Assert.AreEqual(1, RegexMatchesCount(ipV4cidr, @"/"));
+         Assert.AreEqual(3, RegexMatchesCount(ipV4cidr, @"\."));
+      }
+
+      [Test]
+      public void IPv6Address_HappyDays() {
+         // arrange
+
+         // act
+         var ipV6Address = Internet.IPv6Address();
+
+         // assert
+         Assert.IsTrue(Regex.Match(ipV6Address, @"[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}").Success, 
+            $"{nameof(ipV6Address)} is '{ipV6Address}'");
+      }
+
+      [Test]
+      public void PrivateIPv4Address_HappyDays() {
          // arrange
 
          // act
@@ -176,7 +200,7 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void PublicIPV4Address_HappyDays() {
+      public void PublicIPv4Address_HappyDays() {
          // arrange
 
          // act

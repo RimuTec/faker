@@ -7,6 +7,10 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 
 The library including its source code are licensed under the MIT license.
 
+# Installation
+
+RimuTec.Faker is available as a NuGet package. To install follow the instructions at [https://www.nuget.org/packages/RimuTec.Faker/](https://www.nuget.org/packages/RimuTec.Faker/).
+
 | Metric      | Status      |
 | ----- | ----- |
 | Nuget             | [![NuGet Badge](https://buildstats.info/nuget/RimuTec.Faker)](https://www.nuget.org/packages/RimuTec.Faker/) |
@@ -41,29 +45,26 @@ This class is on par with Ruby Faker for default locale ("en").
 ## Company
 This class is on par with Ruby Faker for default locale ("en").
 
-Basic methods:
+- AustralianBusinessNumber()
 - Bs()
 - Buzzword()
 - CatchPhrase()
+- CzechOrganizationNumber()
 - DunsNumber()
 - Ein()
+- FrenchSirenNumber()
+- FrenchSiretNumber()
 - Industry()
 - Logo()
 - Name()
-- Profession()
-- Suffix()
-- Type()
-
-Country specific methods:
-- AustralianBusinessNumber()
-- CzechOrganizationNumber()
-- FrenchSirenNumber()
-- FrenchSiretNumber()
 - NorwegianOrganizationNumber()
 - PolishRegisterOfNationalEconomy(int length = 9)
 - PolishTaxpayerIdentificationNumber()
+- Profession()
 - SpanishOrganizationNumber()
+- Suffix()
 - SwedishOrganizationNumber()
+- Type()
 
 ## IDNumber
 This class is on par with Ruby Faker for default locale ("en").
@@ -79,6 +80,8 @@ This class is on par with Ruby Faker for default locale ("en").
 - Email(string name = null, string separators = null)
 - FreeEmail(string name = null)
 - IPv4Address()
+- IPv4CIDR()
+- IPv6Address_HappyDays()
 - Password(int minLength = 8, int maxLength = 15, bool mixCase = true, bool specialChars = true)
 - PrivateIPv4Address()
 - PublicIPv4Address()

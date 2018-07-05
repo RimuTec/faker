@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 0.21.0
+### New Feataures
+- Internet.IPv4CIDR()
+- Internet.IPv6Address_HappyDays()
+
 ## Version 0.20.0
 ### New Features
 - Internet.IPv4Address()
