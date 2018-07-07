@@ -395,14 +395,127 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void UserName_With_Default_Values() {
+      public void Url_With_Default_Values() {
          // arrange
+         var tries = 100;
 
          // act
-         var userName = Internet.UserName();
+         while(tries-- > 0) {
+            var url = Internet.Url();
+
+            // assert
+            Assert.AreEqual(1, RegexMatchesCount(url, @"[a-z]{3,}://([a-z_]{1,}.){1,}[a-z_]{1,}/([a-z_]{0,}.)[a-z_]{1,}"), $"{nameof(url)} is '{url}'");
+         }
+      }
+
+      [Test]
+      public void Url_With_Host() {
+         // arrange
+         var desiredHost = "abdcefg.org";
+
+         // act
+         var url = Internet.Url(desiredHost);
 
          // assert
-         AllAssertions(userName);
+         Assert.IsTrue(url.Contains($"://{desiredHost}/"));
+      }
+
+      [Test]
+      public void Url_With_Path() {
+         // arrange
+         var desiredPath = "/Home/Index.html";
+
+         // act
+         var url = Internet.Url(path: desiredPath);
+
+         // assert
+         Assert.IsTrue(url.EndsWith(desiredPath));
+      }
+
+      [Test]
+      public void Url_With_Scheme() {
+         // arrange
+         var desiredScheme = "ftp";
+
+         // act
+         var url = Internet.Url(scheme: desiredScheme);
+
+         // assert
+         Assert.IsTrue(url.StartsWith($"{desiredScheme}://"));
+      }
+
+      [Test]
+      public void Url_With_Empty_Scheme() {
+         // arrange
+         var desiredScheme = string.Empty;
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Url(scheme: desiredScheme));
+
+         // assert
+         Assert.AreEqual("Must not be empty string or white spaces only.\r\nParameter name: scheme", ex.Message);
+      }
+
+      [Test]
+      public void Url_With_WhiteSpace_Scheme() {
+         // arrange
+         var desiredScheme = " ";
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Url(scheme: desiredScheme));
+
+         // assert
+         Assert.AreEqual("Must not be empty string or white spaces only.\r\nParameter name: scheme", ex.Message);
+      }
+
+      [Test]
+      public void Url_With_Empty_Host() {
+         // arrange
+         var desiredHost = string.Empty;
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() =>Internet.Url(host: desiredHost));
+
+         // assert
+         Assert.AreEqual("Must not be empty string or white spaces only.\r\nParameter name: host", ex.Message);
+      }
+
+      [Test]
+      public void Url_With_WhiteSpace_Host() {
+         // arrange
+         var desiredHost = " ";
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Url(host: desiredHost));
+
+         // assert
+         Assert.AreEqual("Must not be empty string or white spaces only.\r\nParameter name: host", ex.Message);
+      }
+
+      [Test]
+      public void Url_With_Empty_Path() {
+         // arrange
+         var desiredPath = string.Empty;
+
+         // act
+         var url = Internet.Url(scheme: "ftp", host: "abcdef.org", path: desiredPath);
+
+         // assert
+         Assert.AreEqual("ftp://abcdef.org", url);
+      }
+
+      [Test]
+      public void UserName_With_Default_Values() {
+         // arrange
+         var tries = 100;
+
+         // act
+         while(tries-- > 0) {
+            var userName = Internet.UserName();
+
+            // assert
+            AllAssertions(userName);
+         }
       }
 
       [Test]

@@ -213,6 +213,28 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generates a URL with optional scheme, host and path. Example: "http://thiel.com/chauncey_simonis"
+      /// </summary>
+      /// <param name="host">Optional host name to use. Example: "example.com"</param>
+      /// <param name="path">Optional path to use: Example: "/clotilde.swift".</param>
+      /// <param name="scheme">Optional scheme. Example: "https". Default is "http".</param>
+      /// <returns></returns>
+      /// <remarks>The implementation does not check if any of the values make sense, e.g. if the given scheme
+      /// even exists.</remarks>
+      /// <exception cref="ArgumentOutOfRangeException">If scheme or host is an empty string.</exception>
+      public static string Url(string host = null, string path = null, string scheme = "http") {
+         host = host ?? DomainName();
+         path = path ?? $"/{UserName()}";
+         if(string.IsNullOrWhiteSpace(scheme)) {
+            throw new ArgumentOutOfRangeException(nameof(scheme), "Must not be empty string or white spaces only.");
+         }
+         if(string.IsNullOrWhiteSpace(host)) {
+            throw new ArgumentOutOfRangeException(nameof(host), "Must not be empty string or white spaces only.");
+         }
+         return $"{scheme}://{host}{path}";
+      }
+
+      /// <summary>
       /// Generates a user name. Examples: "alexie", "johnson-nancy"
       /// </summary>
       /// <param name="name">Name to be used instead of a random one.</param>

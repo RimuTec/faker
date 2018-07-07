@@ -3,6 +3,7 @@
 ## Version 0.22.0
 ### New Features
 - Internet.MacAddress(string prefix = "")
+- Internet.Url(string host = null, string path = null, string scheme = "http")
 
 ## Version 0.21.0
 ### New Features
