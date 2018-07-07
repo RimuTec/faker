@@ -1,7 +1,11 @@
 # Release Notes
 
+## Version 0.22.0
+### New Features
+- Internet.MacAddress(string prefix = "")
+
 ## Version 0.21.0
-### New Feataures
+### New Features
 - Internet.IPv4CIDR()
 - Internet.IPv6Address()
 - Internet.IPv6CIDR()

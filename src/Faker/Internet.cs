@@ -2,6 +2,7 @@
 using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -111,12 +112,28 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generates a MAC address, optionally with a given prefix. Example: "e6:0d:00:11:ed:4f"
+      /// </summary>
+      /// <param name="prefix">Desired prefix, e.g. "55:af:33". Default value is "".</param>   
+      /// <returns></returns>
+      /// <exception cref="ArgumentNullException">Value of 'prefix' was null (nothing in VB.NET).</exception>
+      public static string MacAddress(string prefix = "") {
+         if(prefix == null) {
+            throw new ArgumentNullException(nameof(prefix), "Must not be null.");
+         }
+         string[] parts = Regex.Split(prefix, @":");
+         var prefixDigits = parts.Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => int.Parse(x, NumberStyles.HexNumber));
+         var addressDigits = (6 - prefixDigits.Count()).Times(x => RandomNumber.Next(256));
+         return string.Join(":", prefixDigits.Concat(addressDigits).Select(x => $"{x:x2}"));
+      }
+
+      /// <summary>
       /// Generates a password. Example: "*%NkOnJsH4"
       /// </summary>
       /// <param name="minLength">Minimum length of the password. Default value is 8.</param>
       /// <param name="maxLength">Maximum length of the password. Default value is 15.</param>
       /// <param name="mixCase">Flag whether to use upper case characters or not. Default value is true (i.e. use upper case).</param>
-      /// <param name="specialChars">Flag whether to use special characters (!@#$%^&*). Default value is true (i.e. use special characters).</param>
+      /// <param name="specialChars">Flag whether to use special characters (!@#$%^&amp;&#42;). Default value is true (i.e. use special characters).</param>
       /// <exception cref="ArgumentOutOfRangeException">If minLength or maxLength are outside of the valid ranges.</exception>
       /// <returns></returns>
       public static string Password(int minLength = 8, int maxLength = 15, bool mixCase = true, bool specialChars = true) {

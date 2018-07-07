@@ -201,6 +201,43 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void MacAddress_DefaultValues() {
+         // arrange
+
+         // act
+         var macAddress = Internet.MacAddress();
+
+         // assert
+         Assert.AreEqual(5, RegexMatchesCount(macAddress, $":"));
+         Assert.AreEqual(12, RegexMatchesCount(macAddress, $"[0-9a-f]"));
+      }
+
+      [Test]
+      public void MacAddress_WithPrefix() {
+         // arrange
+         const string prefix = "55:44:33";
+
+         // act
+         var macAddress = Internet.MacAddress(prefix);
+
+         // assert
+         Assert.IsTrue(macAddress.StartsWith(prefix + ":"), $"{nameof(macAddress)} is '{macAddress}'");
+         Assert.AreEqual(5, RegexMatchesCount(macAddress, $":"));
+         Assert.AreEqual(12, RegexMatchesCount(macAddress, $"[0-9a-f]"));
+      }
+
+      [Test]
+      public void MacAddress_Null_Prefix() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentNullException>(() => Internet.MacAddress(null));
+
+         // assert
+         Assert.AreEqual("Must not be null.\r\nParameter name: prefix", ex.Message);
+      }
+
+      [Test]
       public void PrivateIPv4Address_HappyDays() {
          // arrange
 
@@ -276,10 +313,10 @@ namespace RimuTec.Faker.Tests {
          // arrange
 
          // act
-         var password = Internet.Password(mixCase: true);
+         var password = Internet.Password(mixCase: true, specialChars: false);
 
          // assert
-         Assert.Greater(RegexMatchesCount(password, @"[A-Z]"), 0);
+         Assert.Greater(RegexMatchesCount(password, @"[A-Z]"), 0, $"{nameof(password)} is '{password}'");
       }
 
       [Test]
@@ -287,7 +324,7 @@ namespace RimuTec.Faker.Tests {
          // arrange
 
          // act
-         var password = Internet.Password(mixCase: false);
+         var password = Internet.Password(mixCase: false, specialChars: false);
 
          // assert
          Assert.AreEqual(0, RegexMatchesCount(password, @"[A-Z]"));
