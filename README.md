@@ -88,6 +88,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - PrivateIPv4Address()
 - PublicIPv4Address()
 - SafeEmail(string name = null)
+- Slug(string words = null, string glue = null)
 - Url(string host = null, string path = null, string scheme = "http")
 - UserName(int minLength, int maxLength = int.MaxValue)
 - UserName(string name = null, string separators = null)

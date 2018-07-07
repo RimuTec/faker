@@ -395,6 +395,48 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void Slug_With_Default_Values() {
+         // arrange
+
+         // act
+         var slug = Internet.Slug();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(slug));
+         Assert.AreEqual(0, RegexMatchesCount(slug, @"[A-Z]"));
+         Assert.AreEqual(0, RegexMatchesCount(slug, @"\s"));
+         Assert.AreEqual(1, RegexMatchesCount(slug, @"[_.-]"));
+      }
+
+      [Test]
+      public void Slug_With_Words() {
+         // arrange
+         var desiredWords = "the answer is fourty two";
+
+         // act
+         var slug = Internet.Slug(words: desiredWords);
+
+         // assert
+         var words = desiredWords.Split(' ');
+         Assert.AreEqual(5, words.Count(x => slug.Contains(x)));
+         Assert.AreEqual(4, RegexMatchesCount(slug, @"[_.-]"));
+      }
+
+      [Test]
+      public void Slug_With_Glue() {
+         // arrange
+         var desiredGlue = "+";
+
+         // act
+         var slug = Internet.Slug(glue: desiredGlue);
+
+         // assert
+         var words = slug.Split(new string[] { desiredGlue}, StringSplitOptions.None);
+         Assert.AreEqual(2, words.Count());
+         Assert.AreEqual(1, RegexMatchesCount(slug, @"\+"));
+      }
+
+      [Test]
       public void Url_With_Default_Values() {
          // arrange
          var tries = 100;

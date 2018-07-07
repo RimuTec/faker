@@ -213,6 +213,18 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Returns a slug, optionally from specific words or with a specific glue. Example: "pariatur_laudantium"
+      /// </summary>
+      /// <param name="words">String with words to use for the slug, separated by spaces. Default is 2 Lorem words.</param>
+      /// <param name="glue">Character to glue words together. Default is one of [-_.].</param>
+      /// <returns></returns>
+      public static string Slug(string words = null, string glue = null) {
+         glue = glue ?? "-_.".Sample();
+         words = words ?? string.Join(" ", Lorem.Words(2));
+         return words.Replace(",", "").Replace(".", "").Replace(" ", glue).ToLower();
+      }
+
+      /// <summary>
       /// Generates a URL with optional scheme, host and path. Example: "http://thiel.com/chauncey_simonis"
       /// </summary>
       /// <param name="host">Optional host name to use. Example: "example.com"</param>
