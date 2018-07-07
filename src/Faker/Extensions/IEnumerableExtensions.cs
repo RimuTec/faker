@@ -7,5 +7,9 @@ namespace RimuTec.Faker.Extensions {
          // Ref: Comment by user 'grenade' on answer https://stackoverflow.com/a/4262134/411428
          return source.OrderBy(x => RandomNumber.Next());
       }
+
+      public static T Sample<T>(this IEnumerable<T> source) {
+         return source.ToArray().Sample();
+      }
    }
 }

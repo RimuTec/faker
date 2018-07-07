@@ -1,10 +1,13 @@
 # Release Notes
 
 ## Version 0.22.0
+### Summary
+Internet is now on par with Ruby Faker for default locale ("en").
 ### New Features
 - Internet.MacAddress(string prefix = "")
 - Internet.Slug(string words = null, string glue = null)
 - Internet.Url(string host = null, string path = null, string scheme = "http")
+- Internet.UserAgent(string vendor = null)
 
 ## Version 0.21.0
 ### New Features

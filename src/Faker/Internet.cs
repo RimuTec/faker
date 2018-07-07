@@ -247,6 +247,23 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Returns a user agent. Example: "Mozilla/5.0 (compatible; MSIE 9.0; AOL 9.7; AOLBuild 4343.19; Windows NT 6.1; WOW64; Trident/5.0; FunWebProducts)"
+      /// </summary>
+      /// <param name="vendor">Desired vendor name. If no agent is found for a provided name, a random agent will be returned. Default is random.</param>
+      /// <returns></returns>
+      public static string UserAgent(string vendor = null) {
+         if (vendor == null) {
+            return _internet.UserAgent.Sample().Value[0];
+         }
+         var candidates = _internet.UserAgent.Keys.Where(x => x.ToLower().Contains(vendor.ToLower()));
+         if(candidates.Count() > 0) {
+            var key = candidates.Sample();
+            return _internet.UserAgent[key][0];
+         }
+         return UserAgent();
+      }
+
+      /// <summary>
       /// Generates a user name. Examples: "alexie", "johnson-nancy"
       /// </summary>
       /// <param name="name">Name to be used instead of a random one.</param>

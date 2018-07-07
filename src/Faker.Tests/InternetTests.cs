@@ -547,6 +547,41 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void UserAgent_With_Default_Values() {
+         // arrange
+
+         // act
+         var agent = Internet.UserAgent();
+
+         // assert
+         Assert.Greater(RegexMatchesCount(agent, @"Mozilla|Opera"), 0);
+      }
+
+      [Test]
+      public void UserAgent_With_Vendor() {
+         // arrange
+         var desiredVendor = "opera";
+
+         // act
+         var agent = Internet.UserAgent(desiredVendor);
+
+         // assert
+         Assert.Greater(RegexMatchesCount(agent, @"Opera"), 0, $"{nameof(agent)} is '{agent}'");
+      }
+
+      [Test]
+      public void UserAgent_With_Invalid_Vendor() {
+         // arrange
+         var desiredVendor = "ie";
+
+         // act
+         var agent = Internet.UserAgent(desiredVendor);
+
+         // assert
+         Assert.Greater(RegexMatchesCount(agent, @"Mozilla|Opera"), 0);
+      }
+
+      [Test]
       public void UserName_With_Default_Values() {
          // arrange
          var tries = 100;
