@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 
 namespace RimuTec.Faker.Tests {
    [TestFixture]
-   public class EducatorTests {
+   public class EducatorTests : FixtureBase {
       [Test]
-      public void University_Happy_Days() {
+      public void Course_Happy_Days() {
          // arrange
 
          // act
-         var university = Educator.University();
+         var course = Educator.Course();
 
          // assert
-         Assert.IsFalse(string.IsNullOrWhiteSpace(university));
+         Assert.IsFalse(string.IsNullOrWhiteSpace(course));
+         Assert.Greater(RegexMatchesCount(course, @" "), 0);
       }
 
       [Test]
@@ -28,6 +29,19 @@ namespace RimuTec.Faker.Tests {
 
          // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(secondarySchool));
+         Assert.Greater(RegexMatchesCount(secondarySchool, @" "), 0);
+      }
+
+      [Test]
+      public void University_Happy_Days() {
+         // arrange
+
+         // act
+         var university = Educator.University();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(university));
+         Assert.Greater(RegexMatchesCount(university, @" "), 0);
       }
    }
 }

@@ -17,11 +17,11 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates a name for a tertiary education provider. Example: "Mallowtown Technical College"
+      /// Generates the name for a course. Example: "Associate Degree in Criminology"
       /// </summary>
       /// <returns></returns>
-      public static string University() {
-         return $"{_educator.Name.Sample()} {_educator.Tertiary.Type.Sample()}";
+      public static string Course() {
+         return $"{_educator.Tertiary.Course.Type.Sample()} {_educator.Tertiary.Course.Subject.Sample()}";
       }
 
       /// <summary>
@@ -30,6 +30,14 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       public static string SecondarySchool() {
          return $"{_educator.Name.Sample()} {_educator.Secondary.Sample()}";
+      }
+
+      /// <summary>
+      /// Generates a name for a tertiary education provider. Example: "Mallowtown Technical College"
+      /// </summary>
+      /// <returns></returns>
+      public static string University() {
+         return $"{_educator.Name.Sample()} {_educator.Tertiary.Type.Sample()}";
       }
 
       private static educator _educator;
