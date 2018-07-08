@@ -17,11 +17,19 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
-      /// Generates name of tertiary education provider. Example: "Mallowtown Technical College"
+      /// Generates a name for a tertiary education provider. Example: "Mallowtown Technical College"
       /// </summary>
       /// <returns></returns>
       public static string University() {
          return $"{_educator.Name.Sample()} {_educator.Tertiary.Type.Sample()}";
+      }
+
+      /// <summary>
+      /// Generates a name for a secondary school. Example: "Iceborough Secondary College"
+      /// </summary>
+      /// <returns></returns>
+      public static string SecondarySchool() {
+         return $"{_educator.Name.Sample()} {_educator.Secondary.Sample()}";
       }
 
       private static educator _educator;

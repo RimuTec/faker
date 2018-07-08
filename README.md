@@ -67,6 +67,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - Type()
 
 ## Educator
+- SecondarySchool()
 - University()
 
 ## Finance

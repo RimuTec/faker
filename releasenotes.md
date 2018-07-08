@@ -2,6 +2,7 @@
 
 ## Version 0.24.0
 ### New Features
+- Educator.SecondarySchool()
 - Educator.University()
 
 ## Version 0.23.0

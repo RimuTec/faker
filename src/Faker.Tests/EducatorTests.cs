@@ -18,5 +18,16 @@ namespace RimuTec.Faker.Tests {
          // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(university));
       }
+
+      [Test]
+      public void SecondarySchool_Happy_Days() {
+         // arrange
+
+         // act
+         var secondarySchool = Educator.SecondarySchool();
+
+         // assert
+         Assert.IsFalse(string.IsNullOrWhiteSpace(secondarySchool));
+      }
    }
 }
