@@ -76,7 +76,7 @@ namespace RimuTec.Faker {
       /// need a public address outside of any reserved range use <see cref="PublicIPv4Address"/>.</remarks>
       /// <returns></returns>
       public static string IPv4Address() {
-         var ary = IntHelper.Repeat(0, 255, x => x).ToArray();
+         var ary = IntHelper.Repeat(1, 254, x => x).ToArray();
          return $"{ary.Sample()}.{ary.Sample()}.{ary.Sample()}.{ary.Sample()}";
       }
 

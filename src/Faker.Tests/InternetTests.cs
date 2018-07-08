@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace RimuTec.Faker.Tests {
    [TestFixture]
-   public class InternetTests {
+   public class InternetTests : FixtureBase {
       [Test]
       public void DomainName_HappyDays() {
          // arrange
@@ -151,16 +151,19 @@ namespace RimuTec.Faker.Tests {
       [Test]
       public void IPv4Address_HappyDays() {
          // arrange
+         var tries = 100;
 
          // act
-         var ipv4address = Internet.IPv4Address();
+         while(tries-- > 0) {
+            var ipv4address = Internet.IPv4Address();
 
-         // assert
-         var parts = ipv4address.Split('.');
-         foreach(var part in parts) {
-            var value = int.Parse(part);
-            Assert.Greater(value, 1);
-            Assert.Less(value, 255);
+            // assert
+            var parts = ipv4address.Split('.');
+            foreach (var part in parts) {
+               var value = int.Parse(part);
+               Assert.GreaterOrEqual(value, 1, $"{nameof(ipv4address)} is '{ipv4address}'");
+               Assert.LessOrEqual(value, 254, $"{nameof(ipv4address)} is '{ipv4address}'");
+            }
          }
       }
 
@@ -263,16 +266,32 @@ namespace RimuTec.Faker.Tests {
       [Test]
       public void Password_With_Default_Values() {
          // arrange
+         bool usesLowerCase = false;
+         bool usesUpperCase = false;
+         bool usesSpecialChars = false;
+         var tries = 100;
 
          // act
-         var password = Internet.Password();
+         while(tries-- > 0) {
+            var password = Internet.Password();
+            Assert.GreaterOrEqual(password.Length, 8);
+            Assert.LessOrEqual(password.Length, 15);
+            if(RegexMatchesCount(password, @"[A-Z]") > 0) {
+               usesUpperCase = true;
+            }
+            if(RegexMatchesCount(password, @"[a-z]") > 0) {
+               usesLowerCase = true;
+            }
+            if(RegexMatchesCount(password, @"[!@#$%^&*]") > 0) {
+               usesSpecialChars = true;
+            }
+            if(usesLowerCase && usesUpperCase && usesSpecialChars) {
+               break;
+            }
+         }
 
          // assert
-         Assert.GreaterOrEqual(password.Length, 8);
-         Assert.LessOrEqual(password.Length, 15);
-         Assert.Greater(RegexMatchesCount(password, @"[A-Z]"), 0);
-         Assert.Greater(RegexMatchesCount(password, @"[a-z]"), 0);
-         Assert.Greater(RegexMatchesCount(password, @"[!@#$%^&*]"), 0, $"{nameof(password)} is '{password}'");
+         Assert.IsTrue(usesLowerCase && usesUpperCase && usesSpecialChars);
       }
 
       [Test]
@@ -730,10 +749,6 @@ namespace RimuTec.Faker.Tests {
          Assert.IsFalse(candidate.Contains("?"));
          Assert.AreEqual(0, Regex.Matches(candidate, @"[\s]").Count, $"Candidate was {candidate}");
          Assert.AreEqual(0, Regex.Matches(candidate, @"[A-Z]").Count, $"Candidate was {candidate}");
-      }
-
-      protected static int RegexMatchesCount(string input, string pattern) {
-         return Regex.Matches(input, pattern, RegexOptions.Compiled).Count;
       }
    }
 }

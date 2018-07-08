@@ -119,6 +119,7 @@ namespace RimuTec.Faker {
          [YamlMember(Alias = "education_level", ApplyNamingConventions = false)]
          public string[] EducationLevel { get; set; }
 
+         [YamlMember(Alias = "title", ApplyNamingConventions = false)]
          public List<string> Title { get; set; }
       }
 #pragma warning restore IDE1006 // Naming Styles

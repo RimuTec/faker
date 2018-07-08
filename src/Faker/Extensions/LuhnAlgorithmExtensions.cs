@@ -54,7 +54,7 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">the original string</param>
       /// <returns>the list of ints</returns>
-      private static IList<int> ToDigitList(this string digits) {
+      internal static IList<int> ToDigitList(this string digits) {
          return digits.Select(d => d - 48).ToList();
       }
 

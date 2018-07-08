@@ -66,6 +66,10 @@ This class is on par with Ruby Faker for default locale ("en").
 - SwedishOrganizationNumber()
 - Type()
 
+## Finance
+This class is on par with Ruby Faker for default locale ("en").
+- CreditCard(params CreditCardType[] types)
+
 ## IDNumber
 This class is on par with Ruby Faker for default locale ("en").
 - SpanishForeignCitizenNumber()

@@ -94,6 +94,16 @@ namespace RimuTec.Faker.Extensions {
          return matchList;
       }
 
+      /// <summary>
+      /// Converts a string like "foo_bar" to "FooBar"
+      /// </summary>
+      /// <param name="s"></param>
+      /// <returns></returns>
+      internal static string ToPascalCasing(this string s) {
+         var parts = Regex.Split(s, $"[_]").Select(x => x.Capitalise());
+         return string.Join("", parts);
+      }
+
       private static string RomanizeCyrillicString(this string s) {
          // To be implemented.
          return s;

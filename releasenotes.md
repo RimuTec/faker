@@ -1,5 +1,11 @@
 # Release Notes
 
+## Version 0.23.0
+### Summary
+Finance is now on par with Ruby Faker for default locale ("en").
+### New Features
+- Finance.CreditCard(params CreditCardType[] types)
+
 ## Version 0.22.0
 ### Summary
 Internet is now on par with Ruby Faker for default locale ("en").
