@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.24.0
+### New Features
+- Educator.University()
+
 ## Version 0.23.0
 ### Summary
 Finance is now on par with Ruby Faker for default locale ("en").
