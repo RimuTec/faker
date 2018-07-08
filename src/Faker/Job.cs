@@ -9,7 +9,6 @@ namespace RimuTec.Faker {
    /// </summary>
    public static class Job {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/job.yml
-      // [Manfred, 03jun2018]
 
       static Job() {
          const string yamlFileName = "RimuTec.Faker.locales.en.job.yml";

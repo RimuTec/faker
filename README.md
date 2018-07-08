@@ -44,7 +44,6 @@ This class is on par with Ruby Faker for default locale ("en").
 
 ## Company
 This class is on par with Ruby Faker for default locale ("en").
-
 - AustralianBusinessNumber()
 - Bs()
 - Buzzword()
@@ -67,6 +66,8 @@ This class is on par with Ruby Faker for default locale ("en").
 - Type()
 
 ## Educator
+This class is on par with Ruby Faker for default locale ("en").
+- Campus()
 - Course()
 - SecondarySchool()
 - University()

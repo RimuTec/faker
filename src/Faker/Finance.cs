@@ -3,7 +3,6 @@ using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
@@ -22,7 +21,6 @@ namespace RimuTec.Faker {
    /// </summary>
    public static class Finance {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/finance.yml
-      // [Manfred, 08jul2018]
 
       static Finance() {
          const string yamlFileName = "RimuTec.Faker.locales.en.finance.yml";

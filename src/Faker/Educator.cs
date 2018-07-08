@@ -1,8 +1,5 @@
 ﻿using RimuTec.Faker.Extensions;
 using RimuTec.Faker.Helper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
@@ -10,10 +7,20 @@ namespace RimuTec.Faker {
    /// Generators for education related data, e.g. university, secondary school, course and campus.
    /// </summary>
    public static class Educator {
+      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/educator.yml
+
       static Educator() {
          const string yamlFileName = "RimuTec.Faker.locales.en.educator.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _educator = locale.en.faker.educator;
+      }
+
+      /// <summary>
+      /// Generates a campus name. Example: "Vertapple Campus"
+      /// </summary>
+      /// <returns></returns>
+      public static string Campus() {
+         return $"{_educator.Name.Sample()} Campus";
       }
 
       /// <summary>

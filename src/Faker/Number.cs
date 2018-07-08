@@ -1,8 +1,5 @@
 ﻿using RimuTec.Faker.Extensions;
 using RimuTec.Faker.Helper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RimuTec.Faker {
    /// <summary>
@@ -10,7 +7,7 @@ namespace RimuTec.Faker {
    /// </summary>
    internal static class Number {
       /// <summary>
-      /// Creates a number as string with a specified number of digits. The method is the quivalent to Faker::Number.number() in Ruby.
+      /// Creates a number as a string with a specified number of digits. The method is the quivalent to Faker::Number.number() in Ruby.
       /// </summary>
       /// <param name="digits">Number of digits. Must be greater than zero. Default value is 10.</param>
       /// <returns></returns>

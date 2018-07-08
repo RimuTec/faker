@@ -14,6 +14,8 @@ namespace RimuTec.Faker {
    /// passwords, etc.
    /// </summary>
    public static class Internet {
+      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/internet.yml
+
       static Internet() {
          const string yamlFileName = "RimuTec.Faker.locales.en.internet.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);

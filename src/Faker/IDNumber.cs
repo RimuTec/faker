@@ -10,6 +10,8 @@ namespace RimuTec.Faker {
    /// identifier (DNI or NIE).
    /// </summary>
    public static class IDNumber {
+      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/id_number.yml
+
       static IDNumber() {
          const string yamlFileName = "RimuTec.Faker.locales.en.id_number.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);

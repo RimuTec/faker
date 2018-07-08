@@ -11,7 +11,6 @@ namespace RimuTec.Faker {
    /// </summary>
    public static class Address {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/address.yml
-      // [Manfred, 21jun2018]
 
       static Address() {
          const string yamlFileName = "RimuTec.Faker.locales.en.address.yml";

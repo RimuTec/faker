@@ -9,6 +9,8 @@ namespace RimuTec.Faker {
    /// Generators for names for humans.
    /// </summary>
    public static class Name {
+      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/name.yml
+
       static Name() {
          const string yamlFileName = "RimuTec.Faker.locales.en.name.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);

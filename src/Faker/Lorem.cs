@@ -11,6 +11,8 @@ namespace RimuTec.Faker {
    /// default values than what the code appears to use. In those cases we went for what the code indicates.
    /// </summary>
    public static class Lorem {
+      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/lorem.yml
+
       static Lorem() {
          const string yamlFileName = "RimuTec.Faker.locales.en.lorem.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);

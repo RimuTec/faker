@@ -4,6 +4,8 @@ using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
    internal static class En {
+      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en.yml
+
       static En() {
          const string yamlFileName = "RimuTec.Faker.locales.en.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);

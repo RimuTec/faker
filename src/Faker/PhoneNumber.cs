@@ -7,6 +7,8 @@ namespace RimuTec.Faker {
    /// Generators for phone numbers
    /// </summary>
    public static class PhoneNumber {
+      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/phone_number.yml
+
       static PhoneNumber() {
          const string yamlFileName = "RimuTec.Faker.locales.en.phone_number.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
