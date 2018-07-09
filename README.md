@@ -65,6 +65,9 @@ This class is on par with Ruby Faker for default locale ("en").
 - SwedishOrganizationNumber()
 - Type()
 
+## Date
+- Between(DateTime minDate, DateTime maxDate)
+
 ## Educator
 This class is on par with Ruby Faker for default locale ("en").
 - Campus()

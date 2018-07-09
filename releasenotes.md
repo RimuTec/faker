@@ -2,6 +2,7 @@
 
 ## Version 0.25.0
 ### New Features
+- Date.Between(DateTime minDate, DateTime maxDate)
 
 ## Version 0.24.0
 ### Summary
