@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 0.25.0
+### New Features
+
 ## Version 0.24.0
 ### Summary
 Educator is now on par with Ruby Faker for default locale ("en").
