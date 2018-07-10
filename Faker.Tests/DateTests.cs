@@ -104,6 +104,53 @@ namespace RimuTec.Faker.Tests {
          Assert.AreEqual("Must be between from and to date.\r\nParameter name: excepted", ex.Message);
       }
 
+      [Test]
+      public void Forward_With_Default_Value() {
+         // arrange
+
+         // act
+         var date = Date.Forward();
+
+         // assert
+         var minDate = DateTime.Today.AddDays(1);
+         var maxDate = DateTime.Today.AddYears(1);
+         Assert.GreaterOrEqual(date, minDate);
+         Assert.LessOrEqual(date, maxDate);
+      }
+
+      [Test]
+      public void Forward_With_Days() {
+         // arrange
+         var tries = 100;
+         var days = 1000;
+
+         // act
+         DateTime date = DateTime.MinValue;
+         while (tries-- > 0) {
+            date = Date.Forward(days);
+            if (date > DateTime.Today.AddYears(1))
+               break;
+         }
+
+         // assert
+         var minDate = DateTime.Today.AddDays(1);
+         var maxDate = DateTime.Today.AddDays(days);
+         Assert.GreaterOrEqual(date, minDate);
+         Assert.LessOrEqual(date, maxDate);
+      }
+
+      [Test]
+      public void Forward_With_Invalid_Days() {
+         // arrange
+         var days = 0;
+
+         // Act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Forward(days));
+
+         // assert
+         Assert.AreEqual($"Must be greater than zero.\r\nParameter name: days", ex.Message);
+      }
+
       private static void AssertIsDateOnly(DateTime date) {
          Assert.AreNotEqual(0, date.Year);
          Assert.AreNotEqual(0, date.Month);

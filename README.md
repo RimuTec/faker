@@ -68,6 +68,7 @@ This class is on par with Ruby Faker for default locale ("en").
 ## Date
 - Between(DateTime minDate, DateTime maxDate)
 - BetweenExcept(DateTime from, DateTime to, DateTime excepted)
+- Forward(int days = 365)
 
 ## Educator
 This class is on par with Ruby Faker for default locale ("en").

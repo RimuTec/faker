@@ -53,5 +53,20 @@ namespace RimuTec.Faker {
          } while (result == excepted);
          return result;
       }
+
+      /// <summary>
+      /// Generates a random date in the future (up to a maximum of N days).
+      /// </summary>
+      /// <param name="days">Maximum number of days into the future.</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">If <paramref name="days"/> is zero or less.</exception>
+      public static DateTime Forward(int days = 365) {
+         if(days <= 0) {
+            throw new ArgumentOutOfRangeException(nameof(days), "Must be greater than zero.");
+         }
+         var fromDate = DateTime.Today.AddDays(1);
+         var toDate = DateTime.Today.AddDays(days);
+         return Between(fromDate, toDate);
+      }
    }
 }
