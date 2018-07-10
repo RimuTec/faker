@@ -144,8 +144,54 @@ namespace RimuTec.Faker.Tests {
          // arrange
          var days = 0;
 
-         // Act
+         // act
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Forward(days));
+
+         // assert
+         Assert.AreEqual($"Must be greater than zero.\r\nParameter name: days", ex.Message);
+      }
+
+      [Test]
+      public void Backward_With_DefaultValue() {
+         // arrange
+
+         // act
+         var date = Date.Backward();
+
+         // assert
+         var minDate = DateTime.Today.AddYears(-1);
+         var maxDate = DateTime.Today.AddDays(-1);
+         Assert.GreaterOrEqual(date, minDate);
+         Assert.LessOrEqual(date, maxDate);
+      }
+
+      [Test]
+      public void Backward_With_Days() {
+         // arrange
+         var tries = 100;
+         var days = 1000;
+
+         // act
+         var date = DateTime.MaxValue;
+         while(tries-- > 0) {
+            date = Date.Backward(days);
+            if (date < DateTime.Today.AddYears(-1)) break;
+         }
+
+         // assert
+         var minDate = DateTime.Today.AddDays(-days);
+         var maxDate = DateTime.Today.AddDays(-1);
+         Assert.GreaterOrEqual(date, minDate);
+         Assert.LessOrEqual(date, maxDate);
+      }
+
+      [Test]
+      public void Backward_With_Invalid_Days() {
+         // arrange
+         var days = 0;
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Backward(days));
 
          // assert
          Assert.AreEqual($"Must be greater than zero.\r\nParameter name: days", ex.Message);

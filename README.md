@@ -66,6 +66,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - Type()
 
 ## Date
+- Backward(int days = 365)
 - Between(DateTime minDate, DateTime maxDate)
 - BetweenExcept(DateTime from, DateTime to, DateTime excepted)
 - Forward(int days = 365)

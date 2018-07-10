@@ -2,6 +2,7 @@
 
 ## Version 0.26.0
 ### New Features
+- Date.Backward(int days = 365)
 - Date.Forward(int days = 365)
 
 ## Version 0.25.0

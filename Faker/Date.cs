@@ -43,7 +43,7 @@ namespace RimuTec.Faker {
          if (toDate < fromDate) {
             throw new ArgumentOutOfRangeException(nameof(to), $"Must be equal to or greater than {nameof(from)}.");
          }
-         if(exceptedDate < from || excepted > to) {
+         if (exceptedDate < from || excepted > to) {
             throw new ArgumentOutOfRangeException(nameof(excepted), $"Must be between {nameof(from)} and {nameof(to)} date.");
          }
          var timespan = toDate - fromDate;
@@ -61,11 +61,26 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If <paramref name="days"/> is zero or less.</exception>
       public static DateTime Forward(int days = 365) {
-         if(days <= 0) {
+         if (days <= 0) {
             throw new ArgumentOutOfRangeException(nameof(days), "Must be greater than zero.");
          }
          var fromDate = DateTime.Today.AddDays(1);
          var toDate = DateTime.Today.AddDays(days);
+         return Between(fromDate, toDate);
+      }
+
+      /// <summary>
+      /// Generates a random date in the past (up to a maximum of N days).
+      /// </summary>
+      /// <param name="days">Maximum number of days into the past.</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">If <paramref name="days"/> is zero or less.</exception>
+      public static DateTime Backward(int days = 365) {
+         if (days <= 0) {
+            throw new ArgumentOutOfRangeException(nameof(days), "Must be greater than zero.");
+         }
+         var fromDate = DateTime.Today.AddDays(-days);
+         var toDate = DateTime.Today.AddDays(-1);
          return Between(fromDate, toDate);
       }
    }
