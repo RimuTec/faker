@@ -3,6 +3,7 @@
 ## Version 0.25.0
 ### New Features
 - Date.Between(DateTime minDate, DateTime maxDate)
+- Date.BetweenExcept(DateTime from, DateTime to, DateTime excepted)
 
 ## Version 0.24.0
 ### Summary

@@ -16,6 +16,7 @@ namespace RimuTec.Faker.Tests {
          var date = Date.Between(2.Days().Ago, DateTime.Today);
 
          // assert
+         AssertIsDateOnly(date);
          Assert.GreaterOrEqual(date, 2.Days().Ago);
          Assert.LessOrEqual(date, DateTime.Today);
       }
@@ -30,7 +31,7 @@ namespace RimuTec.Faker.Tests {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Between(minDate, maxDate));
 
          // assert
-         Assert.AreEqual("Must be equal to or greater than minDate.\r\nParameter name: maxDate", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than from.\r\nParameter name: to", ex.Message);
       }
 
       [Test]
@@ -42,14 +43,100 @@ namespace RimuTec.Faker.Tests {
          var date = Date.Between(requested, requested);
 
          // assert
+         AssertIsDateOnly(date);
          Assert.AreEqual(requested, date);
+      }
+
+      [Test]
+      public void BetweenExcept_With_Default_Values() {
+         // arrange
+         var minDate = 2.Days().Ago;
+         var maxDate = 1.Years().FromNow;
+
+         // act
+         var date = Date.BetweenExcept(minDate, maxDate, DateTime.Today);
+
+         // assert
+         AssertIsDateOnly(date);
+         Assert.Greater(date, minDate);
+         Assert.Less(date, maxDate);
+      }
+
+      [Test]
+      public void BetweenExcept_With_All_Parameters_Equal() {
+         // arrange
+         var minDate = 2.Days().Ago;
+         var maxDate = minDate;
+         var excepted = minDate;
+
+         // act
+         var ex = Assert.Throws<ArgumentException>(() => Date.BetweenExcept(minDate, maxDate, excepted));
+
+         // assert
+         Assert.AreEqual("From date, to date and excepted date must not be the same.", ex.Message);
+      }
+
+      [Test]
+      public void BetweenExcept_Invalid_Range() {
+         // arrange
+         var minDate = 2.Days().Ago;
+         var maxDate = 5.Days().Ago;
+         var excepted = 3.Days().Ago;
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.BetweenExcept(minDate, maxDate, excepted));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than from.\r\nParameter name: to", ex.Message);
+      }
+
+      [Test]
+      public void BetweenExcepted_Excepted_Outside_Range() {
+         // arrange
+         var minDate = 14.Days().Ago;
+         var maxDate = 2.Days().Ago;
+         var excepted = 2.Years().FromNow;
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.BetweenExcept(minDate, maxDate, excepted));
+
+         // assert
+         Assert.AreEqual("Must be between from and to date.\r\nParameter name: excepted", ex.Message);
+      }
+
+      private static void AssertIsDateOnly(DateTime date) {
+         Assert.AreNotEqual(0, date.Year);
+         Assert.AreNotEqual(0, date.Month);
+         Assert.AreNotEqual(0, date.Day);
+         Assert.AreEqual(0, date.Hour);
+         Assert.AreEqual(0, date.Minute);
+         Assert.AreEqual(0, date.Second);
+         Assert.AreEqual(0, date.Millisecond);
       }
    }
 
    public static class IntExtensions {
+      public static Years Years(this int i) {
+         return new Years(i);
+      }
+
       public static Days Days(this int i) {
          return new Days(i);
       }
+   }
+
+   public class Years {
+      public Years(int i) {
+         _years = i;
+      }
+
+      public DateTime FromNow {
+         get {
+            return DateTime.Today.AddYears(_years);
+         }
+      }
+
+      private readonly int _years;
    }
 
    public class Days {

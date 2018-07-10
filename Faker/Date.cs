@@ -8,18 +8,50 @@ namespace RimuTec.Faker {
    /// </summary>
    public static class Date {
       /// <summary>
-      /// Random date between dates. Example: "Wed, 24 Sep 2014"
+      /// Random date between dates.
       /// </summary>
-      /// <param name="minDate">Minimum date.</param>
-      /// <param name="maxDate">Maximum date. Must be equal or greater than 'minDate'.</param>
+      /// <param name="from">Minimum date.</param>
+      /// <param name="to">Maximum date. Must be equal or greater than 'minDate'.</param>
       /// <returns></returns>
-      /// <exception cref="ArgumentOutOfRangeException">When maxDate is less than minDate.</exception>
-      public static DateTime Between(DateTime minDate, DateTime maxDate) {
-         if(maxDate < minDate) {
-            throw new ArgumentOutOfRangeException(nameof(maxDate), "Must be equal to or greater than minDate.");
+      /// <exception cref="ArgumentOutOfRangeException">When <paramref name="to"/> is less than <paramref name="from"/>.</exception>
+      public static DateTime Between(DateTime from, DateTime to) {
+         var fromDate = from.Date;
+         var toDate = to.Date;
+         if (toDate < fromDate) {
+            throw new ArgumentOutOfRangeException(nameof(to), $"Must be equal to or greater than {nameof(from)}.");
          }
-         var timespan = maxDate - minDate;
-         return minDate.AddDays(RandomNumber.Next((int)timespan.TotalDays));
+         var timespan = toDate - fromDate;
+         return fromDate.AddDays(RandomNumber.Next((int)timespan.TotalDays)).Date;
+      }
+
+      /// <summary>
+      /// Random date between dates, except for a specific date.
+      /// </summary>
+      /// <param name="from">Minimum date.</param>
+      /// <param name="to">Maximum date. Must be greater than minimum and excepted date.</param>
+      /// <param name="excepted">Excepted date.</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentException">If <paramref name="from"/>, <paramref name="to"/> and <paramref name="excepted"/> are equal.</exception>
+      /// <exception cref="ArgumentOutOfRangeException">If <paramref name="to"/> is less than <paramref name="from"/> or if <paramref name="excepted"/> outside of date range.</exception>
+      public static DateTime BetweenExcept(DateTime from, DateTime to, DateTime excepted) {
+         DateTime fromDate = from.Date;
+         DateTime toDate = to.Date;
+         DateTime exceptedDate = excepted.Date;
+         if (fromDate == toDate && toDate == exceptedDate) {
+            throw new ArgumentException("From date, to date and excepted date must not be the same.");
+         }
+         if (toDate < fromDate) {
+            throw new ArgumentOutOfRangeException(nameof(to), $"Must be equal to or greater than {nameof(from)}.");
+         }
+         if(exceptedDate < from || excepted > to) {
+            throw new ArgumentOutOfRangeException(nameof(excepted), $"Must be between {nameof(from)} and {nameof(to)} date.");
+         }
+         var timespan = toDate - fromDate;
+         DateTime result;
+         do {
+            result = from.Date.AddDays(RandomNumber.Next((int)timespan.TotalDays)).Date;
+         } while (result == excepted);
+         return result;
       }
    }
 }
