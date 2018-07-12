@@ -4,6 +4,7 @@
 ### Summary
 Date is now on par with Ruby Faker for default locale ("en").
 ### New Features
+- Business.CreditCardNumber()
 - Date.Birthday(int minAge = 18, int maxAge = 65)
 
 ## Version 0.26.0

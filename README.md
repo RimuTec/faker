@@ -42,6 +42,9 @@ This class is on par with Ruby Faker for default locale ("en").
 - Zip(string stateAbbreviation = "")
 - ZipCode(string stateAbbreviation = "")
 
+## Business
+- CreditCardNumber()
+
 ## Company
 This class is on par with Ruby Faker for default locale ("en").
 - AustralianBusinessNumber()

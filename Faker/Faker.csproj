@@ -38,6 +38,7 @@
 
    <ItemGroup>
     <None Remove="locales\en\address.yml" />
+    <None Remove="locales\en\business.yml" />
     <None Remove="locales\en\company.yml" />
     <None Remove="locales\en\educator.yml" />
     <None Remove="locales\en\finance.yml" />
@@ -54,6 +55,7 @@
     <EmbeddedResource Include="locales\en\company.yml" />
     <EmbeddedResource Include="locales\en.yml" />
     <EmbeddedResource Include="locales\en\address.yml" />
+    <EmbeddedResource Include="locales\en\business.yml" />
     <EmbeddedResource Include="locales\en\id_number.yml" />
     <EmbeddedResource Include="locales\en\internet.yml" />
     <EmbeddedResource Include="locales\en\finance.yml" />
