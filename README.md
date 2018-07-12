@@ -43,6 +43,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - ZipCode(string stateAbbreviation = "")
 
 ## Business
+- CreditCardExpiryDate()
 - CreditCardNumber()
 
 ## Company

@@ -19,6 +19,14 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Generates a credit card expiry date.
+      /// </summary>
+      /// <returns></returns>
+      public static DateTime CreditCardExpiryDate() {
+         return DateTime.Today.Date.AddDays(365 * RandomNumber.Next(1, 4));
+      }
+
+      /// <summary>
       /// Generates a credit card number.
       /// </summary>
       /// <returns></returns>
