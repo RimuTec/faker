@@ -1,8 +1,6 @@
 ﻿using RimuTec.Faker.Extensions;
 using RimuTec.Faker.Helper;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
@@ -42,7 +40,7 @@ namespace RimuTec.Faker {
          return _business.CreditCardTypes.Sample();
       }
 
-      private static business _business;
+      private static readonly business _business;
 
 #pragma warning disable IDE1006 // Naming Styles
       // Helper classes for reading the yaml file. Note that the class names are

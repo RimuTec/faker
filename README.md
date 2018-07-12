@@ -43,9 +43,13 @@ This class is on par with Ruby Faker for default locale ("en").
 - ZipCode(string stateAbbreviation = "")
 
 ## Business
+This class is on par with Ruby Faker for default locale ("en").
 - CreditCardExpiryDate()
 - CreditCardNumber()
 - CreditCardType()
+
+## Code
+- Npi()
 
 ## Company
 This class is on par with Ruby Faker for default locale ("en").
@@ -71,6 +75,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - Type()
 
 ## Date
+This class is on par with Ruby Faker for default locale ("en").
 - Backward(int days = 365)
 - Between(DateTime minDate, DateTime maxDate)
 - BetweenExcept(DateTime from, DateTime to, DateTime excepted)

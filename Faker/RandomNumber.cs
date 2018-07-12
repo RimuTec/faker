@@ -50,6 +50,10 @@ namespace RimuTec.Faker {
          return _random.NextDouble();
       }
 
+      internal static long Next(double maxValue) {
+         return (long) (_random.NextDouble() * maxValue);
+      }
+
       // ThreadStatic added, ref: https://stackoverflow.com/a/1262619/411428
       [ThreadStatic] private static Random _random = new Random();
    }

@@ -81,7 +81,7 @@ namespace RimuTec.Faker {
          return _job.EducationLevel.Sample();
       }
 
-      private static job _job;
+      private static readonly job _job;
 
 #pragma warning disable IDE1006 // Naming Styles
       // Helper classes for reading the yaml file. Note that the class names are

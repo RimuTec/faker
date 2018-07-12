@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.28.0
+### New Features
+- Code.Npi()
+
 ## Version 0.27.0
 ### Summary
 Date and Business are now on par with Ruby Faker for default locale ("en").
