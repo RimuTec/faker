@@ -34,6 +34,14 @@ namespace RimuTec.Faker {
          return _business.CreditCardNumbers.Sample();
       }
 
+      /// <summary>
+      /// Returns a credit card type, e.g. 'visa'.
+      /// </summary>
+      /// <returns></returns>
+      public static string CreditCardType() {
+         return _business.CreditCardTypes.Sample();
+      }
+
       private static business _business;
 
 #pragma warning disable IDE1006 // Naming Styles

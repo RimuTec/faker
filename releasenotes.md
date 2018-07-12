@@ -2,10 +2,11 @@
 
 ## Version 0.27.0
 ### Summary
-Date is now on par with Ruby Faker for default locale ("en").
+Date and Business are now on par with Ruby Faker for default locale ("en").
 ### New Features
 - Business.CreditCardExpiryDate()
 - Business.CreditCardNumber()
+- Business.CreditCardType()
 - Date.Birthday(int minAge = 18, int maxAge = 65)
 
 ## Version 0.26.0

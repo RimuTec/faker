@@ -45,6 +45,7 @@ This class is on par with Ruby Faker for default locale ("en").
 ## Business
 - CreditCardExpiryDate()
 - CreditCardNumber()
+- CreditCardType()
 
 ## Company
 This class is on par with Ruby Faker for default locale ("en").
