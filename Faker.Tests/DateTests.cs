@@ -1,13 +1,42 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RimuTec.Faker.Tests {
    [TestFixture]
    public class DateTests {
+      [Test]
+      public void Backward_With_Days() {
+         // arrange
+         var tries = 100;
+         var days = 1000;
+
+         // act
+         var date = DateTime.MaxValue;
+         while (tries-- > 0) {
+            date = Date.Backward(days);
+            if (date < DateTime.Today.AddYears(-1))
+               break;
+         }
+
+         // assert
+         var minDate = DateTime.Today.AddDays(-days);
+         var maxDate = DateTime.Today.AddDays(-1);
+         Assert.GreaterOrEqual(date, minDate);
+         Assert.LessOrEqual(date, maxDate);
+      }
+
+      [Test]
+      public void Backward_With_Invalid_Days() {
+         // arrange
+         var days = 0;
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Backward(days));
+
+         // assert
+         Assert.AreEqual($"Must be greater than zero.\r\nParameter name: days", ex.Message);
+      }
+
       [Test]
       public void Between_With_Default_Values() {
          // arrange
@@ -105,6 +134,63 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
+      public void Birthday_With_Default_Values() {
+         // arrange
+
+         // act
+         var birthday = Date.Birthday();
+
+         // assert
+         Assert.GreaterOrEqual(birthday, DateTime.Today.Date.AddYears(-65));
+         Assert.LessOrEqual(birthday, DateTime.Today.Date.AddYears(-18));
+      }
+
+      [Test]
+      public void Birthday_With_Negative_MinAge() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Birthday(minAge: -1));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: minAge", ex.Message);
+      }
+
+      [Test]
+      public void Birthday_With_Negative_MaxAge() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Birthday(maxAge: -1));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: maxAge", ex.Message);
+      }
+
+      [Test]
+      public void Birthday_With_MinAge_Greater_MaxAge() {
+         // arrange
+
+         // act
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Birthday(minAge: 42, maxAge: 17));
+
+         // assert
+         Assert.AreEqual("Must be equal to or greater than minAge.\r\nParameter name: maxAge", ex.Message);
+      }
+
+      [Test]
+      public void Birthday_With_MinAge_Equal_MaxAge() {
+         // arrange
+
+         // act
+         var birthday = Date.Birthday(42, 42);
+
+         // assert
+         Assert.AreEqual(birthday, DateTime.Today.Date.AddYears(-42));
+         Assert.AreEqual(birthday, DateTime.Today.Date.AddYears(-42));
+      }
+
+      [Test]
       public void Forward_With_Default_Value() {
          // arrange
 
@@ -163,38 +249,6 @@ namespace RimuTec.Faker.Tests {
          var maxDate = DateTime.Today.AddDays(-1);
          Assert.GreaterOrEqual(date, minDate);
          Assert.LessOrEqual(date, maxDate);
-      }
-
-      [Test]
-      public void Backward_With_Days() {
-         // arrange
-         var tries = 100;
-         var days = 1000;
-
-         // act
-         var date = DateTime.MaxValue;
-         while(tries-- > 0) {
-            date = Date.Backward(days);
-            if (date < DateTime.Today.AddYears(-1)) break;
-         }
-
-         // assert
-         var minDate = DateTime.Today.AddDays(-days);
-         var maxDate = DateTime.Today.AddDays(-1);
-         Assert.GreaterOrEqual(date, minDate);
-         Assert.LessOrEqual(date, maxDate);
-      }
-
-      [Test]
-      public void Backward_With_Invalid_Days() {
-         // arrange
-         var days = 0;
-
-         // act
-         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Backward(days));
-
-         // assert
-         Assert.AreEqual($"Must be greater than zero.\r\nParameter name: days", ex.Message);
       }
 
       private static void AssertIsDateOnly(DateTime date) {

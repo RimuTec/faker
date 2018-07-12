@@ -1,12 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RimuTec.Faker {
    /// <summary>
    /// Generators for dates in the past, in the future, birthdays, etc.
    /// </summary>
    public static class Date {
+      /// <summary>
+      /// Generates a random date in the past (up to a maximum of N days).
+      /// </summary>
+      /// <param name="days">Maximum number of days into the past.</param>
+      /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">If <paramref name="days"/> is zero or less.</exception>
+      public static DateTime Backward(int days = 365) {
+         if (days <= 0) {
+            throw new ArgumentOutOfRangeException(nameof(days), "Must be greater than zero.");
+         }
+         var fromDate = DateTime.Today.AddDays(-days);
+         var toDate = DateTime.Today.AddDays(-1);
+         return Between(fromDate, toDate);
+      }
+
       /// <summary>
       /// Random date between dates.
       /// </summary>
@@ -55,6 +68,28 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Random birth date with optional min and max age.
+      /// </summary>
+      /// <param name="minAge">Minimum age. Default is 18.</param>
+      /// <param name="maxAge">Maximug age. Default is 65.</param>
+      /// <returns></returns>
+      public static DateTime Birthday(int minAge = 18, int maxAge = 65) {
+         if(minAge < 0) {
+            throw new ArgumentOutOfRangeException(nameof(minAge), "Must be equal to or greater than zero.");
+         }
+         if (maxAge < 0) {
+            throw new ArgumentOutOfRangeException(nameof(maxAge), "Must be equal to or greater than zero.");
+         }
+         if(minAge > maxAge) {
+            throw new ArgumentOutOfRangeException(nameof(maxAge), $"Must be equal to or greater than {nameof(minAge)}.");
+         }
+         var t = DateTime.Today.Date;
+         var from = t.AddYears(-maxAge);
+         var to = t.AddYears(-minAge);
+         return Between(from, to).Date;
+      }
+
+      /// <summary>
       /// Generates a random date in the future (up to a maximum of N days).
       /// </summary>
       /// <param name="days">Maximum number of days into the future.</param>
@@ -66,21 +101,6 @@ namespace RimuTec.Faker {
          }
          var fromDate = DateTime.Today.AddDays(1);
          var toDate = DateTime.Today.AddDays(days);
-         return Between(fromDate, toDate);
-      }
-
-      /// <summary>
-      /// Generates a random date in the past (up to a maximum of N days).
-      /// </summary>
-      /// <param name="days">Maximum number of days into the past.</param>
-      /// <returns></returns>
-      /// <exception cref="ArgumentOutOfRangeException">If <paramref name="days"/> is zero or less.</exception>
-      public static DateTime Backward(int days = 365) {
-         if (days <= 0) {
-            throw new ArgumentOutOfRangeException(nameof(days), "Must be greater than zero.");
-         }
-         var fromDate = DateTime.Today.AddDays(-days);
-         var toDate = DateTime.Today.AddDays(-1);
          return Between(fromDate, toDate);
       }
    }
