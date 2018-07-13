@@ -19,10 +19,23 @@ namespace RimuTec.Faker {
       }
 
       /// <summary>
+      /// Be default generates a 13 digits EAN code in format 1234567890123.
+      /// </summary>
+      /// <param name="base">Base for EAN code. Must be 8 or 13. Default is 13.</param>
+      /// <returns></returns>
+      public static string Ean(int @base = 13) {
+         if (@base != 8 && @base != 13) {
+            throw new ArgumentOutOfRangeException(nameof(@base), "Must be either 8 or 13.");
+         }
+         return @base == 8 ? GenerateBase8Ean() : GenerateBase13Ean();
+      }
+
+      /// <summary>
       /// By default generates 10 sign isbn code in format 123456789-X. You can pass 13 to generate new 13 sign code.
       /// </summary>
       /// <param name="base"></param>
       /// <returns></returns>
+      /// <exception cref="ArgumentOutOfRangeException">If <paramref name="base"/> was value other than 10 or 13.</exception>
       public static string Isbn(int @base = 10) {
          if(@base != 10 && @base != 13) {
             throw new ArgumentOutOfRangeException(nameof(@base), "Must be either 10 or 13.");
@@ -49,6 +62,30 @@ namespace RimuTec.Faker {
          var digits = @"\d{12}".Regexify().ToDigitList();
          int checkDigit = Isbn13CheckDigit(digits);
          return $"{string.Join("", digits)}-{checkDigit}";
+      }
+
+      private static string GenerateBase8Ean() {
+         var values = @"\d{7}".Regexify();
+         var digits = values.ToDigitList();
+         var remainder = 0;
+         for(var i = 0; i < digits.Count(); i++) {
+            remainder += _eanCheckDigit8[i] * digits[i];
+         }
+         remainder = 10 - remainder % 10;
+         var remainderAsString = remainder == 10 ? "0" : $"{remainder}";
+         return $"{values}{remainderAsString}";
+      }
+
+      private static string GenerateBase13Ean() {
+         var values = @"\d{12}".Regexify();
+         var digits = values.ToDigitList();
+         var remainder = 0;
+         for (var i = 0; i < digits.Count(); i++) {
+            remainder += _eanCheckDigit13[i] * digits[i];
+         }
+         remainder = 10 - remainder % 10;
+         var remainderAsString = remainder == 10 ? "0" : $"{remainder}";
+         return $"{values}{remainderAsString}";
       }
 
       private static int Isbn13CheckDigit(IList<int> digits) {
@@ -86,6 +123,9 @@ namespace RimuTec.Faker {
          var checkDigit = 11 - remainder;
          return remainder == 10 ? "X" : remainder.ToString();
       }
+
+      private static readonly int[] _eanCheckDigit8 = new int[] { 3, 1, 3, 1, 3, 1, 3 };
+      private static readonly int[] _eanCheckDigit13 = new int[] { 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3 };
 
       private static readonly code _code;
 

@@ -2,6 +2,7 @@
 
 ## Version 0.29.0
 ### New Features
+- Code.Ean(int @base = 13)
 
 ## Version 0.28.0
 ### New Features

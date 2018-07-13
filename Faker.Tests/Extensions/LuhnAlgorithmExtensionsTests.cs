@@ -13,7 +13,6 @@ namespace RimuTec.Faker.Tests.Helper {
          Assert.AreEqual(0, (new List<int> { 0 }).CheckDigit());
          Assert.AreEqual(8, (new List<int> { 1 }).CheckDigit());
          Assert.AreEqual(6, (new List<int> { 2 }).CheckDigit());
-
          Assert.AreEqual(0, (new List<int> { 3, 6, 1, 5, 5 }).CheckDigit());
          Assert.AreEqual(0, 36155.CheckDigit());
          Assert.AreEqual(8, (new List<int> { 3, 6, 1, 5, 6 }).CheckDigit());
