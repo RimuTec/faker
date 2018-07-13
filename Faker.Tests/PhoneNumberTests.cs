@@ -5,24 +5,14 @@ namespace RimuTec.Faker.Tests {
    public class PhoneNumberTests {
       [Test]
       public void CellPhone_HappyDays() {
-         // arrange
-
-         // act
          var number = PhoneNumber.CellPhone();
-
-         // assert
          Assert.IsFalse(number.Contains("#"));
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
       }
 
       [Test]
       public void LandLine_HappyDays() {
-         // arrange
-
-         // act
          var number = PhoneNumber.LandLine();
-
-         // assert
          Assert.IsFalse(number.Contains("#"));
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
       }

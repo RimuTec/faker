@@ -7,12 +7,7 @@ namespace RimuTec.Faker.Tests {
    public class IDNumberTests {
       [Test]
       public void Valid_SSN() {
-         // arrange
-
-         // act
          var validSSN = IDNumber.Valid();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(validSSN));
          Assert.IsFalse(validSSN.Contains("#"));
          Assert.IsFalse(validSSN.Contains("?"));
@@ -26,11 +21,8 @@ namespace RimuTec.Faker.Tests {
          // and a new one is generated recursively until a valid SSN has been
          // generated.
 
-         // arrange
          var tries = 500;
          IDNumber._SSN_Valid_recursive = false;
-
-         // act
          var recursive = false;
          while(tries-- > 0 && !recursive) {
             var validSSN = IDNumber.Valid();
@@ -41,23 +33,13 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void Invalid_HappyDays() {
-         // arrange
-
-         // act
          var invalid = IDNumber.Invalid();
-
-         // assert
          Assert.IsTrue(IDNumber._invalid_SSN.Any(r => Regex.Matches(invalid, r).Count > 0));
       }
 
       [Test]
       public void SpanishCitizenNumber_HappyDays() {
-         // arrange
-
-         // act
          var dni = IDNumber.SpanishCitizenNumber();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(dni));
          Assert.IsFalse(dni.Contains("#"));
          Assert.IsFalse(dni.Contains("?"));
@@ -67,12 +49,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void SpanishForeignCitizenNumber_HappyDays() {
-         // arrange
-
-         // act
          var nie = IDNumber.SpanishForeignCitizenNumber();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(nie));
          Assert.IsFalse(nie.Contains("#"));
          Assert.IsFalse(nie.Contains("?"));
