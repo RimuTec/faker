@@ -1,40 +1,39 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using RimuTec.Faker.Extensions;
 
 namespace RimuTec.Faker.Helper {
-   internal class Range {
-      public Range(string boundaries) {
-         var parts = boundaries.ToCharArray().Except(",-").ToArray();
-         _minValue = parts[0];
-         _maxValue = parts[1];
+   /// <summary>
+   /// Range of integers or chars, e.g. 1-4 or a-f
+   /// </summary>
+   /// <typeparam name="T"></typeparam>
+   internal class Range2<T> where T : new() {
+      public Range2(T minValue, T maxValue) {
+         MinValue = minValue;
+         MaxValue = maxValue;
       }
 
-      public Range(string[] boundaries) {
-         _minValue = boundaries[0].ToCharArray()[0];
-         _maxValue = boundaries[1].ToCharArray()[0];
-      }
+      public Range2(T[] boundaries) : this(boundaries[0], boundaries[1]) { }
 
-      public Range(string min, string max) {
-         _minValue = min.ToCharArray()[0];
-         _maxValue = max.ToCharArray()[0];
-      }
-
-      public string[] ToArray() {
-         var list = new List<string>();
-         for (var c = _minValue; c <= _maxValue; c++) {
-            list.Add(c.ToString());
+      public T[] AsArray() {
+         var min = (dynamic)MinValue;
+         var max = (dynamic)MaxValue;
+         var arr = new T[max - min + 1];
+         var currentValue = min;
+         for(var i = 0; i <= max - min; i++) {
+            arr[i] = currentValue;
+            currentValue++;
          }
-         return list.ToArray();
+         return arr;
       }
 
-      public int[] AsIntArray() {
-         return ToArray().Select(x => int.Parse(x)).ToArray();
+      public T Sample() {
+         return AsArray().Sample();
       }
 
-      public string MinValue => _minValue.ToString();
-      public string MaxValue => _maxValue.ToString();
+      public int Length() {
+         return AsArray().Length;
+      }
 
-      private char _minValue;
-      private char _maxValue;
+      public T MinValue { get; }
+      public T MaxValue { get; }
    }
 }

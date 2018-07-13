@@ -21,7 +21,7 @@ namespace RimuTec.Faker {
       }
 
       private static string LeadingZeroNumber(int digits) {
-         var result = digits.Times(x => new Range("0", "9").ToArray().Sample());
+         var result = digits.Times(x => new Range2<int>(0, 9).Sample());
          return string.Join("", result);
       }
 

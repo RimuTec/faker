@@ -159,24 +159,21 @@ namespace RimuTec.Faker.Extensions {
          }, RegexOptions.Compiled);
 
          // (12|34){1,2} becomes (12|34) or (12|34)(12|34)
-         reg = Regex.Replace(reg, @"(\([^\)]+\))\{(\d+),(\d+)\}", match => throw new NotImplementedException(), RegexOptions.Compiled);
+         reg = Regex.Replace(reg, @"(\([^\)]+\))\{(\d+),(\d+)\}", match => {
+            throw new NotImplementedException();
+         }, RegexOptions.Compiled);
 
          // A{1,2} becomes A or AA or \d{3} becomes \d\d\d
          reg = Regex.Replace(reg,
             @"(\\?.)\{(\d+),(\d+)\}",
             match => {
                var toRepeat = match.Groups[1].Value;
-               var lowerBoundary = match.Groups[2].Value;
-               var upperBoundary = match.Groups[3].Value;
-               int[] intRange = new Range(lowerBoundary, upperBoundary).AsIntArray();
+               var lowerBoundary = int.Parse(match.Groups[2].Value);
+               var upperBoundary = int.Parse(match.Groups[3].Value);
+               int[] intRange = new Range2<int>(lowerBoundary, upperBoundary).AsArray();
                var result = string.Join("", intRange.Sample().Times(x => toRepeat));
                return result;
             }, RegexOptions.Compiled);
-
-         // A{1,2} becomes A or AA or \d{3} becomes \d\d\d
-         reg = Regex.Replace(reg, @"(\\?.)\{(\d+),(\d+)\}", match => {
-            throw new NotImplementedException();
-         }, RegexOptions.Compiled);
 
          // (this|that) becomes 'this' or 'that'
          reg = Regex.Replace(reg, @"\((.*?)\)", match => {
@@ -186,7 +183,8 @@ namespace RimuTec.Faker.Extensions {
          // All A-Z inside of [] become C (or X, or whatever)
          reg = Regex.Replace(reg, @"\[([^\]]+)\]", match => {
             string result = Regex.Replace(match.Value, @"(\w\-\w)", range => {
-               var charRange = new Range(range.Value).ToArray();
+               var parts = Regex.Split(range.Value, @"-");
+               var charRange = new Range2<char>(parts[0][0], parts[1][0]);
                return $"{charRange.Sample()}";
             });
             return result;

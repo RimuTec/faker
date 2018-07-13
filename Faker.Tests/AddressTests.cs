@@ -8,12 +8,7 @@ namespace RimuTec.Faker.Tests {
    public class AddressTests {
       [Test]
       public void BuildingNumber_HappyDays() {
-         // arrange
-
-         // act
          var buildingNumber = Address.BuildingNumber();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(buildingNumber));
          Assert.IsFalse(buildingNumber.Contains("#"));
          Assert.IsFalse(buildingNumber.Contains("?"));
@@ -22,12 +17,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void City_HappyDays() {
-         // arrange
-
-         // act
          var city = Address.City();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(city));
          Assert.IsFalse(city.Contains("#"), $"Incorrect value is: '{city}'");
          Assert.IsFalse(city.Contains("?"), $"Incorrect value is: '{city}'");
@@ -35,12 +25,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void CityPrefix_HappyDays() {
-         // arrange
-
-         // act
          var cityPrefix = Address.CityPrefix();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(cityPrefix));
          Assert.IsFalse(cityPrefix.Contains("#"));
          Assert.IsFalse(cityPrefix.Contains("?"));
@@ -49,12 +34,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void CitySuffix_HappyDays() {
-         // arrange
-
-         // act
          var citySuffix = Address.CitySuffix();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(citySuffix));
          Assert.IsFalse(citySuffix.Contains("#"));
          Assert.IsFalse(citySuffix.Contains("?"));
@@ -63,12 +43,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void Community_HappyDays() {
-         // arrange
-
-         // act
          var community = Address.Community();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(community));
          Assert.IsFalse(community.Contains("#"));
          Assert.IsFalse(community.Contains("?"));
@@ -77,12 +52,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void Country_HappyDays() {
-         // arrange
-
-         // act
          var country = Address.Country();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(country));
          Assert.IsFalse(country.Contains("#"));
          Assert.IsFalse(country.Contains("?"));
@@ -91,12 +61,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void CountryCode_HappyDays() {
-         // arrange
-
-         // act
          var countryCode = Address.CountryCode();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(countryCode));
          Assert.IsFalse(countryCode.Contains("#"));
          Assert.IsFalse(countryCode.Contains("?"));
@@ -105,12 +70,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void CountryCodeLong_HappyDays() {
-         // arrange
-
-         // act
          var countryCodeLong = Address.CountryCodeLong();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(countryCodeLong));
          Assert.IsFalse(countryCodeLong.Contains("#"));
          Assert.IsFalse(countryCodeLong.Contains("?"));
@@ -119,12 +79,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void FullAddress_HappyDays() {
-         // arrange
-
-         // act
          var fullAddress = Address.FullAddress();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(fullAddress));
          Assert.IsFalse(fullAddress.Contains("#"), $"Incorrect value is: '{fullAddress}'");
          Assert.IsFalse(fullAddress.Contains("?"), $"Incorrect value is: '{fullAddress}'");
@@ -132,14 +87,9 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void Latitude_HappyDays() {
-         // arrange
          var tries = RandomNumber.Next(5, 15);
          while (tries-- > 0) {
-
-            // act
             var latitude = Address.Latitude();
-
-            // assert
             Assert.GreaterOrEqual(latitude, -90);
             Assert.Less(latitude, 90);
          }
@@ -147,14 +97,9 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void Longitude_HappyDays() {
-         // arrange
          var tries = RandomNumber.Next(5, 15);
          while (tries-- > 0) {
-
-            // act
             var longitude = Address.Longitude();
-
-            // assert
             Assert.GreaterOrEqual(longitude, -180);
             Assert.Less(longitude, 180);
          }
@@ -162,12 +107,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void Postcode_With_Default_Value() {
-         // arrange
-
-         // act
          var postcode = Address.Postcode();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(postcode));
          Assert.IsFalse(postcode.Contains("#"));
          Assert.IsFalse(postcode.Contains("?"));
@@ -176,45 +116,26 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void Postcode_For_Specific_US_State() {
-         // arrange
-
-         // act
          var postcode = Address.Postcode("ME");
-
-         // assert
+         Assert.IsTrue(postcode.Length == 5 || postcode.Length == 10);
          Assert.IsTrue(postcode.StartsWith("042"));
       }
 
       [Test]
       public void Postcode_For_Invalid_State_Abbreviation() {
-         // arrange
-
-         // act
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Postcode("ZZZ"));
-
-         // assert
          Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
       }
 
       [Test]
       public void Postcode_With_Null_As_Abbreviation() {
-         // arrange
-
-         // act
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Postcode(null));
-
-         // assert
          Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
       }
 
       [Test]
       public void SecondaryAddress_HappyDays() {
-         // arrange
-
-         // act
          var secondaryAddress = Address.SecondaryAddress();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(secondaryAddress));
          Assert.IsFalse(secondaryAddress.Contains("#"));
          Assert.IsFalse(secondaryAddress.Contains("?"));
@@ -222,12 +143,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void State_HappyDays() {
-         // arrange
-
-         // act
          var state = Address.State();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(state));
          Assert.IsFalse(state.Contains("#"));
          Assert.IsFalse(state.Contains("?"));
@@ -236,12 +152,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void StateAbbr_HappyDays() {
-         // arrange
-
-         // act
          var stateAbbr = Address.StateAbbr();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(stateAbbr));
          Assert.IsFalse(stateAbbr.Contains("#"));
          Assert.IsFalse(stateAbbr.Contains("?"));
@@ -250,13 +161,8 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void StreetAddress_With_Default_Values() {
-         // arrange
          var assembly = typeof(Address).Assembly;
-
-         // act
          var streetAddress = Address.StreetAddress();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(streetAddress));
          Assert.IsFalse(streetAddress.Contains("#"));
          Assert.IsFalse(streetAddress.Contains("?"));
@@ -264,12 +170,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void StreetAddress_With_SecondaryAddress() {
-         // arrange
-
-         // act
          var streetAddress = Address.StreetAddress(true);
-
-         // assert
          Assert.IsFalse(streetAddress.Contains("#"));
          Assert.IsFalse(streetAddress.Contains("?"));
          var words = streetAddress.Split(' ');
@@ -279,12 +180,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void StreetName_HappyDays() {
-         // arrange
-
-         // act
          var streetName = Address.StreetName();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(streetName));
          Assert.IsFalse(streetName.Contains("#"));
          Assert.IsFalse(streetName.Contains("?"));
@@ -292,12 +188,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void StreetSuffix_HappyDays() {
-         // arrange
-
-         // act
          var suffix = Address.StreetSuffix();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(suffix));
          Assert.IsFalse(suffix.Contains("#"));
          Assert.IsFalse(suffix.Contains("?"));
@@ -306,12 +197,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void TimeZone_HappyDays() {
-         // arrange
-
-         // act
          var timezone = Address.TimeZone();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(timezone));
          Assert.IsFalse(timezone.Contains("#"));
          Assert.IsFalse(timezone.Contains("?"));
@@ -319,12 +205,7 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void Zip_With_Default_Value() {
-         // arrange
-
-         // act
          var zip = Address.Zip();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(zip));
          Assert.IsFalse(zip.Contains("#"));
          Assert.IsFalse(zip.Contains("?"));
@@ -333,45 +214,25 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void Zip_For_Specific_US_State() {
-         // arrange
-
-         // act
          var zip = Address.Zip("ME");
-
-         // assert
          Assert.IsTrue(zip.StartsWith("042"));
       }
 
       [Test]
       public void Zip_For_Invalid_State_Abbreviation() {
-         // arrange
-
-         // act
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Zip("ZZZ"));
-
-         // assert
          Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
       }
 
       [Test]
       public void Zip_With_Null_As_Abbreviation() {
-         // arrange
-
-         // act
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Zip(null));
-
-         // assert
          Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
       }
 
       [Test]
       public void ZipCode_With_Default_Value() {
-         // arrange
-
-         // act
          var zipCode = Address.ZipCode();
-
-         // assert
          Assert.IsFalse(string.IsNullOrWhiteSpace(zipCode));
          Assert.IsFalse(zipCode.Contains("#"));
          Assert.IsFalse(zipCode.Contains("?"));
@@ -380,34 +241,19 @@ namespace RimuTec.Faker.Tests {
 
       [Test]
       public void ZipCode_For_Specific_US_State() {
-         // arrange
-
-         // act
          var zipCode = Address.ZipCode("ME");
-
-         // assert
          Assert.IsTrue(zipCode.StartsWith("042"));
       }
 
       [Test]
       public void ZipCode_For_Invalid_State_Abbreviation() {
-         // arrange
-
-         // act
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.ZipCode("ZZZ"));
-
-         // assert
          Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
       }
 
       [Test]
       public void ZipCode_With_Null_As_Abbreviation() {
-         // arrange
-
-         // act
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.ZipCode(null));
-
-         // assert
          Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
       }
    }

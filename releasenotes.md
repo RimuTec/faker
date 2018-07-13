@@ -2,6 +2,7 @@
 
 ## Version 0.28.0
 ### New Features
+- Code.Isbn(int @base = 10)
 - Code.Npi()
 
 ## Version 0.27.0

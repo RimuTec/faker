@@ -14,5 +14,9 @@ namespace RimuTec.Faker.Extensions {
             action.Invoke(i);
          }
       }
+
+      public static bool Even(this int i) {
+         return i % 2 == 0;
+      }
    }
 }
