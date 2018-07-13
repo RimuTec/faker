@@ -3,6 +3,7 @@ using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker {
@@ -50,6 +51,34 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       public static string Npi() {
          return RandomNumber.Next(Math.Pow(10, 10)).ToString().PadLeft(10, '0');
+      }
+
+      /// <summary>
+      /// Generates a Chilean RUT code (tax identification number, Rol Único Tributario)
+      /// </summary>
+      /// <returns></returns>
+      public static string Rut() {
+         var value = Number.Create(8);
+         var checkDigit = RutVerificatorDigit(value);
+         return $"{value}-{checkDigit}";
+      }
+
+      private static string RutVerificatorDigit(string value) {
+         // https://www.vesic.org/english/blog-eng/net/verifying-chilean-rut-code-tax-number/
+         var digits = value.ToDigitList();
+         var total = 0;
+         for(var i = 0; i < digits.Count(); i++) {
+            total += digits[i] * _rutCheckDigit[i];
+         }
+         var rest = 11 - (total % 11);
+         switch (rest) {
+            case 11:
+               return "0";
+            case 10:
+               return "K";
+            default:
+               return $"{rest}";
+         }
       }
 
       private static string GenerateBase10Isbn() {
@@ -126,6 +155,8 @@ namespace RimuTec.Faker {
 
       private static readonly int[] _eanCheckDigit8 = new int[] { 3, 1, 3, 1, 3, 1, 3 };
       private static readonly int[] _eanCheckDigit13 = new int[] { 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3 };
+
+      private static readonly int[] _rutCheckDigit = new int[] { 3, 2, 7, 6, 5, 4, 3, 2 };
 
       private static readonly code _code;
 

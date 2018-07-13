@@ -52,6 +52,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - Ean(int @base = 13)
 - Isbn(int @base = 10)
 - Npi()
+- Rut()
 
 ## Company
 This class is on par with Ruby Faker for default locale ("en").

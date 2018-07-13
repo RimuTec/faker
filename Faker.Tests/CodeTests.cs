@@ -60,5 +60,13 @@ namespace RimuTec.Faker.Tests {
          Assert.AreEqual(10, npi.Length);
          Assert.AreEqual(10, RegexMatchesCount(npi, @"[0-9]"));
       }
+
+      [Test]
+      public void Rut() {
+         var rut = Code.Rut();
+         Assert.AreEqual(10, rut.Length);
+         Assert.AreEqual(9, RegexMatchesCount(rut, @"[0-9K]"));
+         Assert.AreEqual('-', rut[8]);
+      }
    }
 }
