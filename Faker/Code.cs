@@ -62,6 +62,46 @@ namespace RimuTec.Faker
       }
 
       /// <summary>
+      /// By default generates a Singaporean NRIC ID for someone aged 18 to 65.
+      /// </summary>
+      /// <param name="minAge">Minimum age. Default is 18.</param>
+      /// <param name="maxAge">Maximum age. Default is 65. Must be equal to or greater than <paramref name="minAge"/></param>
+      /// <returns></returns>
+      public static string Nric(int minAge = 18, int maxAge = 65)
+      {
+         if(minAge <= 0)
+         {
+            throw new ArgumentOutOfRangeException(nameof(minAge), "Must be greater than zero.");
+         }
+         if(maxAge < minAge)
+         {
+            throw new ArgumentOutOfRangeException(nameof(maxAge), $"Must be greater than {nameof(minAge)}.");
+         }
+         // https://en.wikipedia.org/wiki/National_Registration_Identity_Card#Structure_of_the_NRIC_number.2FFIN
+         var birthyear = Date.Birthday(minAge, maxAge).Year;
+         var prefix = birthyear < 2000 ? "S" : "T";
+         var values = birthyear.ToString().Substring(2,2); // get last two digits
+         values += @"\d{5}".Regexify();
+         var checkAlpha = GenerateNricCheckAlphabet(values.ToDigitList(), prefix);
+         return $"{prefix}{values}{checkAlpha}";
+      }
+
+      private static string GenerateNricCheckAlphabet(IList<int> digits, string prefix)
+      {
+         var weight = "2765432".ToDigitList();
+         var total = 0;
+         for(var i = 0; i < digits.Count(); i++ )
+         {
+            total += weight[i] * digits[i];
+         }
+         if( prefix == "T" )
+         {
+            total += 4;
+         }
+         return "ABCDEFGHIZJ"[10 - (total % 11)].ToString();
+      }
+
+      /// <summary>
       /// Generates a Chilean RUT code (tax identification number, Rol Único Tributario)
       /// </summary>
       /// <returns></returns>

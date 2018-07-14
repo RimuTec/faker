@@ -72,6 +72,43 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
+      public void Nric_With_Default_Values()
+      {
+         var nric = Code.Nric();
+         Assert.AreEqual(1, RegexMatchesCount(nric, @"^[ST]\d{7}[A-JZ]$"));
+      }
+
+      [Test]
+      public void Nric_Within_Age_Range()
+      {
+         var birthyear1 = DateTime.Today.AddYears(-15).Year.ToString().Substring(2, 2);
+         var birthyear2 = DateTime.Today.AddYears(-16).Year.ToString().Substring(2, 2);
+         var nric = Code.Nric(15, 16);
+         Assert.IsTrue(nric.StartsWith($"T{birthyear1}") || nric.StartsWith($"T{birthyear2}"));
+      }
+
+      [Test]
+      public void Nric_Invalid_MinAge()
+      {
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Code.Nric(minAge: 0));
+         Assert.AreEqual("Must be greater than zero.\r\nParameter name: minAge", ex.Message);
+      }
+
+      [Test]
+      public void Nric_Invalid_MaxAge()
+      {
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Code.Nric(maxAge: 0));
+         Assert.AreEqual("Must be greater than minAge.\r\nParameter name: maxAge", ex.Message);
+      }
+
+      [Test]
+      public void Nric_MaxAge_Greater_Than_MinAge()
+      {
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Code.Nric(minAge: 42, maxAge: 41));
+         Assert.AreEqual("Must be greater than minAge.\r\nParameter name: maxAge", ex.Message);
+      }
+
+      [Test]
       public void Rut()
       {
          var rut = Code.Rut();

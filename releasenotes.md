@@ -2,7 +2,7 @@
 
 ## Version 0.30.0
 ### New Features
-
+- Code.Nric(int minAge = 18, int maxAge = 65)
 
 ## Version 0.29.0
 ### New Features
