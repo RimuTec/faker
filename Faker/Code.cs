@@ -6,14 +6,17 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Generators for different types of codes, e.g. ISBN, EAN, IMEI, ASIN, etc.
    /// </summary>
-   public static class Code {
+   public static class Code
+   {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/code.yml
 
-      static Code() {
+      static Code()
+      {
          const string yamlFileName = "RimuTec.Faker.locales.en.code.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _code = locale.en.faker.code;
@@ -24,8 +27,10 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <param name="base">Base for EAN code. Must be 8 or 13. Default is 13.</param>
       /// <returns></returns>
-      public static string Ean(int @base = 13) {
-         if (@base != 8 && @base != 13) {
+      public static string Ean(int @base = 13)
+      {
+         if (@base != 8 && @base != 13)
+         {
             throw new ArgumentOutOfRangeException(nameof(@base), "Must be either 8 or 13.");
          }
          return @base == 8 ? GenerateBase8Ean() : GenerateBase13Ean();
@@ -37,8 +42,10 @@ namespace RimuTec.Faker {
       /// <param name="base"></param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If <paramref name="base"/> was value other than 10 or 13.</exception>
-      public static string Isbn(int @base = 10) {
-         if(@base != 10 && @base != 13) {
+      public static string Isbn(int @base = 10)
+      {
+         if (@base != 10 && @base != 13)
+         {
             throw new ArgumentOutOfRangeException(nameof(@base), "Must be either 10 or 13.");
          }
          return @base == 13 ? GenerateBase13Isbn() : GenerateBase10Isbn();
@@ -49,7 +56,8 @@ namespace RimuTec.Faker {
       /// providers in the United States.
       /// </summary>
       /// <returns></returns>
-      public static string Npi() {
+      public static string Npi()
+      {
          return RandomNumber.Next(Math.Pow(10, 10)).ToString().PadLeft(10, '0');
       }
 
@@ -57,21 +65,25 @@ namespace RimuTec.Faker {
       /// Generates a Chilean RUT code (tax identification number, Rol Único Tributario)
       /// </summary>
       /// <returns></returns>
-      public static string Rut() {
+      public static string Rut()
+      {
          var value = Number.Create(8);
          var checkDigit = RutVerificatorDigit(value);
          return $"{value}-{checkDigit}";
       }
 
-      private static string RutVerificatorDigit(string value) {
+      private static string RutVerificatorDigit(string value)
+      {
          // https://www.vesic.org/english/blog-eng/net/verifying-chilean-rut-code-tax-number/
          var digits = value.ToDigitList();
          var total = 0;
-         for(var i = 0; i < digits.Count(); i++) {
+         for (var i = 0; i < digits.Count(); i++)
+         {
             total += digits[i] * _rutCheckDigit[i];
          }
          var rest = 11 - (total % 11);
-         switch (rest) {
+         switch (rest)
+         {
             case 11:
                return "0";
             case 10:
@@ -81,23 +93,27 @@ namespace RimuTec.Faker {
          }
       }
 
-      private static string GenerateBase10Isbn() {
+      private static string GenerateBase10Isbn()
+      {
          var digits = @"\d{9}".Regexify().ToDigitList();
          string checkDigit = Isbn10CheckDigit(digits);
          return $"{string.Join("", digits)}-{checkDigit}";
       }
 
-      private static string GenerateBase13Isbn() {
+      private static string GenerateBase13Isbn()
+      {
          var digits = @"\d{12}".Regexify().ToDigitList();
          int checkDigit = Isbn13CheckDigit(digits);
          return $"{string.Join("", digits)}-{checkDigit}";
       }
 
-      private static string GenerateBase8Ean() {
+      private static string GenerateBase8Ean()
+      {
          var values = @"\d{7}".Regexify();
          var digits = values.ToDigitList();
          var remainder = 0;
-         for(var i = 0; i < digits.Count(); i++) {
+         for (var i = 0; i < digits.Count(); i++)
+         {
             remainder += _eanCheckDigit8[i] * digits[i];
          }
          remainder = 10 - remainder % 10;
@@ -105,11 +121,13 @@ namespace RimuTec.Faker {
          return $"{values}{remainderAsString}";
       }
 
-      private static string GenerateBase13Ean() {
+      private static string GenerateBase13Ean()
+      {
          var values = @"\d{12}".Regexify();
          var digits = values.ToDigitList();
          var remainder = 0;
-         for (var i = 0; i < digits.Count(); i++) {
+         for (var i = 0; i < digits.Count(); i++)
+         {
             remainder += _eanCheckDigit13[i] * digits[i];
          }
          remainder = 10 - remainder % 10;
@@ -117,33 +135,40 @@ namespace RimuTec.Faker {
          return $"{values}{remainderAsString}";
       }
 
-      private static int Isbn13CheckDigit(IList<int> digits) {
+      private static int Isbn13CheckDigit(IList<int> digits)
+      {
          // https://en.wikipedia.org/wiki/Check_digit#ISBN_13
          // https://isbn-information.com/check-digit-for-the-13-digit-isbn.html
          var remainder = 0;
-         for (var index = 0; index < digits.Count(); index++) {
+         for (var index = 0; index < digits.Count(); index++)
+         {
             int current = digits[index];
-            if (index.Even()) {
+            if (index.Even())
+            {
                remainder += current;
             }
-            else {
+            else
+            {
                remainder += current * 3;
             }
          }
          remainder = remainder % 10;
          int checkDigit = 0;
-         if (remainder != 0) {
+         if (remainder != 0)
+         {
             checkDigit = 10 - remainder;
          }
 
          return checkDigit;
       }
 
-      private static string Isbn10CheckDigit(IList<int> digits) {
+      private static string Isbn10CheckDigit(IList<int> digits)
+      {
          // https://en.wikipedia.org/wiki/Check_digit#ISBN_10
          // https://isbn-information.com/the-10-digit-isbn.html
          var remainder = 0;
-         for (var index = 0; index < digits.Count(); index++) {
+         for (var index = 0; index < digits.Count(); index++)
+         {
             int current = digits[index];
             int multiplier = (10 - index);
             remainder += multiplier * current;
@@ -164,19 +189,23 @@ namespace RimuTec.Faker {
       // Helper classes for reading the yaml file. Note that the class names are
       // intentionally lower case.
 
-      internal class locale {
+      internal class locale
+      {
          public en en { get; set; }
       }
 
-      internal class en {
+      internal class en
+      {
          public faker faker { get; set; }
       }
 
-      internal class faker {
+      internal class faker
+      {
          public code code { get; set; }
       }
 
-      internal class code {
+      internal class code
+      {
          [YamlMember(Alias = "asin", ApplyNamingConventions = false)]
          public string[] Asin { get; set; }
       }

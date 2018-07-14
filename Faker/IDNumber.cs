@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Generates fake US Social Security number (SSN), both valid and invalid or Spanish citizen
    /// identifier (DNI or NIE).
    /// </summary>
-   public static class IDNumber {
+   public static class IDNumber
+   {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/id_number.yml
 
-      static IDNumber() {
+      static IDNumber()
+      {
          const string yamlFileName = "RimuTec.Faker.locales.en.id_number.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _idNumber = locale.en.faker.id_number;
@@ -22,7 +25,8 @@ namespace RimuTec.Faker {
       /// Generate an invalid US Social Security Number. Example: "311-72-0000"
       /// </summary>
       /// <returns></returns>
-      public static string Invalid() {
+      public static string Invalid()
+      {
          return _idNumber.Invalid.Sample().Numerify();
       }
 
@@ -30,7 +34,8 @@ namespace RimuTec.Faker {
       /// Generate a Spanish citizen identifier (DNI) 
       /// </summary>
       /// <returns></returns>
-      public static string SpanishCitizenNumber() {
+      public static string SpanishCitizenNumber()
+      {
          var num = Number.Create(8);
          var mod = int.Parse(num) % 23;
          var check = _checks[mod];
@@ -41,7 +46,8 @@ namespace RimuTec.Faker {
       /// Generate a Spanish foreign born citizen identifier (NIE)
       /// </summary>
       /// <returns></returns>
-      public static string SpanishForeignCitizenNumber() {
+      public static string SpanishForeignCitizenNumber()
+      {
          var code = "XYZ";
          var digits = Number.Create(7);
          var prefix = code.Sample();
@@ -55,7 +61,8 @@ namespace RimuTec.Faker {
       /// Generate a valid US Social Security number. Example: "552-56-3593"
       /// </summary>
       /// <returns></returns>
-      public static string Valid() {
+      public static string Valid()
+      {
          // _idNumber.Valid is "#{IDNumber.ssn_valid}" which requires Translate() which
          // we don't have yet.
          return SSN_Valid();
@@ -66,10 +73,12 @@ namespace RimuTec.Faker {
       /// segements is all zeros.
       /// </summary>
       /// <returns></returns>
-      public static string SSN_Valid() {
+      public static string SSN_Valid()
+      {
          var ssn = @"[0-8]\d{2}-\d{2}-\d{4}".Regexify();
          //We could still have all 0s in one segment or another
-         if( _invalid_SSN.Any(r => Regex.Matches(ssn, r).Count > 0)) {
+         if (_invalid_SSN.Any(r => Regex.Matches(ssn, r).Count > 0))
+         {
             _SSN_Valid_recursive = true;
             ssn = SSN_Valid();
          }
@@ -93,20 +102,24 @@ namespace RimuTec.Faker {
       // Helper classes for reading the yaml file. Note that the class names are
       // intentionally lower case.
 
-      internal class locale {
+      internal class locale
+      {
          public en en { get; set; }
       }
 
-      internal class en {
+      internal class en
+      {
          public faker faker { get; set; }
       }
 
-      internal class faker {
+      internal class faker
+      {
          [YamlMember(Alias = "id_number", ApplyNamingConventions = false)]
          public id_number id_number { get; set; }
       }
 
-      internal class id_number {
+      internal class id_number
+      {
          [YamlMember(Alias = "valid", ApplyNamingConventions = false)]
          public string Valid { get; set; }
 

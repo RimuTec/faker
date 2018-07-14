@@ -8,21 +8,25 @@ using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Credit card types for which numbers can be generated.
    /// </summary>
-   public enum CreditCardType {
+   public enum CreditCardType
+   {
       Visa, Mastercard, Discover, AmericanExpress, DinersClub, Jcb, Switch, Solo, Dankort, Maestro, Forbrugsforeningen, Laser
    }
 
    /// <summary>
    /// Generators for finance related data, e.g. fake credit card numbers.
    /// </summary>
-   public static class Finance {
+   public static class Finance
+   {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/finance.yml
 
-      static Finance() {
+      static Finance()
+      {
          const string yamlFileName = "RimuTec.Faker.locales.en.finance.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName, new MyCustomConverter());
          _finance = locale.en.faker.finance;
@@ -34,8 +38,10 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <param name="types">Zero or more credit card types to choose from. Default is all.</param>
       /// <returns></returns>
-      public static string CreditCard(params CreditCardType[] types) {
-         if (types.Length == 0) {
+      public static string CreditCard(params CreditCardType[] types)
+      {
+         if (types.Length == 0)
+         {
             types = new[] { CreditCardType.Visa, CreditCardType.Mastercard, CreditCardType.Discover,
                CreditCardType.AmericanExpress, CreditCardType.DinersClub, CreditCardType.Jcb, CreditCardType.Switch,
                CreditCardType.Solo, CreditCardType.Dankort, CreditCardType.Maestro, CreditCardType.Forbrugsforeningen,
@@ -59,25 +65,30 @@ namespace RimuTec.Faker {
       // Helper classes for reading the yaml file. Note that the class names are
       // intentionally lower case.
 
-      internal class locale {
+      internal class locale
+      {
          public en en { get; set; }
       }
 
-      internal class en {
+      internal class en
+      {
          public faker faker { get; set; }
       }
 
-      internal class faker {
+      internal class faker
+      {
          public finance finance { get; set; }
       }
 
-      internal class finance {
+      internal class finance
+      {
          [YamlMember(Alias = "credit_card", ApplyNamingConventions = false)]
          public Dictionary<string, List<string>> CreditCard { get; set; }
       }
 #pragma warning restore IDE1006 // Naming Styles
 
-      internal class MyCustomConverter : IYamlTypeConverter {
+      internal class MyCustomConverter : IYamlTypeConverter
+      {
 
          // This class helps reading the finance.yaml file. There are cases where there
          // is only one template for a given credit card. The way the yaml file is written,
@@ -87,37 +98,47 @@ namespace RimuTec.Faker {
          // https://www.cyotek.com/blog/using-custom-type-converters-with-csharp-and-yamldotnet-part-1
          // https://www.cyotek.com/blog/using-custom-type-converters-with-csharp-and-yamldotnet-part-2
 
-         public bool Accepts(Type type) {
+         public bool Accepts(Type type)
+         {
             return type == typeof(Dictionary<string, List<string>>);
          }
 
-         public object ReadYaml(IParser parser, Type type) {
-            if (parser.Current.GetType() != typeof(MappingStart)) {
+         public object ReadYaml(IParser parser, Type type)
+         {
+            if (parser.Current.GetType() != typeof(MappingStart))
+            {
                throw new InvalidDataException("Invalid YAML content.");
             }
             var result = new Dictionary<string, List<string>>();
             parser.MoveNext();
-            while (parser.Current.GetType() != typeof(MappingEnd)) {
-               if (parser.Current is Scalar creditCardType) {
+            while (parser.Current.GetType() != typeof(MappingEnd))
+            {
+               if (parser.Current is Scalar creditCardType)
+               {
                   var newKey = creditCardType.Value.ToPascalCasing();
                   var list = new List<String>();
                   parser.MoveNext();
-                  if (parser.Current is SequenceStart sequenceStart) {
+                  if (parser.Current is SequenceStart sequenceStart)
+                  {
                      parser.MoveNext();
-                     while (parser.Current.GetType() != typeof(SequenceEnd)) {
-                        if (parser.Current is Scalar creditCardTemplate) {
+                     while (parser.Current.GetType() != typeof(SequenceEnd))
+                     {
+                        if (parser.Current is Scalar creditCardTemplate)
+                        {
                            list.Add(creditCardTemplate.Value.Trim('/'));
                         }
                         parser.MoveNext();
                      }
                   }
-                  else if (parser.Current is Scalar creditCardTemplate) {
+                  else if (parser.Current is Scalar creditCardTemplate)
+                  {
                      list.Add(creditCardTemplate.Value.Trim('/'));
                      parser.MoveNext();
                   }
                   result.Add(newKey, list);
                }
-               else {
+               else
+               {
                   parser.MoveNext();
                }
             }
@@ -127,7 +148,8 @@ namespace RimuTec.Faker {
             return result;
          }
 
-         public void WriteYaml(IEmitter emitter, object value, Type type) {
+         public void WriteYaml(IEmitter emitter, object value, Type type)
+         {
             // No need to write yaml, so it's not implemented.
             throw new NotImplementedException();
          }

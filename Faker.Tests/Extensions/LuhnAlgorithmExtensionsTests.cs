@@ -3,13 +3,16 @@ using RimuTec.Faker.Extensions;
 using System;
 using System.Collections.Generic;
 
-namespace RimuTec.Faker.Tests.Helper {
+namespace RimuTec.Faker.Tests.Helper
+{
    [TestFixture]
-   public class LuhnAlgorithmExtensionsTests {
+   public class LuhnAlgorithmExtensionsTests
+   {
       // Migrated from XUnit tests at https://stackoverflow.com/a/23640453/411428
 
       [Test]
-      public void ComputeCheckDigits() {
+      public void ComputeCheckDigits()
+      {
          Assert.AreEqual(0, (new List<int> { 0 }).CheckDigit());
          Assert.AreEqual(8, (new List<int> { 1 }).CheckDigit());
          Assert.AreEqual(6, (new List<int> { 2 }).CheckDigit());
@@ -23,7 +26,8 @@ namespace RimuTec.Faker.Tests.Helper {
       }
 
       [Test]
-      public void ValidateCheckDigits() {
+      public void ValidateCheckDigits()
+      {
          Assert.IsTrue((new List<int> { 3, 6, 1, 5, 6, 8 }).HasValidCheckDigit());
          Assert.IsTrue(361568.HasValidCheckDigit());
          Assert.IsTrue("361568".HasValidCheckDigit());
@@ -31,7 +35,8 @@ namespace RimuTec.Faker.Tests.Helper {
       }
 
       [Test]
-      public void AppendCheckDigits() {
+      public void AppendCheckDigits()
+      {
          Console.WriteLine("36156".CheckDigit());
          Console.WriteLine("36156".AppendCheckDigit());
          Assert.AreEqual("361568", "36156".AppendCheckDigit());

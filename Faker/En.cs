@@ -2,17 +2,21 @@
 using RimuTec.Faker.Helper;
 using YamlDotNet.Serialization;
 
-namespace RimuTec.Faker {
-   internal static class En {
+namespace RimuTec.Faker
+{
+   internal static class En
+   {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en.yml
 
-      static En() {
+      static En()
+      {
          const string yamlFileName = "RimuTec.Faker.locales.en.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _en = locale.en;
       }
 
-      public static char Multibyte() {
+      public static char Multibyte()
+      {
          return _en.multibyte.Sample();
       }
 
@@ -22,11 +26,13 @@ namespace RimuTec.Faker {
       // Helper classes for reading the yaml file. Note that the class names are
       // intentionally lower case.
 
-      internal class locale {
+      internal class locale
+      {
          public en en { get; set; }
       }
 
-      internal class en {
+      internal class en
+      {
          public time time { get; set; }
 
          [YamlMember(Alias = "multibyte", ApplyNamingConventions = false)]
@@ -35,19 +41,22 @@ namespace RimuTec.Faker {
          public faker faker { get; set; }
       }
 
-      internal class time {
+      internal class time
+      {
          public formats formats { get; set; }
          public string am { get; set; }
          public string pm { get; set; }
       }
 
 
-      internal class faker {
+      internal class faker
+      {
          [YamlMember(Alias = "separator", ApplyNamingConventions = false)]
          public string separator { get; set; }
       }
 
-      internal class formats {
+      internal class formats
+      {
          [YamlMember(Alias = "us", ApplyNamingConventions = false)]
          public string us { get; set; }
       }

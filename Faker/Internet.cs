@@ -8,15 +8,18 @@ using System.Text;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Generators for internet related data, e.g. email addresses, domain names, IP addresses, MAC addresses,
    /// passwords, etc.
    /// </summary>
-   public static class Internet {
+   public static class Internet
+   {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/internet.yml
 
-      static Internet() {
+      static Internet()
+      {
          const string yamlFileName = "RimuTec.Faker.locales.en.internet.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _internet = locale.en.faker.internet;
@@ -27,7 +30,8 @@ namespace RimuTec.Faker {
       /// Gets a random domain name. Example: "effertz.info"
       /// </summary>
       /// <returns></returns>
-      public static string DomainName() {
+      public static string DomainName()
+      {
          return $"{DomainWord()}.{DomainSuffix()}";
       }
 
@@ -35,7 +39,8 @@ namespace RimuTec.Faker {
       /// Gets a random but valid domain suffix. Example: "info"
       /// </summary>
       /// <returns></returns>
-      public static string DomainSuffix() {
+      public static string DomainSuffix()
+      {
          return _internet.DomainSuffix.Sample();
       }
 
@@ -43,7 +48,8 @@ namespace RimuTec.Faker {
       /// Generates a word that can be used in a domain name. Example: "haleyziemann"
       /// </summary>
       /// <returns></returns>
-      public static string DomainWord() {
+      public static string DomainWord()
+      {
          return Company.Name().Split(' ').First().Prepare();
       }
 
@@ -53,7 +59,8 @@ namespace RimuTec.Faker {
       /// <param name="name">Name to use for the email address. Default value is null in which case a random name will be used.</param>
       /// <param name="separators">String with separators. Default is "._". Separator is used between first and last name.</param>
       /// <returns></returns>
-      public static string Email(string name = null, string separators = null) {
+      public static string Email(string name = null, string separators = null)
+      {
          return string.Join("@", UserName(name, separators), DomainName());
       }
 
@@ -63,8 +70,10 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <param name="name">Name to use. Default is null in which case a random name will be used.</param>
       /// <returns></returns>
-      public static string FreeEmail(string name = null) {
-         if (string.IsNullOrEmpty(name)) {
+      public static string FreeEmail(string name = null)
+      {
+         if (string.IsNullOrEmpty(name))
+         {
             name = null;
          }
          return string.Join("@", UserName(name), _internet.FreeEmail.Sample());
@@ -77,7 +86,8 @@ namespace RimuTec.Faker {
       /// a private address outside of any reserved range use <see cref="PrivateIPv4Address"/>. If you 
       /// need a public address outside of any reserved range use <see cref="PublicIPv4Address"/>.</remarks>
       /// <returns></returns>
-      public static string IPv4Address() {
+      public static string IPv4Address()
+      {
          var ary = IntHelper.Repeat(1, 254, x => x).ToArray();
          return $"{ary.Sample()}.{ary.Sample()}.{ary.Sample()}.{ary.Sample()}";
       }
@@ -87,7 +97,8 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
       /// <returns></returns>
-      public static string IPv4CIDR() {
+      public static string IPv4CIDR()
+      {
          // For details about CIDR see https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
          return $"{IPv4Address()}/{RandomNumber.Next(1, 31)}";
       }
@@ -97,7 +108,8 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
       /// <returns></returns>
-      public static string IPv6Address() {
+      public static string IPv6Address()
+      {
          var list = new List<string>();
          8.TimesDo(x => list.Add($"{RandomNumber.Next(65536):x4}"));
          return string.Join(":", list);
@@ -108,9 +120,10 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
       /// <returns></returns>
-      public static string IPv6CIDR() {
+      public static string IPv6CIDR()
+      {
          // For details about CIDR see https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
-         return $"{IPv6Address()}/{RandomNumber.Next(1,127)}";
+         return $"{IPv6Address()}/{RandomNumber.Next(1, 127)}";
       }
 
       /// <summary>
@@ -119,8 +132,10 @@ namespace RimuTec.Faker {
       /// <param name="prefix">Desired prefix, e.g. "55:af:33". Default value is "".</param>   
       /// <returns></returns>
       /// <exception cref="ArgumentNullException">Value of 'prefix' was null (nothing in VB.NET).</exception>
-      public static string MacAddress(string prefix = "") {
-         if(prefix == null) {
+      public static string MacAddress(string prefix = "")
+      {
+         if (prefix == null)
+         {
             throw new ArgumentNullException(nameof(prefix), "Must not be null.");
          }
          string[] parts = Regex.Split(prefix, @":");
@@ -138,32 +153,41 @@ namespace RimuTec.Faker {
       /// <param name="specialChars">Flag whether to use special characters (!@#$%^&amp;&#42;). Default value is true (i.e. use special characters).</param>
       /// <exception cref="ArgumentOutOfRangeException">If minLength or maxLength are outside of the valid ranges.</exception>
       /// <returns></returns>
-      public static string Password(int minLength = 8, int maxLength = 15, bool mixCase = true, bool specialChars = true) {
-         if(minLength < 1) {
+      public static string Password(int minLength = 8, int maxLength = 15, bool mixCase = true, bool specialChars = true)
+      {
+         if (minLength < 1)
+         {
             throw new ArgumentOutOfRangeException(nameof(minLength), "Must be greater than zero.");
          }
-         if (maxLength < 1) {
+         if (maxLength < 1)
+         {
             throw new ArgumentOutOfRangeException(nameof(maxLength), "Must be greater than zero.");
          }
-         if(maxLength < minLength) {
+         if (maxLength < minLength)
+         {
             throw new ArgumentOutOfRangeException(nameof(maxLength), $"Must be equal to or greater than {nameof(minLength)}.");
          }
          var temp = Lorem.Characters(minLength);
          var diffLength = maxLength - minLength;
-         if(diffLength > 0) {
+         if (diffLength > 0)
+         {
             var diffRand = RandomNumber.Next(diffLength + 1);
             temp += Lorem.Characters(diffRand);
          }
-         if(mixCase) {
+         if (mixCase)
+         {
             var sb = new StringBuilder(temp);
-            for(var i = 0; i < temp.Length; i++) {
-               if(i%2 == 0) {
+            for (var i = 0; i < temp.Length; i++)
+            {
+               if (i % 2 == 0)
+               {
                   sb[i] = char.ToUpper(sb[i]);
                }
             }
             temp = sb.ToString();
          }
-         if(specialChars) {
+         if (specialChars)
+         {
             var chars = "!@#$%^&*";
             var sb = new StringBuilder(temp);
             RandomNumber.Next(1, minLength).TimesDo(i => sb[i] = chars.Sample()[0]);
@@ -177,9 +201,11 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
       /// <returns></returns>
-      public static string PrivateIPv4Address() {
+      public static string PrivateIPv4Address()
+      {
          string addr = null;
-         do {
+         do
+         {
             addr = IPv4Address();
          } while (!IsInPrivateNet(addr));
          return addr;
@@ -192,9 +218,11 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
       /// <returns></returns>
-      public static string PublicIPv4Address() {
+      public static string PublicIPv4Address()
+      {
          string addr = null;
-         do {
+         do
+         {
             addr = IPv4Address();
          } while (IsInPrivateNet(addr) || IsInReservedNet(addr));
          return addr;
@@ -206,8 +234,10 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <param name="name">Name to use for the email address. Default i null in which case a random first name will be used.</param>
       /// <returns></returns>
-      public static string SafeEmail(string name = null) {
-         if (string.IsNullOrEmpty(name)) {
+      public static string SafeEmail(string name = null)
+      {
+         if (string.IsNullOrEmpty(name))
+         {
             name = null;
          }
          var topLevelDomains = new string[] { "org", "com", "net" };
@@ -220,7 +250,8 @@ namespace RimuTec.Faker {
       /// <param name="words">String with words to use for the slug, separated by spaces. Default is 2 Lorem words.</param>
       /// <param name="glue">Character to glue words together. Default is one of [-_.].</param>
       /// <returns></returns>
-      public static string Slug(string words = null, string glue = null) {
+      public static string Slug(string words = null, string glue = null)
+      {
          glue = glue ?? "-_.".Sample();
          words = words ?? string.Join(" ", Lorem.Words(2));
          return words.Replace(",", "").Replace(".", "").Replace(" ", glue).ToLower();
@@ -236,13 +267,16 @@ namespace RimuTec.Faker {
       /// <remarks>The implementation does not check if any of the values make sense, e.g. if the given scheme
       /// even exists.</remarks>
       /// <exception cref="ArgumentOutOfRangeException">If scheme or host is an empty string.</exception>
-      public static string Url(string host = null, string path = null, string scheme = "http") {
+      public static string Url(string host = null, string path = null, string scheme = "http")
+      {
          host = host ?? DomainName();
          path = path ?? $"/{UserName()}";
-         if(string.IsNullOrWhiteSpace(scheme)) {
+         if (string.IsNullOrWhiteSpace(scheme))
+         {
             throw new ArgumentOutOfRangeException(nameof(scheme), "Must not be empty string or white spaces only.");
          }
-         if(string.IsNullOrWhiteSpace(host)) {
+         if (string.IsNullOrWhiteSpace(host))
+         {
             throw new ArgumentOutOfRangeException(nameof(host), "Must not be empty string or white spaces only.");
          }
          return $"{scheme}://{host}{path}";
@@ -253,12 +287,15 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <param name="vendor">Desired vendor name. If no agent is found for a provided name, a random agent will be returned. Default is random.</param>
       /// <returns></returns>
-      public static string UserAgent(string vendor = null) {
-         if (vendor == null) {
+      public static string UserAgent(string vendor = null)
+      {
+         if (vendor == null)
+         {
             return _internet.UserAgent.Sample().Value[0];
          }
          var candidates = _internet.UserAgent.Keys.Where(x => x.ToLower().Contains(vendor.ToLower()));
-         if(candidates.Count() > 0) {
+         if (candidates.Count() > 0)
+         {
             var key = candidates.Sample();
             return _internet.UserAgent[key][0];
          }
@@ -271,17 +308,21 @@ namespace RimuTec.Faker {
       /// <param name="name">Name to be used instead of a random one.</param>
       /// <param name="separators">Separators to consider. May not appear in result. Default are '.' and '_'.</param>
       /// <returns></returns>
-      public static string UserName(string name = null, string separators = null) {
+      public static string UserName(string name = null, string separators = null)
+      {
          string result;
-         if (separators == null) {
+         if (separators == null)
+         {
             separators = "._"; // if space is sampled, it will be removed by Prepare()
          }
          var separator = separators.Sample();
-         if (name != null) {
+         if (name != null)
+         {
             IEnumerable<string> parts = name.Scan(@"\w+").Shuffle();
             result = string.Join(separator, parts).ToLower();
          }
-         else {
+         else
+         {
             var candidates = new List<string> {
                Name.FirstName().Prepare(),
                $"{Name.FirstName().Prepare()}{separator}{Name.LastName().Prepare()}"
@@ -296,20 +337,25 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <param name="minLength">Minimal length of the user name.</param>
       /// <returns></returns>
-      public static string UserName(int minLength) {
-         if(minLength > 1000000) {
+      public static string UserName(int minLength)
+      {
+         if (minLength > 1000000)
+         {
             throw new ArgumentOutOfRangeException(nameof(minLength), "Must be equal to or less than 10^6.");
          }
-         if(minLength <= 0) {
+         if (minLength <= 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(minLength), "Must be greater than zero.");
          }
          var tries = 0;
          string result = null;
-         do {
+         do
+         {
             result = UserName(null, "._");
             tries++;
          } while (result?.Length < minLength && tries < 7);
-         if(minLength > 0) {
+         if (minLength > 0)
+         {
             result = string.Join("", (minLength / result.Length + 1).Times(x => result));
          }
          return result;
@@ -322,24 +368,29 @@ namespace RimuTec.Faker {
       /// <param name="maxLength">Maximum length of the user name.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If minLength or maxLength are outside of accepted ranges.</exception>
-      public static string UserName(int minLength, int maxLength = int.MaxValue) {
-         if(maxLength < minLength) {
-            throw new ArgumentOutOfRangeException($"{nameof(maxLength)} must be equal to or greater than {nameof(minLength)}.", (Exception) null);
+      public static string UserName(int minLength, int maxLength = int.MaxValue)
+      {
+         if (maxLength < minLength)
+         {
+            throw new ArgumentOutOfRangeException($"{nameof(maxLength)} must be equal to or greater than {nameof(minLength)}.", (Exception)null);
          }
          var tries = 0;
          string result = null;
-         do {
+         do
+         {
             result = UserName(minLength);
             tries++;
          } while (result.Length > maxLength && tries < 7);
          return result.Substring(0, Math.Min(maxLength, result.Length));
       }
 
-      internal static bool IsInPrivateNet(string addr) {
+      internal static bool IsInPrivateNet(string addr)
+      {
          return _privateNetRegex.Any(net => Regex.Match(addr, net, RegexOptions.Compiled).Success);
       }
 
-      internal static bool IsInReservedNet(string addr) {
+      internal static bool IsInReservedNet(string addr)
+      {
          return _reserved_nets_regex.Any(net => Regex.Match(addr, net, RegexOptions.Compiled).Success);
       }
 
@@ -372,19 +423,23 @@ namespace RimuTec.Faker {
       // Helper classes for reading the yaml file. Note that the class names are
       // intentionally lower case.
 
-      internal class locale {
+      internal class locale
+      {
          public en en { get; set; }
       }
 
-      internal class en {
+      internal class en
+      {
          public faker faker { get; set; }
       }
 
-      internal class faker {
+      internal class faker
+      {
          public internet internet { get; set; }
       }
 
-      internal class internet {
+      internal class internet
+      {
          [YamlMember(Alias = "free_email", ApplyNamingConventions = false)]
          public string[] FreeEmail { get; set; }
 
@@ -392,7 +447,7 @@ namespace RimuTec.Faker {
          public string[] DomainSuffix { get; set; }
 
          [YamlMember(Alias = "user_agent", ApplyNamingConventions = false)]
-         public Dictionary<string,List<string>> UserAgent { get; set; }
+         public Dictionary<string, List<string>> UserAgent { get; set; }
       }
 #pragma warning restore IDE1006 // Naming Styles
    }

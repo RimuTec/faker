@@ -4,14 +4,17 @@ using System;
 using System.Collections.Generic;
 using YamlDotNet.Serialization;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Generators for names for humans.
    /// </summary>
-   public static class Name {
+   public static class Name
+   {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/name.yml
 
-      static Name() {
+      static Name()
+      {
          const string yamlFileName = "RimuTec.Faker.locales.en.name.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _name = locale.en.faker.name;
@@ -22,7 +25,8 @@ namespace RimuTec.Faker {
       /// include a middle name. Example: "Tyshawn Johns Sr.". Note: This is the equivalent to Ruby's 'Faker::Name.name'.
       /// </summary>
       /// <returns></returns>
-      public static string FullName() {
+      public static string FullName()
+      {
          var result = _name.NamePatterns.Sample().Trim();
          return result
             .Replace("#{prefix}", Prefix())
@@ -37,7 +41,8 @@ namespace RimuTec.Faker {
       /// "Aditya Elton Douglas".
       /// </summary>
       /// <returns></returns>
-      public static string NameWithMiddle() {
+      public static string NameWithMiddle()
+      {
          var result = _name.NameWithMiddlePatterns.Sample().Trim();
          return result
             .Replace("#{prefix}", Prefix())
@@ -52,7 +57,8 @@ namespace RimuTec.Faker {
       /// Generates a random first name. Example: "Kaci"
       /// </summary>
       /// <returns>A string containing a first name</returns>
-      public static string FirstName() {
+      public static string FirstName()
+      {
          return _name.FirstName.Sample().Trim();
       }
 
@@ -60,7 +66,8 @@ namespace RimuTec.Faker {
       /// Generates a random middle name. Example: "Abraham"
       /// </summary>
       /// <returns></returns>
-      public static string MiddleName() {
+      public static string MiddleName()
+      {
          return _name.MiddleName.Sample().Trim();
       }
 
@@ -68,7 +75,8 @@ namespace RimuTec.Faker {
       /// Generates a random last name. Example: "Ernser"
       /// </summary>
       /// <returns>A string containing a last name</returns>
-      public static string LastName() {
+      public static string LastName()
+      {
          return _name.LastName.Sample().Trim();
       }
 
@@ -76,7 +84,8 @@ namespace RimuTec.Faker {
       /// Generates a random prefix. Example: "Mr."
       /// </summary>
       /// <returns></returns>
-      public static string Prefix() {
+      public static string Prefix()
+      {
          return _name.Prefix.Sample().Trim();
       }
 
@@ -84,7 +93,8 @@ namespace RimuTec.Faker {
       /// Generates a random suffix. Example: "IV"
       /// </summary>
       /// <returns></returns>
-      public static string Suffix() {
+      public static string Suffix()
+      {
          return _name.Suffix.Sample().Trim();
       }
 
@@ -93,8 +103,10 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <param name="characterCount">Number of characters in initials.</param>
       /// <returns></returns>
-      public static string Initials(int characterCount = 3) {
-         if(!(characterCount > 0)) {
+      public static string Initials(int characterCount = 3)
+      {
+         if (!(characterCount > 0))
+         {
             throw new ArgumentOutOfRangeException(nameof(characterCount), "Must be greater than 0.");
          }
          return string.Concat(characterCount.Times(x => _alphabetUpper.Sample()));
@@ -109,19 +121,23 @@ namespace RimuTec.Faker {
       // Helper classes for reading the yaml file. Note that the class names are
       // intentionally lower case.
 
-      internal class locale {
+      internal class locale
+      {
          public en en { get; set; }
       }
 
-      internal class en {
+      internal class en
+      {
          public faker faker { get; set; }
       }
 
-      internal class faker {
+      internal class faker
+      {
          public name name { get; set; }
       }
 
-      internal class name {
+      internal class name
+      {
          [YamlMember(Alias = "first_name", ApplyNamingConventions = false)]
          public string[] FirstName { get; set; }
 

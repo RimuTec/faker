@@ -3,14 +3,17 @@ using RimuTec.Faker.Helper;
 using System;
 using YamlDotNet.Serialization;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Generators for business related data
    /// </summary>
-   public static class Business {
+   public static class Business
+   {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/business.yml
 
-      static Business() {
+      static Business()
+      {
          const string yamlFileName = "RimuTec.Faker.locales.en.business.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _business = locale.en.faker.business;
@@ -20,7 +23,8 @@ namespace RimuTec.Faker {
       /// Generates a credit card expiry date.
       /// </summary>
       /// <returns></returns>
-      public static DateTime CreditCardExpiryDate() {
+      public static DateTime CreditCardExpiryDate()
+      {
          return DateTime.Today.Date.AddDays(365 * RandomNumber.Next(1, 4));
       }
 
@@ -28,7 +32,8 @@ namespace RimuTec.Faker {
       /// Generates a credit card number.
       /// </summary>
       /// <returns></returns>
-      public static string CreditCardNumber() {
+      public static string CreditCardNumber()
+      {
          return _business.CreditCardNumbers.Sample();
       }
 
@@ -36,7 +41,8 @@ namespace RimuTec.Faker {
       /// Returns a credit card type, e.g. 'visa'.
       /// </summary>
       /// <returns></returns>
-      public static string CreditCardType() {
+      public static string CreditCardType()
+      {
          return _business.CreditCardTypes.Sample();
       }
 
@@ -46,19 +52,23 @@ namespace RimuTec.Faker {
       // Helper classes for reading the yaml file. Note that the class names are
       // intentionally lower case.
 
-      internal class locale {
+      internal class locale
+      {
          public en en { get; set; }
       }
 
-      internal class en {
+      internal class en
+      {
          public faker faker { get; set; }
       }
 
-      internal class faker {
+      internal class faker
+      {
          public business business { get; set; }
       }
 
-      internal class business {
+      internal class business
+      {
          [YamlMember(Alias = "credit_card_numbers", ApplyNamingConventions = false)]
          public string[] CreditCardNumbers { get; set; }
 

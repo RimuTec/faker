@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace RimuTec.Faker.Extensions {
-   internal static class StringExtensions {
+namespace RimuTec.Faker.Extensions
+{
+   internal static class StringExtensions
+   {
       private static readonly string[] _alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z".Split(' ');
 
       /// <summary>
@@ -13,7 +15,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="s"></param>
       /// <returns></returns>
-      public static string Numerify(this string s) {
+      public static string Numerify(this string s)
+      {
          return Regex.Replace(s, "#", new MatchEvaluator((m) => RandomNumber.Next(0, 9).ToString()), RegexOptions.Compiled);
       }
 
@@ -22,7 +25,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="s"></param>
       /// <returns></returns>
-      public static string Letterify(this string s) {
+      public static string Letterify(this string s)
+      {
          return Regex.Replace(s, @"\?", new MatchEvaluator((m) => _alphabet.Sample()), RegexOptions.Compiled);
       }
 
@@ -32,7 +36,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="s"></param>
       /// <returns></returns>
-      public static string Bothify(this string s) {
+      public static string Bothify(this string s)
+      {
          return s.Letterify().Numerify();
       }
 
@@ -41,7 +46,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="s"></param>
       /// <returns></returns>
-      public static string AlphanumericOnly(this string s) {
+      public static string AlphanumericOnly(this string s)
+      {
          return Regex.Replace(s, @"\W", string.Empty);
       }
 
@@ -50,7 +56,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="s"></param>
       /// <returns></returns>
-      public static string Capitalise(this string s) {
+      public static string Capitalise(this string s)
+      {
          return Regex.Replace(s, "^[a-z]", new MatchEvaluator(x => x.Value.ToUpperInvariant()));
       }
 
@@ -59,7 +66,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="s"></param>
       /// <returns></returns>
-      public static string Prepare(this string s) {
+      public static string Prepare(this string s)
+      {
          var result = s.RomanizeCyrillicString();
          result = s.FixUmlauts();
          result = Regex.Replace(result, @"\W", string.Empty, RegexOptions.Compiled).ToLower();
@@ -71,9 +79,11 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="s"></param>
       /// <returns></returns>
-      public static string Sample(this string s) {
+      public static string Sample(this string s)
+      {
          int stringLength = s.Length;
-         if (stringLength > 0) {
+         if (stringLength > 0)
+         {
             return s[RandomNumber.Next(0, stringLength)].ToString();
          }
          return string.Empty;
@@ -85,10 +95,12 @@ namespace RimuTec.Faker.Extensions {
       /// <param name="s"></param>
       /// <param name="pattern"></param>
       /// <returns></returns>
-      internal static IList<string> Scan(this string s, string pattern) {
+      internal static IList<string> Scan(this string s, string pattern)
+      {
          var matchList = new List<string>();
          var matches = Regex.Matches(s, pattern, RegexOptions.Compiled);
-         for(var i = 0; i < matches.Count; i++) {
+         for (var i = 0; i < matches.Count; i++)
+         {
             matchList.Add(matches[i].Value);
          }
          return matchList;
@@ -99,19 +111,24 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="s"></param>
       /// <returns></returns>
-      internal static string ToPascalCasing(this string s) {
+      internal static string ToPascalCasing(this string s)
+      {
          var parts = Regex.Split(s, $"[_]").Select(x => x.Capitalise());
          return string.Join("", parts);
       }
 
-      private static string RomanizeCyrillicString(this string s) {
+      private static string RomanizeCyrillicString(this string s)
+      {
          // To be implemented.
          return s;
       }
 
-      private static string FixUmlauts(this string s) {
-         var result = Regex.Replace(s, @"[äöüß]", match => {
-            switch (match.Value.ToLower()) {
+      private static string FixUmlauts(this string s)
+      {
+         var result = Regex.Replace(s, @"[äöüß]", match =>
+         {
+            switch (match.Value.ToLower())
+            {
                case "ä":
                   return "ae";
                case "ö":
@@ -138,19 +155,21 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="reg"></param>
       /// <returns></returns>
-      public static string Regexify(this string reg) {
+      public static string Regexify(this string reg)
+      {
          // Ditch the anchors
-         reg = Regex.Replace(reg, @"{^\/?\^?}", "", RegexOptions.Compiled); 
+         reg = Regex.Replace(reg, @"{^\/?\^?}", "", RegexOptions.Compiled);
          reg = Regex.Replace(reg, @"{\$?\/?$}", "", RegexOptions.Compiled);
-         
+
          // All {2} become {2,2}
          reg = Regex.Replace(reg, @"\{(\d+)\}", @"{$1,$1}", RegexOptions.Compiled);
-         
+
          // All ? become {0,1}
          reg = Regex.Replace(reg, @"\?", @"{0,1}", RegexOptions.Compiled);
 
          // [12]{1,2} becomes [12] or [12][12]
-         reg = Regex.Replace(reg, @"(\[[^\]]+\])\{(\d+),(\d+)\}", match => {
+         reg = Regex.Replace(reg, @"(\[[^\]]+\])\{(\d+),(\d+)\}", match =>
+         {
             throw new NotImplementedException();
             var toRepeat = match.Groups[1].Value;
             var lowerBoundary = match.Groups[2].Value;
@@ -159,14 +178,16 @@ namespace RimuTec.Faker.Extensions {
          }, RegexOptions.Compiled);
 
          // (12|34){1,2} becomes (12|34) or (12|34)(12|34)
-         reg = Regex.Replace(reg, @"(\([^\)]+\))\{(\d+),(\d+)\}", match => {
+         reg = Regex.Replace(reg, @"(\([^\)]+\))\{(\d+),(\d+)\}", match =>
+         {
             throw new NotImplementedException();
          }, RegexOptions.Compiled);
 
          // A{1,2} becomes A or AA or \d{3} becomes \d\d\d
          reg = Regex.Replace(reg,
             @"(\\?.)\{(\d+),(\d+)\}",
-            match => {
+            match =>
+            {
                var toRepeat = match.Groups[1].Value;
                var lowerBoundary = int.Parse(match.Groups[2].Value);
                var upperBoundary = int.Parse(match.Groups[3].Value);
@@ -176,22 +197,26 @@ namespace RimuTec.Faker.Extensions {
             }, RegexOptions.Compiled);
 
          // (this|that) becomes 'this' or 'that'
-         reg = Regex.Replace(reg, @"\((.*?)\)", match => {
+         reg = Regex.Replace(reg, @"\((.*?)\)", match =>
+         {
             throw new NotImplementedException();
          }, RegexOptions.Compiled);
 
          // All A-Z inside of [] become C (or X, or whatever)
-         reg = Regex.Replace(reg, @"\[([^\]]+)\]", match => {
-            string result = Regex.Replace(match.Value, @"(\w\-\w)", range => {
+         reg = Regex.Replace(reg, @"\[([^\]]+)\]", match =>
+         {
+            string result = Regex.Replace(match.Value, @"(\w\-\w)", range =>
+            {
                var parts = Regex.Split(range.Value, @"-");
                var charRange = new Range2<char>(parts[0][0], parts[1][0]);
                return $"{charRange.Sample()}";
             });
             return result;
-         }, RegexOptions.Compiled); 
+         }, RegexOptions.Compiled);
 
          // All [ABC] become B (or A or C)
-         reg = Regex.Replace(reg, @"\[([^\]]+)\]", match => {
+         reg = Regex.Replace(reg, @"\[([^\]]+)\]", match =>
+         {
             var charRange = match.Groups[1].Value.ToCharArray();
             return $"{charRange.Sample()}";
          }, RegexOptions.Compiled);

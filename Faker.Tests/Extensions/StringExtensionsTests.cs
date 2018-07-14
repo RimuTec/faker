@@ -2,11 +2,14 @@
 using RimuTec.Faker.Extensions;
 using System.Text.RegularExpressions;
 
-namespace RimuTec.Faker.Tests.Extensions {
+namespace RimuTec.Faker.Tests.Extensions
+{
    [TestFixture]
-   public class StringExtensionsTests {
+   public class StringExtensionsTests
+   {
       [Test]
-      public void ToWordList_HappyDays() {
+      public void ToWordList_HappyDays()
+      {
          // arrange
          var sentence = "Must be equal to or greater than zero.";
 
@@ -18,7 +21,8 @@ namespace RimuTec.Faker.Tests.Extensions {
       }
 
       [Test]
-      public void ToWordList_For_Question() {
+      public void ToWordList_For_Question()
+      {
          // arrange
          var sentence = "What is the answer to all questions?";
 
@@ -30,7 +34,8 @@ namespace RimuTec.Faker.Tests.Extensions {
       }
 
       [Test]
-      public void Regexify_Digits() {
+      public void Regexify_Digits()
+      {
          // arrange
          var template = @"[0-8]\d{2}-\d{2}-\d{4}";
 

@@ -1,18 +1,22 @@
 ﻿using System;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Generators for dates in the past, in the future, birthdays, etc.
    /// </summary>
-   public static class Date {
+   public static class Date
+   {
       /// <summary>
       /// Generates a random date in the past (up to a maximum of N days).
       /// </summary>
       /// <param name="days">Maximum number of days into the past.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If <paramref name="days"/> is zero or less.</exception>
-      public static DateTime Backward(int days = 365) {
-         if (days <= 0) {
+      public static DateTime Backward(int days = 365)
+      {
+         if (days <= 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(days), "Must be greater than zero.");
          }
          var fromDate = DateTime.Today.AddDays(-days);
@@ -27,10 +31,12 @@ namespace RimuTec.Faker {
       /// <param name="to">Maximum date. Must be equal or greater than 'minDate'.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">When <paramref name="to"/> is less than <paramref name="from"/>.</exception>
-      public static DateTime Between(DateTime from, DateTime to) {
+      public static DateTime Between(DateTime from, DateTime to)
+      {
          var fromDate = from.Date;
          var toDate = to.Date;
-         if (toDate < fromDate) {
+         if (toDate < fromDate)
+         {
             throw new ArgumentOutOfRangeException(nameof(to), $"Must be equal to or greater than {nameof(from)}.");
          }
          var timespan = toDate - fromDate;
@@ -46,22 +52,27 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       /// <exception cref="ArgumentException">If <paramref name="from"/>, <paramref name="to"/> and <paramref name="excepted"/> are equal.</exception>
       /// <exception cref="ArgumentOutOfRangeException">If <paramref name="to"/> is less than <paramref name="from"/> or if <paramref name="excepted"/> outside of date range.</exception>
-      public static DateTime BetweenExcept(DateTime from, DateTime to, DateTime excepted) {
+      public static DateTime BetweenExcept(DateTime from, DateTime to, DateTime excepted)
+      {
          DateTime fromDate = from.Date;
          DateTime toDate = to.Date;
          DateTime exceptedDate = excepted.Date;
-         if (fromDate == toDate && toDate == exceptedDate) {
+         if (fromDate == toDate && toDate == exceptedDate)
+         {
             throw new ArgumentException("From date, to date and excepted date must not be the same.");
          }
-         if (toDate < fromDate) {
+         if (toDate < fromDate)
+         {
             throw new ArgumentOutOfRangeException(nameof(to), $"Must be equal to or greater than {nameof(from)}.");
          }
-         if (exceptedDate < from || excepted > to) {
+         if (exceptedDate < from || excepted > to)
+         {
             throw new ArgumentOutOfRangeException(nameof(excepted), $"Must be between {nameof(from)} and {nameof(to)} date.");
          }
          var timespan = toDate - fromDate;
          DateTime result;
-         do {
+         do
+         {
             result = from.Date.AddDays(RandomNumber.Next((int)timespan.TotalDays)).Date;
          } while (result == excepted);
          return result;
@@ -73,14 +84,18 @@ namespace RimuTec.Faker {
       /// <param name="minAge">Minimum age. Default is 18.</param>
       /// <param name="maxAge">Maximug age. Default is 65.</param>
       /// <returns></returns>
-      public static DateTime Birthday(int minAge = 18, int maxAge = 65) {
-         if(minAge < 0) {
+      public static DateTime Birthday(int minAge = 18, int maxAge = 65)
+      {
+         if (minAge < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(minAge), "Must be equal to or greater than zero.");
          }
-         if (maxAge < 0) {
+         if (maxAge < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(maxAge), "Must be equal to or greater than zero.");
          }
-         if(minAge > maxAge) {
+         if (minAge > maxAge)
+         {
             throw new ArgumentOutOfRangeException(nameof(maxAge), $"Must be equal to or greater than {nameof(minAge)}.");
          }
          var t = DateTime.Today.Date;
@@ -95,8 +110,10 @@ namespace RimuTec.Faker {
       /// <param name="days">Maximum number of days into the future.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If <paramref name="days"/> is zero or less.</exception>
-      public static DateTime Forward(int days = 365) {
-         if (days <= 0) {
+      public static DateTime Forward(int days = 365)
+      {
+         if (days <= 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(days), "Must be greater than zero.");
          }
          var fromDate = DateTime.Today.AddDays(1);

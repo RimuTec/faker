@@ -3,14 +3,17 @@ using RimuTec.Faker.Helper;
 using System.Collections.Generic;
 using YamlDotNet.Serialization;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Generator for Job related fake data.
    /// </summary>
-   public static class Job {
+   public static class Job
+   {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/job.yml
 
-      static Job() {
+      static Job()
+      {
          const string yamlFileName = "RimuTec.Faker.locales.en.job.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _job = locale.en.faker.job;
@@ -20,7 +23,8 @@ namespace RimuTec.Faker {
       /// Generates a job title, e.g. "Lead Accounting Associate".
       /// </summary>
       /// <returns></returns>
-      public static string Title() {
+      public static string Title()
+      {
          var titleTemplate = _job.Title.Sample();
          var seniority = _job.Seniority.Sample();
          var field = _job.Field.Sample();
@@ -37,7 +41,8 @@ namespace RimuTec.Faker {
       /// Generates a field of work, e.g. "Manufacturing".
       /// </summary>
       /// <returns></returns>
-      public static string Field() {
+      public static string Field()
+      {
          return _job.Field.Sample();
       }
 
@@ -45,7 +50,8 @@ namespace RimuTec.Faker {
       /// Generates a seniority, e.g. "Lead".
       /// </summary>
       /// <returns></returns>
-      public static string Seniority() {
+      public static string Seniority()
+      {
          return _job.Seniority.Sample();
       }
 
@@ -53,7 +59,8 @@ namespace RimuTec.Faker {
       /// Generates a position, e.g. "Supervisor".
       /// </summary>
       /// <returns></returns>
-      public static string Position() {
+      public static string Position()
+      {
          return _job.Position.Sample();
       }
 
@@ -61,7 +68,8 @@ namespace RimuTec.Faker {
       /// Generates a key skill, e.g. "Teamwork".
       /// </summary>
       /// <returns></returns>
-      public static string KeySkill() {
+      public static string KeySkill()
+      {
          return _job.KeySkills.Sample();
       }
 
@@ -69,7 +77,8 @@ namespace RimuTec.Faker {
       /// Generates an employment type, e.g. "Full-time".
       /// </summary>
       /// <returns></returns>
-      public static string EmploymentType() {
+      public static string EmploymentType()
+      {
          return _job.EmploymentType.Sample();
       }
 
@@ -77,7 +86,8 @@ namespace RimuTec.Faker {
       /// Generates an education level, e.g. "Bachelor".
       /// </summary>
       /// <returns></returns>
-      public static string EducationLevel() {
+      public static string EducationLevel()
+      {
          return _job.EducationLevel.Sample();
       }
 
@@ -87,19 +97,23 @@ namespace RimuTec.Faker {
       // Helper classes for reading the yaml file. Note that the class names are
       // intentionally lower case.
 
-      internal class locale {
+      internal class locale
+      {
          public en en { get; set; }
       }
 
-      internal class en {
+      internal class en
+      {
          public faker faker { get; set; }
       }
 
-      internal class faker {
+      internal class faker
+      {
          public job job { get; set; }
       }
 
-      internal class job {
+      internal class job
+      {
          [YamlMember(Alias = "field", ApplyNamingConventions = false)]
          public string[] Field { get; set; }
 

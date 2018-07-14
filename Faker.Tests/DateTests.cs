@@ -1,15 +1,19 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace RimuTec.Faker.Tests {
+namespace RimuTec.Faker.Tests
+{
    [TestFixture]
-   public class DateTests {
+   public class DateTests
+   {
       [Test]
-      public void Backward_With_Days() {
+      public void Backward_With_Days()
+      {
          var tries = 100;
          var days = 1000;
          var date = DateTime.MaxValue;
-         while (tries-- > 0) {
+         while (tries-- > 0)
+         {
             date = Date.Backward(days);
             if (date < DateTime.Today.AddYears(-1))
                break;
@@ -21,14 +25,16 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Backward_With_Invalid_Days() {
+      public void Backward_With_Invalid_Days()
+      {
          var days = 0;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Backward(days));
          Assert.AreEqual($"Must be greater than zero.\r\nParameter name: days", ex.Message);
       }
 
       [Test]
-      public void Between_With_Default_Values() {
+      public void Between_With_Default_Values()
+      {
          var date = Date.Between(2.Days().Ago, DateTime.Today);
          AssertIsDateOnly(date);
          Assert.GreaterOrEqual(date, 2.Days().Ago);
@@ -36,7 +42,8 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Between_With_Invalid_Range() {
+      public void Between_With_Invalid_Range()
+      {
          var minDate = DateTime.Today;
          var maxDate = minDate.AddDays(-1);
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Between(minDate, maxDate));
@@ -44,7 +51,8 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Between_With_Same_Dates() {
+      public void Between_With_Same_Dates()
+      {
          var requested = DateTime.Today;
          var date = Date.Between(requested, requested);
          AssertIsDateOnly(date);
@@ -52,7 +60,8 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void BetweenExcept_With_Default_Values() {
+      public void BetweenExcept_With_Default_Values()
+      {
          var minDate = 2.Days().Ago;
          var maxDate = 1.Years().FromNow;
          var date = Date.BetweenExcept(minDate, maxDate, DateTime.Today);
@@ -62,7 +71,8 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void BetweenExcept_With_All_Parameters_Equal() {
+      public void BetweenExcept_With_All_Parameters_Equal()
+      {
          var minDate = 2.Days().Ago;
          var maxDate = minDate;
          var excepted = minDate;
@@ -71,7 +81,8 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void BetweenExcept_Invalid_Range() {
+      public void BetweenExcept_Invalid_Range()
+      {
          var minDate = 2.Days().Ago;
          var maxDate = 5.Days().Ago;
          var excepted = 3.Days().Ago;
@@ -80,7 +91,8 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void BetweenExcepted_Excepted_Outside_Range() {
+      public void BetweenExcepted_Excepted_Outside_Range()
+      {
          var minDate = 14.Days().Ago;
          var maxDate = 2.Days().Ago;
          var excepted = 2.Years().FromNow;
@@ -89,39 +101,45 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Birthday_With_Default_Values() {
+      public void Birthday_With_Default_Values()
+      {
          var birthday = Date.Birthday();
          Assert.GreaterOrEqual(birthday, DateTime.Today.Date.AddYears(-65));
          Assert.LessOrEqual(birthday, DateTime.Today.Date.AddYears(-18));
       }
 
       [Test]
-      public void Birthday_With_Negative_MinAge() {
+      public void Birthday_With_Negative_MinAge()
+      {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Birthday(minAge: -1));
          Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: minAge", ex.Message);
       }
 
       [Test]
-      public void Birthday_With_Negative_MaxAge() {
+      public void Birthday_With_Negative_MaxAge()
+      {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Birthday(maxAge: -1));
          Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: maxAge", ex.Message);
       }
 
       [Test]
-      public void Birthday_With_MinAge_Greater_MaxAge() {
+      public void Birthday_With_MinAge_Greater_MaxAge()
+      {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Birthday(minAge: 42, maxAge: 17));
          Assert.AreEqual("Must be equal to or greater than minAge.\r\nParameter name: maxAge", ex.Message);
       }
 
       [Test]
-      public void Birthday_With_MinAge_Equal_MaxAge() {
+      public void Birthday_With_MinAge_Equal_MaxAge()
+      {
          var birthday = Date.Birthday(42, 42);
          Assert.AreEqual(birthday, DateTime.Today.Date.AddYears(-42));
          Assert.AreEqual(birthday, DateTime.Today.Date.AddYears(-42));
       }
 
       [Test]
-      public void Forward_With_Default_Value() {
+      public void Forward_With_Default_Value()
+      {
          var date = Date.Forward();
          var minDate = DateTime.Today.AddDays(1);
          var maxDate = DateTime.Today.AddYears(1);
@@ -130,11 +148,13 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Forward_With_Days() {
+      public void Forward_With_Days()
+      {
          var tries = 100;
          var days = 1000;
          DateTime date = DateTime.MinValue;
-         while (tries-- > 0) {
+         while (tries-- > 0)
+         {
             date = Date.Forward(days);
             if (date > DateTime.Today.AddYears(1))
                break;
@@ -146,14 +166,16 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Forward_With_Invalid_Days() {
+      public void Forward_With_Invalid_Days()
+      {
          var days = 0;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Forward(days));
          Assert.AreEqual($"Must be greater than zero.\r\nParameter name: days", ex.Message);
       }
 
       [Test]
-      public void Backward_With_DefaultValue() {
+      public void Backward_With_DefaultValue()
+      {
          var date = Date.Backward();
          var minDate = DateTime.Today.AddYears(-1);
          var maxDate = DateTime.Today.AddDays(-1);
@@ -161,7 +183,8 @@ namespace RimuTec.Faker.Tests {
          Assert.LessOrEqual(date, maxDate);
       }
 
-      private static void AssertIsDateOnly(DateTime date) {
+      private static void AssertIsDateOnly(DateTime date)
+      {
          Assert.AreNotEqual(0, date.Year);
          Assert.AreNotEqual(0, date.Month);
          Assert.AreNotEqual(0, date.Day);
@@ -172,23 +195,30 @@ namespace RimuTec.Faker.Tests {
       }
    }
 
-   public static class IntExtensions {
-      public static Years Years(this int i) {
+   public static class IntExtensions
+   {
+      public static Years Years(this int i)
+      {
          return new Years(i);
       }
 
-      public static Days Days(this int i) {
+      public static Days Days(this int i)
+      {
          return new Days(i);
       }
    }
 
-   public class Years {
-      public Years(int i) {
+   public class Years
+   {
+      public Years(int i)
+      {
          _years = i;
       }
 
-      public DateTime FromNow {
-         get {
+      public DateTime FromNow
+      {
+         get
+         {
             return DateTime.Today.AddYears(_years);
          }
       }
@@ -196,13 +226,17 @@ namespace RimuTec.Faker.Tests {
       private readonly int _years;
    }
 
-   public class Days {
-      public Days(int i) {
+   public class Days
+   {
+      public Days(int i)
+      {
          _days = i;
       }
 
-      public DateTime Ago {
-         get {
+      public DateTime Ago
+      {
+         get
+         {
             return DateTime.Today.AddDays(-_days);
          }
       }

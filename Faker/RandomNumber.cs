@@ -1,15 +1,18 @@
 ﻿using System;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Provide access to random number generator.
    /// </summary>
-   public static class RandomNumber {
+   public static class RandomNumber
+   {
       /// <summary>
       /// Resets the random number generator and intializes it with a seed.
       /// </summary>
       /// <param name="seed"></param>
-      public static void ResetSeed(int seed) {
+      public static void ResetSeed(int seed)
+      {
          _random = new Random(seed);
       }
 
@@ -17,7 +20,8 @@ namespace RimuTec.Faker {
       /// Returns the next random number.
       /// </summary>
       /// <returns>An integer</returns>
-      public static int Next() {
+      public static int Next()
+      {
          return _random.Next();
       }
 
@@ -27,7 +31,8 @@ namespace RimuTec.Faker {
       /// <param name="maxValue">Upper limit of random integer to return excluding this value.</param>
       /// <returns>A random number not exceeding a given maximum value.</returns>
       /// <exception cref="ArgumentOutOfRangeException"></exception>
-      public static int Next(int maxValue) {
+      public static int Next(int maxValue)
+      {
          return _random.Next(maxValue);
       }
 
@@ -38,7 +43,8 @@ namespace RimuTec.Faker {
       /// <param name="maxValue">Upper limit of random integer to return excluding this value.</param>
       /// <returns>A random number within the specified range.</returns>
       /// <exception cref="ArgumentOutOfRangeException"></exception>
-      public static int Next(int minValue, int maxValue) {
+      public static int Next(int minValue, int maxValue)
+      {
          return _random.Next(minValue, maxValue);
       }
 
@@ -46,12 +52,14 @@ namespace RimuTec.Faker {
       /// Returns a random double that is greater than or equal to 0.0 and less than 1.0.
       /// </summary>
       /// <returns></returns>
-      public static double NextDouble() {
+      public static double NextDouble()
+      {
          return _random.NextDouble();
       }
 
-      internal static long Next(double maxValue) {
-         return (long) (_random.NextDouble() * maxValue);
+      internal static long Next(double maxValue)
+      {
+         return (long)(_random.NextDouble() * maxValue);
       }
 
       // ThreadStatic added, ref: https://stackoverflow.com/a/1262619/411428

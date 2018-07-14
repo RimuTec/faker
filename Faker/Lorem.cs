@@ -5,15 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using YamlDotNet.Serialization;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Equivalent to Faker::Lorem in Ruby's Faker gem. In some cases their documentation appears to use different
    /// default values than what the code appears to use. In those cases we went for what the code indicates.
    /// </summary>
-   public static class Lorem {
+   public static class Lorem
+   {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/lorem.yml
 
-      static Lorem() {
+      static Lorem()
+      {
          const string yamlFileName = "RimuTec.Faker.locales.en.lorem.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _lorem = locale.en.faker.lorem;
@@ -23,7 +26,8 @@ namespace RimuTec.Faker {
       /// Generates a random word. Example: "repellendus".
       /// </summary>
       /// <returns></returns>
-      public static string Word() {
+      public static string Word()
+      {
          return _lorem.Words.Sample();
       }
 
@@ -34,15 +38,19 @@ namespace RimuTec.Faker {
       /// <param name="supplemental">If true, include words from supplementary list of Lorem-like words. Default value is 'false'.</param>
       /// <exception cref="ArgumentOutOfRangeException">If 'wordCount' is less than zero.</exception>
       /// <returns></returns>
-      public static IEnumerable<string> Words(int wordCount = 3, bool supplemental = false) {
-         if (wordCount < 0) {
+      public static IEnumerable<string> Words(int wordCount = 3, bool supplemental = false)
+      {
+         if (wordCount < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(wordCount), "Must be equal to or greater than zero.");
          }
-         if(supplemental) {
+         if (supplemental)
+         {
             var combined = wordCount.Times(x => _lorem.Words.Sample()).Concat(wordCount.Times(x => _lorem.Supplemental.Sample()));
             return combined.Shuffle().Take(wordCount);
          }
-         else {
+         else
+         {
             return wordCount.Times(x => _lorem.Words.Sample());
          }
       }
@@ -51,7 +59,8 @@ namespace RimuTec.Faker {
       /// Returns a string with a single random multibyte character. Example: 😀
       /// </summary>
       /// <returns></returns>
-      public static string Multibyte() {
+      public static string Multibyte()
+      {
          return new String(new char[] { En.Multibyte() });
       }
 
@@ -59,7 +68,8 @@ namespace RimuTec.Faker {
       /// Returns a string with a single random character from [0...9a...z]. Example: "y"
       /// </summary>
       /// <returns></returns>
-      public static string Character() {
+      public static string Character()
+      {
          return Characters(1);
       }
 
@@ -70,8 +80,10 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If 'charCount' is less than zero.</exception>
       /// <example><code>Lorem.Characters(11);</code> returns <code>"pprf5wrj85f"</code></example>
-      public static string Characters(int charCount = 255) {
-         if(charCount < 0) {
+      public static string Characters(int charCount = 255)
+      {
+         if (charCount < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(charCount), "Must be equal to or greater than zero.");
          }
          return string.Join(string.Empty, charCount.Times(x => _characters.Sample()));
@@ -88,15 +100,19 @@ namespace RimuTec.Faker {
       /// count by a random value within the range (0..randomWordsToAdd). Default value is 0.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If either 'wordCount' or 'randomWordsToAdd' is less than zero.</exception>
-      public static string Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0) {
-         if (wordCount < 0) {
+      public static string Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
+      {
+         if (wordCount < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(wordCount), "Must be equal to or greater than zero.");
          }
-         if (randomWordsToAdd < 0) {
+         if (randomWordsToAdd < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(randomWordsToAdd), "Must be equal to or greater than zero.");
          }
          string sentence = string.Join(_lorem.Punctuation.Space, Words(wordCount + RandomNumber.Next(randomWordsToAdd), supplemental).ToArray()).Capitalise();
-         if(sentence.Length > 0) {
+         if (sentence.Length > 0)
+         {
             sentence += _lorem.Punctuation.Period;
          }
          return sentence;
@@ -111,8 +127,10 @@ namespace RimuTec.Faker {
       /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If 'sentenceCount' is less than zero.</exception>
-      public static IEnumerable<string> Sentences(int sentenceCount = 3, bool supplemental = false) {
-         if (sentenceCount < 0) {
+      public static IEnumerable<string> Sentences(int sentenceCount = 3, bool supplemental = false)
+      {
+         if (sentenceCount < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(sentenceCount), "Must be equal to or greater than zero.");
          }
          return sentenceCount.Times(x => Sentence(3, supplemental));
@@ -128,11 +146,14 @@ namespace RimuTec.Faker {
       /// <param name="randomSentencesToAdd">Number of random sentences to add. Default value 0.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If 'sentenceCount' or 'randomSentencesToAdd' is less than zero.</exception>
-      public static string Paragraph(int sentenceCount = 3, bool supplemental = false, int randomSentencesToAdd = 0) {
-         if (sentenceCount < 0) {
+      public static string Paragraph(int sentenceCount = 3, bool supplemental = false, int randomSentencesToAdd = 0)
+      {
+         if (sentenceCount < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(sentenceCount), "Must be equal to or greater than zero.");
          }
-         if(randomSentencesToAdd < 0) {
+         if (randomSentencesToAdd < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(randomSentencesToAdd), "Must be equal to or greater than zero.");
          }
 
@@ -149,8 +170,10 @@ namespace RimuTec.Faker {
       /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">IF 'paragraphCount' is less than zero.</exception>
-      public static IEnumerable<string> Paragraphs(int paragraphCount = 3, bool supplemental = false) {
-         if (paragraphCount < 0) {
+      public static IEnumerable<string> Paragraphs(int paragraphCount = 3, bool supplemental = false)
+      {
+         if (paragraphCount < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(paragraphCount), "Must be equal to or greater than zero.");
          }
          return paragraphCount.Times(x => Paragraph(supplemental: supplemental));
@@ -169,20 +192,25 @@ namespace RimuTec.Faker {
       /// <returns></returns>
       /// <remarks>If the sentence would add in " ." then the space is replaced by a random letter. In other words that
       /// random letter is appended to the last word.</remarks>
-      public static string ParagraphByChars(int chars = 256, bool supplemental = false) {
-         if(chars < 0) {
+      public static string ParagraphByChars(int chars = 256, bool supplemental = false)
+      {
+         if (chars < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(chars), "Must be equal to or greater than zero.");
          }
          var paragraph = Paragraph(3, supplemental);
-         while(paragraph.Length < chars) {
+         while (paragraph.Length < chars)
+         {
             paragraph += _lorem.Punctuation.Space + Paragraph(3, supplemental);
          }
          paragraph = paragraph.Substring(0, chars);
-         if (paragraph.EndsWith(_lorem.Punctuation.Space)) { 
+         if (paragraph.EndsWith(_lorem.Punctuation.Space))
+         {
             // pad with random letter if paragraph would end in " ." otherwise
             paragraph = paragraph.Trim() + _characters[RandomNumber.Next(10, _characters.Length)];
          }
-         if (!string.IsNullOrWhiteSpace(paragraph)) {
+         if (!string.IsNullOrWhiteSpace(paragraph))
+         {
             paragraph += _lorem.Punctuation.Period;
          }
          return paragraph;
@@ -198,10 +226,12 @@ namespace RimuTec.Faker {
       /// <param name="randomWordsToAdd">The 'randomWordsToAdd' argument increases the sentence's word 
       /// count by a random value within the range (0..randomWordsToAdd). Default value is 0.</param>
       /// <returns></returns>
-      public static string Question(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0) {
+      public static string Question(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
+      {
          string question = Sentence(wordCount, supplemental, randomWordsToAdd)
             .Trim(_lorem.Punctuation.Period.ToCharArray());
-         if(!string.IsNullOrWhiteSpace(question)) {
+         if (!string.IsNullOrWhiteSpace(question))
+         {
             question = question + _lorem.Punctuation.QuestionMark;
          }
          return question;
@@ -216,8 +246,10 @@ namespace RimuTec.Faker {
       /// <param name="questionCount">Number of questions. Zero is a valid value. Default value is 3.</param>
       /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
       /// <returns></returns>
-      public static IEnumerable<string> Questions(int questionCount = 3, bool supplemental = false) {
-         if(questionCount < 0) {
+      public static IEnumerable<string> Questions(int questionCount = 3, bool supplemental = false)
+      {
+         if (questionCount < 0)
+         {
             throw new ArgumentOutOfRangeException(nameof(questionCount), "Must be equal to or greater than zero.");
          }
          return questionCount.Times(x => Question(supplemental: supplemental));
@@ -233,19 +265,23 @@ namespace RimuTec.Faker {
       // Helper classes for reading the yaml file. Note that the class names are
       // intentionally lower case.
 
-      internal class locale {
+      internal class locale
+      {
          public en en { get; set; }
       }
 
-      internal class en {
+      internal class en
+      {
          public faker faker { get; set; }
       }
 
-      internal class faker {
+      internal class faker
+      {
          public lorem lorem { get; set; }
       }
 
-      internal class lorem {
+      internal class lorem
+      {
          [YamlMember(Alias = "words", ApplyNamingConventions = false)]
          public string[] Words { get; set; }
 
@@ -256,7 +292,8 @@ namespace RimuTec.Faker {
          public punctuation Punctuation { get; set; }
       }
 
-      internal class punctuation {
+      internal class punctuation
+      {
          [YamlMember(Alias = "space", ApplyNamingConventions = false)]
          public string Space { get; set; }
 

@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace RimuTec.Faker.Tests {
+namespace RimuTec.Faker.Tests
+{
    [TestFixture]
-   public class CompanyTests {
+   public class CompanyTests
+   {
       [Test]
-      public void Name_HappyDays() {
+      public void Name_HappyDays()
+      {
          var companyName = Company.Name();
          Assert.IsTrue(new List<Func<bool>> {
                                   () => Regex.IsMatch(companyName, @"\w+ \w+"),
@@ -19,28 +22,33 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Suffix_HappyDays() {
+      public void Suffix_HappyDays()
+      {
          var suffix = Company.Suffix();
          var availableSuffixes = new List<string> { "Inc", "and Sons", "LLC", "Group" };
          Assert.IsTrue(availableSuffixes.Contains(suffix));
       }
 
       [Test]
-      public void Industry_HappyDays() {
+      public void Industry_HappyDays()
+      {
          var industry = Company.Industry();
          Assert.IsFalse(string.IsNullOrWhiteSpace(industry));
       }
 
       [Test]
-      public void CatchPhrase_HappyDays() {
+      public void CatchPhrase_HappyDays()
+      {
          var catchPhrase = Company.CatchPhrase();
          var matches = Regex.Matches(catchPhrase, @"[0-9a-z]+");
          Assert.GreaterOrEqual(matches.Count, 3);
       }
 
       [Test]
-      public void Buzzword_HappyDays() {
-         for (int i = 0; i < 20; i++) {
+      public void Buzzword_HappyDays()
+      {
+         for (int i = 0; i < 20; i++)
+         {
             var buzzword = Company.Buzzword();
             Assert.IsFalse(string.IsNullOrWhiteSpace(buzzword));
             Assert.IsTrue(Regex.IsMatch(buzzword, @"[0-9a-z]+"));
@@ -48,26 +56,30 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Bs_HappyDays() {
+      public void Bs_HappyDays()
+      {
          var bs = Company.Bs();
          var matches = Regex.Matches(bs, @"[0-9a-zA-Z]+");
          Assert.GreaterOrEqual(matches.Count, 3, $"Failed BS was '{bs}'");
       }
 
       [Test]
-      public void Logo_HappyDays() {
+      public void Logo_HappyDays()
+      {
          var logo = Company.Logo();
          var uri = new Uri(logo); // shouldn't throw indicating it's a valid URL
       }
 
       [Test]
-      public void Type_HappyDays() {
+      public void Type_HappyDays()
+      {
          var type = Company.Type();
          Assert.IsFalse(string.IsNullOrWhiteSpace(type));
       }
 
       [Test]
-      public void Ein_HappyDays() {
+      public void Ein_HappyDays()
+      {
          var ein = Company.Ein();
          Assert.AreEqual(10, ein.Length);
          Assert.IsFalse(ein.Contains("#"));
@@ -76,7 +88,8 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void DunsNumber_HappyDays() {
+      public void DunsNumber_HappyDays()
+      {
          var duns = Company.DunsNumber();
          Assert.AreEqual(11, duns.Length);
          Assert.AreEqual(2, Regex.Matches(duns, @"[\-]").Count);
@@ -84,40 +97,46 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Profession_HappyDays() {
+      public void Profession_HappyDays()
+      {
          var profession = Company.Profession();
          Assert.IsFalse(string.IsNullOrWhiteSpace(profession));
       }
 
       [Test]
-      public void SwedishOrganizationNumber_HappyDays() {
+      public void SwedishOrganizationNumber_HappyDays()
+      {
          var son = Company.SwedishOrganizationNumber();
          Assert.IsTrue(son.HasValidCheckDigit());
       }
 
       [Test]
-      public void CzechOrganizationNumber_HappyDays() {
+      public void CzechOrganizationNumber_HappyDays()
+      {
          var con = Company.CzechOrganizationNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(con));
          Assert.AreEqual(8, con.Length);
       }
 
       [Test]
-      public void FrenchSirenNumber_HappyDays() {
+      public void FrenchSirenNumber_HappyDays()
+      {
          var siren = Company.FrenchSirenNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(siren));
          Assert.AreEqual(9, siren.Length);
       }
 
       [Test]
-      public void FrenchSiretNumber_HappyDays() {
+      public void FrenchSiretNumber_HappyDays()
+      {
          var siret = Company.FrenchSiretNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(siret));
          Assert.AreEqual(14, siret.Length);
       }
 
       [Test]
-      public void NorwegianOrganizationNumber_HappyDays() {
+      public void NorwegianOrganizationNumber_HappyDays()
+      {
          var number = Company.NorwegianOrganizationNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
          Assert.AreEqual(1, Regex.Matches(number, @"^[89]").Count);
@@ -125,14 +144,16 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void AustralianBusinessNumber_HappyDays() {
+      public void AustralianBusinessNumber_HappyDays()
+      {
          var number = Company.AustralianBusinessNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
          Assert.AreEqual(11, Regex.Matches(number, @"[0-9]").Count);
       }
 
       [Test]
-      public void SpanishOrganizationNumber_HappyDays() {
+      public void SpanishOrganizationNumber_HappyDays()
+      {
          var number = Company.SpanishOrganizationNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
          Assert.AreEqual(1, Regex.Matches(number, @"^[ABCDEFGHJNPQRSUVW]").Count, $"Invalid number is '{number}'.");
@@ -140,7 +161,8 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void PolishTaxpayerIdentificationNumber_HappyDays() {
+      public void PolishTaxpayerIdentificationNumber_HappyDays()
+      {
          var number = Company.PolishTaxpayerIdentificationNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
          Assert.AreEqual(1, Regex.Matches(number, @"^[1-8][1-8][1-8]").Count);
@@ -148,14 +170,16 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void PolishRegisterOfNationalEconomy_DefaultValue() {
+      public void PolishRegisterOfNationalEconomy_DefaultValue()
+      {
          var number = Company.PolishRegisterOfNationalEconomy();
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
          Assert.AreEqual(9, number.Length);
       }
 
       [Test]
-      public void PolishRegisterOfNationalEconomy_With_Length_9() {
+      public void PolishRegisterOfNationalEconomy_With_Length_9()
+      {
          var number = Company.PolishRegisterOfNationalEconomy(9);
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
          Assert.AreEqual(9, number.Length);
@@ -163,14 +187,16 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void PolishRegisterOfNationalEconomy_With_Length_14() {
+      public void PolishRegisterOfNationalEconomy_With_Length_14()
+      {
          var number = Company.PolishRegisterOfNationalEconomy(14);
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
          Assert.AreEqual(14, number.Length);
       }
 
       [Test]
-      public void PolishRegisterOfNationalEconomy_With_Invalid_Length() {
+      public void PolishRegisterOfNationalEconomy_With_Invalid_Length()
+      {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Company.PolishRegisterOfNationalEconomy(11));
          Assert.AreEqual("Must be either 9 or 14.\r\nParameter name: length", ex.Message);
       }

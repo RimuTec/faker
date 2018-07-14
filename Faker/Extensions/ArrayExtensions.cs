@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RimuTec.Faker.Extensions {
-   internal static class ArrayExtensions {
+namespace RimuTec.Faker.Extensions
+{
+   internal static class ArrayExtensions
+   {
       /// <summary>
       /// Select a random element from the array.
       /// </summary>
-      public static T Sample<T>(this T[] array) {
-         if (array.Count() == 0) {
+      public static T Sample<T>(this T[] array)
+      {
+         if (array.Count() == 0)
+         {
             return default(T);
          }
 
@@ -18,8 +22,10 @@ namespace RimuTec.Faker.Extensions {
       /// <summary>
       /// Select a random string from the Enumerable list.
       /// </summary>
-      public static string Sample(this IEnumerable<Func<string>> enumerable) {
-         if (enumerable.Count() == 0) {
+      public static string Sample(this IEnumerable<Func<string>> enumerable)
+      {
+         if (enumerable.Count() == 0)
+         {
             throw new InvalidOperationException($"Enumerable {nameof(enumerable)} must contain at least one item");
          }
 
@@ -29,8 +35,10 @@ namespace RimuTec.Faker.Extensions {
       /// <summary>
       /// Select a random element from a list.
       /// </summary>
-      public static T Sample<T>(this List<T> list) {
-         if (list.Count() == 0) {
+      public static T Sample<T>(this List<T> list)
+      {
+         if (list.Count() == 0)
+         {
             throw new InvalidOperationException($"List<{typeof(T).Name}> {nameof(list)} must contain at least one item");
          }
          return list.ElementAt(RandomNumber.Next(0, list.Count()));
@@ -39,8 +47,10 @@ namespace RimuTec.Faker.Extensions {
       /// <summary>
       /// Select a random string array from the Enumerable list.
       /// </summary>
-      public static string[] Sample(this IEnumerable<Func<string[]>> enumerable) {
-         if (enumerable.Count() == 0) {
+      public static string[] Sample(this IEnumerable<Func<string[]>> enumerable)
+      {
+         if (enumerable.Count() == 0)
+         {
             throw new InvalidOperationException($"Enumerable {nameof(enumerable)} must contain at least one item");
          }
 

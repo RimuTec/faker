@@ -5,14 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using YamlDotNet.Serialization;
 
-namespace RimuTec.Faker {
+namespace RimuTec.Faker
+{
    /// <summary>
    /// Generators for address related data.
    /// </summary>
-   public static class Address {
+   public static class Address
+   {
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/address.yml
 
-      static Address() {
+      static Address()
+      {
          const string yamlFileName = "RimuTec.Faker.locales.en.address.yml";
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _address = locale.en.faker.address;
@@ -30,7 +33,8 @@ namespace RimuTec.Faker {
       /// Generates a building number. Example: "7304".
       /// </summary>
       /// <returns></returns>
-      public static string BuildingNumber() {
+      public static string BuildingNumber()
+      {
          var template = _address.BuildingNumber.Sample();
          return template.Bothify();
       }
@@ -39,7 +43,8 @@ namespace RimuTec.Faker {
       /// Returns a city. Example: "Imogeneborough"
       /// </summary>
       /// <returns></returns>
-      public static string City() {
+      public static string City()
+      {
          var template = _address.City.Sample();
          template = template.Replace("#{city_prefix}", CityPrefix());
          template = template.Replace("#{Name.first_name}", Name.FirstName());
@@ -52,7 +57,8 @@ namespace RimuTec.Faker {
       /// Resturns a city prefix. Example: "Lake".
       /// </summary>
       /// <returns></returns>
-      public static string CityPrefix() {
+      public static string CityPrefix()
+      {
          return _address.CityPrefix.Sample();
       }
 
@@ -60,7 +66,8 @@ namespace RimuTec.Faker {
       /// Returns a city suffix. Example: "fort".
       /// </summary>
       /// <returns></returns>
-      public static string CitySuffix() {
+      public static string CitySuffix()
+      {
          return _address.CitySuffix.Sample();
       }
 
@@ -68,7 +75,8 @@ namespace RimuTec.Faker {
       /// Generates a community name. Example: "University Crossing"..
       /// </summary>
       /// <returns></returns>
-      public static string Community() {
+      public static string Community()
+      {
          var template = _address.Community.Sample();
          template = template.Replace("#{community_prefix}", _address.CommunityPrefix.Sample());
          template = template.Replace("#{community_suffix}", _address.CommunitySuffix.Sample());
@@ -79,7 +87,8 @@ namespace RimuTec.Faker {
       /// Returns a country name. Exmple: "French Guiana".
       /// </summary>
       /// <returns></returns>
-      public static string Country() {
+      public static string Country()
+      {
          return _address.Country.Sample();
       }
 
@@ -87,7 +96,8 @@ namespace RimuTec.Faker {
       /// Returns a country code. Example: "IT"
       /// </summary>
       /// <returns></returns>
-      public static string CountryCode() {
+      public static string CountryCode()
+      {
          return _address.CountryCode.Sample();
       }
 
@@ -95,7 +105,8 @@ namespace RimuTec.Faker {
       /// Returns a long country code. Example: "ITA"
       /// </summary>
       /// <returns></returns>
-      public static string CountryCodeLong() {
+      public static string CountryCodeLong()
+      {
          return _address.CountryCodeLong.Sample();
       }
 
@@ -103,7 +114,8 @@ namespace RimuTec.Faker {
       /// Returns a full address. Example: "282 Kevin Brook, Imogeneborough, CA 58517"
       /// </summary>
       /// <returns></returns>
-      public static string FullAddress() {
+      public static string FullAddress()
+      {
          var template = _address.FullAddress.Sample();
          template = template.Replace("#{street_address}", StreetAddress());
          template = template.Replace("#{city}", City());
@@ -117,7 +129,8 @@ namespace RimuTec.Faker {
       /// Returns a latitude. Example: -58.17256227443719
       /// </summary>
       /// <returns></returns>
-      public static double Latitude() {
+      public static double Latitude()
+      {
          return (RandomNumber.NextDouble() * 180) - 90;
       }
 
@@ -125,7 +138,8 @@ namespace RimuTec.Faker {
       /// Returns a longitude. Example: -156.65548382095133
       /// </summary>
       /// <returns></returns>
-      public static double Longitude() {
+      public static double Longitude()
+      {
          return (RandomNumber.NextDouble() * 360) - 180;
       }
 
@@ -135,7 +149,8 @@ namespace RimuTec.Faker {
       /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">Parameter 'Abbreviation' has an invalid value.</exception>
-      public static string Postcode(string stateAbbreviation = "") {
+      public static string Postcode(string stateAbbreviation = "")
+      {
          return ZipCode(stateAbbreviation);
       }
 
@@ -143,7 +158,8 @@ namespace RimuTec.Faker {
       /// Generates a secondary address. Example: "Apt. 057".
       /// </summary>
       /// <returns></returns>
-      public static string SecondaryAddress() {
+      public static string SecondaryAddress()
+      {
          var template = _address.SecondaryAddress.Sample();
          return template.Bothify();
       }
@@ -152,7 +168,8 @@ namespace RimuTec.Faker {
       /// Returns a state. Example: "California".
       /// </summary>
       /// <returns></returns>
-      public static string State() {
+      public static string State()
+      {
          return _address.State.Sample();
       }
 
@@ -160,7 +177,8 @@ namespace RimuTec.Faker {
       /// Returns a state abbreviation. Examples: "AP" (Armed Forces Pacific, in case you wondered) or "ME" (Maine).
       /// </summary>
       /// <returns></returns>
-      public static string StateAbbr() {
+      public static string StateAbbr()
+      {
          return _address.StateAbbr.Sample();
       }
 
@@ -170,7 +188,8 @@ namespace RimuTec.Faker {
       /// </summary>
       /// <param name="includeSecondary">'true' to include, 'false' to exclude sencondary. Default value is 'false'.</param>
       /// <returns></returns>
-      public static string StreetAddress(bool includeSecondary = false) {
+      public static string StreetAddress(bool includeSecondary = false)
+      {
          var template = _address.StreetAddress.First() + (includeSecondary ? " " + SecondaryAddress() : string.Empty);
          template = template.Replace("#{building_number}", _address.BuildingNumber.Sample());
          template = template.Replace("#{street_name}", StreetName());
@@ -182,7 +201,8 @@ namespace RimuTec.Faker {
       /// Returns a street name. Examples: "Kevin Brook" or "Margarita Pass".
       /// </summary>
       /// <returns></returns>
-      public static string StreetName() {
+      public static string StreetName()
+      {
          var template = _address.StreetName.Sample();
          template = template.Replace("#{Name.first_name}", Name.FirstName());
          template = template.Replace("#{Name.last_name}", Name.LastName());
@@ -194,7 +214,8 @@ namespace RimuTec.Faker {
       /// Returns a street suffix. Example: "Street".
       /// </summary>
       /// <returns></returns>
-      public static string StreetSuffix() {
+      public static string StreetSuffix()
+      {
          return _address.StreetSuffix.Sample();
       }
 
@@ -202,7 +223,8 @@ namespace RimuTec.Faker {
       /// Returns a random time zone. Example: "Asia/Yakutsk".
       /// </summary>
       /// <returns></returns>
-      public static string TimeZone() {
+      public static string TimeZone()
+      {
          return _address.TimeZone.Sample();
       }
 
@@ -212,7 +234,8 @@ namespace RimuTec.Faker {
       /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">Parameter 'Abbreviation' has an invalid value.</exception>
-      public static string Zip(string stateAbbreviation = "") {
+      public static string Zip(string stateAbbreviation = "")
+      {
          return ZipCode(stateAbbreviation);
       }
 
@@ -222,11 +245,14 @@ namespace RimuTec.Faker {
       /// <param name="stateAbbreviation">Abbreviation for one of the US states, e.g. "ME", or "". Default is "".</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">Parameter 'Abbreviation' has an invalid value.</exception>
-      public static string ZipCode(string stateAbbreviation = "") {
-         if(stateAbbreviation == "") {
+      public static string ZipCode(string stateAbbreviation = "")
+      {
+         if (stateAbbreviation == "")
+         {
             return _address.Postcode.Sample().Letterify().Numerify();
          }
-         if(stateAbbreviation == null || !_address.PostcodeByState.ContainsKey(stateAbbreviation)) {
+         if (stateAbbreviation == null || !_address.PostcodeByState.ContainsKey(stateAbbreviation))
+         {
             throw new ArgumentOutOfRangeException(nameof(stateAbbreviation), "Must be one of the US state abbreviations or empty.");
          }
          var template = _address.PostcodeByState[stateAbbreviation];
@@ -249,19 +275,23 @@ namespace RimuTec.Faker {
       // Helper classes for reading the yaml file. Note that the class names are
       // intentionally lower case.
 
-      internal class locale {
+      internal class locale
+      {
          public en en { get; set; }
       }
 
-      internal class en {
+      internal class en
+      {
          public faker faker { get; set; }
       }
 
-      internal class faker {
+      internal class faker
+      {
          public address address { get; set; }
       }
 
-      internal class address {
+      internal class address
+      {
          [YamlMember(Alias = "city_prefix", ApplyNamingConventions = false)]
          public string[] CityPrefix { get; set; }
 

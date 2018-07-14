@@ -2,11 +2,14 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace RimuTec.Faker.Tests {
+namespace RimuTec.Faker.Tests
+{
    [TestFixture]
-   public class IDNumberTests {
+   public class IDNumberTests
+   {
       [Test]
-      public void Valid_SSN() {
+      public void Valid_SSN()
+      {
          var validSSN = IDNumber.Valid();
          Assert.IsFalse(string.IsNullOrWhiteSpace(validSSN));
          Assert.IsFalse(validSSN.Contains("#"));
@@ -15,7 +18,8 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Valid_SSN_Avoid_All_Zeros_In_One_Segment() {
+      public void Valid_SSN_Avoid_All_Zeros_In_One_Segment()
+      {
          // This test has no assertion. It calls Valid() often enough so that
          // an invalid candidate number will be generated which will be discarded
          // and a new one is generated recursively until a valid SSN has been
@@ -24,7 +28,8 @@ namespace RimuTec.Faker.Tests {
          var tries = 500;
          IDNumber._SSN_Valid_recursive = false;
          var recursive = false;
-         while(tries-- > 0 && !recursive) {
+         while (tries-- > 0 && !recursive)
+         {
             var validSSN = IDNumber.Valid();
             recursive = IDNumber._SSN_Valid_recursive;
          }
@@ -32,13 +37,15 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void Invalid_HappyDays() {
+      public void Invalid_HappyDays()
+      {
          var invalid = IDNumber.Invalid();
          Assert.IsTrue(IDNumber._invalid_SSN.Any(r => Regex.Matches(invalid, r).Count > 0));
       }
 
       [Test]
-      public void SpanishCitizenNumber_HappyDays() {
+      public void SpanishCitizenNumber_HappyDays()
+      {
          var dni = IDNumber.SpanishCitizenNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(dni));
          Assert.IsFalse(dni.Contains("#"));
@@ -48,7 +55,8 @@ namespace RimuTec.Faker.Tests {
       }
 
       [Test]
-      public void SpanishForeignCitizenNumber_HappyDays() {
+      public void SpanishForeignCitizenNumber_HappyDays()
+      {
          var nie = IDNumber.SpanishForeignCitizenNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(nie));
          Assert.IsFalse(nie.Contains("#"));

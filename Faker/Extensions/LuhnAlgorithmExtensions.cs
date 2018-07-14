@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace RimuTec.Faker.Extensions {
+namespace RimuTec.Faker.Extensions
+{
    /// <summary>
    /// Extensions for Luhn Alrorithm check digits calculations.
    /// </summary>
-   internal static class LuhnAlgorithmExtensions {
+   internal static class LuhnAlgorithmExtensions
+   {
       // Code for this class from https://stackoverflow.com/a/23640453/411428
 
       static readonly int[] Results = { 0, 2, 4, 6, 8, 1, 3, 5, 7, 9 };
@@ -19,7 +21,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The list of digits for which to compute the check digit</param>
       /// <returns>the check digit</returns>
-      public static int CheckDigit(this IList<int> digits) {
+      public static int CheckDigit(this IList<int> digits)
+      {
          var i = 0;
          var lengthMod = digits.Count % 2;
          return (digits.Sum(d => i++ % 2 == lengthMod ? d : Results[d]) * 9) % 10;
@@ -30,7 +33,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The original list of digits</param>
       /// <returns>the new list of digits including checkdigit</returns>
-      public static IList<int> AppendCheckDigit(this IList<int> digits) {
+      public static IList<int> AppendCheckDigit(this IList<int> digits)
+      {
          var result = digits;
          result.Add(digits.CheckDigit());
          return result;
@@ -41,7 +45,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The list of digits to check</param>
       /// <returns>true/false depending on valid checkdigit</returns>
-      public static bool HasValidCheckDigit(this IList<int> digits) {
+      public static bool HasValidCheckDigit(this IList<int> digits)
+      {
          return digits.Last() == CheckDigit(digits.Take(digits.Count - 1).ToList());
       }
 
@@ -54,7 +59,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">the original string</param>
       /// <returns>the list of ints</returns>
-      internal static IList<int> ToDigitList(this string digits) {
+      internal static IList<int> ToDigitList(this string digits)
+      {
          return digits.Select(d => d - 48).ToList();
       }
 
@@ -63,7 +69,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The string of digits for which to compute the check digit</param>
       /// <returns>the check digit</returns>
-      public static string CheckDigit(this string digits) {
+      public static string CheckDigit(this string digits)
+      {
          return digits.ToDigitList().CheckDigit().ToString(CultureInfo.InvariantCulture);
       }
 
@@ -72,7 +79,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The original string of digits</param>
       /// <returns>the new string of digits including checkdigit</returns>
-      public static string AppendCheckDigit(this string digits) {
+      public static string AppendCheckDigit(this string digits)
+      {
          return digits + digits.CheckDigit();
       }
 
@@ -81,7 +89,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The string of digits to check</param>
       /// <returns>true/false depending on valid checkdigit</returns>
-      public static bool HasValidCheckDigit(this string digits) {
+      public static bool HasValidCheckDigit(this string digits)
+      {
          return digits.ToDigitList().HasValidCheckDigit();
       }
 
@@ -94,7 +103,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">the original int</param>
       /// <returns>the list of ints</returns>
-      private static IList<int> ToDigitList(this int digits) {
+      private static IList<int> ToDigitList(this int digits)
+      {
          return digits.ToString(CultureInfo.InvariantCulture).Select(d => d - 48).ToList();
       }
 
@@ -103,7 +113,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The integer for which to compute the check digit</param>
       /// <returns>the check digit</returns>
-      public static int CheckDigit(this int digits) {
+      public static int CheckDigit(this int digits)
+      {
          return digits.ToDigitList().CheckDigit();
       }
 
@@ -112,7 +123,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The original integer</param>
       /// <returns>the new integer including checkdigit</returns>
-      public static int AppendCheckDigit(this int digits) {
+      public static int AppendCheckDigit(this int digits)
+      {
          return digits * 10 + digits.CheckDigit();
       }
 
@@ -121,7 +133,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The integer to check</param>
       /// <returns>true/false depending on valid checkdigit</returns>
-      public static bool HasValidCheckDigit(this int digits) {
+      public static bool HasValidCheckDigit(this int digits)
+      {
          return digits.ToDigitList().HasValidCheckDigit();
       }
 
@@ -134,7 +147,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">the original int</param>
       /// <returns>the list of ints</returns>
-      private static IList<int> ToDigitList(this Int64 digits) {
+      private static IList<int> ToDigitList(this Int64 digits)
+      {
          return digits.ToString(CultureInfo.InvariantCulture).Select(d => d - 48).ToList();
       }
 
@@ -143,7 +157,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The integer for which to compute the check digit</param>
       /// <returns>the check digit</returns>
-      public static int CheckDigit(this Int64 digits) {
+      public static int CheckDigit(this Int64 digits)
+      {
          return digits.ToDigitList().CheckDigit();
       }
 
@@ -152,7 +167,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The original integer</param>
       /// <returns>the new integer including checkdigit</returns>
-      public static Int64 AppendCheckDigit(this Int64 digits) {
+      public static Int64 AppendCheckDigit(this Int64 digits)
+      {
          return digits * 10 + digits.CheckDigit();
       }
 
@@ -161,7 +177,8 @@ namespace RimuTec.Faker.Extensions {
       /// </summary>
       /// <param name="digits">The integer to check</param>
       /// <returns>true/false depending on valid checkdigit</returns>
-      public static bool HasValidCheckDigit(this Int64 digits) {
+      public static bool HasValidCheckDigit(this Int64 digits)
+      {
          return digits.ToDigitList().HasValidCheckDigit();
       }
 
