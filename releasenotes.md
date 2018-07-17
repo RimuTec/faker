@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.32.0
+### New Features
+- Code.Asin()
+
 ## Version 0.31.0
 ### New Features
 - Code.Imei()

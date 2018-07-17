@@ -7,6 +7,13 @@ namespace RimuTec.Faker.Tests
    public class CodeTests : FixtureBase
    {
       [Test]
+      public void Asin_HappyDays()
+      {
+         var asin = Code.Asin();
+         Assert.AreEqual(1, RegexMatchesCount(asin, @"^B000([A-Z]|\d){6}$"));
+      }
+
+      [Test]
       public void Ean_With_Default_Value()
       {
          const int digitCount = 13;

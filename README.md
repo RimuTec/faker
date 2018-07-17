@@ -45,6 +45,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - CreditCardType()
 
 ## Code
+- Asin()
 - Ean(int @base = 13)
 - Imei()
 - Isbn(int @base = 10)

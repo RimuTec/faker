@@ -23,6 +23,15 @@ namespace RimuTec.Faker
       }
 
       /// <summary>
+      /// Retrieves a real Amazon ASIN code list taken from https://archive.org/details/asin_listing
+      /// </summary>
+      /// <returns></returns>
+      public static string Asin()
+      {
+         return _code.Asin.Sample();
+      }
+
+      /// <summary>
       /// Be default generates a 13 digits EAN code in format 1234567890123.
       /// </summary>
       /// <param name="base">Base for EAN code. Must be 8 or 13. Default is 13.</param>
