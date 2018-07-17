@@ -7,7 +7,7 @@ namespace RimuTec.Faker.Tests
    public class CodeTests : FixtureBase
    {
       [Test]
-      public void Asin_HappyDays()
+      public void Asin()
       {
          var asin = Code.Asin();
          Assert.AreEqual(1, RegexMatchesCount(asin, @"^B000([A-Z]|\d){6}$"));
@@ -129,6 +129,29 @@ namespace RimuTec.Faker.Tests
          Assert.AreEqual(10, rut.Length);
          Assert.AreEqual(9, RegexMatchesCount(rut, @"[0-9K]"));
          Assert.AreEqual('-', rut[8]);
+      }
+
+      [Test]
+      public void Sin()
+      {
+         var sin = Code.Sin();
+         Assert.AreEqual(1, RegexMatchesCount(sin, @"\d{9}"));
+         Assert.AreEqual(9, sin.Length);
+         Assert.IsTrue(LuhnChecksumValid(sin));
+      }
+
+      public bool LuhnChecksumValid(string digits)
+      {
+         // Implementation of this method taken from https://en.wikipedia.org/wiki/Luhn_algorithm#C#
+         int sum = 0;
+         int len = digits.Length;
+         for (int i = 0; i < len; i++)
+         {
+            int add = (digits[i] - '0') * (2 - (i + len) % 2);
+            add -= add > 9 ? 9 : 0;
+            sum += add;
+         }
+         return sum % 10 == 0;
       }
    }
 }

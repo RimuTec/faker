@@ -123,6 +123,34 @@ namespace RimuTec.Faker
          return $"{value}-{checkDigit}";
       }
 
+      /// <summary>
+      /// Generates Social Insurance Number issued in Canada. 
+      /// </summary>
+      /// <returns></returns>
+      public static string Sin()
+      {
+         // https://en.wikipedia.org/wiki/Social_Insurance_Number
+         // 1   - province or temporary resident
+         // 2-8 - random numbers
+         // 9   - checksum
+
+         // 1st digit. 8,0 are not used.
+         var digits = new List<int> { new Range2<int>(1, 9).AsArray().Sample() };
+
+         // generate 2nd to 8th
+         7.TimesDo(x => digits.Add(RandomNumber.Next(0, 10)));
+
+         // generate 9th digit
+         digits.Add(GenerateSinCheckDigit(digits));
+
+         return string.Join("", digits);
+      }
+
+      private static int GenerateSinCheckDigit(IList<int> digits)
+      {
+         return digits.LuhnCheckDigit();
+      }
+
       private static string RutVerificatorDigit(string value)
       {
          // https://www.vesic.org/english/blog-eng/net/verifying-chilean-rut-code-tax-number/

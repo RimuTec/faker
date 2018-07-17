@@ -45,6 +45,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - CreditCardType()
 
 ## Code
+This class is on par with Ruby Faker for default locale ("en").
 - Asin()
 - Ean(int @base = 13)
 - Imei()
@@ -52,6 +53,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - Npi()
 - Nric(int minAge = 18, int maxAge = 65)
 - Rut()
+- Sin()
 
 ## Company
 This class is on par with Ruby Faker for default locale ("en").

@@ -1,8 +1,11 @@
 # Release Notes
 
 ## Version 0.32.0
+### Summary
+Class Code is now on par with Ruby Faker for default locale ("en").
 ### New Features
 - Code.Asin()
+- Code.Sin()
 
 ## Version 0.31.0
 ### New Features
