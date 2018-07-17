@@ -160,7 +160,7 @@ namespace RimuTec.Faker
             RandomNumber.Next(2, 10)
          };
          digits.AddRange(6.Times(x => RandomNumber.Next(10)));
-         digits.Add(digits.CheckDigit());
+         digits.Add(digits.LuhnCheckDigit());
          return ConvertToString(digits);
       }
 
@@ -197,7 +197,7 @@ namespace RimuTec.Faker
       {
          var digits = new List<int>();
          digits.AddRange(8.Times(x => RandomNumber.Next(10)));
-         digits.AppendCheckDigit();
+         digits.AppendLuhnCheckDigit();
          return digits;
       }
 
@@ -210,7 +210,7 @@ namespace RimuTec.Faker
          var location = RandomNumber.Next(100).ToString().PadLeft(4, '0');
          var digits = new List<int>(FrenchSirenNumberDigits());
          digits.AddRange(location.Select(x => int.Parse(x.ToString())));
-         digits.AppendCheckDigit();
+         digits.AppendLuhnCheckDigit();
          return ConvertToString(digits);
       }
 

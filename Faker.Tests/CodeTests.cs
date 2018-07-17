@@ -42,6 +42,13 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
+      public void Imei_HappyDays()
+      {
+         var imei = Code.Imei();
+         Assert.AreEqual(15, imei.Length);
+      }
+
+      [Test]
       public void Isbn_With_Default_Value()
       {
          var isbn = Code.Isbn();

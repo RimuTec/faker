@@ -46,6 +46,7 @@ This class is on par with Ruby Faker for default locale ("en").
 
 ## Code
 - Ean(int @base = 13)
+- Imei()
 - Isbn(int @base = 10)
 - Npi()
 - Nric(int minAge = 18, int maxAge = 65)

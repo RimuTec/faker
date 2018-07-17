@@ -21,7 +21,7 @@ namespace RimuTec.Faker.Extensions
       /// </summary>
       /// <param name="digits">The list of digits for which to compute the check digit</param>
       /// <returns>the check digit</returns>
-      public static int CheckDigit(this IList<int> digits)
+      public static int LuhnCheckDigit(this IList<int> digits)
       {
          var i = 0;
          var lengthMod = digits.Count % 2;
@@ -33,10 +33,10 @@ namespace RimuTec.Faker.Extensions
       /// </summary>
       /// <param name="digits">The original list of digits</param>
       /// <returns>the new list of digits including checkdigit</returns>
-      public static IList<int> AppendCheckDigit(this IList<int> digits)
+      public static IList<int> AppendLuhnCheckDigit(this IList<int> digits)
       {
          var result = digits;
-         result.Add(digits.CheckDigit());
+         result.Add(digits.LuhnCheckDigit());
          return result;
       }
 
@@ -45,9 +45,9 @@ namespace RimuTec.Faker.Extensions
       /// </summary>
       /// <param name="digits">The list of digits to check</param>
       /// <returns>true/false depending on valid checkdigit</returns>
-      public static bool HasValidCheckDigit(this IList<int> digits)
+      public static bool HasValidLuhnCheckDigit(this IList<int> digits)
       {
-         return digits.Last() == CheckDigit(digits.Take(digits.Count - 1).ToList());
+         return digits.Last() == LuhnCheckDigit(digits.Take(digits.Count - 1).ToList());
       }
 
       #endregion extension methods for IList<int>
@@ -71,7 +71,7 @@ namespace RimuTec.Faker.Extensions
       /// <returns>the check digit</returns>
       public static string CheckDigit(this string digits)
       {
-         return digits.ToDigitList().CheckDigit().ToString(CultureInfo.InvariantCulture);
+         return digits.ToDigitList().LuhnCheckDigit().ToString(CultureInfo.InvariantCulture);
       }
 
       /// <summary>
@@ -91,7 +91,7 @@ namespace RimuTec.Faker.Extensions
       /// <returns>true/false depending on valid checkdigit</returns>
       public static bool HasValidCheckDigit(this string digits)
       {
-         return digits.ToDigitList().HasValidCheckDigit();
+         return digits.ToDigitList().HasValidLuhnCheckDigit();
       }
 
       #endregion extension methods for strings
@@ -115,7 +115,7 @@ namespace RimuTec.Faker.Extensions
       /// <returns>the check digit</returns>
       public static int CheckDigit(this int digits)
       {
-         return digits.ToDigitList().CheckDigit();
+         return digits.ToDigitList().LuhnCheckDigit();
       }
 
       /// <summary>
@@ -135,7 +135,7 @@ namespace RimuTec.Faker.Extensions
       /// <returns>true/false depending on valid checkdigit</returns>
       public static bool HasValidCheckDigit(this int digits)
       {
-         return digits.ToDigitList().HasValidCheckDigit();
+         return digits.ToDigitList().HasValidLuhnCheckDigit();
       }
 
       #endregion extension methods for integers
@@ -159,7 +159,7 @@ namespace RimuTec.Faker.Extensions
       /// <returns>the check digit</returns>
       public static int CheckDigit(this Int64 digits)
       {
-         return digits.ToDigitList().CheckDigit();
+         return digits.ToDigitList().LuhnCheckDigit();
       }
 
       /// <summary>
@@ -179,7 +179,7 @@ namespace RimuTec.Faker.Extensions
       /// <returns>true/false depending on valid checkdigit</returns>
       public static bool HasValidCheckDigit(this Int64 digits)
       {
-         return digits.ToDigitList().HasValidCheckDigit();
+         return digits.ToDigitList().HasValidLuhnCheckDigit();
       }
 
       #endregion extension methods for int64s}

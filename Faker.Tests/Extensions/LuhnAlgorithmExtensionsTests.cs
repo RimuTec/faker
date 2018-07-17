@@ -13,12 +13,12 @@ namespace RimuTec.Faker.Tests.Helper
       [Test]
       public void ComputeCheckDigits()
       {
-         Assert.AreEqual(0, (new List<int> { 0 }).CheckDigit());
-         Assert.AreEqual(8, (new List<int> { 1 }).CheckDigit());
-         Assert.AreEqual(6, (new List<int> { 2 }).CheckDigit());
-         Assert.AreEqual(0, (new List<int> { 3, 6, 1, 5, 5 }).CheckDigit());
+         Assert.AreEqual(0, (new List<int> { 0 }).LuhnCheckDigit());
+         Assert.AreEqual(8, (new List<int> { 1 }).LuhnCheckDigit());
+         Assert.AreEqual(6, (new List<int> { 2 }).LuhnCheckDigit());
+         Assert.AreEqual(0, (new List<int> { 3, 6, 1, 5, 5 }).LuhnCheckDigit());
          Assert.AreEqual(0, 36155.CheckDigit());
-         Assert.AreEqual(8, (new List<int> { 3, 6, 1, 5, 6 }).CheckDigit());
+         Assert.AreEqual(8, (new List<int> { 3, 6, 1, 5, 6 }).LuhnCheckDigit());
          Assert.AreEqual(8, 36156.CheckDigit());
          Assert.AreEqual(6, 36157.CheckDigit());
          Assert.AreEqual("6", "36157".CheckDigit());
@@ -28,7 +28,7 @@ namespace RimuTec.Faker.Tests.Helper
       [Test]
       public void ValidateCheckDigits()
       {
-         Assert.IsTrue((new List<int> { 3, 6, 1, 5, 6, 8 }).HasValidCheckDigit());
+         Assert.IsTrue((new List<int> { 3, 6, 1, 5, 6, 8 }).HasValidLuhnCheckDigit());
          Assert.IsTrue(361568.HasValidCheckDigit());
          Assert.IsTrue("361568".HasValidCheckDigit());
          Assert.IsTrue("79927398713".HasValidCheckDigit());

@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.31.0
+### New Features
+- Code.Imei()
+
 ## Version 0.30.0
 ### New Features
 - Code.Nric(int minAge = 18, int maxAge = 65)

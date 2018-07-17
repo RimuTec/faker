@@ -37,6 +37,23 @@ namespace RimuTec.Faker
       }
 
       /// <summary>
+      /// Generates a GSM modem, device or mobile phone 15 digit IMEI number.
+      /// </summary>
+      /// <returns></returns>
+      public static string Imei()
+      {
+         // Fill in the first two values of the string based with the specified prefix.
+         // Reporting Body Identifier list: http://en.wikipedia.org/wiki/Reporting_Body_Identifier
+         int reportingBodyIdentifier = _RBI.Sample();
+         var arr = $"{reportingBodyIdentifier}".PadLeft(2, '0').ToDigitList();
+         12.TimesDo(x => arr.Add(RandomNumber.Next(0, 10)));
+         var digits = arr.AppendLuhnCheckDigit();
+         return string.Join("", digits);
+      }
+
+      private static readonly int[] _RBI = new int[] { 01, 10, 30, 33, 35, 44, 45, 49, 50, 51, 52, 53, 54, 86, 91, 98, 99 };
+
+      /// <summary>
       /// By default generates 10 sign isbn code in format 123456789-X. You can pass 13 to generate new 13 sign code.
       /// </summary>
       /// <param name="base"></param>
@@ -84,21 +101,6 @@ namespace RimuTec.Faker
          values += @"\d{5}".Regexify();
          var checkAlpha = GenerateNricCheckAlphabet(values.ToDigitList(), prefix);
          return $"{prefix}{values}{checkAlpha}";
-      }
-
-      private static string GenerateNricCheckAlphabet(IList<int> digits, string prefix)
-      {
-         var weight = "2765432".ToDigitList();
-         var total = 0;
-         for(var i = 0; i < digits.Count(); i++ )
-         {
-            total += weight[i] * digits[i];
-         }
-         if( prefix == "T" )
-         {
-            total += 4;
-         }
-         return "ABCDEFGHIZJ"[10 - (total % 11)].ToString();
       }
 
       /// <summary>
@@ -173,6 +175,21 @@ namespace RimuTec.Faker
          remainder = 10 - remainder % 10;
          var remainderAsString = remainder == 10 ? "0" : $"{remainder}";
          return $"{values}{remainderAsString}";
+      }
+
+      private static string GenerateNricCheckAlphabet(IList<int> digits, string prefix)
+      {
+         var weight = "2765432".ToDigitList();
+         var total = 0;
+         for (var i = 0; i < digits.Count(); i++)
+         {
+            total += weight[i] * digits[i];
+         }
+         if (prefix == "T")
+         {
+            total += 4;
+         }
+         return "ABCDEFGHIZJ"[10 - (total % 11)].ToString();
       }
 
       private static int Isbn13CheckDigit(IList<int> digits)

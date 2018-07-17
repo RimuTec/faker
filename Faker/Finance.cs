@@ -54,7 +54,7 @@ namespace RimuTec.Faker
          template = template.Numerify();
 
          // Luhn check digit if required:
-         var checkDigit = Regex.Replace(template, @"[^0-9]", "").ToDigitList().CheckDigit();
+         var checkDigit = Regex.Replace(template, @"[^0-9]", "").ToDigitList().LuhnCheckDigit();
          template = template.Replace("L", checkDigit.ToString());
          return template;
       }
