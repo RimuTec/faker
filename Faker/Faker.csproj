@@ -1,30 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-     <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
-     <AssemblyName>RimuTec.Faker</AssemblyName>
-    <RootNamespace>RimuTec.Faker</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.32.0</Version>
-    <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
-    <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks Generation Sample Data</PackageTags>
-    <Copyright>Copyright (c) 2018 RimuTec Ltd.</Copyright>
-    <PackageLicenseUrl>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>Relase notes listing new features and other changes are available at https://github.com/RimuTec/Faker/blob/master/releasenotes.md</PackageReleaseNotes>
-    <Authors>RimuTec Ltd.</Authors>
-    <Description>A library for generating fake data e.g. for authoring tests, for preparing software demos or for creating screenshots. It includes generators for fake data such as Lorem text, names for persons and company, phone numbers, job titles, addresses, etc. Licensed under the MIT license.</Description>
-  </PropertyGroup>
+   <PropertyGroup>
+      <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
+      <AssemblyName>RimuTec.Faker</AssemblyName>
+      <RootNamespace>RimuTec.Faker</RootNamespace>
+      <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+      <Version>0.33.0</Version>
+      <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
+      <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
+      <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks Generation Sample Data</PackageTags>
+      <Copyright>Copyright (c) 2018 RimuTec Ltd.</Copyright>
+      <PackageLicenseUrl>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicenseUrl>
+      <PackageReleaseNotes>Relase notes listing new features and other changes are available at https://github.com/RimuTec/Faker/blob/master/releasenotes.md</PackageReleaseNotes>
+      <Authors>RimuTec Ltd.</Authors>
+      <Description>A library for generating fake data e.g. for authoring tests, for preparing software demos or for creating screenshots. It includes generators for fake data such as Lorem text, names for persons and company, phone numbers, job titles, addresses, etc. Licensed under the MIT license.</Description>
+      <!-- Enable SourceLink. For more details see https://github.com/dotnet/sourcelink -->
+      <PublishRepositoryUrl>true</PublishRepositoryUrl>
+      <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <DocumentationFile>bin\Debug\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
-  </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+      <DebugType>full</DebugType>
+      <DebugSymbols>true</DebugSymbols>
+      <DocumentationFile>bin\Debug\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
+   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
-  </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+      <DocumentationFile>bin\Release\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
+   </PropertyGroup>
 
    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net462|AnyCPU'">
       <DebugType>full</DebugType>
@@ -37,41 +40,42 @@
    </PropertyGroup>
 
    <ItemGroup>
-    <None Remove="locales\en\address.yml" />
-    <None Remove="locales\en\business.yml" />
-    <None Remove="locales\en\code.yml" />
-    <None Remove="locales\en\company.yml" />
-    <None Remove="locales\en\educator.yml" />
-    <None Remove="locales\en\finance.yml" />
-    <None Remove="locales\en\id_number.yml" />
-    <None Remove="locales\en\internet.yml" />
-    <None Remove="locales\en\job.yml" />
-    <None Remove="locales\en\lorem - Copy.yml" />
-    <None Remove="locales\en\lorem.yml" />
-    <None Remove="locales\en\name.yml" />
-    <None Remove="locales\en\phone_number.yml" />
-  </ItemGroup>
+      <None Remove="locales\en\address.yml" />
+      <None Remove="locales\en\business.yml" />
+      <None Remove="locales\en\code.yml" />
+      <None Remove="locales\en\company.yml" />
+      <None Remove="locales\en\educator.yml" />
+      <None Remove="locales\en\finance.yml" />
+      <None Remove="locales\en\id_number.yml" />
+      <None Remove="locales\en\internet.yml" />
+      <None Remove="locales\en\job.yml" />
+      <None Remove="locales\en\lorem - Copy.yml" />
+      <None Remove="locales\en\lorem.yml" />
+      <None Remove="locales\en\name.yml" />
+      <None Remove="locales\en\phone_number.yml" />
+   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="locales\en\company.yml" />
-    <EmbeddedResource Include="locales\en.yml" />
-    <EmbeddedResource Include="locales\en\address.yml" />
-    <EmbeddedResource Include="locales\en\business.yml" />
-    <EmbeddedResource Include="locales\en\id_number.yml" />
-    <EmbeddedResource Include="locales\en\internet.yml" />
-    <EmbeddedResource Include="locales\en\finance.yml" />
-    <EmbeddedResource Include="locales\en\educator.yml" />
-    <EmbeddedResource Include="locales\en\code.yml" />
-    <EmbeddedResource Include="locales\en\phone_number.yml" />
-    <EmbeddedResource Include="locales\en\lorem.yml" />
-    <EmbeddedResource Include="locales\en\job.yml" />
-    <EmbeddedResource Include="locales\en\name.yml" />
-  </ItemGroup>
+   <ItemGroup>
+      <EmbeddedResource Include="locales\en\company.yml" />
+      <EmbeddedResource Include="locales\en.yml" />
+      <EmbeddedResource Include="locales\en\address.yml" />
+      <EmbeddedResource Include="locales\en\business.yml" />
+      <EmbeddedResource Include="locales\en\id_number.yml" />
+      <EmbeddedResource Include="locales\en\internet.yml" />
+      <EmbeddedResource Include="locales\en\finance.yml" />
+      <EmbeddedResource Include="locales\en\educator.yml" />
+      <EmbeddedResource Include="locales\en\code.yml" />
+      <EmbeddedResource Include="locales\en\phone_number.yml" />
+      <EmbeddedResource Include="locales\en\lorem.yml" />
+      <EmbeddedResource Include="locales\en\job.yml" />
+      <EmbeddedResource Include="locales\en\name.yml" />
+   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="Microsoft.Net.Compilers" Version="2.8.2" />
-    <PackageReference Include="YamlDotNet" Version="5.0.1" />
-  </ItemGroup>
+   <ItemGroup>
+      <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+      <PackageReference Include="Microsoft.Net.Compilers" Version="2.8.2" />
+      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63102-01" />
+      <PackageReference Include="YamlDotNet" Version="5.0.1" />
+   </ItemGroup>
 
 </Project>
