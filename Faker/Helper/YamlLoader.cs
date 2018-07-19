@@ -11,7 +11,6 @@ namespace RimuTec.Faker.Helper
       {
          T locale;
          var executingAssembly = Assembly.GetExecutingAssembly();
-         var resourceNames = executingAssembly.GetManifestResourceNames();
          using (var resourceStream = executingAssembly.GetManifestResourceStream(yamlFileName))
          {
             using (var textReader = new StreamReader(resourceStream))
@@ -29,6 +28,13 @@ namespace RimuTec.Faker.Helper
             }
          }
          return locale;
+      }
+
+      internal static StreamReader OpenText(string yamlFileName)
+      {
+         var executingAssembly = Assembly.GetExecutingAssembly();
+         var resourceStream = executingAssembly.GetManifestResourceStream(yamlFileName);
+         return new StreamReader(resourceStream);
       }
    }
 }

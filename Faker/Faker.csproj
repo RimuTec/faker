@@ -40,6 +40,7 @@
    </PropertyGroup>
 
    <ItemGroup>
+      <None Remove="locales\de.yml" />
       <None Remove="locales\en\address.yml" />
       <None Remove="locales\en\business.yml" />
       <None Remove="locales\en\code.yml" />
@@ -56,6 +57,7 @@
    </ItemGroup>
 
    <ItemGroup>
+      <EmbeddedResource Include="locales\de.yml" />
       <EmbeddedResource Include="locales\en\company.yml" />
       <EmbeddedResource Include="locales\en.yml" />
       <EmbeddedResource Include="locales\en\address.yml" />
