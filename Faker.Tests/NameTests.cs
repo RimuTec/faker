@@ -5,12 +5,18 @@ using System.Linq;
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
-   public class NameTests
+   public class NameTests : FixtureBase
    {
       [SetUp]
       public void SetUp()
       {
          RandomNumber.ResetSeed(42);
+      }
+
+      [TearDown]
+      public void TearDown()
+      {
+         Config.Locale = "en";
       }
 
       [Test]
@@ -27,6 +33,24 @@ namespace RimuTec.Faker.Tests
          var fullName1 = Name.FullName();
          var fullName2 = Name.FullName();
          Assert.AreNotEqual(fullName1, fullName2);
+      }
+
+      [Test]
+      public void FullName_Localized()
+      {
+         Config.Locale = "de";
+         var fullName = Name.FullName();
+         var parts = fullName.Split(' ');
+         var firstNames = Fetch("name.first_name");
+         Assert.IsTrue(firstNames.Contains("Wiebke"));
+         foreach(var part in parts)
+         {
+            if(firstNames.Contains(part))
+            {
+               return;
+            }
+         }
+         Assert.Fail("Not using localized first name");
       }
 
       [Test]
@@ -103,6 +127,16 @@ namespace RimuTec.Faker.Tests
          var prefix1 = Name.Prefix();
          var prefix2 = Name.Prefix();
          Assert.AreNotEqual(prefix1, prefix2);
+      }
+
+      [Test]
+      public void Prefix_Localized()
+      {
+         Config.Locale = "de";
+         var prefix = Name.Prefix();
+         var prefixes = Fetch("name.prefix");
+         Assert.IsTrue(prefixes.Contains("Dipl.-Ing."));
+         Assert.IsTrue(prefixes.Contains(prefix));
       }
 
       [Test]

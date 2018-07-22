@@ -167,7 +167,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - LastName() *
 - MiddleName()
 - NameWithMiddle()
-- Prefix()
+- Prefix() *
 - Suffix()
 
 ## PhoneNumber

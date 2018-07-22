@@ -88,7 +88,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Prefix()
       {
-         return _name.Prefix.Sample().Trim();
+         return YamlLoader.Fetch("name.prefix");
       }
 
       /// <summary>

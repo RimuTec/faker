@@ -2,6 +2,7 @@
 
 ## Version 0.34.0
 ### New Features
+- Name.Prefix() supports localization
 
 ## Version 0.33.0
 ### New Features
