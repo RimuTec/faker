@@ -1,4 +1,4 @@
-﻿en:
+en:
   faker:
     address:
       city_prefix: [North, East, West, South, New, Lake, Port]
@@ -85,3 +85,5 @@
         - "#{street_address}, #{city}, #{state_abbr} #{zip_code}"
         - "#{secondary_address} #{street_address}, #{city}, #{state_abbr} #{zip_code}"
       default_country: [United States of America]
+
+

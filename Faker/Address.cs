@@ -3,7 +3,6 @@ using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker
@@ -28,58 +27,7 @@ namespace RimuTec.Faker
          _state = _address.State;
          _stateAbbr = _address.StateAbbr;
          _streetSuffix = _address.StreetSuffix;
-
-         var localeName = "de";
-         using (var reader = YamlLoader.OpenText($"RimuTec.Faker.locales.{localeName}.yml"))
-         {
-            var stream = new YamlStream();
-            stream.Load(reader);
-            YamlNode rootNode = stream.Documents[0].RootNode;
-            var en = rootNode["de"];
-            var faker = en["faker"];
-            _dictionary.Add(localeName, faker);
-         }
-
-         localeName = "en";
-         using (var reader = YamlLoader.OpenText($"RimuTec.Faker.locales.{localeName}.{nameof(Address).ToLower()}.yml"))
-         {
-            var stream = new YamlStream();
-            stream.Load(reader);
-            YamlNode rootNode = stream.Documents[0].RootNode;
-            var en = rootNode["en"];
-            var faker = en["faker"];
-            _dictionary.Add(localeName, faker);
-         }
       }
-
-      private static string Fetch(string locator)
-      {
-         if (_dictionary.ContainsKey(Config.Locale))
-         {
-            var yamlNode = _dictionary[Config.Locale];
-            var fakerNode = yamlNode;
-            var locatorParts = locator.Split('.');
-            return Fetch(yamlNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
-         }
-         return string.Empty;
-      }
-
-      private static string Fetch(YamlNode yamlNode, string[] locatorParts)
-      {
-         if(locatorParts.Length > 0)
-         {
-            return Fetch(yamlNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
-         }
-         if(yamlNode is YamlSequenceNode sequenceNode)
-         {
-            IEnumerable<string> enumerable = sequenceNode.Children.Select(c => c.ToString());
-            var arr = enumerable.ToArray();
-            return enumerable.Sample();
-         }
-         return string.Empty;
-      }
-
-      private static Dictionary<string, YamlNode> _dictionary = new Dictionary<string, YamlNode>();
 
       /// <summary>
       /// Generates a building number. Example: "7304".
@@ -94,11 +42,11 @@ namespace RimuTec.Faker
       /// <summary>
       /// Returns a city. Example: "Imogeneborough"
       /// </summary>
-      /// <param name="withState">Return city with state. Default is 'false'.</param>
+      /// <param name="withState">If 'true', returns city with state. Default is 'false'.</param>
       /// <returns></returns>
       public static string City(bool withState = false)
       {
-         var template = Fetch("address.city");
+         var template = YamlLoader.Fetch("address.city");
          template = template.Replace("#{city_prefix}", CityPrefix());
          template = template.Replace("#{Name.first_name}", Name.FirstName());
          template = template.Replace("#{Name.last_name}", Name.LastName());
@@ -112,7 +60,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CityPrefix()
       {
-         return Fetch("address.city_prefix");
+         return YamlLoader.Fetch("address.city_prefix");
       }
 
       /// <summary>
@@ -121,7 +69,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CitySuffix()
       {
-         return Fetch("address.city_suffix");
+         return YamlLoader.Fetch("address.city_suffix");
       }
 
       /// <summary>

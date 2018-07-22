@@ -9,8 +9,9 @@ namespace RimuTec.Faker
    /// <summary>
    /// Generators for names for humans.
    /// </summary>
-   public static class Name
+   public class Name
    {
+      private Name() { }
       // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/name.yml
 
       static Name()
@@ -19,6 +20,7 @@ namespace RimuTec.Faker
          locale locale = YamlLoader.Read<locale>(yamlFileName);
          _name = locale.en.faker.name;
       }
+
 
       /// <summary>
       /// Generates a random name with first name, last name and potentially a prefix and/or a suffix. The name will not 
@@ -59,7 +61,7 @@ namespace RimuTec.Faker
       /// <returns>A string containing a first name</returns>
       public static string FirstName()
       {
-         return _name.FirstName.Sample().Trim();
+         return YamlLoader.Fetch("name.first_name");
       }
 
       /// <summary>
@@ -77,7 +79,7 @@ namespace RimuTec.Faker
       /// <returns>A string containing a last name</returns>
       public static string LastName()
       {
-         return _name.LastName.Sample().Trim();
+         return YamlLoader.Fetch("name.last_name");
       }
 
       /// <summary>

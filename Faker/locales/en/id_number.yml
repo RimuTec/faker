@@ -1,4 +1,4 @@
-﻿en:
+en:
   faker:
     id_number:
       valid: "#{IDNumber.ssn_valid}"
