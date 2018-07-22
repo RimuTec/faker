@@ -3,6 +3,13 @@
 ## Version 0.33.0
 ### New Features
 - Enabled SourceLink. For more details regarding SourceLink see https://github.com/dotnet/sourcelink
+- Added all 51 locale files from Ruby Faker
+- Address.City() can be localized
+- Address.CitySuffix() can be localized
+- Address.CityPrefix() can be localized
+- Name.FirstName() can be localized
+- Name.LastName() can be localized
+- Added basic infrastructure for custom locale files (yml)
 
 ## Version 0.32.0
 ### Summary

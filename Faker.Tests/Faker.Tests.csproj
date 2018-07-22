@@ -23,4 +23,10 @@
     <ProjectReference Include="..\Faker\Faker.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="mi-NZ.yml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

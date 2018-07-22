@@ -1,0 +1,5 @@
+mi-NZ:
+  faker:
+    name:
+      first_name: [Nickau, Wiremu, Kahurangi, Kauri, Nikora, Tane, Tamati, Rawiri, Anaru, Tai, Manaia, Tama, Mikaere, Te Ariki, Ariki, Te Koha, Hoani, Manawa, Tiare, Hemi, Maia, Aria, Manaia, Anahera, Ataahua, Aroha, Tia, Ariana, Kaia, Terina, Maraea, Waimarie, Tui, Amaia, Miriama, Awhina, Hana, Anika, Huia, Mareikura]
+      last_name: [Henare, Ngata, Parata, Taumata, Turei, Arahanga, Ka''ai, Kahukiwa, Kawepo, Kingi, Kurariki, Paki, Potaka, Rupe, Tamahori, Tamihere, Te Kanawa, Turei, Tomuri, Waru, Wipiti]

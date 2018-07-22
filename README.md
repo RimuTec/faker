@@ -14,12 +14,21 @@ RimuTec.Faker is available as a NuGet package. To install follow the instruction
 # Available Fake Data Generators
 Because Ruby Faker has a large number of generators, we had to start with a small set of classes. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
 
+## Supported Locales
+The following 51 locales are supported out of the box:
+
+bg, ca, ca-CAT, da-DK, de, de-AT, de-CH, ee, en, en-AU, en-au-ocker, en-BORK, en-CA, en-GB, en-IND, en-MS, en-NEP, en-NG, en-NZ, en-PAK, en-SG, en-UG, en-US, en-ZA, es, es-MX, fa, fi-FI, fr, fr-CA, fr-CH, he, id, it, ja, ko, lv, nb-NO, nl, no, pl, pt, pt-BR, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
+
+Methods that already makes use of locales are marked with an asterisk (*) below. To set a locale set the locale using `Config.Locale = "de"`.
+
+In addition you can use custom locale files for methods that are marked with an asterisk. Ensure that the custom locale file (yml) is copied to the directory that also contains RimuTec.Faker.dll, usually the output directory of your test project.
+
 ## Address
 This class is on par with Ruby Faker for default locale ("en").
 - BuildingNumber()
-- City()
-- CityPrefix()
-- CitySuffix()
+- City() *
+- CityPrefix() *
+- CitySuffix() *
 - Community()
 - Country()
 - CountryCode()
@@ -152,10 +161,10 @@ This class is on par with Ruby Faker for default locale ("en").
 
 ## Name
 This class is on par with Ruby Faker for default locale ("en").
-- FirstName()
+- FirstName() *
 - FullName() (equivalent to Ruby's Faker::Name.name)
 - Initials(int characterCount)
-- LastName()
+- LastName() *
 - MiddleName()
 - NameWithMiddle()
 - Prefix()
@@ -189,7 +198,7 @@ Release notes are available at [https://github.com/RimuTec/Faker/blob/master/rel
 If you need support or have a suggestion for improvement please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). Thank you!
 
 ## Reporting Bugs
-RimuTec.Faker has a test suite with about 260 unit tests. This does not guarantee absence of bugs. Please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). All your feedback will help make the library more valuable for other users as well. Thank you!
+RimuTec.Faker has a test suite with about 270 unit tests. This does not guarantee absence of bugs. Please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). All your feedback will help make the library more valuable for other users as well. Thank you!
 
 # Credits
 This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker), licensed under the MIT license. Thank you to all their contributors!
