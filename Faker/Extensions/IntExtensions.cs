@@ -13,7 +13,7 @@ namespace RimuTec.Faker.Extensions
          }
       }
 
-      public static void TimesDo(this int count, Action<int> action)
+      public static void Times(this int count, Action<int> action)
       {
          for (var i = 0; i < count; i++)
          {

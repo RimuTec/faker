@@ -111,7 +111,7 @@ namespace RimuTec.Faker
       public static string IPv6Address()
       {
          var list = new List<string>();
-         8.TimesDo(x => list.Add($"{RandomNumber.Next(65536):x4}"));
+         8.Times(x => list.Add($"{RandomNumber.Next(65536):x4}"));
          return string.Join(":", list);
       }
 
@@ -190,7 +190,7 @@ namespace RimuTec.Faker
          {
             var chars = "!@#$%^&*";
             var sb = new StringBuilder(temp);
-            RandomNumber.Next(1, minLength).TimesDo(i => sb[i] = chars.Sample()[0]);
+            RandomNumber.Next(1, minLength).Times((Action<int>)(i => sb[i] = chars.Sample()[0]));
             temp = sb.ToString();
          }
          return temp;

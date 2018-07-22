@@ -55,7 +55,7 @@ namespace RimuTec.Faker
          // Reporting Body Identifier list: http://en.wikipedia.org/wiki/Reporting_Body_Identifier
          int reportingBodyIdentifier = _RBI.Sample();
          var arr = $"{reportingBodyIdentifier}".PadLeft(2, '0').ToDigitList();
-         12.TimesDo(x => arr.Add(RandomNumber.Next(0, 10)));
+         12.Times(x => arr.Add(RandomNumber.Next(0, 10)));
          var digits = arr.AppendLuhnCheckDigit();
          return string.Join("", digits);
       }
@@ -138,7 +138,7 @@ namespace RimuTec.Faker
          var digits = new List<int> { new Range2<int>(1, 9).AsArray().Sample() };
 
          // generate 2nd to 8th
-         7.TimesDo(x => digits.Add(RandomNumber.Next(0, 10)));
+         7.Times(x => digits.Add(RandomNumber.Next(0, 10)));
 
          // generate 9th digit
          digits.Add(GenerateSinCheckDigit(digits));

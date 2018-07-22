@@ -19,7 +19,7 @@ The following 51 locales are supported out of the box:
 
 bg, ca, ca-CAT, da-DK, de, de-AT, de-CH, ee, en, en-AU, en-au-ocker, en-BORK, en-CA, en-GB, en-IND, en-MS, en-NEP, en-NG, en-NZ, en-PAK, en-SG, en-UG, en-US, en-ZA, es, es-MX, fa, fi-FI, fr, fr-CA, fr-CH, he, id, it, ja, ko, lv, nb-NO, nl, no, pl, pt, pt-BR, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
 
-Methods that already makes use of locales are marked with an asterisk (*) below. To set a locale set the locale using `Config.Locale = "de"`.
+Methods that already make use of locales are marked with an asterisk (*) below. To set a locale set the locale using `Config.Locale = "de"`.
 
 In addition you can use custom locale files for methods that are marked with an asterisk. Ensure that the custom locale file (yml) is copied to the directory that also contains RimuTec.Faker.dll, usually the output directory of your test project.
 
