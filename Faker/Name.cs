@@ -2,6 +2,7 @@
 using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker
@@ -29,13 +30,33 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string FullName()
       {
-         var result = _name.NamePatterns.Sample().Trim();
-         return result
-            .Replace("#{prefix}", Prefix())
-            .Replace("#{first_name}", FirstName())
-            .Replace("#{last_name}", LastName())
-            .Replace("#{suffix}", Suffix())
-            ;
+         var template = YamlLoader.Fetch("name.name");
+         return Parse(template);
+         //var result = _name.NamePatterns.Sample().Trim();
+         //return result
+         //   .Replace("#{prefix}", Prefix())
+         //   .Replace("#{first_name}", FirstName())
+         //   .Replace("#{last_name}", LastName())
+         //   .Replace("#{suffix}", Suffix())
+         //   ;
+      }
+
+      private static string Parse(string template)
+      {
+         var matches = Regex.Matches(template, @"#{([a-z._]{1,})}");
+         for (var i = 0; i < matches.Count; i++)
+         {
+            string placeHolder = matches[i].Value;
+            var token = matches[i].Groups[1].Value;
+            if(!token.Contains("."))
+            {
+               // Prepend class name before fetching
+               token = $"name.{token}";
+            }
+            var replacement = YamlLoader.Fetch(token);
+            template = template.Replace(placeHolder, replacement);
+         }
+         return template;
       }
 
       /// <summary>

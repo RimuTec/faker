@@ -54,6 +54,24 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
+      public void FullName_With_Nobility_Title()
+      {
+         RandomNumber.ResetSeed(42);
+         Config.Locale = "de";
+         var fullName = Name.FullName();
+         var nobilityTitles = Fetch("name.nobility_title");
+         var tries = 1;
+         while(!fullName.Split(' ').Any(x => nobilityTitles.Contains(x))) {
+            tries++;
+            if(tries > 20)
+            {
+               Assert.Fail("Not using locale for full name");
+            }
+            fullName = Name.FullName();
+         }
+      }
+
+      [Test]
       public void NameWithMiddle_HappyDays()
       {
          var nameWithMiddle = Name.NameWithMiddle();
