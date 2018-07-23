@@ -1,9 +1,7 @@
 ﻿using RimuTec.Faker.Extensions;
 using RimuTec.Faker.Helper;
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker
 {
@@ -13,15 +11,6 @@ namespace RimuTec.Faker
    public class Name
    {
       private Name() { }
-      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/name.yml
-
-      static Name()
-      {
-         const string yamlFileName = "RimuTec.Faker.locales.en.name.yml";
-         locale locale = YamlLoader.Read<locale>(yamlFileName);
-         _name = locale.en.faker.name;
-      }
-
 
       /// <summary>
       /// Generates a random name with first name, last name and potentially a prefix and/or a suffix. The name will not 
@@ -30,15 +19,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string FullName()
       {
-         var template = YamlLoader.Fetch("name.name");
-         return Parse(template);
-         //var result = _name.NamePatterns.Sample().Trim();
-         //return result
-         //   .Replace("#{prefix}", Prefix())
-         //   .Replace("#{first_name}", FirstName())
-         //   .Replace("#{last_name}", LastName())
-         //   .Replace("#{suffix}", Suffix())
-         //   ;
+         return Parse(YamlLoader.Fetch("name.name"));
       }
 
       private static string Parse(string template)
@@ -66,14 +47,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string NameWithMiddle()
       {
-         var result = _name.NameWithMiddlePatterns.Sample().Trim();
-         return result
-            .Replace("#{prefix}", Prefix())
-            .Replace("#{first_name}", FirstName())
-            .Replace("#{middle_name}", MiddleName())
-            .Replace("#{last_name}", LastName())
-            .Replace("#{suffix}", Suffix())
-            ;
+         return Parse(YamlLoader.Fetch("name.name_with_middle"));
       }
 
       /// <summary>
@@ -91,7 +65,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string MiddleName()
       {
-         return _name.MiddleName.Sample().Trim();
+         return YamlLoader.Fetch("name.middle_name");
       }
 
       /// <summary>
@@ -118,7 +92,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Suffix()
       {
-         return _name.Suffix.Sample().Trim();
+         return YamlLoader.Fetch("name.suffix");
       }
 
       /// <summary>
@@ -137,51 +111,5 @@ namespace RimuTec.Faker
 
       private static readonly string[] _alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z".Split(' ');
       private static readonly string[] _alphabetUpper = "a b c d e f g h i j k l m n o p q r s t u v w x y z".ToUpper().Split(' ');
-
-      private static name _name;
-
-#pragma warning disable IDE1006 // Naming Styles
-      // Helper classes for reading the yaml file. Note that the class names are
-      // intentionally lower case.
-
-      internal class locale
-      {
-         public en en { get; set; }
-      }
-
-      internal class en
-      {
-         public faker faker { get; set; }
-      }
-
-      internal class faker
-      {
-         public name name { get; set; }
-      }
-
-      internal class name
-      {
-         [YamlMember(Alias = "first_name", ApplyNamingConventions = false)]
-         public string[] FirstName { get; set; }
-
-         [YamlMember(Alias = "middle_name", ApplyNamingConventions = false)]
-         public string[] MiddleName { get; set; }
-
-         [YamlMember(Alias = "last_name", ApplyNamingConventions = false)]
-         public string[] LastName { get; set; }
-
-         [YamlMember(Alias = "prefix", ApplyNamingConventions = false)]
-         public string[] Prefix { get; set; }
-
-         [YamlMember(Alias = "suffix", ApplyNamingConventions = false)]
-         public string[] Suffix { get; set; }
-
-         [YamlMember(Alias = "name", ApplyNamingConventions = false)]
-         public List<string> NamePatterns { get; set; }
-
-         [YamlMember(Alias = "name_with_middle", ApplyNamingConventions = false)]
-         public List<string> NameWithMiddlePatterns { get; set; }
-      }
-#pragma warning restore IDE1006 // Naming Styles
    }
 }

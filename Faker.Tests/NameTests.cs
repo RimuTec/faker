@@ -172,6 +172,25 @@ namespace RimuTec.Faker.Tests
          Assert.AreNotEqual(suffix1, suffix2);
       }
 
+      [Test]
+      public void Suffix_Localized()
+      {
+         RandomNumber.ResetSeed(42);
+         Config.Locale = "pt";
+         var suffix = Name.Suffix();
+         var tries = 0;
+         var suffixes = new[] { "Neto", "Filho" };
+         while (!suffixes.Contains(suffix))
+         {
+            tries++;
+            if(tries > 10)
+            {
+               Assert.Fail("Not using locale");
+            }
+            suffix = Name.Suffix();
+         }
+      }
+
       /// <summary>
       /// Tests Initials() with default value, currently 3.
       /// </summary>

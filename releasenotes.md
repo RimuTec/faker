@@ -1,8 +1,14 @@
 # Release Notes
 
 ## Version 0.34.0
+### Summary
+Class Name is now on par with Faker Gem including support for localization (51 locales) and customization.
 ### New Features
 - Name.Prefix() supports localization
+- Name.Suffix() supports localization
+- Name.FullName() supports localization
+- Name.MiddleName() supports localization
+- Name.NameWithMiddle() supports localization
 
 ## Version 0.33.0
 ### New Features
