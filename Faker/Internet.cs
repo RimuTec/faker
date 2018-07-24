@@ -111,7 +111,7 @@ namespace RimuTec.Faker
       public static string IPv6Address()
       {
          var list = new List<string>();
-         8.Times(x => list.Add($"{RandomNumber.Next(65536):x4}"));
+         8.TimesDo(x => list.Add($"{RandomNumber.Next(65536):x4}"));
          return string.Join(":", list);
       }
 
@@ -190,7 +190,7 @@ namespace RimuTec.Faker
          {
             var chars = "!@#$%^&*";
             var sb = new StringBuilder(temp);
-            RandomNumber.Next(1, minLength).Times((Action<int>)(i => sb[i] = chars.Sample()[0]));
+            RandomNumber.Next(1, minLength).TimesDo((Action<int>)(i => sb[i] = chars.Sample()[0]));
             temp = sb.ToString();
          }
          return temp;
@@ -313,9 +313,9 @@ namespace RimuTec.Faker
          string result;
          if (separators == null)
          {
-            separators = "._"; // if space is sampled, it will be removed by Prepare()
+            separators = "._"; 
          }
-         var separator = separators.Sample();
+         var separator = separators.Sample(); // if space is sampled, it will be removed by Prepare()
          if (name != null)
          {
             IEnumerable<string> parts = name.Scan(@"\w+").Shuffle();
@@ -323,9 +323,10 @@ namespace RimuTec.Faker
          }
          else
          {
+            string firstNamePrepared = Name.FirstName().Prepare();
             var candidates = new List<string> {
-               Name.FirstName().Prepare(),
-               $"{Name.FirstName().Prepare()}{separator}{Name.LastName().Prepare()}"
+               firstNamePrepared,
+               $"{firstNamePrepared}{separator}{Name.LastName().Prepare()}"
             };
             result = candidates.Sample();
          }

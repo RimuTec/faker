@@ -15,7 +15,7 @@ RimuTec.Faker is available as a NuGet package. To install follow the instruction
 Because Ruby Faker has a large number of generators, we had to start with a small set of classes. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
 
 ## Supported Locales
-The following 51 locales are supported out of the box:
+The following 51 locales are supported out of the box (no extra files needed):
 
 bg, ca, ca-CAT, da-DK, de, de-AT, de-CH, ee, en, en-AU, en-au-ocker, en-BORK, en-CA, en-GB, en-IND, en-MS, en-NEP, en-NG, en-NZ, en-PAK, en-SG, en-UG, en-US, en-ZA, es, es-MX, fa, fi-FI, fr, fr-CA, fr-CH, he, id, it, ja, ko, lv, nb-NO, nl, no, pl, pt, pt-BR, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
 
@@ -23,12 +23,12 @@ Classes and Methods that already make use of locales are marked with an asterisk
 
 In addition you can use custom locale files for methods that are marked with an asterisk. Ensure that the custom locale file (yml) is copied to the directory that also contains RimuTec.Faker.dll, usually the output directory of your test project.
 
-## Address
-This class is on par with Ruby Faker for default locale ("en").
+## Address *
+This class is on par with Ruby Faker for all 51 built-in and custom locales.
 - BuildingNumber()
-- City() *
-- CityPrefix() *
-- CitySuffix() *
+- City()
+- CityPrefix()
+- CitySuffix()
 - Community()
 - Country()
 - CountryCode()
@@ -160,7 +160,7 @@ This class is on par with Ruby Faker for default locale ("en").
 - Words(int wordCount = 3, bool supplemental = false)
 
 ## Name *
-This class is on par with Ruby Faker for all locales and customization.
+This class is on par with Ruby Faker for all 51 built-in and custom locales.
 - FirstName()
 - FullName() (equivalent to Ruby's Faker::Name.name)
 - Initials(int characterCount)

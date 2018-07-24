@@ -11,9 +11,20 @@ namespace RimuTec.Faker.Extensions
          {
             yield return func.Invoke(i);
          }
+
+         // The following implementation would increase run time of the test suite 
+         // by approximately 20%:
+         //var list = new List<T>();
+         //for (var i = 0; i < count; i++)
+         //{
+         //   list.Add(func.Invoke(i));
+         //}
+         //return list;
       }
 
-      public static void Times(this int count, Action<int> action)
+      public static void TimesDo(this int count, Action<int> action)
+         // Do not rename this to Times() as it would cause the wrong overload to be
+         // picked.
       {
          for (var i = 0; i < count; i++)
          {
@@ -21,7 +32,7 @@ namespace RimuTec.Faker.Extensions
          }
       }
 
-      public static bool Even(this int i)
+      public static bool IsEven(this int i)
       {
          return i % 2 == 0;
       }

@@ -3,7 +3,7 @@ using RimuTec.Faker.Extensions;
 using System;
 using System.Collections.Generic;
 
-namespace RimuTec.Faker.Tests.Helper
+namespace RimuTec.Faker.Tests.Extensions
 {
    [TestFixture]
    public class LuhnAlgorithmExtensionsTests

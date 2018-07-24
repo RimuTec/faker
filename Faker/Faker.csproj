@@ -5,7 +5,7 @@
       <AssemblyName>RimuTec.Faker</AssemblyName>
       <RootNamespace>RimuTec.Faker</RootNamespace>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-      <Version>0.34.0</Version>
+      <Version>0.35.0</Version>
       <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
       <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
       <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks Generation Sample Data</PackageTags>
@@ -13,7 +13,7 @@
       <PackageLicenseUrl>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicenseUrl>
       <PackageReleaseNotes>Relase notes listing new features and other changes are available at https://github.com/RimuTec/Faker/blob/master/releasenotes.md</PackageReleaseNotes>
       <Authors>RimuTec Ltd.</Authors>
-      <Description>A library for generating fake data e.g. for authoring tests, for preparing software demos or for creating screenshots. It includes generators such as Lorem text, Addresses, Company, PhoneNumber, Job Titles, etc. It comes with support for 51 locales out of the box and can be extended with customer locales. Licensed under the MIT license.</Description>
+      <Description>A library for generating fake data e.g. for authoring tests, for preparing software demos or for creating screenshots. It includes generators such as Lorem text, Addresses, Company, PhoneNumber, Job Titles, etc. It comes with support for 51 locales out of the box and can be extended with custom locales. Licensed under the MIT license.</Description>
       <!-- Enable SourceLink. For more details see https://github.com/dotnet/sourcelink -->
       <PublishRepositoryUrl>true</PublishRepositoryUrl>
       <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>

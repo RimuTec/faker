@@ -519,7 +519,7 @@ namespace RimuTec.Faker.Tests
       {
          for (int i = 1; i < 32; i++)
          {
-            for (int j = i; j < i + 32; j++)
+            for (int j = i; j < 33/*i + 32*/; j++)
             {
                var minLength = i;
                var maxLength = j;

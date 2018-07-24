@@ -126,6 +126,10 @@ namespace RimuTec.Faker.Helper
             var arr = enumerable.ToArray();
             return enumerable.Sample();
          }
+         else if (yamlNode is YamlScalarNode scalarNode)
+         {
+            return scalarNode.Value;
+         }
          return string.Empty;
       }
 

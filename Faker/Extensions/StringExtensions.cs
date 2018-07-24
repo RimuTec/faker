@@ -90,6 +90,17 @@ namespace RimuTec.Faker.Extensions
       }
 
       /// <summary>
+      /// Converts a string to an identifier with pascal casing, e.g. 'phone_number' becomes "PhoneNumber".
+      /// </summary>
+      /// <param name="s"></param>
+      /// <returns></returns>
+      internal static string MakePascalCasing(this string s)
+      {
+         // Regex from https://stackoverflow.com/a/3386924/411428
+         return Regex.Replace(s, @"(?:^|_)([a-z])", m => m.Groups[1].Value.ToUpper(), RegexOptions.Compiled);
+      }
+
+      /// <summary>
       /// Applies a regex pattern and returns a list of matches.
       /// </summary>
       /// <param name="s"></param>

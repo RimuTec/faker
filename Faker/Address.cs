@@ -3,7 +3,8 @@ using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using YamlDotNet.Serialization;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace RimuTec.Faker
 {
@@ -12,21 +13,44 @@ namespace RimuTec.Faker
    /// </summary>
    public static class Address
    {
-      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/address.yml
-
-      static Address()
+      private static string Parse(string template)
       {
-         const string yamlFileName = "RimuTec.Faker.locales.en.address.yml";
-         locale locale = YamlLoader.Read<locale>(yamlFileName);
-         _address = locale.en.faker.address;
-         _cityPrefix = _address.CityPrefix;
-         _citySuffix = _address.CitySuffix;
-         _country = _address.Country;
-         _countryCode = _address.CountryCode;
-         _countryCodeLong = _address.CountryCodeLong;
-         _state = _address.State;
-         _stateAbbr = _address.StateAbbr;
-         _streetSuffix = _address.StreetSuffix;
+         var matches = Regex.Matches(template, @"#{([a-zA-Z._]{1,})}");
+         for (var i = 0; i < matches.Count; i++)
+         {
+            string placeHolder = matches[i].Value;
+            var token = matches[i].Groups[1].Value;
+            if (!token.Contains("."))
+            {
+               // Prepend class name before fetching
+               token = $"address.{token}";
+            }
+
+            var className = token.Split('.')[0].ToPascalCasing();
+            var method = token.Split('.')[1].ToPascalCasing();
+
+            string replacement = null;
+            var type = typeof(YamlLoader).Assembly.GetTypes().FirstOrDefault(t => t.Name == className);
+            if (type != null)
+            {
+               var methodInfo = type.GetMethod(method, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+               if (methodInfo != null)
+               {
+                  // invoke statics method, if needed with default parameter values
+                  // Ref: https://stackoverflow.com/a/9916197/411428
+                  var paramCount = methodInfo.GetParameters().Count();
+                  object[] parameters = Enumerable.Repeat(Type.Missing, paramCount).ToArray();
+                  replacement = methodInfo.Invoke(null, parameters).ToString();
+               }
+            }
+            if(string.IsNullOrWhiteSpace(replacement))
+            {
+               replacement = YamlLoader.Fetch(token);
+            }
+
+            template = template.Replace(placeHolder, replacement);
+         }
+         return template;
       }
 
       /// <summary>
@@ -35,8 +59,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string BuildingNumber()
       {
-         var template = _address.BuildingNumber.Sample();
-         return template.Bothify();
+         return YamlLoader.Fetch("address.building_number").Bothify();
       }
 
       /// <summary>
@@ -46,12 +69,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string City(bool withState = false)
       {
-         var template = YamlLoader.Fetch("address.city");
-         template = template.Replace("#{city_prefix}", CityPrefix());
-         template = template.Replace("#{Name.first_name}", Name.FirstName());
-         template = template.Replace("#{Name.last_name}", Name.LastName());
-         template = template.Replace("#{city_suffix}", CitySuffix());
-         return template;
+         return Parse(YamlLoader.Fetch("address.city"));
       }
 
       /// <summary>
@@ -69,19 +87,17 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CitySuffix()
       {
+
          return YamlLoader.Fetch("address.city_suffix");
       }
 
       /// <summary>
-      /// Generates a community name. Example: "University Crossing"..
+      /// Generates a community name. Example: "University Crossing".
       /// </summary>
       /// <returns></returns>
       public static string Community()
       {
-         var template = _address.Community.Sample();
-         template = template.Replace("#{community_prefix}", _address.CommunityPrefix.Sample());
-         template = template.Replace("#{community_suffix}", _address.CommunitySuffix.Sample());
-         return template;
+         return Parse(YamlLoader.Fetch("address.community"));
       }
 
       /// <summary>
@@ -90,7 +106,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Country()
       {
-         return _address.Country.Sample();
+         return YamlLoader.Fetch("address.country");
       }
 
       /// <summary>
@@ -99,7 +115,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CountryCode()
       {
-         return _address.CountryCode.Sample();
+         return YamlLoader.Fetch("address.country_code");
       }
 
       /// <summary>
@@ -108,7 +124,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CountryCodeLong()
       {
-         return _address.CountryCodeLong.Sample();
+         return YamlLoader.Fetch("address.country_code_long");
       }
 
       /// <summary>
@@ -117,13 +133,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string FullAddress()
       {
-         var template = _address.FullAddress.Sample();
-         template = template.Replace("#{street_address}", StreetAddress());
-         template = template.Replace("#{city}", City());
-         template = template.Replace("#{state_abbr}", StateAbbr());
-         template = template.Replace("#{zip_code}", ZipCode());
-         template = template.Replace("#{secondary_address}", SecondaryAddress());
-         return template;
+         return Parse(YamlLoader.Fetch("address.full_address"));
       }
 
       /// <summary>
@@ -161,8 +171,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string SecondaryAddress()
       {
-         var template = _address.SecondaryAddress.Sample();
-         return template.Bothify();
+         return YamlLoader.Fetch("address.secondary_address").Bothify();
       }
 
       /// <summary>
@@ -171,7 +180,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string State()
       {
-         return _address.State.Sample();
+         return YamlLoader.Fetch("address.state");
       }
 
       /// <summary>
@@ -180,7 +189,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string StateAbbr()
       {
-         return _address.StateAbbr.Sample();
+         return YamlLoader.Fetch("address.state_abbr");
       }
 
       /// <summary>
@@ -191,11 +200,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string StreetAddress(bool includeSecondary = false)
       {
-         var template = _address.StreetAddress.First() + (includeSecondary ? " " + SecondaryAddress() : string.Empty);
-         template = template.Replace("#{building_number}", _address.BuildingNumber.Sample());
-         template = template.Replace("#{street_name}", StreetName());
-         var result = template.Numerify();
-         return result;
+         return (Parse(YamlLoader.Fetch("address.street_address")) + (includeSecondary ? " " + SecondaryAddress() : string.Empty)).Numerify();
       }
 
       /// <summary>
@@ -204,11 +209,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string StreetName()
       {
-         var template = _address.StreetName.Sample();
-         template = template.Replace("#{Name.first_name}", Name.FirstName());
-         template = template.Replace("#{Name.last_name}", Name.LastName());
-         template = template.Replace("#{street_suffix}", _address.StreetSuffix.Sample());
-         return template;
+         return Parse(YamlLoader.Fetch("address.street_name"));
       }
 
       /// <summary>
@@ -217,7 +218,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string StreetSuffix()
       {
-         return _address.StreetSuffix.Sample();
+         return YamlLoader.Fetch("address.street_suffix");
       }
 
       /// <summary>
@@ -226,7 +227,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string TimeZone()
       {
-         return _address.TimeZone.Sample();
+         return YamlLoader.Fetch("address.time_zone");
       }
 
       /// <summary>
@@ -250,113 +251,16 @@ namespace RimuTec.Faker
       {
          if (stateAbbreviation == "")
          {
-            return _address.Postcode.Sample().Letterify().Numerify();
+            return YamlLoader.Fetch("address.postcode").Bothify();
          }
-         if (stateAbbreviation == null || !_address.PostcodeByState.ContainsKey(stateAbbreviation))
+         try
+         {
+            return YamlLoader.Fetch($"address.postcode_by_state.{stateAbbreviation}");
+         }
+         catch(KeyNotFoundException)
          {
             throw new ArgumentOutOfRangeException(nameof(stateAbbreviation), "Must be one of the US state abbreviations or empty.");
          }
-         var template = _address.PostcodeByState[stateAbbreviation];
-         return template.Letterify().Numerify();
       }
-
-      // some internals to support testing
-      internal static string[] _streetSuffix;
-      internal static string[] _cityPrefix;
-      internal static string[] _citySuffix;
-      internal static string[] _country;
-      internal static string[] _countryCode;
-      internal static string[] _countryCodeLong;
-      internal static string[] _state;
-      internal static string[] _stateAbbr;
-
-      private static address _address;
-
-#pragma warning disable IDE1006 // Naming Styles
-      // Helper classes for reading the yaml file. Note that the class names are
-      // intentionally lower case.
-
-      internal class locale
-      {
-         public en en { get; set; }
-      }
-
-      internal class en
-      {
-         public faker faker { get; set; }
-      }
-
-      internal class faker
-      {
-         public address address { get; set; }
-      }
-
-      internal class address
-      {
-         [YamlMember(Alias = "city_prefix", ApplyNamingConventions = false)]
-         public string[] CityPrefix { get; set; }
-
-         [YamlMember(Alias = "city_suffix", ApplyNamingConventions = false)]
-         public string[] CitySuffix { get; set; }
-
-         [YamlMember(Alias = "country", ApplyNamingConventions = false)]
-         public string[] Country { get; set; }
-
-         [YamlMember(Alias = "country_code", ApplyNamingConventions = false)]
-         public string[] CountryCode { get; set; }
-
-         [YamlMember(Alias = "country_code_long", ApplyNamingConventions = false)]
-         public string[] CountryCodeLong { get; set; }
-
-         [YamlMember(Alias = "building_number", ApplyNamingConventions = false)]
-         public string[] BuildingNumber { get; set; }
-
-         [YamlMember(Alias = "community_prefix", ApplyNamingConventions = false)]
-         public string[] CommunityPrefix { get; set; }
-
-         [YamlMember(Alias = "community_suffix", ApplyNamingConventions = false)]
-         public string[] CommunitySuffix { get; set; }
-
-         [YamlMember(Alias = "community", ApplyNamingConventions = false)]
-         public List<string> Community { get; set; }
-
-         [YamlMember(Alias = "street_suffix", ApplyNamingConventions = false)]
-         public string[] StreetSuffix { get; set; }
-
-         [YamlMember(Alias = "secondary_address", ApplyNamingConventions = false)]
-         public string[] SecondaryAddress { get; set; }
-
-         [YamlMember(Alias = "postcode", ApplyNamingConventions = false)]
-         public string[] Postcode { get; set; }
-
-         [YamlMember(Alias = "postcode_by_state", ApplyNamingConventions = false)]
-         public Dictionary<string, string> PostcodeByState { get; set; }
-         // Deserialize Dictionary<>: https://stackoverflow.com/questions/38339739/trying-to-convert-yaml-file-to-hashtable-using-yamldotnet
-
-         [YamlMember(Alias = "state", ApplyNamingConventions = false)]
-         public string[] State { get; set; }
-
-         [YamlMember(Alias = "state_abbr", ApplyNamingConventions = false)]
-         public string[] StateAbbr { get; set; }
-
-         [YamlMember(Alias = "time_zone", ApplyNamingConventions = false)]
-         public string[] TimeZone { get; set; }
-
-         [YamlMember(Alias = "city", ApplyNamingConventions = false)]
-         public List<string> City { get; set; }
-
-         [YamlMember(Alias = "street_name", ApplyNamingConventions = false)]
-         public List<string> StreetName { get; set; }
-
-         [YamlMember(Alias = "street_address", ApplyNamingConventions = false)]
-         public List<string> StreetAddress { get; set; }
-
-         [YamlMember(Alias = "full_address", ApplyNamingConventions = false)]
-         public List<string> FullAddress { get; set; }
-
-         [YamlMember(Alias = "default_country", ApplyNamingConventions = false)]
-         public string[] DefaultCountry { get; set; }
-      }
-#pragma warning restore IDE1006 // Naming Styles
    }
 }

@@ -1,8 +1,14 @@
 # Release Notes
 
+## Version 0.35.0
+### Summary
+Class Address is now on par with Faker Gem including support for localization, 51 locales out of the box plus support for custom locales.
+### New Features
+- Class Address supports all 51 locales and custom locales
+
 ## Version 0.34.0
 ### Summary
-Class Name is now on par with Faker Gem including support for localization (51 locales) and customization.
+Class Name is now on par with Faker Gem including support for localization, 51 locales out of the box plus support for custom locales.
 ### New Features
 - Name.Prefix() supports localization
 - Name.Suffix() supports localization
@@ -13,7 +19,7 @@ Class Name is now on par with Faker Gem including support for localization (51 l
 ## Version 0.33.0
 ### New Features
 - Enabled SourceLink. For more details regarding SourceLink see https://github.com/dotnet/sourcelink
-- Now supports 51 locales
+- Now supports 51 locales out of the box
 - Address.City() can be localized
 - Address.CitySuffix() can be localized
 - Address.CityPrefix() can be localized

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
-   public class AddressTests
+   public class AddressTests : FixtureBase
    {
       [Test]
       public void BuildingNumber_HappyDays()
@@ -34,7 +34,8 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(cityPrefix));
          Assert.IsFalse(cityPrefix.Contains("#"));
          Assert.IsFalse(cityPrefix.Contains("?"));
-         Assert.IsTrue(Address._cityPrefix.Contains(cityPrefix));
+         var cityPrefixes = Fetch("address.city_prefix");
+         Assert.IsTrue(cityPrefixes.Contains(cityPrefix));
       }
 
       [Test]
@@ -44,7 +45,8 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(citySuffix));
          Assert.IsFalse(citySuffix.Contains("#"));
          Assert.IsFalse(citySuffix.Contains("?"));
-         Assert.IsTrue(Address._citySuffix.Contains(citySuffix));
+         var citySuffixes = Fetch("address.city_suffix");
+         Assert.IsTrue(citySuffixes.Contains(citySuffix));
       }
 
       [Test]
@@ -64,7 +66,8 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(country));
          Assert.IsFalse(country.Contains("#"));
          Assert.IsFalse(country.Contains("?"));
-         Assert.IsTrue(Address._country.Contains(country));
+         var countries = Fetch("address.country");
+         Assert.IsTrue(countries.Contains(country));
       }
 
       [Test]
@@ -74,7 +77,8 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(countryCode));
          Assert.IsFalse(countryCode.Contains("#"));
          Assert.IsFalse(countryCode.Contains("?"));
-         Assert.IsTrue(Address._countryCode.Contains(countryCode));
+         var countryCodes = Fetch("address.country_code");
+         Assert.IsTrue(countryCodes.Contains(countryCode));
       }
 
       [Test]
@@ -84,7 +88,8 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(countryCodeLong));
          Assert.IsFalse(countryCodeLong.Contains("#"));
          Assert.IsFalse(countryCodeLong.Contains("?"));
-         Assert.IsTrue(Address._countryCodeLong.Contains(countryCodeLong));
+         var countryCodesLong = Fetch("address.country_code_long");
+         Assert.IsTrue(countryCodesLong.Contains(countryCodeLong));
       }
 
       [Test]
@@ -168,7 +173,8 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(state));
          Assert.IsFalse(state.Contains("#"));
          Assert.IsFalse(state.Contains("?"));
-         Assert.IsTrue(Address._state.Contains(state));
+         var states = Fetch("address.state");
+         Assert.IsTrue(states.Contains(state));
       }
 
       [Test]
@@ -178,7 +184,8 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(stateAbbr));
          Assert.IsFalse(stateAbbr.Contains("#"));
          Assert.IsFalse(stateAbbr.Contains("?"));
-         Assert.IsTrue(Address._stateAbbr.Contains(stateAbbr));
+         var stateAbbrs = Fetch("address.state_abbr");
+         Assert.IsTrue(stateAbbrs.Contains(stateAbbr));
       }
 
       [Test]
@@ -198,7 +205,8 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(streetAddress.Contains("#"));
          Assert.IsFalse(streetAddress.Contains("?"));
          var words = streetAddress.Split(' ');
-         var intersect = words.Intersect(Address._streetSuffix);
+         var suffixes = Fetch("address.street_suffix");
+         var intersect = words.Intersect(suffixes);
          Assert.Greater(intersect.Count(), 0);
       }
 
@@ -218,7 +226,8 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(suffix));
          Assert.IsFalse(suffix.Contains("#"));
          Assert.IsFalse(suffix.Contains("?"));
-         Assert.IsTrue(Address._streetSuffix.Contains(suffix));
+         var suffixes = Fetch("address.street_suffix");
+         Assert.IsTrue(suffixes.Contains(suffix));
       }
 
       [Test]
