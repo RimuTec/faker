@@ -1,14 +1,13 @@
 ﻿using RimuTec.Faker.Extensions;
 using RimuTec.Faker.Helper;
 using System;
-using System.Text.RegularExpressions;
 
 namespace RimuTec.Faker
 {
    /// <summary>
    /// Generators for names for humans.
    /// </summary>
-   public class Name
+   public class Name : GeneratorBase
    {
       private Name() { }
 
@@ -20,24 +19,6 @@ namespace RimuTec.Faker
       public static string FullName()
       {
          return Parse(YamlLoader.Fetch("name.name"));
-      }
-
-      private static string Parse(string template)
-      {
-         var matches = Regex.Matches(template, @"#{([a-z._]{1,})}");
-         for (var i = 0; i < matches.Count; i++)
-         {
-            string placeHolder = matches[i].Value;
-            var token = matches[i].Groups[1].Value;
-            if(!token.Contains("."))
-            {
-               // Prepend class name before fetching
-               token = $"name.{token}";
-            }
-            var replacement = YamlLoader.Fetch(token);
-            template = template.Replace(placeHolder, replacement);
-         }
-         return template;
       }
 
       /// <summary>

@@ -1,7 +1,7 @@
 # Faker
 A C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker). RimuTec.Faker aims at achieving parity with Ruby Faker. Classes that are on par with Ruby Faker are marked accordingly (see below).
 
-RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462). The library including its source code are licensed under the MIT license.
+RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462). The library including its source code are licensed under the MIT license. It supports 51 locales out of the box.
 
 | Metric      | Status      |
 | ----- | ----- |
@@ -19,7 +19,7 @@ The following 51 locales are supported out of the box (no extra files needed):
 
 bg, ca, ca-CAT, da-DK, de, de-AT, de-CH, ee, en, en-AU, en-au-ocker, en-BORK, en-CA, en-GB, en-IND, en-MS, en-NEP, en-NG, en-NZ, en-PAK, en-SG, en-UG, en-US, en-ZA, es, es-MX, fa, fi-FI, fr, fr-CA, fr-CH, he, id, it, ja, ko, lv, nb-NO, nl, no, pl, pt, pt-BR, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
 
-Classes and Methods that already make use of locales are marked with an asterisk (*) below. To set a locale set the locale using `Config.Locale = "de"`.
+Classes and Methods that already make use of locales are marked with an asterisk (*) below. To set the locale use something like `Config.Locale = "de";`.
 
 In addition you can use custom locale files for methods that are marked with an asterisk. Ensure that the custom locale file (yml) is copied to the directory that also contains RimuTec.Faker.dll, usually the output directory of your test project.
 
