@@ -3,24 +3,15 @@ using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker
 {
    /// <summary>
    /// Generators for different types of codes, e.g. ISBN, EAN, IMEI, ASIN, etc.
    /// </summary>
-   public static class Code
+   public class Code : GeneratorBase
    {
-      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/code.yml
-
-      static Code()
-      {
-         const string yamlFileName = "RimuTec.Faker.locales.en.code.yml";
-         locale locale = YamlLoader.Read<locale>(yamlFileName);
-         _code = locale.en.faker.code;
-      }
+      private Code() { }
 
       /// <summary>
       /// Retrieves a real Amazon ASIN code list taken from https://archive.org/details/asin_listing
@@ -28,7 +19,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Asin()
       {
-         return _code.Asin.Sample();
+         return YamlLoader.Fetch("code.asin");
       }
 
       /// <summary>
@@ -276,33 +267,5 @@ namespace RimuTec.Faker
       private static readonly int[] _eanCheckDigit13 = new int[] { 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3 };
 
       private static readonly int[] _rutCheckDigit = new int[] { 3, 2, 7, 6, 5, 4, 3, 2 };
-
-      private static readonly code _code;
-
-#pragma warning disable IDE1006 // Naming Styles
-      // Helper classes for reading the yaml file. Note that the class names are
-      // intentionally lower case.
-
-      internal class locale
-      {
-         public en en { get; set; }
-      }
-
-      internal class en
-      {
-         public faker faker { get; set; }
-      }
-
-      internal class faker
-      {
-         public code code { get; set; }
-      }
-
-      internal class code
-      {
-         [YamlMember(Alias = "asin", ApplyNamingConventions = false)]
-         public string[] Asin { get; set; }
-      }
-#pragma warning restore IDE1006 // Naming Styles
    }
 }
