@@ -2,9 +2,10 @@
 
 ## Version 0.35.0
 ### Summary
-Class Address is now on par with Faker Gem including support for localization, 51 locales out of the box plus support for custom locales.
+Classes Address and Business are now on par with Faker Gem including support for localization, 51 locales out of the box plus support for custom locales.
 ### New Features
-- Class Address supports all 51 locales and custom locales
+- Class Address supports all 51 built-in and custom locales
+- Class Business supports all 51 built-in and custom locales
 
 ## Version 0.34.0
 ### Summary

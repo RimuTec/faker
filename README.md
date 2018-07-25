@@ -47,8 +47,8 @@ This class is on par with Ruby Faker for all 51 built-in and custom locales.
 - Zip(string stateAbbreviation = "")
 - ZipCode(string stateAbbreviation = "")
 
-## Business
-This class is on par with Ruby Faker for default locale ("en").
+## Business *
+This class is on par with Ruby Faker for all 51 built-in and custom locales.
 - CreditCardExpiryDate()
 - CreditCardNumber()
 - CreditCardType()
