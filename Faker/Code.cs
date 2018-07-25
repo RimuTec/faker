@@ -19,7 +19,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Asin()
       {
-         return YamlLoader.Fetch("code.asin");
+         return Fetch("code.asin");
       }
 
       /// <summary>

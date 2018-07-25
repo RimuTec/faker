@@ -1,5 +1,4 @@
 ﻿using RimuTec.Faker.Extensions;
-using RimuTec.Faker.Helper;
 using System;
 
 namespace RimuTec.Faker
@@ -18,7 +17,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string FullName()
       {
-         return Parse(YamlLoader.Fetch("name.name"));
+         return Parse(Fetch("name.name"));
       }
 
       /// <summary>
@@ -28,7 +27,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string NameWithMiddle()
       {
-         return Parse(YamlLoader.Fetch("name.name_with_middle"));
+         return Parse(Fetch("name.name_with_middle"));
       }
 
       /// <summary>
@@ -37,7 +36,7 @@ namespace RimuTec.Faker
       /// <returns>A string containing a first name</returns>
       public static string FirstName()
       {
-         return YamlLoader.Fetch("name.first_name");
+         return Fetch("name.first_name");
       }
 
       /// <summary>
@@ -46,7 +45,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string MiddleName()
       {
-         return YamlLoader.Fetch("name.middle_name");
+         return Fetch("name.middle_name");
       }
 
       /// <summary>
@@ -55,7 +54,7 @@ namespace RimuTec.Faker
       /// <returns>A string containing a last name</returns>
       public static string LastName()
       {
-         return YamlLoader.Fetch("name.last_name");
+         return Fetch("name.last_name");
       }
 
       /// <summary>
@@ -64,7 +63,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Prefix()
       {
-         return YamlLoader.Fetch("name.prefix");
+         return Fetch("name.prefix");
       }
 
       /// <summary>
@@ -73,7 +72,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Suffix()
       {
-         return YamlLoader.Fetch("name.suffix");
+         return Fetch("name.suffix");
       }
 
       /// <summary>

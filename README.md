@@ -53,7 +53,7 @@ This class is on par with Ruby Faker for all 51 built-in and custom locales.
 - CreditCardNumber()
 - CreditCardType()
 
-## Code
+## Code *
 This class is on par with Ruby Faker for default locale ("en").
 - Asin()
 - Ean(int @base = 13)

@@ -1,5 +1,4 @@
 ﻿using RimuTec.Faker.Extensions;
-using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 
@@ -18,7 +17,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string BuildingNumber()
       {
-         return YamlLoader.Fetch("address.building_number").Bothify();
+         return Fetch("address.building_number").Bothify();
       }
 
       /// <summary>
@@ -28,7 +27,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string City(bool withState = false)
       {
-         return Parse(YamlLoader.Fetch("address.city"));
+         return Parse(Fetch("address.city"));
       }
 
       /// <summary>
@@ -37,7 +36,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CityPrefix()
       {
-         return YamlLoader.Fetch("address.city_prefix");
+         return Fetch("address.city_prefix");
       }
 
       /// <summary>
@@ -47,7 +46,7 @@ namespace RimuTec.Faker
       public static string CitySuffix()
       {
 
-         return YamlLoader.Fetch("address.city_suffix");
+         return Fetch("address.city_suffix");
       }
 
       /// <summary>
@@ -56,7 +55,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Community()
       {
-         return Parse(YamlLoader.Fetch("address.community"));
+         return Parse(Fetch("address.community"));
       }
 
       /// <summary>
@@ -65,7 +64,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Country()
       {
-         return YamlLoader.Fetch("address.country");
+         return Fetch("address.country");
       }
 
       /// <summary>
@@ -74,7 +73,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CountryCode()
       {
-         return YamlLoader.Fetch("address.country_code");
+         return Fetch("address.country_code");
       }
 
       /// <summary>
@@ -83,7 +82,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CountryCodeLong()
       {
-         return YamlLoader.Fetch("address.country_code_long");
+         return Fetch("address.country_code_long");
       }
 
       /// <summary>
@@ -92,7 +91,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string FullAddress()
       {
-         return Parse(YamlLoader.Fetch("address.full_address"));
+         return Parse(Fetch("address.full_address"));
       }
 
       /// <summary>
@@ -130,7 +129,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string SecondaryAddress()
       {
-         return YamlLoader.Fetch("address.secondary_address").Bothify();
+         return Fetch("address.secondary_address").Bothify();
       }
 
       /// <summary>
@@ -139,7 +138,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string State()
       {
-         return YamlLoader.Fetch("address.state");
+         return Fetch("address.state");
       }
 
       /// <summary>
@@ -148,7 +147,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string StateAbbr()
       {
-         return YamlLoader.Fetch("address.state_abbr");
+         return Fetch("address.state_abbr");
       }
 
       /// <summary>
@@ -159,7 +158,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string StreetAddress(bool includeSecondary = false)
       {
-         return (Parse(YamlLoader.Fetch("address.street_address")) + (includeSecondary ? " " + SecondaryAddress() : string.Empty)).Numerify();
+         return (Parse(Fetch("address.street_address")) + (includeSecondary ? " " + SecondaryAddress() : string.Empty)).Numerify();
       }
 
       /// <summary>
@@ -168,7 +167,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string StreetName()
       {
-         return Parse(YamlLoader.Fetch("address.street_name"));
+         return Parse(Fetch("address.street_name"));
       }
 
       /// <summary>
@@ -177,7 +176,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string StreetSuffix()
       {
-         return YamlLoader.Fetch("address.street_suffix");
+         return Fetch("address.street_suffix");
       }
 
       /// <summary>
@@ -186,7 +185,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string TimeZone()
       {
-         return YamlLoader.Fetch("address.time_zone");
+         return Fetch("address.time_zone");
       }
 
       /// <summary>
@@ -210,11 +209,11 @@ namespace RimuTec.Faker
       {
          if (stateAbbreviation == "")
          {
-            return YamlLoader.Fetch("address.postcode").Bothify();
+            return Fetch("address.postcode").Bothify();
          }
          try
          {
-            return YamlLoader.Fetch($"address.postcode_by_state.{stateAbbreviation}");
+            return Fetch($"address.postcode_by_state.{stateAbbreviation}");
          }
          catch(KeyNotFoundException)
          {

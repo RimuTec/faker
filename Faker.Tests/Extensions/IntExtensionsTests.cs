@@ -1,10 +1,7 @@
 ﻿using NUnit.Framework;
 using RimuTec.Faker.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RimuTec.Faker.Tests.Extensions
 {

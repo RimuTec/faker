@@ -3,10 +3,11 @@ using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
+using YamlDotNet.RepresentationModel;
 
 namespace RimuTec.Faker
 {
@@ -57,12 +58,106 @@ namespace RimuTec.Faker
             }
             if (string.IsNullOrWhiteSpace(replacement))
             {
-               replacement = YamlLoader.Fetch(token);
+               replacement = Fetch(token);
             }
 
             template = template.Replace(placeHolder, replacement);
          }
          return template;
       }
+
+      protected internal static string Fetch(string locator)
+      {
+         var localeName = Config.Locale;
+
+         // if locale hasn't been loaded yet, now is a good time
+         LoadLocale(localeName, locator);
+
+         // at this point the locale is in the dictionary
+         YamlNode fakerNode;
+         var key = localeName;
+         try
+         {
+            fakerNode = _dictionary[key];
+            var locatorParts = locator.Split('.');
+            return Fetch(fakerNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
+         }
+         catch
+         {
+            // fall back to locale "en"
+            LoadLocale("en", locator);
+            key = $"en.{locator.Split('.')[0]}";
+            fakerNode = _dictionary[key];
+            var locatorParts = locator.Split('.');
+            return Fetch(fakerNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
+         }
+      }
+
+      private static void LoadLocale(string localeName, string locator)
+      {
+         var key = localeName;
+         if (localeName == "en")
+         {
+            key = $"{localeName}.{locator.Split('.')[0]}";
+         }
+
+         if (!_dictionary.ContainsKey(key))
+         {
+            YamlNode fakerNode;
+            var executingAssembly = Assembly.GetExecutingAssembly();
+            string embeddedResourceFileName = $"RimuTec.Faker.locales.{key}.yml";
+            if (executingAssembly.GetManifestResourceNames().Contains(embeddedResourceFileName))
+            {
+               using (var reader = YamlLoader.OpenText(embeddedResourceFileName))
+               {
+                  var stream = new YamlStream();
+                  stream.Load(reader);
+                  YamlNode rootNode = stream.Documents[0].RootNode;
+                  var localeNode = rootNode[localeName];
+                  fakerNode = localeNode["faker"];
+                  _dictionary.Add(key, fakerNode);
+               }
+            }
+            else
+            {
+               var assemblyLocation = new FileInfo(executingAssembly.Location);
+               var fileName = Path.Combine(assemblyLocation.DirectoryName, $"{key}.yml");
+               if (File.Exists(fileName))
+               {
+                  var yamlContent = File.ReadAllText(fileName);
+                  using (var reader = new StringReader(yamlContent))
+                  {
+                     var stream = new YamlStream();
+                     stream.Load(reader);
+                     YamlNode rootNode = stream.Documents[0].RootNode;
+                     var localeNode = rootNode[localeName];
+                     fakerNode = localeNode["faker"];
+                     _dictionary.Add(key, fakerNode);
+                  }
+               }
+            }
+         }
+      }
+
+      private static string Fetch(YamlNode yamlNode, string[] locatorParts)
+      {
+         if (locatorParts.Length > 0)
+         {
+            return Fetch(yamlNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
+         }
+         if (yamlNode is YamlSequenceNode sequenceNode)
+         {
+            IEnumerable<string> enumerable = sequenceNode.Children.Select(c => c.ToString());
+            var arr = enumerable.ToArray();
+            return enumerable.Sample();
+         }
+         else if (yamlNode is YamlScalarNode scalarNode)
+         {
+            return scalarNode.Value;
+         }
+         return string.Empty;
+      }
+
+      internal static Dictionary<string, YamlNode> _dictionary = new Dictionary<string, YamlNode>();
    }
 }

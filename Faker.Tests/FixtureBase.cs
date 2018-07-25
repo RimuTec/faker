@@ -1,5 +1,4 @@
-﻿using RimuTec.Faker.Helper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -46,6 +45,6 @@ namespace RimuTec.Faker.Tests
          return new List<string>();
       }
 
-      protected static Dictionary<string, YamlNode> _dictionary => YamlLoader._dictionary;
+      protected static Dictionary<string, YamlNode> _dictionary => GeneratorBase._dictionary;
    }
 }

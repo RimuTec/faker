@@ -1,5 +1,4 @@
-﻿using RimuTec.Faker.Helper;
-using System;
+﻿using System;
 
 namespace RimuTec.Faker
 {
@@ -25,7 +24,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CreditCardNumber()
       {
-         return YamlLoader.Fetch("business.credit_card_numbers");
+         return Fetch("business.credit_card_numbers");
       }
 
       /// <summary>
@@ -34,7 +33,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CreditCardType()
       {
-         return YamlLoader.Fetch("business.credit_card_types");
+         return Fetch("business.credit_card_types");
       }
    }
 }
