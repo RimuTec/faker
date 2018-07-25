@@ -7,6 +7,7 @@ Classes Address and Business are now on par with Faker Gem including support for
 - Class Address supports all 51 built-in and custom locales
 - Class Business supports all 51 built-in and custom locales
 - Class Code supports all 51 built-in and custom locales
+- Class Company supports all 51 built-in and custom locales
 
 ## Version 0.34.0
 ### Summary

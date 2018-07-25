@@ -19,13 +19,13 @@ namespace RimuTec.Faker
       internal GeneratorBase() { }
 
       /// <summary>
-      /// Parses a template that may contains tokens like "#{address.full_address}" and
+      /// Parses a template that may contain tokens like "#{address.full_address}" and
       /// either invokes generator methods or load content from yaml files as replacement
       /// for the token
       /// </summary>
       /// <param name="template"></param>
       /// <returns></returns>
-      protected internal static string Parse(string template)
+      internal static string Parse(string template)
       {
          var clazz = new StackTrace().GetFrame(1).GetMethod().DeclaringType;
          var matches = Regex.Matches(template, @"#{([a-zA-Z._]{1,})}");
@@ -66,7 +66,7 @@ namespace RimuTec.Faker
          return template;
       }
 
-      protected internal static string Fetch(string locator)
+      internal static string Fetch(string locator)
       {
          var localeName = Config.Locale;
 
@@ -156,6 +156,54 @@ namespace RimuTec.Faker
             return scalarNode.Value;
          }
          return string.Empty;
+      }
+
+      internal static List<string[]> Translate(string locator) {
+         var localeName = Config.Locale;
+
+         // if locale hasn't been loaded yet, now is a good time
+         LoadLocale(localeName, locator);
+
+         YamlNode fakerNode;
+         var key = localeName;
+         try
+         {
+            fakerNode = _dictionary[key];
+            var locatorParts = locator.Split('.');
+            return Translate(fakerNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
+         }
+         catch
+         {
+            // fall back to locale "en"
+            LoadLocale("en", locator);
+            key = $"en.{locator.Split('.')[0]}";
+            fakerNode = _dictionary[key];
+            var locatorParts = locator.Split('.');
+            return Translate(fakerNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
+         }
+      }
+
+      private static List<string[]> Translate(YamlNode yamlNode, string[] locatorParts)
+      {
+         if (locatorParts.Length > 0)
+         {
+            return Translate(yamlNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
+         }
+         if(yamlNode is YamlSequenceNode sequenceNode)
+         {
+            var result = new List<string[]>();
+            foreach(var child in sequenceNode.Children)
+            {
+               if(child is YamlSequenceNode childNode)
+               {
+                  IEnumerable<string> enumerable = childNode.Children.Select(c => c.ToString());
+                  var arr = enumerable.ToArray();
+                  result.Add(arr);
+               }
+            }
+            return result;
+         }
+         return new List<string[]>();
       }
 
       internal static Dictionary<string, YamlNode> _dictionary = new Dictionary<string, YamlNode>();

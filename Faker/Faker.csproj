@@ -28,16 +28,19 @@
 
    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
       <DocumentationFile>bin\Release\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
+      <LangVersion>latest</LangVersion>
    </PropertyGroup>
 
    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net462|AnyCPU'">
       <DebugType>full</DebugType>
       <DebugSymbols>true</DebugSymbols>
       <DocumentationFile>bin\Debug\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
+      <LangVersion>latest</LangVersion>
    </PropertyGroup>
 
    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
       <DocumentationFile>bin\Release\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
+      <LangVersion>latest</LangVersion>
    </PropertyGroup>
 
    <ItemGroup>

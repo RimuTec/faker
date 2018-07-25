@@ -1,34 +1,25 @@
 ﻿using RimuTec.Faker.Extensions;
-using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker
 {
    /// <summary>
    /// Generators for company related data.
    /// </summary>
-   public static class Company
+   public class Company : GeneratorBase
    {
-      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/company.yml
-
-      static Company()
-      {
-         const string yamlFileName = "RimuTec.Faker.locales.en.company.yml";
-         locale locale = YamlLoader.Read<locale>(yamlFileName);
-         _company = locale.en.faker.company;
-      }
-
+      private Company() { }
+      
       /// <summary>
       /// Get a random company name. Example: "Hirthe-Ritchie"
       /// </summary>
       /// <returns></returns>
       public static string Name()
       {
-         var nameTemplate = _company.Name.Sample();
+         var nameTemplate = Fetch("company.name");
          const string placeholder = "#{Name.last_name}";
          var place = nameTemplate.IndexOf(placeholder);
          while (place >= 0)
@@ -36,7 +27,7 @@ namespace RimuTec.Faker
             nameTemplate = nameTemplate.Remove(place, placeholder.Length).Insert(place, Faker.Name.LastName());
             place = nameTemplate.IndexOf(placeholder);
          }
-         nameTemplate = nameTemplate.Replace("#{suffix}", _company.Suffix.Sample());
+         nameTemplate = nameTemplate.Replace("#{suffix}", Fetch("company.suffix"));
          return nameTemplate;
       }
 
@@ -46,7 +37,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Suffix()
       {
-         return _company.Suffix.Sample();
+         return Fetch("company.suffix");
       }
 
       /// <summary>
@@ -55,7 +46,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Industry()
       {
-         return _company.Industry.Sample();
+         return Fetch("company.industry");
       }
 
       /// <summary>
@@ -64,8 +55,9 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CatchPhrase()
       {
+         var buzzwords = Translate("company.buzzwords");
          var words = new List<string>();
-         _company.Buzzwords.ForEach(x => words.Add(x.Sample()));
+         buzzwords.ForEach(x => words.Add(x.Sample()));
          return string.Join(" ", words);
       }
 
@@ -75,7 +67,8 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Buzzword()
       {
-         var foo = _company.Buzzwords.Aggregate(new List<string>(), (list, a) =>
+         var buzzwords = Translate("company.buzzwords");
+         var foo = buzzwords.Aggregate(new List<string>(), (list, a) =>
          {
             list.AddRange(a.ToList());
             return list;
@@ -90,8 +83,9 @@ namespace RimuTec.Faker
       /// <example>"empower one-to-one web-readiness"</example>
       public static string Bs()
       {
+         var bs = Translate("company.bs");
          var sb = new StringBuilder();
-         _company.Bs.ForEach(x => sb.Append(x.Sample() + " "));
+         bs.ForEach(x => sb.Append(x.Sample() + " "));
          return sb.ToString().Trim();
       }
 
@@ -114,7 +108,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Type()
       {
-         return _company.Type.Sample();
+         return Fetch("company.type");
       }
 
       /// <summary>
@@ -141,7 +135,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Profession()
       {
-         return _company.Profession.Sample();
+         return Fetch("company.profession");
       }
 
       /// <summary>
@@ -340,51 +334,5 @@ namespace RimuTec.Faker
          }
          return sum;
       }
-
-      private static company _company;
-
-#pragma warning disable IDE1006 // Naming Styles
-      // Helper classes for reading the yaml file. Note that the class names are
-      // intentionally lower case.
-
-      internal class locale
-      {
-         public en en { get; set; }
-      }
-
-      internal class en
-      {
-         public faker faker { get; set; }
-      }
-
-      internal class faker
-      {
-         public company company { get; set; }
-      }
-
-      internal class company
-      {
-         [YamlMember(Alias = "suffix", ApplyNamingConventions = false)]
-         public List<string> Suffix { get; set; }
-
-         [YamlMember(Alias = "buzzwords", ApplyNamingConventions = false)]
-         public List<string[]> Buzzwords { get; set; }
-
-         [YamlMember(Alias = "bs", ApplyNamingConventions = false)]
-         public List<string[]> Bs { get; set; }
-
-         [YamlMember(Alias = "name", ApplyNamingConventions = false)]
-         public List<string> Name { get; set; }
-
-         [YamlMember(Alias = "industry", ApplyNamingConventions = false)]
-         public string[] Industry { get; set; }
-
-         [YamlMember(Alias = "profession", ApplyNamingConventions = false)]
-         public string[] Profession { get; set; }
-
-         [YamlMember(Alias = "type", ApplyNamingConventions = false)]
-         public string[] Type { get; set; }
-      }
-#pragma warning restore IDE1006 // Naming Styles
    }
 }

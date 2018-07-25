@@ -13,7 +13,7 @@ namespace RimuTec.Faker.Extensions
       {
          if (array.Count() == 0)
          {
-            return default(T);
+            return default;
          }
 
          return array[RandomNumber.Next(0, array.Length)];

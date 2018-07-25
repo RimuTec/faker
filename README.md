@@ -54,7 +54,7 @@ This class is on par with Ruby Faker for all 51 built-in and custom locales.
 - CreditCardType()
 
 ## Code *
-This class is on par with Ruby Faker for default locale ("en").
+This class is on par with Ruby Faker for all 51 built-in and custom locales.
 - Asin()
 - Ean(int @base = 13)
 - Imei()
@@ -64,8 +64,8 @@ This class is on par with Ruby Faker for default locale ("en").
 - Rut()
 - Sin()
 
-## Company
-This class is on par with Ruby Faker for default locale ("en").
+## Company *
+This class is on par with Ruby Faker for all 51 built-in and custom locales.
 - AustralianBusinessNumber()
 - Bs()
 - Buzzword()
