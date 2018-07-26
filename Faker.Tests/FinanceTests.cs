@@ -15,10 +15,15 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void CreditCard_With_Luhn_Checksum()
       {
-         var cc = Finance.CreditCard(CreditCardType.Mastercard);
-         Assert.IsTrue(cc.StartsWith("5") || cc.StartsWith("6"));
-         Assert.AreEqual(0, RegexMatchesCount(cc, @"[/#]"));
-         Assert.AreEqual(0, RegexMatchesCount(cc, @"L"));
+         var tries = 10;
+         while(tries-- > 0)
+         {
+            var cc = Finance.CreditCard(CreditCardType.Mastercard);
+            Assert.IsTrue(cc.StartsWith("5") || cc.StartsWith("6"));
+            Assert.AreEqual(0, RegexMatchesCount(cc, @"[/#]"));
+            Assert.AreEqual(0, RegexMatchesCount(cc, @"L"));
+            Assert.AreEqual(0, RegexMatchesCount(cc, @"[\[\]]"));
+         }
       }
 
       [Test]

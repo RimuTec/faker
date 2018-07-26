@@ -105,7 +105,7 @@ This class supports all 51 built-in and custom locales.
 - University()
 
 ## Finance
-This class is on par with Ruby Faker for default locale ("en").
+This class supports all 51 built-in and custom locales.
 - CreditCard(params CreditCardType[] types)
 
 ## IDNumber

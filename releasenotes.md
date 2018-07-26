@@ -3,6 +3,9 @@
 ## Version 0.36.0
 ### New Features
 - Class Educator supports all 51 built-in as well as custom locales
+- Class Finance supports all 51 built-in as well as custom locales
+### Bug Fixes
+- FIX: Finance.Finance.CreditCard(CreditCardType.Mastercard) did not replace "[1-5]" with single digit in this range
 
 ## Version 0.35.0
 ### Summary
@@ -221,10 +224,8 @@ Lorem is now on par with Ruby Faker for default locale ("en").
 ### New Features
 - Lorem.Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0): Optional parameters and default values added.
 - Lorem.Sentences(int sentenceCount = 3, bool supplemental = false): Optional parameters and default values added.
-
 ### Bug Fixes
 - FIX: Lorem.Words() does not consider list of supplementary words.
-
 ### Other Changes
 - Updated package YamlDotNet to version 5.0.1
 
