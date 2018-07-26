@@ -1,13 +1,17 @@
 # Release Notes
 
+## Version 0.36.0
+### New Features
+- Class Educator supports all 51 built-in as well as custom locales
+
 ## Version 0.35.0
 ### Summary
 Classes Address and Business are now on par with Faker Gem including support for localization, 51 locales out of the box plus support for custom locales.
 ### New Features
-- Class Address supports all 51 built-in and custom locales
-- Class Business supports all 51 built-in and custom locales
-- Class Code supports all 51 built-in and custom locales
-- Class Company supports all 51 built-in and custom locales
+- Class Address supports all 51 built-in as well as custom locales
+- Class Business supports all 51 built-in as well as custom locales
+- Class Code supports all 51 built-in as well as custom locales
+- Class Company supports all 51 built-in as well as custom locales
 
 ## Version 0.34.0
 ### Summary
