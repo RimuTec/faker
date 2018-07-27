@@ -1,8 +1,6 @@
 ﻿using RimuTec.Faker.Extensions;
-using RimuTec.Faker.Helper;
 using System.Linq;
 using System.Text.RegularExpressions;
-using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker
 {
@@ -10,16 +8,9 @@ namespace RimuTec.Faker
    /// Generates fake US Social Security number (SSN), both valid and invalid or Spanish citizen
    /// identifier (DNI or NIE).
    /// </summary>
-   public static class IDNumber
+   public class IDNumber : GeneratorBase
    {
-      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/id_number.yml
-
-      static IDNumber()
-      {
-         const string yamlFileName = "RimuTec.Faker.locales.en.id_number.yml";
-         locale locale = YamlLoader.Read<locale>(yamlFileName);
-         _idNumber = locale.en.faker.id_number;
-      }
+      private IDNumber() { }
 
       /// <summary>
       /// Generate an invalid US Social Security Number. Example: "311-72-0000"
@@ -27,7 +18,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Invalid()
       {
-         return _idNumber.Invalid.Sample().Numerify();
+         return Parse(Fetch("id_number.invalid")).Numerify();
       }
 
       /// <summary>
@@ -63,9 +54,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Valid()
       {
-         // _idNumber.Valid is "#{IDNumber.ssn_valid}" which requires Translate() which
-         // we don't have yet.
-         return SSN_Valid();
+         return Parse(Fetch("id_number.valid"));
       }
 
       /// <summary>
@@ -73,14 +62,14 @@ namespace RimuTec.Faker
       /// segements is all zeros.
       /// </summary>
       /// <returns></returns>
-      public static string SSN_Valid()
+      public static string SsnValid()
       {
          var ssn = @"[0-8]\d{2}-\d{2}-\d{4}".Regexify();
          //We could still have all 0s in one segment or another
          if (_invalid_SSN.Any(r => Regex.Matches(ssn, r).Count > 0))
          {
             _SSN_Valid_recursive = true;
-            ssn = SSN_Valid();
+            ssn = SsnValid();
          }
          return ssn;
       }
@@ -95,37 +84,5 @@ namespace RimuTec.Faker
 
       internal static bool _SSN_Valid_recursive = false;
       private static readonly string _checks = "TRWAGMYFPDXBNJZSQVHLCKE";
-
-      private static id_number _idNumber;
-
-#pragma warning disable IDE1006 // Naming Styles
-      // Helper classes for reading the yaml file. Note that the class names are
-      // intentionally lower case.
-
-      internal class locale
-      {
-         public en en { get; set; }
-      }
-
-      internal class en
-      {
-         public faker faker { get; set; }
-      }
-
-      internal class faker
-      {
-         [YamlMember(Alias = "id_number", ApplyNamingConventions = false)]
-         public id_number id_number { get; set; }
-      }
-
-      internal class id_number
-      {
-         [YamlMember(Alias = "valid", ApplyNamingConventions = false)]
-         public string Valid { get; set; }
-
-         [YamlMember(Alias = "invalid", ApplyNamingConventions = false)]
-         public string[] Invalid { get; set; }
-      }
-#pragma warning restore IDE1006 // Naming Styles
    }
 }

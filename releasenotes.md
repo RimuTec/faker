@@ -1,20 +1,27 @@
 # Release Notes
 
-## Version 0.36.0
+## Version 0.38.0
+### Breaking Change
+- Method IDNumber.SSN_Valid() has been renamed to IDNumber.SsnValid(). A fairly straight forward find-raplace should help with the transition, e.g. you could do a find-all for ".SSN_Valid("
+### New Features
+- Class IDNumber supports all 51 built-in as well as custom locales
+
+## Version 0.37.0
 ### New Features
 - Class Educator supports all 51 built-in as well as custom locales
 - Class Finance supports all 51 built-in as well as custom locales
 ### Bug Fixes
 - FIX: Finance.Finance.CreditCard(CreditCardType.Mastercard) did not replace "[1-5]" with single digit in this range
 
-## Version 0.35.0
-### Summary
-Classes Address and Business are now on par with Faker Gem including support for localization, 51 locales out of the box plus support for custom locales.
+## Version 0.36.0
 ### New Features
-- Class Address supports all 51 built-in as well as custom locales
 - Class Business supports all 51 built-in as well as custom locales
 - Class Code supports all 51 built-in as well as custom locales
 - Class Company supports all 51 built-in as well as custom locales
+
+## Version 0.35.0
+### New Features
+- Class Address supports all 51 built-in as well as custom locales
 
 ## Version 0.34.0
 ### Summary

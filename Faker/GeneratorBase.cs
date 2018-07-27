@@ -27,7 +27,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       internal static string Parse(string template)
       {
-         var clazz = new StackTrace().GetFrame(1).GetMethod().DeclaringType;
+         var clazz = new StackFrame(1).GetMethod().DeclaringType; // https://stackoverflow.com/a/171974/411428
          var matches = Regex.Matches(template, @"#{([a-zA-Z._]{1,})}");
          for (var i = 0; i < matches.Count; i++)
          {
