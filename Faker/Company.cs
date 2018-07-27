@@ -57,7 +57,7 @@ namespace RimuTec.Faker
       {
          var buzzwords = Translate("company.buzzwords");
          var words = new List<string>();
-         buzzwords.ForEach(x => words.Add(x.Sample()));
+         buzzwords.ForEach(x => words.Add(x.Value.Sample()));
          return string.Join(" ", words);
       }
 
@@ -70,7 +70,7 @@ namespace RimuTec.Faker
          var buzzwords = Translate("company.buzzwords");
          var foo = buzzwords.Aggregate(new List<string>(), (list, a) =>
          {
-            list.AddRange(a.ToList());
+            list.AddRange(a.Value.ToList());
             return list;
          });
          return foo.Sample().ToLower();
@@ -85,7 +85,7 @@ namespace RimuTec.Faker
       {
          var bs = Translate("company.bs");
          var sb = new StringBuilder();
-         bs.ForEach(x => sb.Append(x.Sample() + " "));
+         bs.ForEach(x => sb.Append(x.Value.Sample() + " "));
          return sb.ToString().Trim();
       }
 

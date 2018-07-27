@@ -158,7 +158,7 @@ namespace RimuTec.Faker
          return string.Empty;
       }
 
-      internal static List<string[]> Translate(string locator) {
+      internal static List<KeyValuePair<string,string[]>> Translate(string locator) {
          var localeName = Config.Locale;
 
          // if locale hasn't been loaded yet, now is a good time
@@ -183,7 +183,7 @@ namespace RimuTec.Faker
          }
       }
 
-      private static List<string[]> Translate(YamlNode yamlNode, string[] locatorParts)
+      private static List<KeyValuePair<string, string[]>> Translate(YamlNode yamlNode, string[] locatorParts)
       {
          if (locatorParts.Length > 0)
          {
@@ -191,19 +191,34 @@ namespace RimuTec.Faker
          }
          if(yamlNode is YamlSequenceNode sequenceNode)
          {
-            var result = new List<string[]>();
+            var result = new List<KeyValuePair<string, string[]>>();
+            var count = 0;
             foreach(var child in sequenceNode.Children)
             {
                if(child is YamlSequenceNode childNode)
                {
                   IEnumerable<string> enumerable = childNode.Children.Select(c => c.ToString());
                   var arr = enumerable.ToArray();
-                  result.Add(arr);
+                  result.Add(new KeyValuePair<string, string[]>($"{count++}", arr));
                }
             }
             return result;
          }
-         return new List<string[]>();
+         else if(yamlNode is YamlMappingNode mappingNode)
+         {
+            var result = new List<KeyValuePair<string, string[]>>();
+            foreach(var pair in mappingNode)
+            {
+               if(pair.Value is YamlSequenceNode sequenceNodeInner)
+               {
+                  IEnumerable<string> enumerable = sequenceNodeInner.Children.Select(c => c.ToString());
+                  var arr = enumerable.ToArray();
+                  result.Add(new KeyValuePair<string, string[]>(pair.Key.ToString(), arr));
+               }
+            }
+            return result;
+         }
+         return new List<KeyValuePair<string, string[]>>();
       }
 
       internal static Dictionary<string, YamlNode> _dictionary = new Dictionary<string, YamlNode>();

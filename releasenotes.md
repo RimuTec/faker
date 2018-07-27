@@ -5,6 +5,7 @@
 - Method IDNumber.SSN_Valid() has been renamed to IDNumber.SsnValid(). A fairly straight forward find-raplace should help with the transition, e.g. you could do a find-all for ".SSN_Valid("
 ### New Features
 - Class IDNumber supports all 51 built-in as well as custom locales
+- Class Internet supports all 51 built-in as well as custom locales
 
 ## Version 0.37.0
 ### New Features

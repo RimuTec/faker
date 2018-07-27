@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker
 {
@@ -14,17 +13,9 @@ namespace RimuTec.Faker
    /// Generators for internet related data, e.g. email addresses, domain names, IP addresses, MAC addresses,
    /// passwords, etc.
    /// </summary>
-   public static class Internet
+   public class Internet : GeneratorBase
    {
-      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/internet.yml
-
-      static Internet()
-      {
-         const string yamlFileName = "RimuTec.Faker.locales.en.internet.yml";
-         locale locale = YamlLoader.Read<locale>(yamlFileName);
-         _internet = locale.en.faker.internet;
-         _freeEmail = _internet.FreeEmail;
-      }
+      private Internet() { }
 
       /// <summary>
       /// Gets a random domain name. Example: "effertz.info"
@@ -41,7 +32,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string DomainSuffix()
       {
-         return _internet.DomainSuffix.Sample();
+         return Fetch("internet.domain_suffix");
       }
 
       /// <summary>
@@ -76,7 +67,8 @@ namespace RimuTec.Faker
          {
             name = null;
          }
-         return string.Join("@", UserName(name), _internet.FreeEmail.Sample());
+         return string.Join("@", UserName(name), Fetch("internet.free_email"));
+         //return string.Join("@", UserName(name), _internet.FreeEmail.Sample());
       }
 
       /// <summary>
@@ -289,15 +281,16 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string UserAgent(string vendor = null)
       {
-         if (vendor == null)
+         var agentHash = Translate("internet.user_agent");
+         if(vendor == null)
          {
-            return _internet.UserAgent.Sample().Value[0];
+            return agentHash.Sample().Value[0];
          }
-         var candidates = _internet.UserAgent.Keys.Where(x => x.ToLower().Contains(vendor.ToLower()));
-         if (candidates.Count() > 0)
+         var candidates = agentHash.Where(x => x.Key.Contains(vendor.ToLower()));
+         if(candidates.Count() > 0)
          {
             var key = candidates.Sample();
-            return _internet.UserAgent[key][0];
+            return key.Value[0];
          }
          return UserAgent();
       }
@@ -395,8 +388,6 @@ namespace RimuTec.Faker
          return _reserved_nets_regex.Any(net => Regex.Match(addr, net, RegexOptions.Compiled).Success);
       }
 
-      internal static string[] _freeEmail;
-
       private static string[] _privateNetRegex = {
           @"^10\.",                                        // 10.0.0.0    - 10.255.255.255
           @"^100\.(6[4-9]|[7-9]\d|1[0-1]\d|12[0-7])\.",   // 100.64.0.0  - 100.127.255.255
@@ -417,39 +408,5 @@ namespace RimuTec.Faker
           @"^(22[4-9]|23\d)\.",    // 224.0.0.0    - 239.255.255.255
           @"^(24\d|25[0-5])\."     // 240.0.0.0    - 255.255.255.254  and  255.255.255.255
       };
-
-      private static internet _internet;
-
-#pragma warning disable IDE1006 // Naming Styles
-      // Helper classes for reading the yaml file. Note that the class names are
-      // intentionally lower case.
-
-      internal class locale
-      {
-         public en en { get; set; }
-      }
-
-      internal class en
-      {
-         public faker faker { get; set; }
-      }
-
-      internal class faker
-      {
-         public internet internet { get; set; }
-      }
-
-      internal class internet
-      {
-         [YamlMember(Alias = "free_email", ApplyNamingConventions = false)]
-         public string[] FreeEmail { get; set; }
-
-         [YamlMember(Alias = "domain_suffix", ApplyNamingConventions = false)]
-         public string[] DomainSuffix { get; set; }
-
-         [YamlMember(Alias = "user_agent", ApplyNamingConventions = false)]
-         public Dictionary<string, List<string>> UserAgent { get; set; }
-      }
-#pragma warning restore IDE1006 // Naming Styles
    }
 }
