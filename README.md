@@ -109,14 +109,14 @@ This class supports all 51 built-in and custom locales.
 - CreditCard(params CreditCardType[] types)
 
 ## IDNumber
-This class is on par with Ruby Faker for default locale ("en").
+This class supports all 51 built-in and custom locales.
 - SpanishForeignCitizenNumber()
 - Invalid()
 - SpanishCitizenNumber()
 - Valid()
 
 ## Internet
-This class is on par with Ruby Faker for default locale ("en").
+This class supports all 51 built-in and custom locales.
 - DomainName()
 - DomainSuffix()
 - DomainWord()
