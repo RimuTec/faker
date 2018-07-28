@@ -1,23 +1,11 @@
-﻿using RimuTec.Faker.Extensions;
-using RimuTec.Faker.Helper;
-using System.Collections.Generic;
-using YamlDotNet.Serialization;
-
-namespace RimuTec.Faker
+﻿namespace RimuTec.Faker
 {
    /// <summary>
    /// Generator for Job related fake data.
    /// </summary>
-   public static class Job
+   public class Job : GeneratorBase
    {
-      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/job.yml
-
-      static Job()
-      {
-         const string yamlFileName = "RimuTec.Faker.locales.en.job.yml";
-         locale locale = YamlLoader.Read<locale>(yamlFileName);
-         _job = locale.en.faker.job;
-      }
+      private Job() { }
 
       /// <summary>
       /// Generates a job title, e.g. "Lead Accounting Associate".
@@ -25,16 +13,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Title()
       {
-         var titleTemplate = _job.Title.Sample();
-         var seniority = _job.Seniority.Sample();
-         var field = _job.Field.Sample();
-         var position = _job.Position.Sample();
-
-         var result = titleTemplate.Replace("#{seniority}", seniority);
-         result = result.Replace("#{field}", field);
-         result = result.Replace("#{position}", position);
-
-         return result;
+         return Parse(Fetch("job.title"));
       }
 
       /// <summary>
@@ -43,7 +22,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Field()
       {
-         return _job.Field.Sample();
+         return Fetch("job.field");
       }
 
       /// <summary>
@@ -52,7 +31,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Seniority()
       {
-         return _job.Seniority.Sample();
+         return Fetch("job.seniority");
       }
 
       /// <summary>
@@ -61,7 +40,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Position()
       {
-         return _job.Position.Sample();
+         return Fetch("job.position");
       }
 
       /// <summary>
@@ -70,7 +49,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string KeySkill()
       {
-         return _job.KeySkills.Sample();
+         return Fetch("job.key_skills");
       }
 
       /// <summary>
@@ -79,7 +58,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string EmploymentType()
       {
-         return _job.EmploymentType.Sample();
+         return Fetch("job.employment_type");
       }
 
       /// <summary>
@@ -88,53 +67,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string EducationLevel()
       {
-         return _job.EducationLevel.Sample();
+         return Fetch("job.education_level");
       }
-
-      private static readonly job _job;
-
-#pragma warning disable IDE1006 // Naming Styles
-      // Helper classes for reading the yaml file. Note that the class names are
-      // intentionally lower case.
-
-      internal class locale
-      {
-         public en en { get; set; }
-      }
-
-      internal class en
-      {
-         public faker faker { get; set; }
-      }
-
-      internal class faker
-      {
-         public job job { get; set; }
-      }
-
-      internal class job
-      {
-         [YamlMember(Alias = "field", ApplyNamingConventions = false)]
-         public string[] Field { get; set; }
-
-         [YamlMember(Alias = "seniority", ApplyNamingConventions = false)]
-         public string[] Seniority { get; set; }
-
-         [YamlMember(Alias = "position", ApplyNamingConventions = false)]
-         public string[] Position { get; set; }
-
-         [YamlMember(Alias = "key_skills", ApplyNamingConventions = false)]
-         public string[] KeySkills { get; set; }
-
-         [YamlMember(Alias = "employment_type", ApplyNamingConventions = false)]
-         public string[] EmploymentType { get; set; }
-
-         [YamlMember(Alias = "education_level", ApplyNamingConventions = false)]
-         public string[] EducationLevel { get; set; }
-
-         [YamlMember(Alias = "title", ApplyNamingConventions = false)]
-         public List<string> Title { get; set; }
-      }
-#pragma warning restore IDE1006 // Naming Styles
    }
 }

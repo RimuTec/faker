@@ -3,7 +3,7 @@
 ## Version 0.39.0
 ### New Features
 - Add instructions to README.md describing how to build Faker from sources.
-
+- Class Job supports all 51 built-in as well as custom locales
 
 ## Version 0.38.0
 ### Breaking Change

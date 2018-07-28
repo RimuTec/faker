@@ -10,7 +10,9 @@ namespace RimuTec.Faker
    /// </summary>
    public enum CreditCardType
    {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
       Visa, Mastercard, Discover, AmericanExpress, DinersClub, Jcb, Switch, Solo, Dankort, Maestro, Forbrugsforeningen, Laser
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
    }
 
    /// <summary>
