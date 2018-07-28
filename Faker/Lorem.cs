@@ -1,9 +1,7 @@
 ﻿using RimuTec.Faker.Extensions;
-using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using YamlDotNet.Serialization;
 
 namespace RimuTec.Faker
 {
@@ -11,24 +9,17 @@ namespace RimuTec.Faker
    /// Equivalent to Faker::Lorem in Ruby's Faker gem. In some cases their documentation appears to use different
    /// default values than what the code appears to use. In those cases we went for what the code indicates.
    /// </summary>
-   public static class Lorem
+   public class Lorem : GeneratorBase
    {
-      // Resources used by this class from https://github.com/stympy/faker/blob/master/lib/locales/en/lorem.yml
-
-      static Lorem()
-      {
-         const string yamlFileName = "RimuTec.Faker.locales.en.lorem.yml";
-         locale locale = YamlLoader.Read<locale>(yamlFileName);
-         _lorem = locale.en.faker.lorem;
-      }
-
+      private Lorem() { }
+      
       /// <summary>
       /// Generates a random word. Example: "repellendus".
       /// </summary>
       /// <returns></returns>
       public static string Word()
       {
-         return _lorem.Words.Sample();
+         return Fetch("lorem.words");
       }
 
       /// <summary>
@@ -46,12 +37,12 @@ namespace RimuTec.Faker
          }
          if (supplemental)
          {
-            var combined = wordCount.Times(x => _lorem.Words.Sample()).Concat(wordCount.Times(x => _lorem.Supplemental.Sample()));
+            var combined = wordCount.Times(x => Word()).Concat(wordCount.Times(x => Fetch("lorem.supplemental")));
             return combined.Shuffle().Take(wordCount);
          }
          else
          {
-            return wordCount.Times(x => _lorem.Words.Sample());
+            return wordCount.Times(x => Word());
          }
       }
 
@@ -110,10 +101,10 @@ namespace RimuTec.Faker
          {
             throw new ArgumentOutOfRangeException(nameof(randomWordsToAdd), "Must be equal to or greater than zero.");
          }
-         string sentence = string.Join(_lorem.Punctuation.Space, Words(wordCount + RandomNumber.Next(randomWordsToAdd), supplemental).ToArray()).Capitalise();
+         string sentence = string.Join(Fetch("lorem.punctuation.space"), Words(wordCount + RandomNumber.Next(randomWordsToAdd), supplemental).ToArray()).Capitalise();
          if (sentence.Length > 0)
          {
-            sentence += _lorem.Punctuation.Period;
+            sentence += Fetch("lorem.punctuation.period");
          }
          return sentence;
       }
@@ -157,7 +148,7 @@ namespace RimuTec.Faker
             throw new ArgumentOutOfRangeException(nameof(randomSentencesToAdd), "Must be equal to or greater than zero.");
          }
 
-         return string.Join(_lorem.Punctuation.Space, Sentences(sentenceCount + RandomNumber.Next(randomSentencesToAdd), supplemental).ToArray());
+         return string.Join(Fetch("lorem.punctuation.space"), Sentences(sentenceCount + RandomNumber.Next(randomSentencesToAdd), supplemental).ToArray());
       }
 
       /// <summary>
@@ -201,17 +192,17 @@ namespace RimuTec.Faker
          var paragraph = Paragraph(3, supplemental);
          while (paragraph.Length < chars)
          {
-            paragraph += _lorem.Punctuation.Space + Paragraph(3, supplemental);
+            paragraph += Fetch("lorem.punctuation.space") + Paragraph(3, supplemental);
          }
          paragraph = paragraph.Substring(0, chars);
-         if (paragraph.EndsWith(_lorem.Punctuation.Space))
+         if (paragraph.EndsWith(Fetch("lorem.punctuation.space")))
          {
             // pad with random letter if paragraph would end in " ." otherwise
             paragraph = paragraph.Trim() + _characters[RandomNumber.Next(10, _characters.Length)];
          }
          if (!string.IsNullOrWhiteSpace(paragraph))
          {
-            paragraph += _lorem.Punctuation.Period;
+            paragraph += Fetch("lorem.punctuation.period");
          }
          return paragraph;
       }
@@ -229,10 +220,10 @@ namespace RimuTec.Faker
       public static string Question(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
       {
          string question = Sentence(wordCount, supplemental, randomWordsToAdd)
-            .Trim(_lorem.Punctuation.Period.ToCharArray());
+            .Trim(Fetch("lorem.punctuation.period").ToCharArray());
          if (!string.IsNullOrWhiteSpace(question))
          {
-            question = question + _lorem.Punctuation.QuestionMark;
+            question = question + Fetch("lorem.punctuation.question_mark");
          }
          return question;
       }
@@ -255,55 +246,6 @@ namespace RimuTec.Faker
          return questionCount.Times(x => Question(supplemental: supplemental));
       }
 
-      internal static string[] _WordList => _lorem.Words; // access for tests
-      internal static string[] _SupplementalWordList => _lorem.Supplemental; // access for tests
-
       private static readonly char[] _characters = "0123456789abcdefghijklmnopqrstuvwxyz".ToCharArray();
-      private static readonly lorem _lorem;
-
-#pragma warning disable IDE1006 // Naming Styles
-      // Helper classes for reading the yaml file. Note that the class names are
-      // intentionally lower case.
-
-      internal class locale
-      {
-         public en en { get; set; }
-      }
-
-      internal class en
-      {
-         public faker faker { get; set; }
-      }
-
-      internal class faker
-      {
-         public lorem lorem { get; set; }
-      }
-
-      internal class lorem
-      {
-         [YamlMember(Alias = "words", ApplyNamingConventions = false)]
-         public string[] Words { get; set; }
-
-         [YamlMember(Alias = "supplemental", ApplyNamingConventions = false)]
-         public string[] Supplemental { get; set; }
-
-         [YamlMember(Alias = "punctuation", ApplyNamingConventions = false)]
-         public punctuation Punctuation { get; set; }
-      }
-
-      internal class punctuation
-      {
-         [YamlMember(Alias = "space", ApplyNamingConventions = false)]
-         public string Space { get; set; }
-
-         [YamlMember(Alias = "period", ApplyNamingConventions = false)]
-         public string Period { get; set; }
-
-         [YamlMember(Alias = "question_mark", ApplyNamingConventions = false)]
-         public string QuestionMark { get; set; }
-      }
-
-#pragma warning restore IDE1006 // Naming Styles
    }
 }

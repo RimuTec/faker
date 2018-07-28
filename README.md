@@ -138,6 +138,7 @@ This class supports all 51 built-in and custom locales.
 - UserName(string name = null, string separators = null)
 
 ## Job
+This class supports all 51 built-in and custom locales.
 - EmploymentType()
 - EducationLevel()
 - Field()
@@ -147,7 +148,7 @@ This class supports all 51 built-in and custom locales.
 - Title()
 
 ## Lorem
-This class is on par with Ruby Faker for default locale ("en").
+This class supports all 51 built-in and custom locales.
 - Character()
 - Characters(int charCount = 255)
 - Multibyte()
@@ -161,8 +162,8 @@ This class is on par with Ruby Faker for default locale ("en").
 - Word()
 - Words(int wordCount = 3, bool supplemental = false)
 
-## Name *
-This class is on par with Ruby Faker for all 51 built-in and custom locales.
+## Name
+This class supports all 51 built-in and custom locales.
 - FirstName()
 - FullName() (equivalent to Ruby's Faker::Name.name)
 - Initials(int characterCount)

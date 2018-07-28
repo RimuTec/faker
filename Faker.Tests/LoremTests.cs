@@ -7,14 +7,14 @@ using System.Text.RegularExpressions;
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
-   public class LoremTests
+   public class LoremTests : FixtureBase
    {
       public LoremTests()
       {
-         var wordList = Lorem._WordList;
+         var wordList = Fetch("lorem.words");
          _wordList = wordList.Distinct().ToArray();
 
-         var supplementaryList = Lorem._SupplementalWordList;
+         var supplementaryList = Fetch("lorem.supplemental");
          _supplementalWordList = supplementaryList.Distinct().ToArray();
 
          var intersection = _wordList.Intersect(_supplementalWordList);
@@ -23,7 +23,6 @@ namespace RimuTec.Faker.Tests
          Assert.Greater(_wordList.Count(), 20);
          Assert.Greater(_supplementalWordList.Count(), 20);
       }
-
 
       [OneTimeSetUp]
       public void FixtureSetUp()
