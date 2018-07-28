@@ -202,5 +202,16 @@ If you need support or have a suggestion for improvement please file an issue at
 ## Reporting Bugs
 RimuTec.Faker has a test suite with about 270 unit tests. This does not guarantee absence of bugs. Please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). All your feedback will help make the library more valuable for other users as well. Thank you!
 
+# How To Build
+## Visual Studio 2017
+Open Faker.sln in Visual Studio, select the desired configuration ("DEBUG" or "RELEASE") and then build the solution.
+
+## Command Line
+1. Open Powershell and navigate to directory containing Faker.sln
+1. Execute the command `dotnet build --configuration RELEASE Faker.sln`. Replace RELEASE with DEBUG if you want build the DEBUG configuration
+
+## Issues With Building
+If you encounter issues with building the library please file an issue on GitHub, ideally with what you tried, what the expected and what the actual outcome was. Thank you!
+
 # Credits
 This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker), licensed under the MIT license. Thank you to all their contributors!

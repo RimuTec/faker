@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 0.39.0
+### New Features
+- Add instructions to README.md describing how to build Faker from sources.
+
+
 ## Version 0.38.0
 ### Breaking Change
 - Method IDNumber.SSN_Valid() has been renamed to IDNumber.SsnValid(). A fairly straight forward find-raplace should help with the transition, e.g. you could do a find-all for ".SSN_Valid("
