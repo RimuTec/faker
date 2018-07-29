@@ -1,7 +1,7 @@
 # Faker
 RimuTec.Faker provides generators for fake, yet realistically looking data. Use it for testing, for creating screenshots to show off your cool software, and similar more. Generators include Lorem, Name, Address, Date, Company, Business, and many more.
 
-RimuTec.Faker is a C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker). The port is not complete yet but we are continuously adding classes and methods.
+RimuTec.Faker is a C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker).
 
 RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462). The library including its source code are licensed under the MIT license. It supports 51 locales out of the box. And you can extend it with your own custom locales using yaml files.
 
@@ -14,19 +14,18 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 RimuTec.Faker is available as a NuGet package. To install follow the instructions at [https://www.nuget.org/packages/RimuTec.Faker/](https://www.nuget.org/packages/RimuTec.Faker/).
 
 # Available Fake Data Generators
-Because Ruby Faker has a large number of generators, we had to start with a small set of classes. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
+The classes listed below are already ported. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
 
 ## Supported Locales and Customization
 The following 51 locales are supported out of the box (no extra files needed):
 
 bg, ca, ca-CAT, da-DK, de, de-AT, de-CH, ee, en, en-AU, en-au-ocker, en-BORK, en-CA, en-GB, en-IND, en-MS, en-NEP, en-NG, en-NZ, en-PAK, en-SG, en-UG, en-US, en-ZA, es, es-MX, fa, fi-FI, fr, fr-CA, fr-CH, he, id, it, ja, ko, lv, nb-NO, nl, no, pl, pt, pt-BR, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
 
-Classes that already make use of locales are marked in the list below. To set the locale use something like `Config.Locale = "de";`.
+To set the locale use something like `Config.Locale = "de";`.
 
 In addition you can use custom locale files for methods that are marked with an asterisk. Ensure that the custom locale file (yml) is copied to the directory that also contains RimuTec.Faker.dll, usually the output directory of your test project.
 
 ## Address
-This class supports all 51 built-in and custom locales.
 - BuildingNumber()
 - City()
 - CityPrefix()
@@ -50,13 +49,11 @@ This class supports all 51 built-in and custom locales.
 - ZipCode(string stateAbbreviation = "")
 
 ## Business
-This class supports all 51 built-in and custom locales.
 - CreditCardExpiryDate()
 - CreditCardNumber()
 - CreditCardType()
 
 ## Code
-This class supports all 51 built-in and custom locales.
 - Asin()
 - Ean(int @base = 13)
 - Imei()
@@ -67,7 +64,6 @@ This class supports all 51 built-in and custom locales.
 - Sin()
 
 ## Company
-This class supports all 51 built-in and custom locales.
 - AustralianBusinessNumber()
 - Bs()
 - Buzzword()
@@ -90,7 +86,6 @@ This class supports all 51 built-in and custom locales.
 - Type()
 
 ## Date
-This class supports all 51 built-in and custom locales.
 - Backward(int days = 365)
 - Between(DateTime minDate, DateTime maxDate)
 - BetweenExcept(DateTime from, DateTime to, DateTime excepted)
@@ -98,25 +93,21 @@ This class supports all 51 built-in and custom locales.
 - Forward(int days = 365)
 
 ## Educator
-This class supports all 51 built-in and custom locales.
 - Campus()
 - Course()
 - SecondarySchool()
 - University()
 
 ## Finance
-This class supports all 51 built-in and custom locales.
 - CreditCard(params CreditCardType[] types)
 
 ## IDNumber
-This class supports all 51 built-in and custom locales.
 - SpanishForeignCitizenNumber()
 - Invalid()
 - SpanishCitizenNumber()
 - Valid()
 
 ## Internet
-This class supports all 51 built-in and custom locales.
 - DomainName()
 - DomainSuffix()
 - DomainWord()
@@ -138,7 +129,6 @@ This class supports all 51 built-in and custom locales.
 - UserName(string name = null, string separators = null)
 
 ## Job
-This class supports all 51 built-in and custom locales.
 - EmploymentType()
 - EducationLevel()
 - Field()
@@ -148,7 +138,6 @@ This class supports all 51 built-in and custom locales.
 - Title()
 
 ## Lorem
-This class supports all 51 built-in and custom locales.
 - Character()
 - Characters(int charCount = 255)
 - Multibyte()
@@ -163,7 +152,6 @@ This class supports all 51 built-in and custom locales.
 - Words(int wordCount = 3, bool supplemental = false)
 
 ## Name
-This class supports all 51 built-in and custom locales.
 - FirstName()
 - FullName() (equivalent to Ruby's Faker::Name.name)
 - Initials(int characterCount)
@@ -174,7 +162,6 @@ This class supports all 51 built-in and custom locales.
 - Suffix()
 
 ## PhoneNumber
-This class supports all 51 built-in and custom locales.
 - CellPhone()
 - LandLine(): Equivalent to Ruby Faker::PhoneNumber.phone_number
 
