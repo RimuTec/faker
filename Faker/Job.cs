@@ -3,7 +3,7 @@
    /// <summary>
    /// Generator for Job related fake data.
    /// </summary>
-   public class Job : GeneratorBase
+   public class Job : GeneratorBase<Job>
    {
       private Job() { }
 

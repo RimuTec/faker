@@ -9,21 +9,6 @@ namespace RimuTec.Faker.Tests
    [TestFixture]
    public class LoremTests : FixtureBase
    {
-      public LoremTests()
-      {
-         var wordList = Fetch("lorem.words");
-         _wordList = wordList.Distinct().ToArray();
-
-         var supplementaryList = Fetch("lorem.supplemental");
-         _supplementalWordList = supplementaryList.Distinct().ToArray();
-
-         var intersection = _wordList.Intersect(_supplementalWordList);
-         _jointWords = intersection.Distinct().ToArray();
-
-         Assert.Greater(_wordList.Count(), 20);
-         Assert.Greater(_supplementalWordList.Count(), 20);
-      }
-
       [OneTimeSetUp]
       public void FixtureSetUp()
       {
@@ -93,7 +78,7 @@ namespace RimuTec.Faker.Tests
       {
          var words = Lorem.Words();
          Assert.AreEqual(3, words.Count());
-         Assert.AreEqual("cupiditate dolorem voluptatem", string.Join(" ", words));
+         Assert.AreEqual("libero qui consequuntur", string.Join(" ", words));
          Assert.AreEqual(0, words.Count(x => string.IsNullOrWhiteSpace(x)));
       }
 
@@ -106,12 +91,12 @@ namespace RimuTec.Faker.Tests
          Assert.AreEqual(0, words.Count(x => string.IsNullOrWhiteSpace(x)));
          foreach (var word in words)
          {
-            if (_jointWords.Contains(word))
+            if (JointWords.Contains(word))
             {
                continue;
             }
-            Assert.True(_wordList.Contains(word));
-            Assert.False(_supplementalWordList.Contains(word));
+            Assert.True(WordList.Contains(word));
+            Assert.False(SupplementalWordList.Contains(word));
          }
       }
 
@@ -136,7 +121,7 @@ namespace RimuTec.Faker.Tests
          const int defaultWordCount = 3;
          var words = Lorem.Words(supplemental: true);
          Assert.AreEqual(defaultWordCount, words.Count());
-         Assert.AreEqual("deficio candidus vel", string.Join(" ", words));
+         Assert.AreEqual("consequuntur argentum canonicus", string.Join(" ", words));
       }
 
       [Test]
@@ -145,8 +130,8 @@ namespace RimuTec.Faker.Tests
          var words = Lorem.Words(42, supplemental: true);
          foreach (var word in words)
          {
-            if (_supplementalWordList.Contains(word)
-               || !_jointWords.Contains(word))
+            if (SupplementalWordList.Contains(word)
+               || !JointWords.Contains(word))
             {
                return;
             }
@@ -157,10 +142,10 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Words_Uses_Words_From_Basic_List_Only()
       {
-         var words = Lorem.Words(_wordList.Count(), supplemental: false);
+         var words = Lorem.Words(WordList.Count(), supplemental: false);
          foreach (var word in words)
          {
-            Assert.IsTrue(_wordList.Contains(word));
+            Assert.IsTrue(WordList.Contains(word));
          }
       }
 
@@ -227,8 +212,8 @@ namespace RimuTec.Faker.Tests
          var checkCount = 0;
          foreach (var word in sentence.ToWordList())
          {
-            if (!_jointWords.Contains(word)
-               && _supplementalWordList.Contains(word))
+            if (!JointWords.Contains(word)
+               && SupplementalWordList.Contains(word))
             {
                return;
             }
@@ -286,8 +271,8 @@ namespace RimuTec.Faker.Tests
          {
             foreach (var word in sentence.ToWordList())
             {
-               if (_supplementalWordList.Contains(word)
-                  && !_jointWords.Contains(word))
+               if (SupplementalWordList.Contains(word)
+                  && !JointWords.Contains(word))
                {
                   return;
                }
@@ -328,12 +313,12 @@ namespace RimuTec.Faker.Tests
          Assert.GreaterOrEqual(paragraph.Count(c => c == '.'), sentenceCount);
          foreach (var word in paragraph.ToWordList())
          {
-            if (_supplementalWordList.Contains(word))
+            if (SupplementalWordList.Contains(word))
             {
                continue;
             }
-            Assert.IsTrue(_wordList.Contains(word));
-            Assert.IsFalse(_supplementalWordList.Contains(word));
+            Assert.IsTrue(WordList.Contains(word));
+            Assert.IsFalse(SupplementalWordList.Contains(word));
          }
       }
 
@@ -359,8 +344,8 @@ namespace RimuTec.Faker.Tests
          foreach (var word in paragraph.ToWordList())
          {
             checkCount++;
-            if (!_jointWords.Contains(word)
-               && _supplementalWordList.Contains(word))
+            if (!JointWords.Contains(word)
+               && SupplementalWordList.Contains(word))
             {
                return;
             }
@@ -417,8 +402,8 @@ namespace RimuTec.Faker.Tests
             foreach (var word in paragraph.ToWordList())
             {
                checkCount++;
-               if (!_jointWords.Contains(word)
-                  && _supplementalWordList.Contains(word))
+               if (!JointWords.Contains(word)
+                  && SupplementalWordList.Contains(word))
                {
                   return;
                }
@@ -438,8 +423,8 @@ namespace RimuTec.Faker.Tests
             foreach (var word in paragraph.ToWordList())
             {
                checkCount++;
-               if (!_jointWords.Contains(word)
-                  && _supplementalWordList.Contains(word))
+               if (!JointWords.Contains(word)
+                  && SupplementalWordList.Contains(word))
                {
                   Assert.Fail("Paragraphs() shouldn't consider supplementary list.");
                }
@@ -458,7 +443,7 @@ namespace RimuTec.Faker.Tests
          foreach (var word in paragraph.ToWordList())
          {
             checkCount++;
-            Assert.IsFalse(_supplementalWordList.Contains(word));
+            Assert.IsFalse(SupplementalWordList.Contains(word));
          }
          Assert.Greater(checkCount, 10);
       }
@@ -482,8 +467,8 @@ namespace RimuTec.Faker.Tests
       {
          RandomNumber.ResetSeed(42);
          var maxWordLength = 0;
-         _wordList.All(x => { maxWordLength = Math.Max(maxWordLength, x.Length); return true; });
-         _supplementalWordList.All(x => { maxWordLength = Math.Max(maxWordLength, x.Length); return true; });
+         WordList.All(x => { maxWordLength = Math.Max(maxWordLength, x.Length); return true; });
+         SupplementalWordList.All(x => { maxWordLength = Math.Max(maxWordLength, x.Length); return true; });
          var startValue = 50;
          var charCount = startValue;
          while (charCount++ <= startValue + maxWordLength)
@@ -514,7 +499,7 @@ namespace RimuTec.Faker.Tests
                return;
             }
             // but check all others
-            Assert.IsTrue(_wordList.Contains(word));
+            Assert.IsTrue(WordList.Contains(word));
          }
          Assert.AreEqual(checkCount, paragraph.ToWordList());
       }
@@ -525,8 +510,8 @@ namespace RimuTec.Faker.Tests
          var paragraph = Lorem.ParagraphByChars(supplemental: true);
          foreach (var word in paragraph.ToWordList())
          {
-            if (!_jointWords.Contains(word)
-               && _supplementalWordList.Contains(word))
+            if (!JointWords.Contains(word)
+               && SupplementalWordList.Contains(word))
             {
                return;
             }
@@ -558,7 +543,7 @@ namespace RimuTec.Faker.Tests
          foreach (var word in question.ToWordList())
          {
             checkCount++;
-            Assert.IsTrue(_wordList.Contains(word));
+            Assert.IsTrue(WordList.Contains(word));
          }
          Assert.AreEqual(wordCount, checkCount);
       }
@@ -572,8 +557,8 @@ namespace RimuTec.Faker.Tests
          foreach (var word in question.ToWordList())
          {
             checkCount++;
-            if (!_jointWords.Contains(word)
-               && _supplementalWordList.Contains(word))
+            if (!JointWords.Contains(word)
+               && SupplementalWordList.Contains(word))
             {
                return;
             }
@@ -613,7 +598,7 @@ namespace RimuTec.Faker.Tests
             foreach (var word in question.ToWordList())
             {
                checkCount++;
-               Assert.IsTrue(_wordList.Contains(word));
+               Assert.IsTrue(WordList.Contains(word));
             }
          }
       }
@@ -627,8 +612,8 @@ namespace RimuTec.Faker.Tests
          {
             foreach (var word in question.ToWordList())
             {
-               if (!_jointWords.Contains(word)
-                  && _supplementalWordList.Contains(word))
+               if (!JointWords.Contains(word)
+                  && SupplementalWordList.Contains(word))
                {
                   supplementalWordCount++;
                }
@@ -663,16 +648,48 @@ namespace RimuTec.Faker.Tests
       /// <summary>
       /// Words in the standard list. Duplicates removed.
       /// </summary>
-      private readonly string[] _wordList;
+      public string[] WordList { get {
+            if(_wordList == null)
+            {
+               var wordList = Fetch("lorem.words");
+               _wordList = wordList.Distinct().ToArray();
+            }
+            return _wordList;
+         }
+      }
+
 
       /// <summary>
       /// Words in the supplementary list. Duplicates are removed.
       /// </summary>
-      private readonly string[] _supplementalWordList;
+      public string[] SupplementalWordList
+      {
+         get
+         {
+            if (_supplementalWordList == null)
+            {
+               var supplementaryList = Fetch("lorem.supplemental");
+               _supplementalWordList = supplementaryList.Distinct().ToArray();
+            }
+            return _supplementalWordList;
+         }
+      }
 
       /// <summary>
       /// Words that are in both, the base list and the supplementary list.
       /// </summary>
-      private readonly string[] _jointWords;
+      public string[] JointWords { get {
+            if (_jointWords == null)
+            {
+               var intersection = WordList.Intersect(SupplementalWordList);
+               _jointWords = intersection.Distinct().ToArray();
+            }
+            return _jointWords;
+         }
+      }
+
+      private string[] _supplementalWordList;
+      private string[] _wordList;
+      private string[] _jointWords;
    }
 }

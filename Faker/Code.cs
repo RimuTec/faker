@@ -9,7 +9,7 @@ namespace RimuTec.Faker
    /// <summary>
    /// Generators for different types of codes, e.g. ISBN, EAN, IMEI, ASIN, etc.
    /// </summary>
-   public class Code : GeneratorBase
+   public class Code : GeneratorBase<Code>
    {
       private Code() { }
 

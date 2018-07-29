@@ -8,9 +8,9 @@ namespace RimuTec.Faker
    /// Generates fake US Social Security number (SSN), both valid and invalid or Spanish citizen
    /// identifier (DNI or NIE).
    /// </summary>
-   public class IDNumber : GeneratorBase
+   public class IdNumber : GeneratorBase<IdNumber>
    {
-      private IDNumber() { }
+      private IdNumber() { }
 
       /// <summary>
       /// Generate an invalid US Social Security Number. Example: "311-72-0000"

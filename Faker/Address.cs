@@ -7,7 +7,7 @@ namespace RimuTec.Faker
    /// <summary>
    /// Generators for address related data.
    /// </summary>
-   public class Address : GeneratorBase
+   public class Address : GeneratorBase<Address>
    {
       private Address() { }
 
@@ -45,7 +45,6 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string CitySuffix()
       {
-
          return Fetch("address.city_suffix");
       }
 
@@ -207,7 +206,7 @@ namespace RimuTec.Faker
       /// <exception cref="ArgumentOutOfRangeException">Parameter 'Abbreviation' has an invalid value.</exception>
       public static string ZipCode(string stateAbbreviation = "")
       {
-         if (stateAbbreviation == "")
+         if (stateAbbreviation == string.Empty)
          {
             return Fetch("address.postcode").Bothify();
          }

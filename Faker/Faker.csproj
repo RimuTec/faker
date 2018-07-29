@@ -29,18 +29,23 @@
    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
       <DocumentationFile>bin\Release\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
       <LangVersion>latest</LangVersion>
+      <DebugType>full</DebugType>
+      <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+      <Optimize>true</Optimize>
    </PropertyGroup>
 
    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net462|AnyCPU'">
       <DebugType>full</DebugType>
       <DebugSymbols>true</DebugSymbols>
-      <DocumentationFile>bin\Debug\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
+      <DocumentationFile>bin\Debug\net462\RimuTec.Faker.xml</DocumentationFile>
       <LangVersion>latest</LangVersion>
    </PropertyGroup>
 
    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
-      <DocumentationFile>bin\Release\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
+      <DocumentationFile>bin\Release\net462\RimuTec.Faker.xml</DocumentationFile>
       <LangVersion>latest</LangVersion>
+      <DefineConstants>TRACE;RELEASE;NETFRAMEWORK;NET462</DefineConstants>
+      <Optimize>true</Optimize>
    </PropertyGroup>
 
    <ItemGroup>

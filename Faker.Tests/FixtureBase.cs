@@ -20,6 +20,7 @@ namespace RimuTec.Faker.Tests
          {
             key = $"{Config.Locale}.{locator.Split('.')[0]}";
          }
+         key = key.ToLower();
          if (_dictionary.ContainsKey(key))
          {
             var yamlNode = _dictionary[key];
@@ -45,6 +46,6 @@ namespace RimuTec.Faker.Tests
          return new List<string>();
       }
 
-      protected static Dictionary<string, YamlNode> _dictionary => GeneratorBase._dictionary;
+      protected static Dictionary<string, YamlNode> _dictionary => Library._dictionary;
    }
 }

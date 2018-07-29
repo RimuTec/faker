@@ -9,7 +9,7 @@ namespace RimuTec.Faker
    /// <summary>
    /// Generators for company related data.
    /// </summary>
-   public class Company : GeneratorBase
+   public class Company : GeneratorBase<Company>
    {
       private Company() { }
       
@@ -20,15 +20,8 @@ namespace RimuTec.Faker
       public static string Name()
       {
          var nameTemplate = Fetch("company.name");
-         const string placeholder = "#{Name.last_name}";
-         var place = nameTemplate.IndexOf(placeholder);
-         while (place >= 0)
-         {
-            nameTemplate = nameTemplate.Remove(place, placeholder.Length).Insert(place, Faker.Name.LastName());
-            place = nameTemplate.IndexOf(placeholder);
-         }
-         nameTemplate = nameTemplate.Replace("#{suffix}", Fetch("company.suffix"));
-         return nameTemplate;
+         var result = Parse(nameTemplate);
+         return result;
       }
 
       /// <summary>

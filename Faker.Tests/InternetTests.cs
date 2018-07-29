@@ -66,7 +66,7 @@ namespace RimuTec.Faker.Tests
          var tries = 100;
          while (tries-- > 0)
          {
-            var emailAddress = Internet.Email(separators: "");
+            var emailAddress = Internet.Email(separators: string.Empty);
             Assert.AreEqual(0, RegexMatchesCount(emailAddress, @"[-_+]"), $"{nameof(emailAddress)} was {emailAddress}");
             Assert.AreEqual(0, RegexMatchesCount(emailAddress, @"\0"));
          }
@@ -522,7 +522,7 @@ namespace RimuTec.Faker.Tests
       {
          for (int i = 1; i < 32; i++)
          {
-            for (int j = i; j < 33/*i + 32*/; j++)
+            for (int j = i; j < 33; j++)
             {
                var minLength = i;
                var maxLength = j;

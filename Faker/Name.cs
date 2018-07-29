@@ -6,7 +6,7 @@ namespace RimuTec.Faker
    /// <summary>
    /// Generators for names for humans.
    /// </summary>
-   public class Name : GeneratorBase
+   public class Name : GeneratorBase<Name>
    {
       private Name() { }
 

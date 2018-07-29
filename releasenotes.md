@@ -1,10 +1,13 @@
 # Release Notes
 
 ## Version 0.39.0
+### Breaking Change
+- Class IDNumber has been renamed to IdNumber(). A find-replace for something like "IDNumber." should help with the transition.
 ### New Features
-- Add instructions to README.md describing how to build Faker from sources.
+- Added instructions to README.md describing how to build Faker from sources.
 - Class Job supports all 51 built-in as well as custom locales
 - Class Lorem supports all 51 built-in as well as custom locales
+- Class PhoneNumber supports all 51 built-in as well as custom locales
 
 ## Version 0.38.0
 ### Breaking Change

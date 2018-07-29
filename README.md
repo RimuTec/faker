@@ -174,6 +174,7 @@ This class supports all 51 built-in and custom locales.
 - Suffix()
 
 ## PhoneNumber
+This class supports all 51 built-in and custom locales.
 - CellPhone()
 - LandLine(): Equivalent to Ruby Faker::PhoneNumber.phone_number
 

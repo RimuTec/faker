@@ -3,7 +3,7 @@
    /// <summary>
    /// Generators for education related data, e.g. university, secondary school, course and campus.
    /// </summary>
-   public class Educator : GeneratorBase
+   public class Educator : GeneratorBase<Educator>
    {
       private Educator() { }
 

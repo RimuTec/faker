@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace RimuTec.Faker.Extensions
@@ -90,17 +91,6 @@ namespace RimuTec.Faker.Extensions
       }
 
       /// <summary>
-      /// Converts a string to an identifier with pascal casing, e.g. 'phone_number' becomes "PhoneNumber".
-      /// </summary>
-      /// <param name="s"></param>
-      /// <returns></returns>
-      internal static string MakePascalCasing(this string s)
-      {
-         // Regex from https://stackoverflow.com/a/3386924/411428
-         return Regex.Replace(s, @"(?:^|_)([a-z])", m => m.Groups[1].Value.ToUpper(), RegexOptions.Compiled);
-      }
-
-      /// <summary>
       /// Applies a regex pattern and returns a list of matches.
       /// </summary>
       /// <param name="s"></param>
@@ -124,8 +114,36 @@ namespace RimuTec.Faker.Extensions
       /// <returns></returns>
       internal static string ToPascalCasing(this string s)
       {
-         var parts = Regex.Split(s, $"[_]").Select(x => x.Capitalise());
-         return string.Join("", parts);
+         var parts = Regex.Split(s, $"[_]", RegexOptions.Compiled).Select(x => x.Capitalise());
+         return string.Join(string.Empty, parts);
+      }
+
+      /// <summary>
+      /// Converts a string like "FooBar" to "foo_bar"
+      /// </summary>
+      /// <param name="input"></param>
+      /// <returns></returns>
+      internal static string FromPascalCasing(this string input)
+      {
+         // Implementation based on code from https://stackoverflow.com/a/51310790/411428
+         if (string.IsNullOrEmpty(input))
+            return input;
+
+         var sb = new StringBuilder();
+         // start with the first character -- consistent camelcase and pascal case
+         sb.Append(char.ToUpper(input[0]));
+
+         // march through the rest of it
+         for (var i = 1; i < input.Length; i++)
+         {
+            // any time we hit an uppercase OR number, it's a new word
+            if (char.IsUpper(input[i]) || char.IsDigit(input[i]))
+               sb.Append('_');
+            // add regularly
+            sb.Append(input[i]);
+         }
+
+         return sb.ToString().ToLower();
       }
 
       private static string RomanizeCyrillicString(this string s)

@@ -15,7 +15,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Create(int digits)
       {
-         var num = "";
+         var num = string.Empty;
          if (digits > 1)
          {
             num = NonZeroDigit();
@@ -27,7 +27,7 @@ namespace RimuTec.Faker
       private static string LeadingZeroNumber(int digits)
       {
          var result = digits.Times(x => new Range2<int>(0, 9).Sample());
-         return string.Join("", result);
+         return string.Join(string.Empty, result);
       }
 
       private static string NonZeroDigit()

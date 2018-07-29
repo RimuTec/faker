@@ -9,7 +9,7 @@ namespace RimuTec.Faker
    /// Equivalent to Faker::Lorem in Ruby's Faker gem. In some cases their documentation appears to use different
    /// default values than what the code appears to use. In those cases we went for what the code indicates.
    /// </summary>
-   public class Lorem : GeneratorBase
+   public class Lorem : GeneratorBase<Lorem>
    {
       private Lorem() { }
       
@@ -35,15 +35,17 @@ namespace RimuTec.Faker
          {
             throw new ArgumentOutOfRangeException(nameof(wordCount), "Must be equal to or greater than zero.");
          }
+         var result = new List<string>();
          if (supplemental)
          {
             var combined = wordCount.Times(x => Word()).Concat(wordCount.Times(x => Fetch("lorem.supplemental")));
-            return combined.Shuffle().Take(wordCount);
+            result.AddRange(combined.Shuffle().Take(wordCount));
          }
          else
          {
-            return wordCount.Times(x => Word());
+            result.AddRange(wordCount.Times(x => Word()));
          }
+         return result;
       }
 
       /// <summary>

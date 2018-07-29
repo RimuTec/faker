@@ -18,7 +18,7 @@ namespace RimuTec.Faker
    /// <summary>
    /// Generators for finance related data, e.g. fake credit card numbers.
    /// </summary>
-   public class Finance : GeneratorBase
+   public class Finance : GeneratorBase<Finance>
    {
       private Finance() { }
 
@@ -50,7 +50,7 @@ namespace RimuTec.Faker
          }, RegexOptions.Compiled);
 
          // Luhn check digit if required:
-         var checkDigit = Regex.Replace(template, @"[^0-9]", "", RegexOptions.Compiled).ToDigitList().LuhnCheckDigit();
+         var checkDigit = Regex.Replace(template, @"[^0-9]", string.Empty, RegexOptions.Compiled).ToDigitList().LuhnCheckDigit();
          template = template.Replace("L", checkDigit.ToString());
          return template;
       }

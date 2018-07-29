@@ -13,7 +13,7 @@ namespace RimuTec.Faker
    /// Generators for internet related data, e.g. email addresses, domain names, IP addresses, MAC addresses,
    /// passwords, etc.
    /// </summary>
-   public class Internet : GeneratorBase
+   public class Internet : GeneratorBase<Internet>
    {
       private Internet() { }
 
@@ -68,7 +68,6 @@ namespace RimuTec.Faker
             name = null;
          }
          return string.Join("@", UserName(name), Fetch("internet.free_email"));
-         //return string.Join("@", UserName(name), _internet.FreeEmail.Sample());
       }
 
       /// <summary>
