@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 0.40.0
+### New Features
+
 ## Version 0.39.0
 ### Breaking Change
 - Class IDNumber has been renamed to IdNumber(). A find-replace for something like "IDNumber." should help with the transition.

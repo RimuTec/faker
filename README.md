@@ -9,170 +9,8 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 | ----- | ----- |
 | Nuget       | [![NuGet Badge](https://buildstats.info/nuget/RimuTec.Faker)](https://www.nuget.org/packages/RimuTec.Faker/) |
 
-# Installation
-
-RimuTec.Faker is available as a NuGet package. To install follow the instructions at [https://www.nuget.org/packages/RimuTec.Faker/](https://www.nuget.org/packages/RimuTec.Faker/).
-
-# Available Fake Data Generators
-The classes listed below are already ported. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
-
-## Supported Locales and Customization
-The following 51 locales are supported out of the box (no extra files needed):
-
-bg, ca, ca-CAT, da-DK, de, de-AT, de-CH, ee, en, en-AU, en-au-ocker, en-BORK, en-CA, en-GB, en-IND, en-MS, en-NEP, en-NG, en-NZ, en-PAK, en-SG, en-UG, en-US, en-ZA, es, es-MX, fa, fi-FI, fr, fr-CA, fr-CH, he, id, it, ja, ko, lv, nb-NO, nl, no, pl, pt, pt-BR, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
-
-To set the locale use something like `Config.Locale = "de";`.
-
-In addition you can use custom locale files for methods that are marked with an asterisk. Ensure that the custom locale file (yml) is copied to the directory that also contains RimuTec.Faker.dll, usually the output directory of your test project.
-
-## Address
-- BuildingNumber()
-- City()
-- CityPrefix()
-- CitySuffix()
-- Community()
-- Country()
-- CountryCode()
-- CountryCodeLong()
-- FullAddress()
-- Latitude()
-- Longitude()
-- Postcode(string stateAbbreviation = "")
-- SecondaryAddress()
-- State()
-- StateAbbr()
-- StreetAddress(bool includeSecondary = false)
-- StreetName()
-- StreetSuffix()
-- TimeZone()
-- Zip(string stateAbbreviation = "")
-- ZipCode(string stateAbbreviation = "")
-
-## Business
-- CreditCardExpiryDate()
-- CreditCardNumber()
-- CreditCardType()
-
-## Code
-- Asin()
-- Ean(int @base = 13)
-- Imei()
-- Isbn(int @base = 10)
-- Npi()
-- Nric(int minAge = 18, int maxAge = 65)
-- Rut()
-- Sin()
-
-## Company
-- AustralianBusinessNumber()
-- Bs()
-- Buzzword()
-- CatchPhrase()
-- CzechOrganizationNumber()
-- DunsNumber()
-- Ein()
-- FrenchSirenNumber()
-- FrenchSiretNumber()
-- Industry()
-- Logo()
-- Name()
-- NorwegianOrganizationNumber()
-- PolishRegisterOfNationalEconomy(int length = 9)
-- PolishTaxpayerIdentificationNumber()
-- Profession()
-- SpanishOrganizationNumber()
-- Suffix()
-- SwedishOrganizationNumber()
-- Type()
-
-## Date
-- Backward(int days = 365)
-- Between(DateTime minDate, DateTime maxDate)
-- BetweenExcept(DateTime from, DateTime to, DateTime excepted)
-- Birthday(int minAge = 18, int maxAge = 65)
-- Forward(int days = 365)
-
-## Educator
-- Campus()
-- Course()
-- SecondarySchool()
-- University()
-
-## Finance
-- CreditCard(params CreditCardType[] types)
-
-## IDNumber
-- SpanishForeignCitizenNumber()
-- Invalid()
-- SpanishCitizenNumber()
-- Valid()
-
-## Internet
-- DomainName()
-- DomainSuffix()
-- DomainWord()
-- Email(string name = null, string separators = null)
-- FreeEmail(string name = null)
-- IPv4Address()
-- IPv4CIDR()
-- IPv6Address()
-- IPv6CIDR()
-- MacAddress(string prefix = "")
-- Password(int minLength = 8, int maxLength = 15, bool mixCase = true, bool specialChars = true)
-- PrivateIPv4Address()
-- PublicIPv4Address()
-- SafeEmail(string name = null)
-- Slug(string words = null, string glue = null)
-- Url(string host = null, string path = null, string scheme = "http")
-- UserAgent(string vendor = null)
-- UserName(int minLength, int maxLength = int.MaxValue)
-- UserName(string name = null, string separators = null)
-
-## Job
-- EmploymentType()
-- EducationLevel()
-- Field()
-- KeySkill()
-- Position()
-- Seniority()
-- Title()
-
-## Lorem
-- Character()
-- Characters(int charCount = 255)
-- Multibyte()
-- Paragraph(int sentenceCount = 3, bool supplemental = false, int randomSentencesToAdd = 0)
-- ParagraphByChars(int chars = 256, bool supplemental = false)
-- Paragraphs(int paragraphCount = 3, bool supplemental = false)
-- Question(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
-- Questions(int questionCount = 3, bool supplemental = false)
-- Sentence(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
-- Sentences(int sentenceCount = 3, bool supplemental = false)
-- Word()
-- Words(int wordCount = 3, bool supplemental = false)
-
-## Name
-- FirstName()
-- FullName() (equivalent to Ruby's Faker::Name.name)
-- Initials(int characterCount)
-- LastName()
-- MiddleName()
-- NameWithMiddle()
-- Prefix()
-- Suffix()
-
-## PhoneNumber
-- CellPhone()
-- LandLine(): Equivalent to Ruby Faker::PhoneNumber.phone_number
-
-## RandomNumber
-- Next()
-- NextDouble()
-- Next(int maxValue)
-- Next(int minValue, int maxValue)
-- ResetSeed(int seed)
-
 # Usage
+
 ## Quick Start
 1. Install NuGet package. See [https://www.nuget.org/packages/RimuTec.Faker](https://www.nuget.org/packages/RimuTec.Faker) for instructions
 1. Add `using RimuTec.Faker;` at the beginning of your C# source file (or the equivalent for your preferred .NET language)
@@ -190,6 +28,33 @@ If you need support or have a suggestion for improvement please file an issue at
 
 ## Reporting Bugs
 RimuTec.Faker has a test suite with about 270 unit tests. This does not guarantee absence of bugs. Please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). All your feedback will help make the library more valuable for other users as well. Thank you!
+
+# Available Fake Data Generators
+The classes listed below are already ported. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
+
+- [Address](https://github.com/RimuTec/Faker/wiki/Class-Address)
+- [Business](https://github.com/RimuTec/Faker/wiki/Class-Business)
+- [Code](https://github.com/RimuTec/Faker/wiki/Class-Code)
+- [Company](https://github.com/RimuTec/Faker/wiki/Class-Company)
+- [Date](https://github.com/RimuTec/Faker/wiki/Class-Date)
+- [Educator](https://github.com/RimuTec/Faker/wiki/Class-Educator)
+- [Finance](https://github.com/RimuTec/Faker/wiki/Class-Finance)
+- [IdNumber](https://github.com/RimuTec/Faker/wiki/Class-IdNumber)
+- [Internet](https://github.com/RimuTec/Faker/wiki/Class-Internet)
+- [Job](https://github.com/RimuTec/Faker/wiki/Class-Job)
+- [Lorem](https://github.com/RimuTec/Faker/wiki/Class-Lorem)
+- [Name](https://github.com/RimuTec/Faker/wiki/Class-Name)
+- [PhoneNumber](https://github.com/RimuTec/Faker/wiki/Class-PhoneNumber)
+- [RandomNumber](https://github.com/RimuTec/Faker/wiki/Class-RandomNumber)
+
+# Locales and Customization
+The following 51 locales are supported out of the box (no extra files needed):
+
+bg, ca, ca-CAT, da-DK, de, de-AT, de-CH, ee, en, en-AU, en-au-ocker, en-BORK, en-CA, en-GB, en-IND, en-MS, en-NEP, en-NG, en-NZ, en-PAK, en-SG, en-UG, en-US, en-ZA, es, es-MX, fa, fi-FI, fr, fr-CA, fr-CH, he, id, it, ja, ko, lv, nb-NO, nl, no, pl, pt, pt-BR, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
+
+To set the locale use something like `Config.Locale = "de";`.
+
+In addition you can use custom locale files for methods that are marked with an asterisk. Ensure that the custom locale file (yml) is copied to the directory that also contains RimuTec.Faker.dll, usually the output directory of your test project.
 
 # How To Build
 ## Visual Studio 2017
