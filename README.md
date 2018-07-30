@@ -14,11 +14,9 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 ## Quick Start
 1. Install NuGet package. See [https://www.nuget.org/packages/RimuTec.Faker](https://www.nuget.org/packages/RimuTec.Faker) for instructions
 1. Add `using RimuTec.Faker;` at the beginning of your C# source file (or the equivalent for your preferred .NET language)
-1. Generate fake data, e.g. `var firstName = Name.NameWithMiddle();`
+1. Generate fake data, e.g. `var firstName = Name.NameWithMiddle();` or `var paragraphs = Lorem.Paragraphs(4);`.
 
-In case of name clashes with other classes in your code base, use one of the following techniques in C# source files:
-1. use fully qualify names, e.g. `var firstName = RimuTec.Faker.Name.NameWithMiddle();`. Use this if there are only a couple of occurances.
-1. add `using NameFaker = RimuTec.Faker.Name;` at the beginning of the file and then `var firstName = NameFaker.NameWithMiddle();`. Use this option if you have many usages within the source file.
+In case of name clashes with other classes in your code base, use one of [these techniques](https://github.com/RimuTec/Faker/wiki/Name-Clashes).
 
 ## Release Notes
 Release notes are available at [https://github.com/RimuTec/Faker/blob/master/releasenotes.md](https://github.com/RimuTec/Faker/blob/master/releasenotes.md)
@@ -46,6 +44,9 @@ The classes listed below are already ported. Our aim is to add the remaining cla
 - [Name](https://github.com/RimuTec/Faker/wiki/Class-Name)
 - [PhoneNumber](https://github.com/RimuTec/Faker/wiki/Class-PhoneNumber)
 - [RandomNumber](https://github.com/RimuTec/Faker/wiki/Class-RandomNumber)
+
+Class to set the locale to be used:
+- [Config](https://github.com/RimuTec/Faker/wiki/Class-Config)
 
 # Locales and Customization
 The following 51 locales are supported out of the box (no extra files needed):
