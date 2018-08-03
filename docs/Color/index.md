@@ -1,4 +1,4 @@
 ﻿# Class Color
 
 ## Methods
-- 
+- HexColor()

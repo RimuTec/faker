@@ -2,6 +2,7 @@
 
 ## Version 0.40.0
 ### New Features
+- Color.HexColor()
 
 ## Version 0.39.0
 ### Breaking Change

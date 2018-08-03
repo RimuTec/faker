@@ -30,6 +30,7 @@ RimuTec.Faker has a test suite with about 270 unit tests. This does not guarante
 # Available Fake Data Generators
 The classes listed below are already ported. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
 
+- Color
 - [Address](https://github.com/RimuTec/Faker/wiki/Class-Address)
 - [Business](https://github.com/RimuTec/Faker/wiki/Class-Business)
 - [Code](https://github.com/RimuTec/Faker/wiki/Class-Code)
