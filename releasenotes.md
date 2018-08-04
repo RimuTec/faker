@@ -4,6 +4,7 @@
 ### New Features
 - Color.ColorName()
 - Color.HexColor()
+- Color.RgbColor()
 
 ## Version 0.39.0
 ### Breaking Change

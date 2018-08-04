@@ -27,5 +27,14 @@ namespace RimuTec.Faker
          var random = RandomNumber.Next(0, (int)Math.Pow(16, 6));
          return $"{random:X}".PadLeft(6, '0');
       }
+
+      /// <summary>
+      /// Returns an array with three elements, representing an RGB value.
+      /// </summary>
+      /// <returns></returns>
+      public static byte[] RgbColor()
+      {
+         return new byte[] { Convert.ToByte(RandomNumber.Next(0, 256)), Convert.ToByte(RandomNumber.Next(0, 256)), Convert.ToByte(RandomNumber.Next(0, 256)) };
+      }
    }
 }

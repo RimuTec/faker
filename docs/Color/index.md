@@ -3,3 +3,4 @@
 ## Methods
 - ColorName()
 - HexColor()
+- RgbColor()

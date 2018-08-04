@@ -1,15 +1,18 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
    public class ColorTests : FixtureBase
    {
+      [Test]
+      public void ColorName()
+      {
+         var colorName = Color.ColorName();
+         var colors = Fetch("color.name");
+         Assert.IsTrue(colors.Contains(colorName));
+      }
+
       [Test]
       public void HexColor()
       {
@@ -19,11 +22,10 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void ColorName()
+      public void RgbColor()
       {
-         var colorName = Color.ColorName();
-         var colors = Fetch("color.name");
-         Assert.IsTrue(colors.Contains(colorName));
+         var rgb = Color.RgbColor();
+         Assert.AreEqual(3, rgb.Length);
       }
    }
 }
