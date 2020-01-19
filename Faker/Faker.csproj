@@ -5,18 +5,20 @@
       <AssemblyName>RimuTec.Faker</AssemblyName>
       <RootNamespace>RimuTec.Faker</RootNamespace>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-      <Version>0.41.0</Version>
+      <Version>0.43.0</Version>
       <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
       <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
       <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks Generation Sample Data</PackageTags>
       <Copyright>Copyright (c) 2018 RimuTec Ltd.</Copyright>
-      <PackageLicenseUrl>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicenseUrl>
+      <PackageLicense>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicense>
       <PackageReleaseNotes>Relase notes listing new features and other changes are available at https://github.com/RimuTec/Faker/blob/master/releasenotes.md</PackageReleaseNotes>
       <Authors>RimuTec Ltd.</Authors>
       <Description>A library for generating fake data e.g. for authoring tests, for preparing software demos or for creating screenshots. It includes generators such as Lorem text, Addresses, Company, PhoneNumber, Job Titles, etc. It comes with support for 51 locales out of the box and can be extended with custom locales. Licensed under the MIT license.</Description>
       <!-- Enable SourceLink. For more details see https://github.com/dotnet/sourcelink -->
       <PublishRepositoryUrl>true</PublishRepositoryUrl>
       <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+      <PackageLicenseUrl />
+      <PackageLicenseFile>LICENSE</PackageLicenseFile>
    </PropertyGroup>
 
    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
@@ -222,6 +224,10 @@
       <None Remove="locales\vi.yml" />
       <None Remove="locales\zh-CN.yml" />
       <None Remove="locales\zh-TW.yml" />
+      <None Include="..\LICENSE">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
    </ItemGroup>
 
    <ItemGroup>
@@ -401,10 +407,16 @@
    </ItemGroup>
 
    <ItemGroup>
-      <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-      <PackageReference Include="Microsoft.Net.Compilers" Version="2.8.2" />
-      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63102-01" />
-      <PackageReference Include="YamlDotNet" Version="5.0.1" />
+      <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+      <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="3.4.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="YamlDotNet" Version="8.1.0" />
    </ItemGroup>
 
 </Project>

@@ -1,8 +1,22 @@
 # Release Notes
 
+## Version 0.42.0
+### New Features
+- None
+### Other Changes
+- Attached license (MIT License). This is the license RimuTec.Faker has always used.
+
+## Version 0.42.0
+### New Features
+- None
+### Other Changes
+- Updated release notes
+
 ## Version 0.41.0
 ### New Features
-
+- None
+### Other Changes
+- Updated all NuGet Packages to latest released
 
 ## Version 0.40.0
 ### New Features
