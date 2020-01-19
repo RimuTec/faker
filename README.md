@@ -18,6 +18,9 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 
 In case of name clashes with other classes in your code base, use one of [these techniques](https://github.com/RimuTec/Faker/wiki/Name-Clashes).
 
+## Documentation
+We also have more detailed [documentation for RimuTec.Faker](https://rimutec.github.io/Faker/).
+
 ## Release Notes
 Release notes are available at [https://github.com/RimuTec/Faker/blob/master/releasenotes.md](https://github.com/RimuTec/Faker/blob/master/releasenotes.md)
 
@@ -30,7 +33,7 @@ RimuTec.Faker has a test suite with about 270 unit tests. This does not guarante
 # Available Fake Data Generators
 The classes listed below are already ported. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
 
-- Color
+- [Color](https://rimutec.github.io/Faker/Color/index.md)
 - [Address](https://github.com/RimuTec/Faker/wiki/Class-Address)
 - [Business](https://github.com/RimuTec/Faker/wiki/Class-Business)
 - [Code](https://github.com/RimuTec/Faker/wiki/Class-Code)

@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 0.41.0
+### New Features
+
+
 ## Version 0.40.0
 ### New Features
 - Color.ColorName()
