@@ -5,11 +5,11 @@
       <AssemblyName>RimuTec.Faker</AssemblyName>
       <RootNamespace>RimuTec.Faker</RootNamespace>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-      <Version>0.43.0</Version>
+      <Version>0.44.0</Version>
       <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
       <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
       <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks Generation Sample Data</PackageTags>
-      <Copyright>Copyright (c) 2018 RimuTec Ltd.</Copyright>
+      <Copyright>Copyright (c) 2018-2020 RimuTec Ltd.</Copyright>
       <PackageLicense>https://github.com/RimuTec/Faker/blob/master/LICENSE</PackageLicense>
       <PackageReleaseNotes>Relase notes listing new features and other changes are available at https://github.com/RimuTec/Faker/blob/master/releasenotes.md</PackageReleaseNotes>
       <Authors>RimuTec Ltd.</Authors>
