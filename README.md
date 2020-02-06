@@ -1,9 +1,15 @@
 # Faker
-RimuTec.Faker provides generators for fake, yet realistically looking data. Use it for testing, for creating screenshots to show off your cool software, and similar more. Generators include Lorem, Name, Address, Date, Company, Business, and many more.
+RimuTec.Faker provides generators for fake, yet realistically looking data. Use it for testing, for creating screenshots to show off your cool software, and similar more. Generators include Lorem, Name, Address, Date, Company, Business, and similar more.
 
 RimuTec.Faker is a C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker).
 
-RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.2 (net462). The library including its source code are licensed under the MIT license. It supports 51 locales out of the box. And you can extend it with your own custom locales using yaml files.
+RimuTec.Faker supports the following targets:
+- .NET Standard 2.0 (netstandard2.0)
+- .NET Framework 4.6.2 (net462)
+
+In case you need support for other targets, please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) and we'll check if we can also support the target you need. Thank you!
+
+The library including its source code are licensed under the MIT license. It supports 51 locales out of the box. And you can extend it with your own custom locales using yaml files.
 
 | Metric      | Status      |
 | ----- | ----- |
@@ -13,8 +19,18 @@ RimuTec.Faker targets .NET Standard 2.0 (netstandard2.0) and .NET Framework 4.6.
 
 ## Quick Start
 1. Install NuGet package. See [https://www.nuget.org/packages/RimuTec.Faker](https://www.nuget.org/packages/RimuTec.Faker) for instructions
-1. Add `using RimuTec.Faker;` at the beginning of your C# source file (or the equivalent for your preferred .NET language)
-1. Generate fake data, e.g. `var firstName = Name.NameWithMiddle();` or `var paragraphs = Lorem.Paragraphs(4);`.
+2. Add `using RimuTec.Faker;` at the beginning of your C# source file (or the equivalent for your preferred .NET language), e.g.
+   ```csharp
+   using RimuTec.Faker; // at the beginning of your file
+   ```
+3. Generate fake data in your tests, e.g. 
+   ```csharp
+   var firstName = Name.NameWithMiddle(); // in your test
+   ```
+   or 
+   ```csharp
+   var paragraphs = Lorem.Paragraphs(4); // in your test
+   ```
 
 In case of name clashes with other classes in your code base, use one of [these techniques](https://github.com/RimuTec/Faker/wiki/Name-Clashes).
 
@@ -26,6 +42,15 @@ Release notes are available at [https://github.com/RimuTec/Faker/blob/master/rel
 
 ## Support & Suggestions
 If you need support or have a suggestion for improvement please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues). Thank you!
+
+## Semantic Versioning
+
+We use [semantic versioning (SemVer)](https://semver.org/) for RimuTec.Faker. This means we endeavor to follow these rules:
+
+Given a version number `MAJOR.MINOR.PATH` we increment:
+1. `MAJOR` version if we make incompatible API changes, i.e. breaking changes
+2. `MINOR` version if we make compatible API changes, i.e. we add functionality in a backwards compatible manner
+3. `PATCH` version if we make backwards compatible bug fixes but don't add new functionality
 
 ## Reporting Bugs
 RimuTec.Faker has a test suite with about 270 unit tests. This does not guarantee absence of bugs. Please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). All your feedback will help make the library more valuable for other users as well. Thank you!
@@ -62,12 +87,14 @@ To set the locale use something like `Config.Locale = "de";`.
 In addition you can use custom locale files for methods that are marked with an asterisk. Ensure that the custom locale file (yml) is copied to the directory that also contains RimuTec.Faker.dll, usually the output directory of your test project.
 
 # How To Build
-## Visual Studio 2017
-Open Faker.sln in Visual Studio, select the desired configuration ("DEBUG" or "RELEASE") and then build the solution.
+## Visual Studio 2019
+Open `Faker.sln` in Visual Studio, select the desired configuration ("Debug" or "Release") and then build the solution. Typically, you'd choose "Debug" when working on this code base.
+
+Note: We use Visual Studio 2019 Community Edition. Other versions and editions may work as well but we didn't test them.
 
 ## Command Line
-1. Open Powershell and navigate to directory containing Faker.sln
-1. Execute the command `dotnet build --configuration RELEASE Faker.sln`. Replace RELEASE with DEBUG if you want build the DEBUG configuration
+1. Open Powershell and navigate to the directory containing `Faker.sln`
+2. Execute the command `dotnet build --configuration RELEASE Faker.sln`. Replace RELEASE with DEBUG if you want build the DEBUG configuration
 
 ## Issues With Building
 If you encounter issues with building the library please file an issue on GitHub, ideally with what you tried, what the expected and what the actual outcome was. Thank you!
