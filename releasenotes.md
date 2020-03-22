@@ -1,5 +1,14 @@
 # Release Notes
 
+## Version 1.2.0
+- FIX issue 1: ["Generating a ZIP code using the stateAbbreviation parameter doesn't work correctly"](https://github.com/RimuTec/Faker/issues/1)
+
+## Version 1.1.0
+- Updated depencencies
+
+## Version 1.0.0
+- First release
+
 ## Version 0.42.0
 ### New Features
 - None
