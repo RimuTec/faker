@@ -253,6 +253,8 @@ namespace RimuTec.Faker.Tests
       public void Zip_For_Specific_US_State()
       {
          var zip = Address.Zip("ME");
+         Assert.IsFalse(zip.Contains("#"));
+         Assert.IsFalse(zip.Contains("?"));
          Assert.IsTrue(zip.StartsWith("042"));
       }
 
@@ -284,6 +286,8 @@ namespace RimuTec.Faker.Tests
       public void ZipCode_For_Specific_US_State()
       {
          var zipCode = Address.ZipCode("ME");
+         Assert.IsFalse(zipCode.Contains("#"));
+         Assert.IsFalse(zipCode.Contains("?"));
          Assert.IsTrue(zipCode.StartsWith("042"));
       }
 

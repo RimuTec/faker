@@ -212,7 +212,7 @@ namespace RimuTec.Faker
          }
          try
          {
-            return Fetch($"address.postcode_by_state.{stateAbbreviation}");
+            return Fetch($"address.postcode_by_state.{stateAbbreviation}").Bothify();
          }
          catch(KeyNotFoundException)
          {
