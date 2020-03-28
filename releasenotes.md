@@ -1,7 +1,10 @@
 # Release Notes
 
+## Version 1.3.0
+- **New Feature:** Added Weather for generating random weather forecasts
+
 ## Version 1.2.0
-- FIX issue 1: ["Generating a ZIP code using the stateAbbreviation parameter doesn't work correctly"](https://github.com/RimuTec/Faker/issues/1)
+- **FIX**: Issue 1 ["Generating a ZIP code using the stateAbbreviation parameter doesn't work correctly"](https://github.com/RimuTec/Faker/issues/1)
 
 ## Version 1.1.0
 - Updated depencencies

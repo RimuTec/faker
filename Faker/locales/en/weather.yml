@@ -1,0 +1,4 @@
+﻿en:
+  faker:
+    weather:
+      summary: [ Freezing, Bracing, Chilly, Cool, Mild, Warm, Balmy, Hot, Sweltering, Scorching ]

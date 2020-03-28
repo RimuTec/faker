@@ -5,7 +5,7 @@
       <AssemblyName>RimuTec.Faker</AssemblyName>
       <RootNamespace>RimuTec.Faker</RootNamespace>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-      <Version>1.2.0</Version>
+      <Version>1.3.0</Version>
       <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
       <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
       <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks Generation Sample Data</PackageTags>
@@ -192,6 +192,7 @@
       <None Remove="locales\en\venture_bros.yml" />
       <None Remove="locales\en\verbs.yml" />
       <None Remove="locales\en\v_for_vendetta.yml" />
+      <None Remove="locales\en\weather.yml" />
       <None Remove="locales\en\witcher.yml" />
       <None Remove="locales\en\world_cup.yml" />
       <None Remove="locales\en\world_of_warcraft.yml" />
@@ -372,6 +373,7 @@
       <EmbeddedResource Include="locales\en\venture_bros.yml" />
       <EmbeddedResource Include="locales\en\verbs.yml" />
       <EmbeddedResource Include="locales\en\v_for_vendetta.yml" />
+      <EmbeddedResource Include="locales\en\weather.yml" />
       <EmbeddedResource Include="locales\en\witcher.yml" />
       <EmbeddedResource Include="locales\en\world_cup.yml" />
       <EmbeddedResource Include="locales\en\world_of_warcraft.yml" />
