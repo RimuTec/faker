@@ -1,7 +1,7 @@
 # Faker
 RimuTec.Faker provides generators for fake, yet realistically looking data. Use it for testing, for creating screenshots to show off your cool software, and similar more. Generators include Lorem, Name, Address, Date, Company, Business, and similar more.
 
-RimuTec.Faker is a C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker).
+RimuTec.Faker is a C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker). It also has some generators and methods that are not in the original Ruby Faker, e.g. Weather.
 
 RimuTec.Faker supports the following targets:
 - .NET Standard 2.0 (netstandard2.0)
@@ -73,6 +73,7 @@ The classes listed below are already ported. Our aim is to add the remaining cla
 - [Name](https://github.com/RimuTec/Faker/wiki/Class-Name)
 - [PhoneNumber](https://github.com/RimuTec/Faker/wiki/Class-PhoneNumber)
 - [RandomNumber](https://github.com/RimuTec/Faker/wiki/Class-RandomNumber)
+- [Weather](https://github.com/RimuTec/Faker/wiki/Class-Weather)
 
 Class to set the locale to be used:
 - [Config](https://github.com/RimuTec/Faker/wiki/Class-Config)
@@ -100,4 +101,4 @@ Note: We use Visual Studio 2019 Community Edition. Other versions and editions m
 If you encounter issues with building the library please file an issue on GitHub, ideally with what you tried, what the expected and what the actual outcome was. Thank you!
 
 # Credits
-This project uses the yaml files from the [Ruby Faker gem](https://github.com/stympy/faker), licensed under the MIT license. Thank you to all their contributors!
+This project uses yaml source files from the [Ruby Faker gem](https://github.com/stympy/faker), licensed under the MIT license. Thank you to all their contributors!
