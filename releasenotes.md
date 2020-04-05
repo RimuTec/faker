@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 1.4.0
+- **FIX**:  bug in class RandomNumber that caused internal static variable to not being initialized in multithreaded case.
+
 ## Version 1.3.0
 - **New Feature:** Added Weather for generating random weather forecasts
 
