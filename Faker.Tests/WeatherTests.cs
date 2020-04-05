@@ -29,6 +29,15 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
+      public void Forecost_MultipleTimes()
+      {
+         for(var i = 0; i < 100; i++)
+         {
+            Weather.Forecast();
+         }
+      }
+
+      [Test]
       public void Forecast_10Days()
       {
          var numberOfDays = 10;

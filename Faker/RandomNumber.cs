@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace RimuTec.Faker
 {
@@ -13,7 +14,7 @@ namespace RimuTec.Faker
       /// <param name="seed"></param>
       public static void ResetSeed(int seed)
       {
-         _random = new Random(seed);
+         _random = new ThreadLocal<Random>(() => new Random(seed));
       }
 
       /// <summary>
@@ -22,7 +23,7 @@ namespace RimuTec.Faker
       /// <returns>An integer</returns>
       public static int Next()
       {
-         return _random.Next();
+         return _random.Value.Next();
       }
 
       /// <summary>
@@ -33,7 +34,7 @@ namespace RimuTec.Faker
       /// <exception cref="ArgumentOutOfRangeException"></exception>
       public static int Next(int maxValue)
       {
-         return _random.Next(maxValue);
+         return _random.Value.Next(maxValue);
       }
 
       /// <summary>
@@ -45,7 +46,7 @@ namespace RimuTec.Faker
       /// <exception cref="ArgumentOutOfRangeException"></exception>
       public static int Next(int minValue, int maxValue)
       {
-         return _random.Next(minValue, maxValue);
+         return _random.Value.Next(minValue, maxValue);
       }
 
       /// <summary>
@@ -54,15 +55,14 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static double NextDouble()
       {
-         return _random.NextDouble();
+         return _random.Value.NextDouble();
       }
 
       internal static long Next(double maxValue)
       {
-         return (long)(_random.NextDouble() * maxValue);
+         return (long)(_random.Value.NextDouble() * maxValue);
       }
 
-      // ThreadStatic added, ref: https://stackoverflow.com/a/1262619/411428
-      [ThreadStatic] private static Random _random = new Random();
+      private static ThreadLocal<Random> _random = new ThreadLocal<Random>(() => new Random());
    }
 }
