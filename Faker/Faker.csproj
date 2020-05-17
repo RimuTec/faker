@@ -5,7 +5,7 @@
       <AssemblyName>RimuTec.Faker</AssemblyName>
       <RootNamespace>RimuTec.Faker</RootNamespace>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-      <Version>1.4.0</Version>
+      <Version>1.5.0</Version>
       <PackageProjectUrl>https://github.com/RimuTec/Faker</PackageProjectUrl>
       <RepositoryUrl>https://github.com/RimuTec/Faker</RepositoryUrl>
       <PackageTags>Faker Testing TDD .NET TestData FakeData UnitTest Fakes Mocks Generation Sample Data</PackageTags>
@@ -419,7 +419,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="System.Threading" Version="4.3.0" />
-      <PackageReference Include="YamlDotNet" Version="8.1.0" />
+      <PackageReference Include="YamlDotNet" Version="8.1.1" />
    </ItemGroup>
 
 </Project>

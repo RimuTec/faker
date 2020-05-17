@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 1.5.0
+- Updated dependencies
+
 ## Version 1.4.0
 - **FIX**:  bug in class RandomNumber that caused internal static variable to not being initialized in multithreaded case.
 
