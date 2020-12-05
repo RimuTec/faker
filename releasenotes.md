@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 1.6.0
+- Bug fix issue #2: System.Reflection.TargetInvocationException when calling "RimuTec.Faker.Address.StreetAddress()" with Config.Locale = "ru"
+- Bug fix issue #3: RimuTec.Faker.Name.LastName() throws an YamlDotNet.Core.YamlException when locale is set to "pl"
+- Updated dependencies
+
 ## Version 1.5.0
 - Updated dependencies
 
