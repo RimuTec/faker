@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+    rimutec-faker:
+        container_name: rimutec-faker-dev
+        build:
+            context: .
+        working_dir: /app
+        volumes:
+            - ..:/app:cached
+        command: >
+            bash -c "pwsh /app/dev/setversion.ps1 && sleep infinity"

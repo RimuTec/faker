@@ -1,0 +1,20 @@
+{
+    "name": "RimuTec.Faker",
+    "dockerComposeFile": [
+        "../dev/docker-compose.yml"
+    ],
+    "service": "rimutec-faker",
+    "workspaceFolder": "/app",
+    "extensions": [
+        "ms-dotnettools.csharp",
+        "josefpihrt-vscode.roslynator",
+        "formulahendry.dotnet-test-explorer",
+        "fernandoescolar.vscode-solution-explorer",
+        "eamodio.gitlens",
+        "editorconfig.editorconfig",
+		"ms-vscode.powershell",
+		"shd101wyy.markdown-preview-enhanced"
+    ],
+    "remoteUser": "faker",
+    "shutdownAction": "stopCompose"
+}

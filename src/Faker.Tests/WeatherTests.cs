@@ -50,7 +50,7 @@ namespace RimuTec.Faker.Tests
       {
          var numberOfDays = -1;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Weather.Forecast(numberOfDays));
-         Assert.AreEqual("Must not be negative.\r\nParameter name: numberOfDays", ex.Message);
+         Assert.AreEqual("Must not be negative. (Parameter 'numberOfDays')", ex.Message);
       }
 
       private string[] summaries = new string[]{"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"};

@@ -45,7 +45,7 @@ namespace RimuTec.Faker.Tests
       {
          const int invalid = 42;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Code.Ean(invalid));
-         Assert.AreEqual("Must be either 8 or 13.\r\nParameter name: base", ex.Message);
+         Assert.AreEqual("Must be either 8 or 13. (Parameter 'base')", ex.Message);
       }
 
       [Test]
@@ -74,7 +74,7 @@ namespace RimuTec.Faker.Tests
       public void Isbn_With_Invalid_Value()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Code.Isbn(42));
-         Assert.AreEqual("Must be either 10 or 13.\r\nParameter name: base", ex.Message);
+         Assert.AreEqual("Must be either 10 or 13. (Parameter 'base')", ex.Message);
       }
 
       [Test]
@@ -105,21 +105,21 @@ namespace RimuTec.Faker.Tests
       public void Nric_Invalid_MinAge()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Code.Nric(minAge: 0));
-         Assert.AreEqual("Must be greater than zero.\r\nParameter name: minAge", ex.Message);
+         Assert.AreEqual("Must be greater than zero. (Parameter 'minAge')", ex.Message);
       }
 
       [Test]
       public void Nric_Invalid_MaxAge()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Code.Nric(maxAge: 0));
-         Assert.AreEqual("Must be greater than minAge.\r\nParameter name: maxAge", ex.Message);
+         Assert.AreEqual("Must be greater than minAge. (Parameter 'maxAge')", ex.Message);
       }
 
       [Test]
       public void Nric_MaxAge_Greater_Than_MinAge()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Code.Nric(minAge: 42, maxAge: 41));
-         Assert.AreEqual("Must be greater than minAge.\r\nParameter name: maxAge", ex.Message);
+         Assert.AreEqual("Must be greater than minAge. (Parameter 'maxAge')", ex.Message);
       }
 
       [Test]

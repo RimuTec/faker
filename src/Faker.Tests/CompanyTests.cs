@@ -183,7 +183,6 @@ namespace RimuTec.Faker.Tests
          var number = Company.PolishRegisterOfNationalEconomy(9);
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
          Assert.AreEqual(9, number.Length);
-
       }
 
       [Test]
@@ -198,7 +197,7 @@ namespace RimuTec.Faker.Tests
       public void PolishRegisterOfNationalEconomy_With_Invalid_Length()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Company.PolishRegisterOfNationalEconomy(11));
-         Assert.AreEqual("Must be either 9 or 14.\r\nParameter name: length", ex.Message);
+         Assert.AreEqual("Must be either 9 or 14. (Parameter 'length')", ex.Message);
       }
    }
 }

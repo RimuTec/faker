@@ -174,7 +174,7 @@ namespace RimuTec.Faker.Tests
       public void MacAddress_Null_Prefix()
       {
          var ex = Assert.Throws<ArgumentNullException>(() => Internet.MacAddress(null));
-         Assert.AreEqual("Must not be null.\r\nParameter name: prefix", ex.Message);
+         Assert.AreEqual("Must not be null. (Parameter 'prefix')", ex.Message);
       }
 
       [Test]
@@ -228,21 +228,21 @@ namespace RimuTec.Faker.Tests
       public void Password_With_Invalid_MinLength()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Password(minLength: 0));
-         Assert.AreEqual("Must be greater than zero.\r\nParameter name: minLength", ex.Message);
+         Assert.AreEqual("Must be greater than zero. (Parameter 'minLength')", ex.Message);
       }
 
       [Test]
       public void Password_With_Invalid_MaxLength()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Password(maxLength: 0));
-         Assert.AreEqual("Must be greater than zero.\r\nParameter name: maxLength", ex.Message);
+         Assert.AreEqual("Must be greater than zero. (Parameter 'maxLength')", ex.Message);
       }
 
       [Test]
       public void Password_With_MaxLength_Less_Than_MinLength()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Password(minLength: 5, maxLength: 4));
-         Assert.AreEqual("Must be equal to or greater than minLength.\r\nParameter name: maxLength", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than minLength. (Parameter 'maxLength')", ex.Message);
       }
 
       [Test]
@@ -373,7 +373,7 @@ namespace RimuTec.Faker.Tests
       {
          var desiredScheme = string.Empty;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Url(scheme: desiredScheme));
-         Assert.AreEqual("Must not be empty string or white spaces only.\r\nParameter name: scheme", ex.Message);
+         Assert.AreEqual("Must not be empty string or white spaces only. (Parameter 'scheme')", ex.Message);
       }
 
       [Test]
@@ -381,7 +381,7 @@ namespace RimuTec.Faker.Tests
       {
          var desiredScheme = " ";
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Url(scheme: desiredScheme));
-         Assert.AreEqual("Must not be empty string or white spaces only.\r\nParameter name: scheme", ex.Message);
+         Assert.AreEqual("Must not be empty string or white spaces only. (Parameter 'scheme')", ex.Message);
       }
 
       [Test]
@@ -389,7 +389,7 @@ namespace RimuTec.Faker.Tests
       {
          var desiredHost = string.Empty;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Url(host: desiredHost));
-         Assert.AreEqual("Must not be empty string or white spaces only.\r\nParameter name: host", ex.Message);
+         Assert.AreEqual("Must not be empty string or white spaces only. (Parameter 'host')", ex.Message);
       }
 
       [Test]
@@ -397,7 +397,7 @@ namespace RimuTec.Faker.Tests
       {
          var desiredHost = " ";
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Url(host: desiredHost));
-         Assert.AreEqual("Must not be empty string or white spaces only.\r\nParameter name: host", ex.Message);
+         Assert.AreEqual("Must not be empty string or white spaces only. (Parameter 'host')", ex.Message);
       }
 
       [Test]
@@ -497,14 +497,14 @@ namespace RimuTec.Faker.Tests
       public void UserName_With_Ridiculous_Value()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.UserName((int)Math.Pow(10, 6) + 1));
-         Assert.AreEqual("Must be equal to or less than 10^6.\r\nParameter name: minLength", ex.Message);
+         Assert.AreEqual("Must be equal to or less than 10^6. (Parameter 'minLength')", ex.Message);
       }
 
       [Test]
       public void UserName_With_Invalid_Value()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.UserName(0));
-         Assert.AreEqual("Must be greater than zero.\r\nParameter name: minLength", ex.Message);
+         Assert.AreEqual("Must be greater than zero. (Parameter 'minLength')", ex.Message);
       }
 
       [Test]

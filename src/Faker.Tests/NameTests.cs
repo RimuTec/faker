@@ -217,7 +217,7 @@ namespace RimuTec.Faker.Tests
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Name.Initials(0));
          Assert.AreEqual("characterCount", ex.ParamName);
-         Assert.AreEqual("Must be greater than 0.\r\nParameter name: characterCount", ex.Message);
+         Assert.AreEqual("Must be greater than 0. (Parameter 'characterCount')", ex.Message);
       }
    }
 }

@@ -48,7 +48,7 @@ namespace RimuTec.Faker.Tests
       public void Characters_With_Invalid_CharCount()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Characters(-1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: charCount", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'charCount')", ex.Message);
       }
 
       [Test]
@@ -105,7 +105,7 @@ namespace RimuTec.Faker.Tests
       {
          var invalidWordCount = -1;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Words(invalidWordCount));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: wordCount", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'wordCount')", ex.Message);
       }
 
       [Test]
@@ -227,14 +227,14 @@ namespace RimuTec.Faker.Tests
       public void Sentence_With_Invalid_WordCount()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Sentence(-1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: wordCount", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'wordCount')", ex.Message);
       }
 
       [Test]
       public void Sentence_With_Invalid_RandomWordsToAdd()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Sentence(7, randomWordsToAdd: -1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: randomWordsToAdd", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'randomWordsToAdd')", ex.Message);
       }
 
       [Test]
@@ -287,7 +287,7 @@ namespace RimuTec.Faker.Tests
       public void Sentences_With_Invalid_SentenceCount()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Sentences(-1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: sentenceCount", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'sentenceCount')", ex.Message);
       }
 
       [Test]
@@ -333,7 +333,7 @@ namespace RimuTec.Faker.Tests
       public void Paragraph_Invalid_SentenceCount()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Paragraph(-1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: sentenceCount", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'sentenceCount')", ex.Message);
       }
 
       [Test]
@@ -358,7 +358,7 @@ namespace RimuTec.Faker.Tests
       public void Paragraph_With_Invalid_RandomSentencesToAdd()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Paragraph(randomSentencesToAdd: -1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: randomSentencesToAdd", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'randomSentencesToAdd')", ex.Message);
       }
 
       [Test]
@@ -389,7 +389,7 @@ namespace RimuTec.Faker.Tests
       public void Paragraphs_With_Invalid_ParagraphCount()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Paragraphs(-1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: paragraphCount", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'paragraphCount')", ex.Message);
       }
 
       [Test]
@@ -482,7 +482,7 @@ namespace RimuTec.Faker.Tests
       public void ParagraphByChars_Invalid_Chars_Value()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.ParagraphByChars(-1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: chars", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'chars')", ex.Message);
       }
 
       [Test]
@@ -571,14 +571,14 @@ namespace RimuTec.Faker.Tests
       public void Question_With_Invalid_WordCount()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Question(wordCount: -1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: wordCount", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'wordCount')", ex.Message);
       }
 
       [Test]
       public void Question_With_Invalid_RandomWordsToAdd()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Question(wordCount: -1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: wordCount", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'wordCount')", ex.Message);
       }
 
       [Test]
@@ -642,7 +642,7 @@ namespace RimuTec.Faker.Tests
       public void Questions_With_Invalid_QuestionCount()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Questions(-1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: questionCount", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'questionCount')", ex.Message);
       }
 
       /// <summary>

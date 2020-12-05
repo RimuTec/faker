@@ -29,7 +29,7 @@ namespace RimuTec.Faker.Tests
       {
          var days = 0;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Backward(days));
-         Assert.AreEqual($"Must be greater than zero.\r\nParameter name: days", ex.Message);
+         Assert.AreEqual($"Must be greater than zero. (Parameter 'days')", ex.Message);
       }
 
       [Test]
@@ -47,7 +47,7 @@ namespace RimuTec.Faker.Tests
          var minDate = DateTime.Today;
          var maxDate = minDate.AddDays(-1);
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Between(minDate, maxDate));
-         Assert.AreEqual("Must be equal to or greater than from.\r\nParameter name: to", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than from. (Parameter 'to')", ex.Message);
       }
 
       [Test]
@@ -87,7 +87,7 @@ namespace RimuTec.Faker.Tests
          var maxDate = 5.Days().Ago;
          var excepted = 3.Days().Ago;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.BetweenExcept(minDate, maxDate, excepted));
-         Assert.AreEqual("Must be equal to or greater than from.\r\nParameter name: to", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than from. (Parameter 'to')", ex.Message);
       }
 
       [Test]
@@ -97,7 +97,7 @@ namespace RimuTec.Faker.Tests
          var maxDate = 2.Days().Ago;
          var excepted = 2.Years().FromNow;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.BetweenExcept(minDate, maxDate, excepted));
-         Assert.AreEqual("Must be between from and to date.\r\nParameter name: excepted", ex.Message);
+         Assert.AreEqual("Must be between from and to date. (Parameter 'excepted')", ex.Message);
       }
 
       [Test]
@@ -112,21 +112,21 @@ namespace RimuTec.Faker.Tests
       public void Birthday_With_Negative_MinAge()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Birthday(minAge: -1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: minAge", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'minAge')", ex.Message);
       }
 
       [Test]
       public void Birthday_With_Negative_MaxAge()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Birthday(maxAge: -1));
-         Assert.AreEqual("Must be equal to or greater than zero.\r\nParameter name: maxAge", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'maxAge')", ex.Message);
       }
 
       [Test]
       public void Birthday_With_MinAge_Greater_MaxAge()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Birthday(minAge: 42, maxAge: 17));
-         Assert.AreEqual("Must be equal to or greater than minAge.\r\nParameter name: maxAge", ex.Message);
+         Assert.AreEqual("Must be equal to or greater than minAge. (Parameter 'maxAge')", ex.Message);
       }
 
       [Test]
@@ -170,7 +170,7 @@ namespace RimuTec.Faker.Tests
       {
          var days = 0;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Date.Forward(days));
-         Assert.AreEqual($"Must be greater than zero.\r\nParameter name: days", ex.Message);
+         Assert.AreEqual($"Must be greater than zero. (Parameter 'days')", ex.Message);
       }
 
       [Test]

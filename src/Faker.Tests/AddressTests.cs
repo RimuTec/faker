@@ -147,14 +147,14 @@ namespace RimuTec.Faker.Tests
       public void Postcode_For_Invalid_State_Abbreviation()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Postcode("ZZZ"));
-         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+         Assert.AreEqual("Must be one of the US state abbreviations or empty. (Parameter 'stateAbbreviation')", ex.Message);
       }
 
       [Test]
       public void Postcode_With_Null_As_Abbreviation()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Postcode(null));
-         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+         Assert.AreEqual("Must be one of the US state abbreviations or empty. (Parameter 'stateAbbreviation')", ex.Message);
       }
 
       [Test]
@@ -262,14 +262,14 @@ namespace RimuTec.Faker.Tests
       public void Zip_For_Invalid_State_Abbreviation()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Zip("ZZZ"));
-         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+         Assert.AreEqual("Must be one of the US state abbreviations or empty. (Parameter 'stateAbbreviation')", ex.Message);
       }
 
       [Test]
       public void Zip_With_Null_As_Abbreviation()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.Zip(null));
-         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+         Assert.AreEqual("Must be one of the US state abbreviations or empty. (Parameter 'stateAbbreviation')", ex.Message);
       }
 
       [Test]
@@ -295,14 +295,14 @@ namespace RimuTec.Faker.Tests
       public void ZipCode_For_Invalid_State_Abbreviation()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.ZipCode("ZZZ"));
-         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+         Assert.AreEqual("Must be one of the US state abbreviations or empty. (Parameter 'stateAbbreviation')", ex.Message);
       }
 
       [Test]
       public void ZipCode_With_Null_As_Abbreviation()
       {
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Address.ZipCode(null));
-         Assert.AreEqual("Must be one of the US state abbreviations or empty.\r\nParameter name: stateAbbreviation", ex.Message);
+         Assert.AreEqual("Must be one of the US state abbreviations or empty. (Parameter 'stateAbbreviation')", ex.Message);
       }
    }
 }
