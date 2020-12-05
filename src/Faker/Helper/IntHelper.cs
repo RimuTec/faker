@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RimuTec.Faker.Helper
 {
-   internal class IntHelper
+   internal static class IntHelper
    {
       public static IEnumerable<int> Repeat(int from, int to, Func<int, int> initializer)
       {

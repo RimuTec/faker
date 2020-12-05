@@ -21,7 +21,7 @@ namespace RimuTec.Faker.Helper
                   deserializerBuilder = deserializerBuilder.WithTypeConverter(converter);
                }
                var deserializer = deserializerBuilder
-                  .WithNamingConvention(new CamelCaseNamingConvention())
+                  .WithNamingConvention(CamelCaseNamingConvention.Instance)
                   .Build()
                   ;
                locale = deserializer.Deserialize<T>(textReader.ReadToEnd());
