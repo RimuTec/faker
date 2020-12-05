@@ -53,7 +53,7 @@ Given a version number `MAJOR.MINOR.PATH` we increment:
 3. `PATCH` version if we make backwards compatible bug fixes but don't add new functionality
 
 ## Reporting Bugs
-RimuTec.Faker has a test suite with about 270 unit tests. This does not guarantee absence of bugs. Please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). All your feedback will help make the library more valuable for other users as well. Thank you!
+RimuTec.Faker has a test suite with over 300 unit tests. This does not guarantee absence of bugs. Please report all bugs at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) ideally including steps to reproduce. We also consider pull requests (PR). All your feedback will help make the library more valuable for other users as well. Thank you!
 
 # Available Fake Data Generators
 The classes listed below are already ported. Our aim is to add the remaining classes and method over time. If you have preferences please file suggestions as issues on Github (see below). Thank you!
