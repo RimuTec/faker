@@ -2,8 +2,10 @@
 using RimuTec.Faker.Extensions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using YamlDotNet.RepresentationModel;
 
 namespace RimuTec.Faker.Tests
 {
@@ -199,5 +201,26 @@ namespace RimuTec.Faker.Tests
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Company.PolishRegisterOfNationalEconomy(11));
          Assert.AreEqual("Must be either 9 or 14. (Parameter 'length')", ex.Message);
       }
+
+      [Test]
+      public void Foo()
+      {
+         // This test fails with YamlDotNet 9.1.0 but passes with YamlDotNet 8.1.1.
+         // Issue filed at: https://github.com/aaubry/YamlDotNet/issues/548
+         // [Manfred, 05dec2020]
+         using var input = new StringReader(Document);
+         var yaml = new YamlStream();
+         yaml.Load(input);
+      }
+      private const string Document =
+         "en:" + "\n" +
+         "  faker:" + "\n" +
+         "    company:" + "\n" +
+         "      suffix: [Inc, and Sons, LLC, Group]" + "\n" +
+         "      # Buzzword wordlist from http://www.1728.com/buzzword.htm" + "\n" +
+         "      buzzwords:" + "\n" +
+         "        - [\"foo\", \"Facetoface\", \"Focused\", \"Frontline\", \"Fullyconfigurable\", \"Functionbased\", \"Fundamental\", \"Futureproofed\", \"Grassroots\", \"Horizontal\", \"Implemented\", \"Innovative\", \"Integrated\", \"Intuitive\", \"Inverse\", \"Managed\", \"Mandatory\", \"Monitored\", \"Multichannelled\", \"Multilateral\", \"Multilayered\", \"Multitiered\", \"Networked\", \"Objectbased\", \"Openarchitected\", \"Opensource\", \"Operative\", \"Optimized\", \"Optional\", \"Organic\", \"Organized\", \"Persevering\", \"Persistent\", \"Phased\", \"Polarised\", \"Pre-emptive\", \"Proactive\", \"Profit-focused\", \"Profound\", \"Programmable\", \"Progressive\", \"Public-key\", \"Quality-focused\", \"Reactive\", \"Realigned\", \"Re-contextualized\", \"Reengineered\", \"Reduced\", \"Reverseengineered\", \"Rightsized\", \"Robust\", \"Seamless\", \"Secured\", \"Selfenabling\", \"Sharable\", \"Standalone\", \"Streamlined\", \"Switchable\", \"Synchronised\", \"Synergistic\", \"Synergized\", \"Teamoriented\", \"Total\", \"Triplebuffered\" ]" + "\n" +
+         "        - [\"24 hour\", \"24/7\", \"3rd generation\", \"4th generation\", \"5th generation\"]" + "\n" +
+         "        - [\"ability\", \"access\", \"adapter\", \"algorithm\", \"alliance\"]";
    }
 }
