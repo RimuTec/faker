@@ -80,7 +80,7 @@ namespace RimuTec.Faker
          {
             fakerNode = Library._dictionary[key];
             var locatorParts = locator.Split('.');
-            return Fetch(fakerNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
+            return Fetch(fakerNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
          }
          catch
          {
@@ -93,11 +93,11 @@ namespace RimuTec.Faker
 
             fakerNode = Library._dictionary[key];
             var locatorParts = locator.Split('.');
-            return Fetch(fakerNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
+            return Fetch(fakerNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
          }
       }
 
-      private static void LoadLocale(string localeName)
+      internal static void LoadLocale(string localeName)
       {
          var fileName = localeName;
          if (localeName == "en")

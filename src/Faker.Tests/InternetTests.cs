@@ -39,8 +39,19 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void Email_With_Specific_Name()
+      public void Email_With_Specific_Name_LocaleEn()
       {
+         Config.Locale = "en";
+         var firstName = Name.FirstName(); // can also be any other name
+         var emailAddress = Internet.Email(firstName);
+         AllAssertions(emailAddress);
+         Assert.IsTrue(emailAddress.StartsWith($"{firstName.ToLower()}@"), $"Email address is: '{emailAddress}'");
+      }
+
+      [Test]
+      public void Email_With_Specific_Name_LocaleRu()
+      {
+         Config.Locale = "ru";
          var firstName = Name.FirstName(); // can also be any other name
          var emailAddress = Internet.Email(firstName);
          AllAssertions(emailAddress);
@@ -61,8 +72,9 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void Email_With_No_Separator_Guaranteed()
+      public void Email_With_No_Separator_Guaranteed_LocaleEn()
       {
+         Config.Locale = "en";
          var tries = 100;
          while (tries-- > 0)
          {
@@ -72,6 +84,18 @@ namespace RimuTec.Faker.Tests
          }
       }
 
+      [Test]
+      public void Email_With_No_Separator_Guaranteed_LocaleRu()
+      {
+         Config.Locale = "ru";
+         var tries = 100;
+         while (tries-- > 0)
+         {
+            var emailAddress = Internet.Email(separators: string.Empty);
+            Assert.AreEqual(0, RegexMatchesCount(emailAddress, @"[-_+]"), $"{nameof(emailAddress)} was {emailAddress}");
+            Assert.AreEqual(0, RegexMatchesCount(emailAddress, @"\0"));
+         }
+      }
       [Test]
       public void Email_With_Name_And_Separator()
       {
@@ -334,8 +358,9 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void Url_With_Default_Values()
+      public void Url_With_Default_Values_LocaleEn()
       {
+         Config.Locale = "en";
          var tries = 100;
          while (tries-- > 0)
          {
@@ -344,6 +369,17 @@ namespace RimuTec.Faker.Tests
          }
       }
 
+      [Test]
+      public void Url_With_Default_Values_LocalRu()
+      {
+         Config.Locale = "ru";
+         var tries = 100;
+         while (tries-- > 0)
+         {
+            var url = Internet.Url();
+            Assert.AreEqual(1, RegexMatchesCount(url, "[a-z]{3,}://([a-z][-a-z0-9_]{1,}.){1,}[a-z_]{1,}/((%([A-Z0-9]){2,2}){0,}|([a-z_]{0,}.)[a-z_]{1,})"), $"{nameof(url)} is '{url}'");
+         }
+      }
       [Test]
       public void Url_With_Host()
       {
@@ -451,8 +487,9 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void UserName_With_Given_Separators()
+      public void UserName_With_Given_Separators_LocaleEn()
       {
+         Config.Locale = "en";
          string separators = "-_+";
          var userName = Internet.UserName(separators: separators);
          AllAssertions(userName);
@@ -460,11 +497,31 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void UserName_With_No_Separator_Guaranteed()
+      public void UserName_With_Given_Separators_LocaleRu()
       {
-         var userName = Internet.UserName(null, "");
+         Config.Locale = "ru";
+         string separators = "-_+";
+         var userName = Internet.UserName(separators: separators);
+         AllAssertions(userName);
+         Assert.GreaterOrEqual(1, RegexMatchesCount(userName, $@"[{separators}]"));
+      }
+
+      [Test]
+      public void UserName_With_No_Separator_Guaranteed_LocaleEn()
+      {
+         Config.Locale = "en";
+         var userName = Internet.UserName(null, string.Empty);
          AllAssertions(userName);
          Assert.AreEqual(0, RegexMatchesCount(userName, @"[-_+]"));
+      }
+
+      [Test]
+      public void UserName_With_No_Separator_Guaranteed_LocaleRu()
+      {
+         Config.Locale = "ru";
+         var userName = Internet.UserName(null, string.Empty);
+         AllAssertions(userName);
+         Assert.AreEqual(0, RegexMatchesCount(userName, @"[-_+]"), $"userName was '{userName}'");
       }
 
       [Test]

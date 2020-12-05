@@ -95,6 +95,14 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
+      public void FirstName_With_LocaleRu()
+      {
+         Config.Locale = "ru";
+         var firstName = Name.FirstName();
+         Assert.IsTrue(!firstName.Contains("_first_name"), $"firstName was '{firstName}'");
+      }
+
+      [Test]
       public void FirstName_Twice_NotEqual()
       {
          var firstName1 = Name.FirstName();
@@ -118,10 +126,27 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void LastName_HappyDays()
+      public void LastName_With_LocaleEn()
       {
+         Config.Locale = "en";
          var lastName = Name.LastName();
          Assert.IsTrue(!string.IsNullOrWhiteSpace(lastName));
+      }
+
+      [Test]
+      public void LastName_With_LocalePl()
+      {
+         Config.Locale = "pl";
+         var lastName = Name.LastName();
+         Assert.IsTrue(!string.IsNullOrWhiteSpace(lastName));
+      }
+
+      [Test]
+      public void LastName_With_LocaleRu()
+      {
+         Config.Locale = "ru";
+         var lastName = Name.LastName();
+         Assert.IsTrue(!lastName.Contains("_last_name"), $"lastName was '{lastName}'");
       }
 
       [Test]

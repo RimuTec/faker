@@ -24,10 +24,20 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void Suffix_HappyDays()
+      public void Suffix_With_LocaleEn()
       {
+         Config.Locale = "en";
          var suffix = Company.Suffix();
          var availableSuffixes = new List<string> { "Inc", "and Sons", "LLC", "Group" };
+         Assert.IsTrue(availableSuffixes.Contains(suffix));
+      }
+
+      [Test]
+      public void Suffix_With_LocaleRu()
+      {
+         Config.Locale = "ru";
+         var suffix = Company.Suffix();
+         var availableSuffixes = new List<string> { "Снаб", "Торг", "Пром", "Трейд", "Сбыт" };
          Assert.IsTrue(availableSuffixes.Contains(suffix));
       }
 

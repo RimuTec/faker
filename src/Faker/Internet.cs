@@ -260,8 +260,10 @@ namespace RimuTec.Faker
       /// <exception cref="ArgumentOutOfRangeException">If scheme or host is an empty string.</exception>
       public static string Url(string host = null, string path = null, string scheme = "http")
       {
-         host = host ?? DomainName();
-         path = path ?? $"/{UserName()}";
+         var idn = new IdnMapping();
+         host ??= idn.GetAscii(DomainName());
+         var percentEncodedUserName = Uri.EscapeDataString(UserName());
+         path ??= $"/{percentEncodedUserName}";
          if (string.IsNullOrWhiteSpace(scheme))
          {
             throw new ArgumentOutOfRangeException(nameof(scheme), "Must not be empty string or white spaces only.");
@@ -320,7 +322,7 @@ namespace RimuTec.Faker
                firstNamePrepared,
                $"{firstNamePrepared}{separator}{Name.LastName().Prepare()}"
             };
-            result = candidates.Sample();
+            result = Parse(candidates.Sample());
          }
          return result;
       }

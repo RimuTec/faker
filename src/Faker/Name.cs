@@ -36,7 +36,7 @@ namespace RimuTec.Faker
       /// <returns>A string containing a first name</returns>
       public static string FirstName()
       {
-         return Fetch("name.first_name");
+         return Parse(Fetch("name.first_name"));
       }
 
       /// <summary>
@@ -54,7 +54,7 @@ namespace RimuTec.Faker
       /// <returns>A string containing a last name</returns>
       public static string LastName()
       {
-         return Fetch("name.last_name");
+         return Parse(Fetch("name.last_name"));
       }
 
       /// <summary>

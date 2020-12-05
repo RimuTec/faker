@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace RimuTec.Faker.Tests
 {
@@ -6,11 +7,30 @@ namespace RimuTec.Faker.Tests
    public class ColorTests : FixtureBase
    {
       [Test]
-      public void ColorName()
+      public void ColorName_With_LocaleEn()
       {
+         Config.Locale = "en";
+         Console.Write($"#################### Locale is {Config.Locale} ####################");
          var colorName = Color.ColorName();
          var colors = Fetch("color.name");
          Assert.IsTrue(colors.Contains(colorName));
+      }
+
+      [Test]
+      public void ColorName_With_LocaleRu()
+      {
+         Config.Locale = "ru";
+         var colorName = Color.ColorName();
+         var colors = Fetch("color.name");
+         Assert.IsTrue(colors.Contains(colorName));
+      }
+
+      [Test]
+      public void Fetch_ColorName_LocalRu()
+      {
+         Config.Locale = "ru";
+         Color.LoadLocale("ru");
+         Fetch("color.name");
       }
 
       [Test]
