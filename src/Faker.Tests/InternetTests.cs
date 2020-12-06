@@ -35,7 +35,7 @@ namespace RimuTec.Faker.Tests
       {
          var emailAddress = Internet.Email();
          AllAssertions(emailAddress);
-         Assert.AreEqual(1, RegexMatchesCount(emailAddress, @"@"));
+         Assert.AreEqual(1, RegexMatchesCount(emailAddress, "@"));
       }
 
       [Test]
@@ -79,7 +79,7 @@ namespace RimuTec.Faker.Tests
          while (tries-- > 0)
          {
             var emailAddress = Internet.Email(separators: string.Empty);
-            Assert.AreEqual(0, RegexMatchesCount(emailAddress, @"[-_+]"), $"{nameof(emailAddress)} was {emailAddress}");
+            Assert.AreEqual(0, RegexMatchesCount(emailAddress, "[-_+]"), $"{nameof(emailAddress)} was {emailAddress}");
             Assert.AreEqual(0, RegexMatchesCount(emailAddress, @"\0"));
          }
       }
@@ -92,15 +92,15 @@ namespace RimuTec.Faker.Tests
          while (tries-- > 0)
          {
             var emailAddress = Internet.Email(separators: string.Empty);
-            Assert.AreEqual(0, RegexMatchesCount(emailAddress, @"[-_+]"), $"{nameof(emailAddress)} was {emailAddress}");
+            Assert.AreEqual(0, RegexMatchesCount(emailAddress, "[-_+]"), $"{nameof(emailAddress)} was {emailAddress}");
             Assert.AreEqual(0, RegexMatchesCount(emailAddress, @"\0"));
          }
       }
       [Test]
       public void Email_With_Name_And_Separator()
       {
-         var name = "Janelle Santiago";
-         var separators = "+";
+         const string name = "Janelle Santiago";
+         const string separators = "+";
          var emailAddress = Internet.Email(name, separators);
          Assert.IsTrue(Regex.Match(emailAddress, @".+\+.+@.+\.\w+").Success);
       }

@@ -21,11 +21,11 @@ namespace RimuTec.Faker.Tests
                 key = $"{Config.Locale}.{locator.Split('.')[0]}";
             }
             key = key.ToLower();
-            if (_dictionary.ContainsKey(key))
+            if (Dictionary.ContainsKey(key))
             {
                 try
                 {
-                    var yamlNode = _dictionary[key];
+                    var yamlNode = Dictionary[key];
                     var locatorParts = locator.Split('.');
                     return Fetch(yamlNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
                 }
@@ -34,7 +34,7 @@ namespace RimuTec.Faker.Tests
                     // Fall back to locale "en"
                     var locatorParts = locator.Split('.');
                     string fallbackKey = $"en.{locatorParts[0].ToLowerInvariant()}";
-                    var yamlNode = _dictionary[fallbackKey];
+                    var yamlNode = Dictionary[fallbackKey];
                     return Fetch(yamlNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
                 }
             }
@@ -56,6 +56,6 @@ namespace RimuTec.Faker.Tests
             return new List<string>();
         }
 
-        protected static Dictionary<string, YamlNode> _dictionary => Library._dictionary;
+        protected static Dictionary<string, YamlNode> Dictionary => Library._dictionary;
     }
 }

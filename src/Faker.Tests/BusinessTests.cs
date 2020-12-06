@@ -18,8 +18,8 @@ namespace RimuTec.Faker.Tests
       public void CreditCardNumber_HappyDays()
       {
          var creditCardNumber = Business.CreditCardNumber();
-         Assert.AreEqual(3, RegexMatchesCount(creditCardNumber, @"-"));
-         Assert.AreEqual(4, RegexMatchesCount(creditCardNumber, @"[0-9]{4}"));
+         Assert.AreEqual(3, RegexMatchesCount(creditCardNumber, "-"));
+         Assert.AreEqual(4, RegexMatchesCount(creditCardNumber, "[0-9]{4}"));
       }
 
       [Test]

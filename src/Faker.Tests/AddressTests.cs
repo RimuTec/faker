@@ -15,7 +15,7 @@ namespace RimuTec.Faker.Tests
             Assert.IsFalse(string.IsNullOrWhiteSpace(buildingNumber));
             Assert.IsFalse(buildingNumber.Contains("#"));
             Assert.IsFalse(buildingNumber.Contains("?"));
-            Assert.GreaterOrEqual(Regex.Matches(buildingNumber, @"[0-9]").Count, 3);
+            Assert.GreaterOrEqual(Regex.Matches(buildingNumber, "[0-9]").Count, 3);
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace RimuTec.Faker.Tests
             Assert.IsFalse(string.IsNullOrWhiteSpace(community));
             Assert.IsFalse(community.Contains("#"));
             Assert.IsFalse(community.Contains("?"));
-            Assert.AreEqual(1, Regex.Matches(community, @" ").Count);
+            Assert.AreEqual(1, Regex.Matches(community, " ").Count);
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace RimuTec.Faker.Tests
             Assert.IsFalse(string.IsNullOrWhiteSpace(postcode));
             Assert.IsFalse(postcode.Contains("#"));
             Assert.IsFalse(postcode.Contains("?"));
-            Assert.GreaterOrEqual(Regex.Matches(postcode, @"[0-9]").Count, 3);
+            Assert.GreaterOrEqual(Regex.Matches(postcode, "[0-9]").Count, 3);
         }
 
         [Test]
@@ -321,7 +321,7 @@ namespace RimuTec.Faker.Tests
             Assert.IsFalse(string.IsNullOrWhiteSpace(zip));
             Assert.IsFalse(zip.Contains("#"));
             Assert.IsFalse(zip.Contains("?"));
-            Assert.GreaterOrEqual(Regex.Matches(zip, @"[0-9]").Count, 3);
+            Assert.GreaterOrEqual(Regex.Matches(zip, "[0-9]").Count, 3);
         }
 
         [Test]
@@ -354,7 +354,7 @@ namespace RimuTec.Faker.Tests
             Assert.IsFalse(string.IsNullOrWhiteSpace(zipCode));
             Assert.IsFalse(zipCode.Contains("#"));
             Assert.IsFalse(zipCode.Contains("?"));
-            Assert.GreaterOrEqual(Regex.Matches(zipCode, @"[0-9]").Count, 3);
+            Assert.GreaterOrEqual(Regex.Matches(zipCode, "[0-9]").Count, 3);
         }
 
         [Test]

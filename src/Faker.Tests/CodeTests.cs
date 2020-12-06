@@ -19,7 +19,7 @@ namespace RimuTec.Faker.Tests
          const int digitCount = 13;
          var ean = Code.Ean();
          Assert.AreEqual(digitCount, ean.Length);
-         Assert.AreEqual(digitCount, RegexMatchesCount(ean, @"[0-9]"));
+         Assert.AreEqual(digitCount, RegexMatchesCount(ean, "[0-9]"));
       }
 
       [Test]
@@ -28,7 +28,7 @@ namespace RimuTec.Faker.Tests
          const int @base = 8;
          var ean = Code.Ean(@base);
          Assert.AreEqual(@base, ean.Length);
-         Assert.AreEqual(@base, RegexMatchesCount(ean, @"[0-9]"));
+         Assert.AreEqual(@base, RegexMatchesCount(ean, "[0-9]"));
       }
 
       [Test]
@@ -37,7 +37,7 @@ namespace RimuTec.Faker.Tests
          const int @base = 13;
          var ean = Code.Ean(@base);
          Assert.AreEqual(@base, ean.Length);
-         Assert.AreEqual(@base, RegexMatchesCount(ean, @"[0-9]"));
+         Assert.AreEqual(@base, RegexMatchesCount(ean, "[0-9]"));
       }
 
       [Test]
@@ -82,7 +82,7 @@ namespace RimuTec.Faker.Tests
       {
          var npi = Code.Npi();
          Assert.AreEqual(10, npi.Length);
-         Assert.AreEqual(10, RegexMatchesCount(npi, @"[0-9]"));
+         Assert.AreEqual(10, RegexMatchesCount(npi, "[0-9]"));
       }
 
       [Test]
@@ -127,7 +127,7 @@ namespace RimuTec.Faker.Tests
       {
          var rut = Code.Rut();
          Assert.AreEqual(10, rut.Length);
-         Assert.AreEqual(9, RegexMatchesCount(rut, @"[0-9K]"));
+         Assert.AreEqual(9, RegexMatchesCount(rut, "[0-9K]"));
          Assert.AreEqual('-', rut[8]);
       }
 
@@ -140,14 +140,14 @@ namespace RimuTec.Faker.Tests
          Assert.IsTrue(LuhnChecksumValid(sin));
       }
 
-      public bool LuhnChecksumValid(string digits)
+      public static bool LuhnChecksumValid(string digits)
       {
          // Implementation of this method taken from https://en.wikipedia.org/wiki/Luhn_algorithm#C#
          int sum = 0;
          int len = digits.Length;
          for (int i = 0; i < len; i++)
          {
-            int add = (digits[i] - '0') * (2 - (i + len) % 2);
+            int add = (digits[i] - '0') * (2 - ((i + len) % 2));
             add -= add > 9 ? 9 : 0;
             sum += add;
          }

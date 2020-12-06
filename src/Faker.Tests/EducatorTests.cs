@@ -10,7 +10,7 @@ namespace RimuTec.Faker.Tests
       {
          var campus = Educator.Campus();
          Assert.IsFalse(string.IsNullOrWhiteSpace(campus));
-         Assert.Greater(RegexMatchesCount(campus, @" "), 0);
+         Assert.Greater(RegexMatchesCount(campus, " "), 0);
       }
 
       [Test]
@@ -18,7 +18,7 @@ namespace RimuTec.Faker.Tests
       {
          var course = Educator.Course();
          Assert.IsFalse(string.IsNullOrWhiteSpace(course));
-         Assert.Greater(RegexMatchesCount(course, @" "), 0);
+         Assert.Greater(RegexMatchesCount(course, " "), 0);
       }
 
       [Test]
@@ -26,7 +26,7 @@ namespace RimuTec.Faker.Tests
       {
          var secondarySchool = Educator.SecondarySchool();
          Assert.IsFalse(string.IsNullOrWhiteSpace(secondarySchool));
-         Assert.Greater(RegexMatchesCount(secondarySchool, @" "), 0);
+         Assert.Greater(RegexMatchesCount(secondarySchool, " "), 0);
       }
 
       [Test]
@@ -34,7 +34,7 @@ namespace RimuTec.Faker.Tests
       {
          var university = Educator.University();
          Assert.IsFalse(string.IsNullOrWhiteSpace(university));
-         Assert.Greater(RegexMatchesCount(university, @" "), 0);
+         Assert.Greater(RegexMatchesCount(university, " "), 0);
       }
    }
 }

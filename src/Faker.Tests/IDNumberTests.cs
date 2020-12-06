@@ -29,7 +29,7 @@ namespace RimuTec.Faker.Tests
          var recursive = false;
          while (tries-- > 0 && !recursive)
          {
-            var validSSN = IdNumber.SsnValid();
+            _ = IdNumber.SsnValid();
             recursive = IdNumber._SSN_Valid_recursive;
          }
          Assert.IsTrue(recursive);

@@ -18,7 +18,7 @@ namespace RimuTec.Faker.Extensions
       /// <returns></returns>
       public static string Numerify(this string s)
       {
-         return Regex.Replace(s, "#", new MatchEvaluator((m) => RandomNumber.Next(0, 9).ToString()), RegexOptions.Compiled);
+         return Regex.Replace(s, "#", new MatchEvaluator(_ => RandomNumber.Next(0, 9).ToString()), RegexOptions.Compiled);
       }
 
       /// <summary>
@@ -28,7 +28,7 @@ namespace RimuTec.Faker.Extensions
       /// <returns></returns>
       public static string Letterify(this string s)
       {
-         return Regex.Replace(s, @"\?", new MatchEvaluator((m) => _alphabet.Sample()), RegexOptions.Compiled);
+         return Regex.Replace(s, @"\?", new MatchEvaluator(_ => _alphabet.Sample()), RegexOptions.Compiled);
       }
 
       /// <summary>
@@ -70,7 +70,7 @@ namespace RimuTec.Faker.Extensions
       public static string Prepare(this string s)
       {
          var result = s.RomanizeCyrillicString();
-         result = s.FixUmlauts();
+         result = result.FixUmlauts();
          result = Regex.Replace(result, @"\W", string.Empty, RegexOptions.Compiled).ToLower();
          return result;
       }
@@ -226,7 +226,7 @@ namespace RimuTec.Faker.Extensions
             }, RegexOptions.Compiled);
 
          // (this|that) becomes 'this' or 'that'
-         reg = Regex.Replace(reg, @"\((.*?)\)", match =>
+         reg = Regex.Replace(reg, @"\((.*?)\)", _ =>
          {
             throw new NotImplementedException();
          }, RegexOptions.Compiled);
@@ -234,7 +234,7 @@ namespace RimuTec.Faker.Extensions
          // All A-Z inside of [] become C (or X, or whatever)
          reg = Regex.Replace(reg, @"\[([^\]]+)\]", match =>
          {
-            string result = Regex.Replace(match.Value, @"(\w\-\w)", range =>
+            var result = Regex.Replace(match.Value, @"(\w\-\w)", range =>
             {
                var parts = Regex.Split(range.Value, @"-");
                var charRange = new Range2<char>(parts[0][0], parts[1][0]);
@@ -257,9 +257,9 @@ namespace RimuTec.Faker.Extensions
 
       private static readonly int[] Numbers = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-      private static readonly char[] ULetters = new char[] {
-         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-      };
+      // private static readonly char[] ULetters = new char[] {
+      //    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+      // };
 
       private static readonly char[] Letters = new char[] {
          'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',

@@ -38,7 +38,7 @@ namespace RimuTec.Faker.Tests
       {
          var hex = Color.HexColor();
          Assert.AreEqual(6, hex.Length);
-         Assert.AreEqual(6, RegexMatchesCount(hex, @"[0-9A-F]"), $"{nameof(hex)} is {hex}");
+         Assert.AreEqual(6, RegexMatchesCount(hex, "[0-9A-F]"), $"{nameof(hex)} is {hex}");
       }
 
       [Test]

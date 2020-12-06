@@ -52,7 +52,7 @@ namespace RimuTec.Faker.Tests
       public void CatchPhrase_HappyDays()
       {
          var catchPhrase = Company.CatchPhrase();
-         var matches = Regex.Matches(catchPhrase, @"[0-9a-z]+");
+         var matches = Regex.Matches(catchPhrase, "[0-9a-z]+");
          Assert.GreaterOrEqual(matches.Count, 3);
       }
 
@@ -63,7 +63,7 @@ namespace RimuTec.Faker.Tests
          {
             var buzzword = Company.Buzzword();
             Assert.IsFalse(string.IsNullOrWhiteSpace(buzzword));
-            Assert.IsTrue(Regex.IsMatch(buzzword, @"[0-9a-z]+"));
+            Assert.IsTrue(Regex.IsMatch(buzzword, "[0-9a-z]+"));
          }
       }
 
@@ -71,7 +71,7 @@ namespace RimuTec.Faker.Tests
       public void Bs_HappyDays()
       {
          var bs = Company.Bs();
-         var matches = Regex.Matches(bs, @"[0-9a-zA-Z]+");
+         var matches = Regex.Matches(bs, "[0-9a-zA-Z]+");
          Assert.GreaterOrEqual(matches.Count, 3, $"Failed BS was '{bs}'");
       }
 
@@ -79,7 +79,7 @@ namespace RimuTec.Faker.Tests
       public void Logo_HappyDays()
       {
          var logo = Company.Logo();
-         var uri = new Uri(logo); // shouldn't throw indicating it's a valid URL
+         _ = new Uri(logo); // shouldn't throw indicating it's a valid URL
       }
 
       [Test]
@@ -96,7 +96,7 @@ namespace RimuTec.Faker.Tests
          Assert.AreEqual(10, ein.Length);
          Assert.IsFalse(ein.Contains("#"));
          Assert.AreEqual(1, Regex.Matches(ein, @"[\-]").Count);
-         Assert.AreEqual(9, Regex.Matches(ein, @"[0-9]").Count);
+         Assert.AreEqual(9, Regex.Matches(ein, "[0-9]").Count);
       }
 
       [Test]
@@ -105,7 +105,7 @@ namespace RimuTec.Faker.Tests
          var duns = Company.DunsNumber();
          Assert.AreEqual(11, duns.Length);
          Assert.AreEqual(2, Regex.Matches(duns, @"[\-]").Count);
-         Assert.AreEqual(9, Regex.Matches(duns, @"[0-9]").Count);
+         Assert.AreEqual(9, Regex.Matches(duns, "[0-9]").Count);
       }
 
       [Test]
@@ -151,8 +151,8 @@ namespace RimuTec.Faker.Tests
       {
          var number = Company.NorwegianOrganizationNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
-         Assert.AreEqual(1, Regex.Matches(number, @"^[89]").Count);
-         Assert.AreEqual(9, Regex.Matches(number, @"[0-9]").Count);
+         Assert.AreEqual(1, Regex.Matches(number, "^[89]").Count);
+         Assert.AreEqual(9, Regex.Matches(number, "[0-9]").Count);
       }
 
       [Test]
@@ -160,7 +160,7 @@ namespace RimuTec.Faker.Tests
       {
          var number = Company.AustralianBusinessNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
-         Assert.AreEqual(11, Regex.Matches(number, @"[0-9]").Count);
+         Assert.AreEqual(11, Regex.Matches(number, "[0-9]").Count);
       }
 
       [Test]
@@ -168,8 +168,8 @@ namespace RimuTec.Faker.Tests
       {
          var number = Company.SpanishOrganizationNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
-         Assert.AreEqual(1, Regex.Matches(number, @"^[ABCDEFGHJNPQRSUVW]").Count, $"Invalid number is '{number}'.");
-         Assert.AreEqual(7, Regex.Matches(number, @"[0-9]").Count);
+         Assert.AreEqual(1, Regex.Matches(number, "^[ABCDEFGHJNPQRSUVW]").Count, $"Invalid number is '{number}'.");
+         Assert.AreEqual(7, Regex.Matches(number, "[0-9]").Count);
       }
 
       [Test]
@@ -177,8 +177,8 @@ namespace RimuTec.Faker.Tests
       {
          var number = Company.PolishTaxpayerIdentificationNumber();
          Assert.IsFalse(string.IsNullOrWhiteSpace(number));
-         Assert.AreEqual(1, Regex.Matches(number, @"^[1-8][1-8][1-8]").Count);
-         Assert.AreEqual(10, Regex.Matches(number, @"[0-9]").Count);
+         Assert.AreEqual(1, Regex.Matches(number, "^[1-8][1-8][1-8]").Count);
+         Assert.AreEqual(10, Regex.Matches(number, "[0-9]").Count);
       }
 
       [Test]
