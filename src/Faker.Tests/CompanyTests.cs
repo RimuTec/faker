@@ -218,9 +218,11 @@ namespace RimuTec.Faker.Tests
          // This test fails with YamlDotNet 9.1.0 but passes with YamlDotNet 8.1.1.
          // Issue filed at: https://github.com/aaubry/YamlDotNet/issues/548
          // [Manfred, 05dec2020]
-         using var input = new StringReader(Document);
-         var yaml = new YamlStream();
-         yaml.Load(input);
+         using(var input = new StringReader(Document))
+         {
+            var yaml = new YamlStream();
+            yaml.Load(input);
+         }
       }
       private const string Document =
          "en:" + "\n" +

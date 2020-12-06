@@ -218,7 +218,7 @@ namespace RimuTec.Faker.Tests
             var words = streetAddress.Split(' ');
             var suffixes = Fetch("address.street_suffix");
             var intersect = words.Intersect(suffixes);
-            Assert.Greater(intersect.Count(), 0, $"words were '{string.Join('|', words)}' - suffixes were '{string.Join('|', suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
+            Assert.Greater(intersect.Count(), 0, $"words were '{string.Join("|", words)}' - suffixes were '{string.Join("|", suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
         }
 
         [Test]
@@ -231,7 +231,7 @@ namespace RimuTec.Faker.Tests
             var words = streetAddress.Split(' ', ',');
             var suffixes = Fetch("address.street_suffix");
             var intersect = words.Intersect(suffixes);
-            Assert.Greater(intersect.Count(), 0, $"words were '{string.Join('|', words)}' - suffixes were '{string.Join('|', suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
+            Assert.Greater(intersect.Count(), 0, $"words were '{string.Join("|", words)}' - suffixes were '{string.Join("|", suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
         }
 
         [Test]
@@ -244,7 +244,7 @@ namespace RimuTec.Faker.Tests
             var words = streetAddress.Split(' ');
             var suffixes = Fetch("address.street_prefix"); // pl has no 'street_suffix'
             var intersect = words.Intersect(suffixes);
-            Assert.Greater(intersect.Count(), 0, $"words were '{string.Join('|', words)}' - suffixes were '{string.Join('|', suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
+            Assert.Greater(intersect.Count(), 0, $"words were '{string.Join("|", words)}' - suffixes were '{string.Join("|", suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
         }
 
         [Test]
@@ -257,7 +257,7 @@ namespace RimuTec.Faker.Tests
             var words = streetAddress.Split(' ');
             var suffixes = new string[] { "Apt.", "Zimmer", "OG" }; // de has no 'street_suffix'
             var intersect = words.Intersect(suffixes);
-            Assert.Greater(intersect.Count(), 0, $"words were '{string.Join('|', words)}' - suffixes were '{string.Join('|', suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
+            Assert.Greater(intersect.Count(), 0, $"words were '{string.Join("|", words)}' - suffixes were '{string.Join("|", suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
         }
 
         [Test]

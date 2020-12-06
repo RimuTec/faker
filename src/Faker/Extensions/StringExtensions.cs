@@ -200,10 +200,10 @@ namespace RimuTec.Faker.Extensions
          reg = Regex.Replace(reg, @"(\[[^\]]+\])\{(\d+),(\d+)\}", match =>
          {
             throw new NotImplementedException();
-            var toRepeat = match.Groups[1].Value;
-            var lowerBoundary = match.Groups[2].Value;
-            var uppderBoundary = match.Groups[3].Value;
-            return $"";
+            // var toRepeat = match.Groups[1].Value;
+            // var lowerBoundary = match.Groups[2].Value;
+            // var uppderBoundary = match.Groups[3].Value;
+            // return $"";
          }, RegexOptions.Compiled);
 
          // (12|34){1,2} becomes (12|34) or (12|34)(12|34)

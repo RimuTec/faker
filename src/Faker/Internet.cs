@@ -261,9 +261,9 @@ namespace RimuTec.Faker
       public static string Url(string host = null, string path = null, string scheme = "http")
       {
          var idn = new IdnMapping();
-         host ??= idn.GetAscii(DomainName());
+         host = host ?? idn.GetAscii(DomainName());
          var percentEncodedUserName = Uri.EscapeDataString(UserName());
-         path ??= $"/{percentEncodedUserName}";
+         path = path ?? $"/{percentEncodedUserName}";
          if (string.IsNullOrWhiteSpace(scheme))
          {
             throw new ArgumentOutOfRangeException(nameof(scheme), "Must not be empty string or white spaces only.");
