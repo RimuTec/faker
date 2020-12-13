@@ -150,7 +150,7 @@ namespace RimuTec.Faker
       }
 
       /// <summary>
-      /// Returns a street address, optionally with secondary address. Examples: "282 Kevin Brook" (no secondary) 
+      /// Returns a street address, optionally with secondary address. Examples: "282 Kevin Brook" (no secondary)
       /// or "156 Margarita Pass Apt. 057" (including secondary).
       /// </summary>
       /// <param name="includeSecondary">'true' to include, 'false' to exclude sencondary. Default value is 'false'.</param>
@@ -206,7 +206,7 @@ namespace RimuTec.Faker
       /// <exception cref="ArgumentOutOfRangeException">Parameter 'Abbreviation' has an invalid value.</exception>
       public static string ZipCode(string stateAbbreviation = "")
       {
-         if (stateAbbreviation == string.Empty)
+         if (stateAbbreviation?.Length == 0)
          {
             return Fetch("address.postcode").Regexify().Bothify();
          }
