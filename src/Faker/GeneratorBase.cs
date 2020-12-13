@@ -82,6 +82,7 @@ namespace RimuTec.Faker
             var locatorParts = locator.Split('.');
             return Fetch(fakerNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
          }
+         //#### // example: if 'de-CH' cannot be found it should fall back to 'de' and only failing that after that to 'en'.
          catch
          {
             // fall back to locale "en"
@@ -109,19 +110,13 @@ namespace RimuTec.Faker
 
          if (!Library._dictionary.ContainsKey(key))
          {
-            YamlNode fakerNode;
             var executingAssembly = Assembly.GetExecutingAssembly();
             string embeddedResourceFileName = $"RimuTec.Faker.locales.{fileName}.yml";
             if (executingAssembly.GetManifestResourceNames().Contains(embeddedResourceFileName))
             {
                using (var reader = YamlLoader.OpenText(embeddedResourceFileName))
                {
-                  var stream = new YamlStream();
-                  stream.Load(reader);
-                  YamlNode rootNode = stream.Documents[0].RootNode;
-                  var localeNode = rootNode[localeName];
-                  fakerNode = localeNode["faker"];
-                  Library._dictionary.Add(key, fakerNode);
+                  AddYamlToLibrary(localeName, key, reader);
                }
             }
             else
@@ -133,15 +128,27 @@ namespace RimuTec.Faker
                   var yamlContent = File.ReadAllText(fileNamePath);
                   using (var reader = new StringReader(yamlContent))
                   {
-                     var stream = new YamlStream();
-                     stream.Load(reader);
-                     YamlNode rootNode = stream.Documents[0].RootNode;
-                     var localeNode = rootNode[localeName];
-                     fakerNode = localeNode["faker"];
-                     Library._dictionary.Add(key, fakerNode);
+                     AddYamlToLibrary(localeName, key, reader);
                   }
                }
             }
+         }
+      }
+
+      private static void AddYamlToLibrary(string localeName, string key, TextReader reader)
+      {
+         var stream = new YamlStream();
+         stream.Load(reader);
+         YamlNode rootNode = stream.Documents[0].RootNode;
+         try
+         {
+            var localeNode = rootNode[localeName];
+            YamlNode fakerNode = localeNode["faker"];
+            Library._dictionary.Add(key, fakerNode);
+         }
+         catch
+         {
+            throw new FormatException($"File for locale '{localeName}' has an invalid format. [Code 201213-1413]");
          }
       }
 

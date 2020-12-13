@@ -90,7 +90,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string FullAddress()
       {
-         return Parse(Fetch("address.full_address"));
+         return Parse(Fetch("address.full_address")).Bothify();
       }
 
       /// <summary>
@@ -208,7 +208,7 @@ namespace RimuTec.Faker
       {
          if (stateAbbreviation == string.Empty)
          {
-            return Fetch("address.postcode").Bothify();
+            return Fetch("address.postcode").Regexify().Bothify();
          }
          try
          {

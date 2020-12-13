@@ -32,7 +32,7 @@ namespace RimuTec.Faker.Extensions
       }
 
       /// <summary>
-      /// Gets a string with every '?' replaced with a random character from the alphabet and 
+      /// Gets a string with every '?' replaced with a random character from the alphabet and
       /// with occurence of '#' replaced with a random number.
       /// </summary>
       /// <param name="s"></param>
@@ -114,8 +114,8 @@ namespace RimuTec.Faker.Extensions
       /// <returns></returns>
       internal static string ToPascalCasing(this string s)
       {
-         var parts = Regex.Split(s, $"[_]", RegexOptions.Compiled).Select(x => x.Capitalise());
-         return string.Join(string.Empty, parts);
+         var parts = Regex.Split(s, "[_]", RegexOptions.Compiled).Select(x => x.Capitalise());
+         return string.Concat(parts);
       }
 
       /// <summary>
@@ -174,7 +174,7 @@ namespace RimuTec.Faker.Extensions
       }
 
       /// <summary>
-      /// Given a regulare expression, attempt to generate a string that would match it. This is a rather
+      /// Given a regular expression, attempt to generate a string that would match it. This is a rather
       /// simple implementation, so don't be shocked if it blows up on you in a spectacular fashion. It does
       /// not handle ., *, unbound ranges such as {1,}, extensions such as (?=), character classes, some
       /// abbreviations for characters classes, and nested parantheses. I told you it was simple. :) It's
@@ -186,25 +186,21 @@ namespace RimuTec.Faker.Extensions
       /// <returns></returns>
       public static string Regexify(this string reg)
       {
+         // Trim slashes:
+         reg = reg.Trim('/');
+
          // Ditch the anchors
-         reg = Regex.Replace(reg, @"{^\/?\^?}", "", RegexOptions.Compiled);
-         reg = Regex.Replace(reg, @"{\$?\/?$}", "", RegexOptions.Compiled);
+         reg = Regex.Replace(reg, @"{^\/?\^?}", string.Empty, RegexOptions.Compiled);
+         reg = Regex.Replace(reg, @"{\$?\/?$}", string.Empty, RegexOptions.Compiled);
 
          // All {2} become {2,2}
-         reg = Regex.Replace(reg, @"\{(\d+)\}", @"{$1,$1}", RegexOptions.Compiled);
+         reg = Regex.Replace(reg, @"\{(\d+)\}", "{$1,$1}", RegexOptions.Compiled);
 
          // All ? become {0,1}
-         reg = Regex.Replace(reg, @"\?", @"{0,1}", RegexOptions.Compiled);
+         reg = Regex.Replace(reg, @"\?", "{0,1}", RegexOptions.Compiled);
 
          // [12]{1,2} becomes [12] or [12][12]
-         reg = Regex.Replace(reg, @"(\[[^\]]+\])\{(\d+),(\d+)\}", match =>
-         {
-            throw new NotImplementedException();
-            // var toRepeat = match.Groups[1].Value;
-            // var lowerBoundary = match.Groups[2].Value;
-            // var uppderBoundary = match.Groups[3].Value;
-            // return $"";
-         }, RegexOptions.Compiled);
+         reg = reg.ExpandRanges();
 
          // (12|34){1,2} becomes (12|34) or (12|34)(12|34)
          reg = Regex.Replace(reg, @"(\([^\)]+\))\{(\d+),(\d+)\}", match =>
@@ -221,22 +217,19 @@ namespace RimuTec.Faker.Extensions
                var lowerBoundary = int.Parse(match.Groups[2].Value);
                var upperBoundary = int.Parse(match.Groups[3].Value);
                int[] intRange = new Range2<int>(lowerBoundary, upperBoundary).AsArray();
-               var result = string.Join("", intRange.Sample().Times(x => toRepeat));
+               var result = string.Concat(intRange.Sample().Times(_ => toRepeat));
                return result;
             }, RegexOptions.Compiled);
 
          // (this|that) becomes 'this' or 'that'
-         reg = Regex.Replace(reg, @"\((.*?)\)", _ =>
-         {
-            throw new NotImplementedException();
-         }, RegexOptions.Compiled);
+         reg = ExpandOr(reg);
 
          // All A-Z inside of [] become C (or X, or whatever)
          reg = Regex.Replace(reg, @"\[([^\]]+)\]", match =>
          {
             var result = Regex.Replace(match.Value, @"(\w\-\w)", range =>
             {
-               var parts = Regex.Split(range.Value, @"-");
+               var parts = Regex.Split(range.Value, "-");
                var charRange = new Range2<char>(parts[0][0], parts[1][0]);
                return $"{charRange.Sample()}";
             });
@@ -250,9 +243,32 @@ namespace RimuTec.Faker.Extensions
             return $"{charRange.Sample()}";
          }, RegexOptions.Compiled);
 
-         reg = Regex.Replace(reg, Regex.Escape(@"\d"), match => $"{Numbers.Sample()}", RegexOptions.Compiled);
-         reg = Regex.Replace(reg, Regex.Escape(@"\w"), match => $"{Letters.Sample().ToString()}", RegexOptions.Compiled);
+         reg = Regex.Replace(reg, Regex.Escape(@"\d"), _ => $"{Numbers.Sample()}", RegexOptions.Compiled);
+         reg = Regex.Replace(reg, Regex.Escape(@"\w"), _ => $"{Letters.Sample()}", RegexOptions.Compiled);
          return reg;
+      }
+
+      internal static string ExpandOr(this string reg)
+      {
+         // (this|that) becomes 'this' or 'that'
+         return Regex.Replace(reg, @"\((.*?)\)", match =>
+         {
+            var choices = match.Groups[1].Value.Split('|');
+            return choices.Sample();
+         }, RegexOptions.Compiled);
+      }
+
+      internal static string ExpandRanges(this string reg)
+      {
+         // [12]{1,2} becomes [12] or [12][12]
+         return Regex.Replace(reg, @"(\[[^\]]+\])\{(\d+),(\d+)\}", match =>
+         {
+            var toRepeat = match.Groups[1].Value;
+            var lowerBoundary = int.Parse(match.Groups[2].Value);
+            var upperBoundary = int.Parse(match.Groups[3].Value);
+            int[] intRange = new Range2<int>(lowerBoundary, upperBoundary).AsArray();
+            return string.Concat(intRange.Sample().Times(_ => toRepeat));
+         }, RegexOptions.Compiled);
       }
 
       private static readonly int[] Numbers = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };

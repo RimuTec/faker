@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Linq;
 
 namespace RimuTec.Faker.Tests
@@ -82,6 +83,15 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(citySuffix));
          Assert.IsTrue(citySuffixes.Contains(citySuffix));
          Assert.Greater(citySuffixes.Count(), 0);
+      }
+
+      [Test]
+      public void TryLoadingInvalidLocaleFile()
+      {
+         const string locale = "no";
+         Config.Locale = locale; // file no.yml contains locale 'no-NO' which is different
+         var ex = Assert.Throws<FormatException>(() => Address.ZipCode());
+         Assert.AreEqual($"File for locale '{locale}' has an invalid format. [Code 201213-1413]", ex.Message);
       }
    }
 }
