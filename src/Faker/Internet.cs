@@ -176,6 +176,9 @@ namespace RimuTec.Faker
                }
             }
             temp = sb.ToString();
+            if(temp == temp.ToUpper()) {
+               temp = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".Sample() + temp.Substring(1);
+            }
          }
          if (specialChars)
          {

@@ -6,14 +6,30 @@ using System.Text.RegularExpressions;
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
+   [TestFixtureSource(typeof(DefaultFixtureData), nameof(DefaultFixtureData.FixtureParams))]
    public class InternetTests : FixtureBase
    {
+      public InternetTests(string locale)
+      {
+         Locale = locale;
+      }
+
+      [SetUp]
+      public void SetUp()
+      {
+         Config.Locale = Locale;
+      }
+
+      private string Locale { get; }
+
       [Test]
       public void DomainName_HappyDays()
       {
          var domainName = Internet.DomainName();
          AllAssertions(domainName);
-         Assert.AreEqual(1, RegexMatchesCount(domainName, @"\."));
+         Assert.GreaterOrEqual(RegexMatchesCount(domainName, @"\."), 1,
+            $"Locale {Locale}. Invalid value '{domainName}'"
+         );
       }
 
       [Test]
@@ -273,7 +289,9 @@ namespace RimuTec.Faker.Tests
       public void Password_With_UpperCase_Letters()
       {
          var password = Internet.Password(mixCase: true, specialChars: false);
-         Assert.Greater(RegexMatchesCount(password, @"[A-Z]"), 0, $"{nameof(password)} is '{password}'");
+         Assert.Greater(RegexMatchesCount(password, "[A-Z]"), 0,
+            $"Locale '{Locale}'. Invalid value is '{password}'"
+         );
       }
 
       [Test]
@@ -320,10 +338,13 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void SafeEmail_With_Empty_String()
       {
+         const string emailRegex = "^(([^<>()\\[\\]\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\"]+)*)|(\".+\"))@(([^<>()[\\]\\.,;:\\s@\"]+\\.)+[^<>()[\\]\\.,;:\\s@\"]{2,})";
+         // Source for regex: https://stackoverflow.com/a/37320735/411428
          var expected = new string[] { "@example.org", "@example.net", "@example.com" };
          var emailAddress = Internet.SafeEmail(string.Empty);
          AllAssertions(emailAddress);
-         Assert.IsTrue(Regex.Match(emailAddress, @".+.+@.+\.\w+").Success, $"{nameof(emailAddress)} is '{emailAddress}'");
+         Assert.IsTrue(Regex.Match(emailAddress, emailRegex).Success,
+            $"Locale {Locale}. Invalid value is '{emailAddress}'.");
          Assert.IsTrue(expected.Any(x => emailAddress.EndsWith(x)), $"{nameof(emailAddress)} is '{emailAddress}'");
       }
 
@@ -332,19 +353,21 @@ namespace RimuTec.Faker.Tests
       {
          var slug = Internet.Slug();
          Assert.IsFalse(string.IsNullOrWhiteSpace(slug));
-         Assert.AreEqual(0, RegexMatchesCount(slug, @"[A-Z]"));
+         Assert.AreEqual(0, RegexMatchesCount(slug, "[A-Z]"));
          Assert.AreEqual(0, RegexMatchesCount(slug, @"\s"));
-         Assert.AreEqual(1, RegexMatchesCount(slug, @"[_.-]"));
+         Assert.GreaterOrEqual(RegexMatchesCount(slug, "[_.-]"), 1,
+            $"Locale {Locale}. Invalid value '{slug}'"
+         );
       }
 
       [Test]
       public void Slug_With_Words()
       {
-         var desiredWords = "the answer is fourty two";
+         const string desiredWords = "the answer is fourty two";
          var slug = Internet.Slug(words: desiredWords);
          var words = desiredWords.Split(' ');
          Assert.AreEqual(5, words.Count(x => slug.Contains(x)));
-         Assert.AreEqual(4, RegexMatchesCount(slug, @"[_.-]"));
+         Assert.AreEqual(4, RegexMatchesCount(slug, "[_.-]"));
       }
 
       [Test]

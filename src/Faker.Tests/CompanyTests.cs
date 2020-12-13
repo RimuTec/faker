@@ -282,7 +282,7 @@ namespace RimuTec.Faker.Tests
             yield return new TestFixtureData("ee", null);
             yield return new TestFixtureData("en", null);
             yield return new TestFixtureData("en-AU", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), @"^[-A-Za-z,' ]+(Pty Ltd|and Sons|Corp|Group|Brothers|Partners)?$" }
+               { nameof(CompanyTests.Name_HappyDays), "^[-A-Za-z,' ]+(Pty Ltd|and Sons|Corp|Group|Brothers|Partners)?$" }
             });
             yield return new TestFixtureData("en-au-ocker", null);
             yield return new TestFixtureData("en-BORK", null);
