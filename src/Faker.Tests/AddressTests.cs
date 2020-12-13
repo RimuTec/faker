@@ -579,16 +579,18 @@ namespace RimuTec.Faker.Tests
                { nameof(AddressTests.CitySuffix_HappyDays), "^$" }
             });
             yield return new TestFixtureData("pt-BR", new Dictionary<string, string>{
-               { nameof(AddressTests.Postcode_With_Default_Value), "^[0-9]{5}-[0-9]{3}$" },
-               { nameof(AddressTests.CityPrefix_HappyDays), "^[A-Z][a-z]+ ?[a-zí]+$" },
-               { nameof(AddressTests.CitySuffix_HappyDays), "^ d[oe]{1} [DNS][a-z]+( Senhora)?$" }
+               { nameof(AddressTests.BuildingNumber_HappyDays), "[0-9]{3,5}|s/n" },
+               { nameof(AddressTests.CityPrefix_HappyDays), "^[A-Z][a-zí]+ ?[a-zí]+$" },
+               { nameof(AddressTests.CitySuffix_HappyDays), "^ d[oe]{1} [DNS][a-z]+( Senhora)?$" },
+               { nameof(AddressTests.Postcode_With_Default_Value), "^[0-9]{5}-[0-9]{3}$" }
             });
             yield return new TestFixtureData("ru", new Dictionary<string, string>{
                { nameof(AddressTests.Postcode_With_Default_Value), "^[0-9]{6}$" },
-               //{ nameof(AddressTests.CityPrefix_HappyDays), "^[A-Z][a-z]+ ?[a-zí]+$" },
-               //{ nameof(AddressTests.CitySuffix_HappyDays), "^ d[oe]{1} [DNS][a-z]+( Senhora)?$" }
             });
-            // yield return new TestFixtureData("sk", null);
+            yield return new TestFixtureData("sk", new Dictionary<string, string>{
+               { nameof(AddressTests.BuildingNumber_HappyDays), "[0-9]{1,3}" },
+               { nameof(AddressTests.Postcode_With_Default_Value), "^[0-9]{5}|[0-9]{2} [0-9]{3}|[0-9]{3} [0-9]{2}$" },
+            });
             // yield return new TestFixtureData("sv", null);
             // yield return new TestFixtureData("tr", null);
             // yield return new TestFixtureData("uk", null);
