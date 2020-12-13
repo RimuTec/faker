@@ -444,7 +444,7 @@ namespace RimuTec.Faker.Tests
             yield return new TestFixtureData("ca", null);
             yield return new TestFixtureData("ca-CAT", new Dictionary<string, string>{
                { nameof(AddressTests.BuildingNumber_HappyDays), "^( s/n.)|(, [0-9]{1,2})|( [0-9]{1,2})$" },
-               { nameof(AddressTests.StreetSuffix_HappyDays), "^[A-Z][a-zç]+$"}
+               { nameof(AddressTests.StreetSuffix_HappyDays), "^[A-Z][a-zçí]+$"}
             });
             yield return new TestFixtureData("da-DK", new Dictionary<string, string>{
                { nameof(AddressTests.BuildingNumber_HappyDays), "[0-9]{1,3}" },
@@ -486,7 +486,8 @@ namespace RimuTec.Faker.Tests
                { nameof(AddressTests.BuildingNumber_HappyDays), "[0-9]{2,4}" },
                { nameof(AddressTests.CityPrefix_HappyDays), "^[A-Z][a-z]+( [A-Z][a-z]+)?$"},
                { nameof(AddressTests.Postcode_With_Default_Value), "^[0-7][0-9]{3}$" },
-               { nameof(AddressTests.StateAbbr_HappyDays), "^NSW|QLD|NT|SA|WA|TAS|ACT|VIC$" }
+               { nameof(AddressTests.StateAbbr_HappyDays), "^NSW|QLD|NT|SA|WA|TAS|ACT|VIC$" },
+               { nameof(AddressTests.StreetSuffix_HappyDays), $"^{"Avenue, Boulevard, Circle, Circuit, Court, Crescent, Crest, Drive, Estate Dr, Grove, Hill, Island, Junction, Knoll, Lane, Loop, Mall, Manor, Meadow, Mews, Parade, Parkway, Pass, Place, Plaza, Ridge, Road, Run, Square, Station St, Street, Summit, Terrace, Track, Trail, View Rd, Way".Replace(", ", "|")}$"}
             });
             yield return new TestFixtureData("en-BORK", null);
             yield return new TestFixtureData("en-CA", new Dictionary<string, string>{
