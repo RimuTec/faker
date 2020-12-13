@@ -5,7 +5,7 @@ using System.Collections;
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
-   [TestFixtureSource(typeof(ColorTestsFixtureData), nameof(ColorTestsFixtureData.FixtureParams))]
+   [TestFixtureSource(typeof(DateTestsFixtureData), nameof(DateTestsFixtureData.FixtureParams))]
    public class DateTests
    {
       public DateTests(string locale)
@@ -20,6 +20,7 @@ namespace RimuTec.Faker.Tests
       }
 
       private string Locale { get; }
+
       [Test]
       public void Backward_With_Days()
       {
