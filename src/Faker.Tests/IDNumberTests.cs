@@ -5,8 +5,22 @@ using System.Text.RegularExpressions;
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
+   [TestFixtureSource(typeof(DefaultFixtureData), nameof(DefaultFixtureData.FixtureParams))]
    public class IDNumberTests
    {
+      public IDNumberTests(string locale)
+      {
+         Locale = locale;
+      }
+
+      [SetUp]
+      public void SetUp()
+      {
+         Config.Locale = Locale;
+      }
+
+      private string Locale { get; }
+
       [Test]
       public void Valid_SSN()
       {
