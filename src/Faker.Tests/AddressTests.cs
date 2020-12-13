@@ -643,7 +643,10 @@ namespace RimuTec.Faker.Tests
                { nameof(AddressTests.StateAbbr_HappyDays), "^$" },
                { nameof(AddressTests.StreetSuffix_HappyDays), "^$"}
             });
-            // yield return new TestFixtureData("vi", null);
+            yield return new TestFixtureData("vi", new Dictionary<string, string>{
+               //{ nameof(AddressTests.BuildingNumber_HappyDays), "[0-9]{1,3}" },
+               { nameof(AddressTests.Postcode_With_Default_Value), "^[A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}$" },
+            });
             // yield return new TestFixtureData("zh-CN", null);
             // yield return new TestFixtureData("zh-TW", null);
          }
