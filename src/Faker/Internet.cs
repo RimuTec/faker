@@ -182,9 +182,9 @@ namespace RimuTec.Faker
          }
          if (specialChars)
          {
-            var chars = "!@#$%^&*";
+            const string chars = "!@#$%^&*";
             var sb = new StringBuilder(temp);
-            RandomNumber.Next(1, minLength).TimesDo((Action<int>)(i => sb[i] = chars.Sample()[0]));
+            RandomNumber.Next(1, minLength).TimesDo(i => sb[i] = chars.Sample()[0]);
             temp = sb.ToString();
          }
          return temp;
@@ -194,15 +194,28 @@ namespace RimuTec.Faker
       /// Generates a private IP v4 address. The result will not include the CIDR prefix. Example: "10.0.0.1"
       /// </summary>
       /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
-      /// <returns></returns>
+      /// <returns>A private IP Address as a string.</returns>
       public static string PrivateIPv4Address()
       {
-         string addr = null;
-         do
+         switch(RandomNumber.Next(1,8))
          {
-            addr = IPv4Address();
-         } while (!IsInPrivateNet(addr));
-         return addr;
+            case 1: // 10.0.0.0    - 10.255.255.255
+               return $"10.{RandomNumber.Next(255)}.{RandomNumber.Next(255)}.{RandomNumber.Next(1,255)}";
+            case 2: // 100.64.0.0  - 100.127.255.255
+               return $"100.{RandomNumber.Next(64,127)}.{RandomNumber.Next(255)}.{RandomNumber.Next(1,255)}";
+            case 3: // 127.0.0.0   - 127.255.255.255
+               return $"127.{RandomNumber.Next(255)}.{RandomNumber.Next(255)}.{RandomNumber.Next(1,255)}";
+            case 4: // 169.254.0.0 - 169.254.255.255
+               return $"169.254.{RandomNumber.Next(255)}.{RandomNumber.Next(1,255)}";
+            case 5: // 172.16.0.0  - 172.31.255.255
+               return $"172.{RandomNumber.Next(16,31)}.{RandomNumber.Next(255)}.{RandomNumber.Next(1,255)}";
+            case 6: // 192.0.0.0   - 192.0.0.255
+               return $"192.0.0.{RandomNumber.Next(1,255)}";
+            case 7: // 192.168.0.0   - 192.168.255.255
+               return $"192.168.{RandomNumber.Next(255)}.{RandomNumber.Next(1,255)}";
+            default: // 192.168.0.0   - 192.168.255.255
+               return $"192.{RandomNumber.Next(18,19)}.{RandomNumber.Next(255)}.{RandomNumber.Next(1,255)}";
+         }
       }
 
       /// <summary>
@@ -211,10 +224,10 @@ namespace RimuTec.Faker
       /// Example: "24.29.18.175"
       /// </summary>
       /// <remarks>CIDR = Classless Inter-Domain Routing.</remarks>
-      /// <returns></returns>
+      /// <returns>A public IP address as a string.</returns>
       public static string PublicIPv4Address()
       {
-         string addr = null;
+         string addr;
          do
          {
             addr = IPv4Address();
@@ -304,30 +317,28 @@ namespace RimuTec.Faker
       /// </summary>
       /// <param name="name">Name to be used instead of a random one.</param>
       /// <param name="separators">Separators to consider. May not appear in result. Default are '.' and '_'.</param>
-      /// <returns></returns>
+      /// <returns>A user name.</returns>
       public static string UserName(string name = null, string separators = null)
       {
-         string result;
          if (separators == null)
          {
-            separators = "._"; 
+            separators = "._";
          }
          var separator = separators.Sample(); // if space is sampled, it will be removed by Prepare()
          if (name != null)
          {
             IEnumerable<string> parts = name.Scan(@"\w+").Shuffle();
-            result = string.Join(separator, parts).ToLower();
+            return string.Join(separator, parts).ToLower();
          }
          else
          {
             string firstNamePrepared = Name.FirstName().Prepare();
             var candidates = new List<string> {
                firstNamePrepared,
-               $"{firstNamePrepared}{separator}{Name.LastName().Prepare()}"
+               firstNamePrepared + separator + Name.LastName().Prepare()
             };
-            result = Parse(candidates.Sample());
+            return Parse(candidates.Sample());
          }
-         return result;
       }
 
       /// <summary>

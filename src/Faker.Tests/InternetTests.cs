@@ -206,8 +206,8 @@ namespace RimuTec.Faker.Tests
          const string prefix = "55:44:33";
          var macAddress = Internet.MacAddress(prefix);
          Assert.IsTrue(macAddress.StartsWith(prefix + ":"), $"{nameof(macAddress)} is '{macAddress}'");
-         Assert.AreEqual(5, RegexMatchesCount(macAddress, $":"));
-         Assert.AreEqual(12, RegexMatchesCount(macAddress, $"[0-9a-f]"));
+         Assert.AreEqual(5, RegexMatchesCount(macAddress, ":"));
+         Assert.AreEqual(12, RegexMatchesCount(macAddress, "[0-9a-f]"));
       }
 
       [Test]
@@ -510,48 +510,27 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void UserName_With_Given_Separators_LocaleEn()
+      public void UserName_With_Given_Separators()
       {
-         Config.Locale = "en";
-         string separators = "-_+";
+         const string separators = "-_+";
          var userName = Internet.UserName(separators: separators);
          AllAssertions(userName);
-         Assert.GreaterOrEqual(1, RegexMatchesCount(userName, $@"[{separators}]"));
+         Assert.GreaterOrEqual(1, RegexMatchesCount(userName, $"[{separators}]"));
       }
 
       [Test]
-      public void UserName_With_Given_Separators_LocaleRu()
+      public void UserName_With_No_Separator_Guaranteed()
       {
-         Config.Locale = "ru";
-         string separators = "-_+";
-         var userName = Internet.UserName(separators: separators);
-         AllAssertions(userName);
-         Assert.GreaterOrEqual(1, RegexMatchesCount(userName, $@"[{separators}]"));
-      }
-
-      [Test]
-      public void UserName_With_No_Separator_Guaranteed_LocaleEn()
-      {
-         Config.Locale = "en";
          var userName = Internet.UserName(null, string.Empty);
          AllAssertions(userName);
-         Assert.AreEqual(0, RegexMatchesCount(userName, @"[-_+]"));
-      }
-
-      [Test]
-      public void UserName_With_No_Separator_Guaranteed_LocaleRu()
-      {
-         Config.Locale = "ru";
-         var userName = Internet.UserName(null, string.Empty);
-         AllAssertions(userName);
-         Assert.AreEqual(0, RegexMatchesCount(userName, @"[-_+]"), $"userName was '{userName}'");
+         Assert.AreEqual(0, RegexMatchesCount(userName, "[-_+]"), $"userName was '{userName}'");
       }
 
       [Test]
       public void UserName_With_String_Argument()
       {
-         var firstName = "bo";
-         var lastName = "peep";
+         const string firstName = "bo";
+         const string lastName = "peep";
          var tries = 10;
          while (tries-- > 0)
          {
@@ -600,7 +579,7 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void UserName_With_Common_Lengths()
       {
-         for (int i = 1; i < 32; i++)
+         for (int i = 8; i < 32; i++)
          {
             for (int j = i; j < 33; j++)
             {
