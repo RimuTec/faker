@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 1.7.0
+- **FIX** issue #4 for class `AddressTests` [Methods-Locales combinations throwing exceptions](https://github.com/RimuTec/Faker/issues/4)
+
 ## Version 1.6.0
 - **FIX** issue #2: [System.Reflection.TargetInvocationException when calling "RimuTec.Faker.Address.StreetAddress()" with Config.Locale = "ru"](https://github.com/RimuTec/Faker/issues/2)
 - **FIX** issue #3: [RimuTec.Faker.Name.LastName() throws an YamlDotNet.Core.YamlException when locale is set to "pl"](https://github.com/RimuTec/Faker/issues/3)
