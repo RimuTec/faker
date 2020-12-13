@@ -63,6 +63,7 @@ namespace RimuTec.Faker.Tests
          Assert.AreEqual(3, rgb.Length);
       }
    }
+
    public static class ColorTestsFixtureData
    {
       public static IEnumerable FixtureParams

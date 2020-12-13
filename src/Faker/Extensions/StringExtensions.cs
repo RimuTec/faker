@@ -154,7 +154,7 @@ namespace RimuTec.Faker.Extensions
 
       private static string FixUmlauts(this string s)
       {
-         var result = Regex.Replace(s, @"[äöüß]", match =>
+         var result = Regex.Replace(s, "[äöüß]", match =>
          {
             switch (match.Value.ToLower())
             {

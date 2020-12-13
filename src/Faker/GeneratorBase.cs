@@ -28,7 +28,7 @@ namespace RimuTec.Faker
       internal static string Parse(string template)
       {
          var clazz = new StackFrame(1).GetMethod().DeclaringType; // https://stackoverflow.com/a/171974/411428
-         var matches = Regex.Matches(template, @"#{([a-zA-Z._]{1,})}");
+         var matches = Regex.Matches(template, "#{([a-zA-Z._]{1,})}");
          for (var i = 0; i < matches.Count; i++)
          {
             string placeHolder = matches[i].Value;
@@ -61,9 +61,20 @@ namespace RimuTec.Faker
                replacement = Fetch(token);
             }
 
-            template = template.Replace(placeHolder, replacement);
+            template = ReplaceFirst(template, placeHolder, replacement);
          }
          return template;
+      }
+
+      private static string ReplaceFirst(string text, string search, string replace)
+      {
+         // Source for this method: https://stackoverflow.com/a/8809437/411428
+         int pos = text.IndexOf(search);
+         if (pos < 0)
+         {
+            return text;
+         }
+         return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
       }
 
       internal static string Fetch(string locator)
