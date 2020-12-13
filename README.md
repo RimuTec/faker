@@ -1,7 +1,7 @@
 # Faker
 RimuTec.Faker provides generators for fake, yet realistically looking data. Use it for testing, for creating screenshots to show off your cool software, and similar more. Generators include Lorem, Name, Address, Date, Company, Business, and similar more.
 
-RimuTec.Faker is a C# port of the Ruby Faker gem [https://github.com/stympy/faker](https://github.com/stympy/faker). It also has some generators and methods that are not in the original Ruby Faker, e.g. Weather.
+RimuTec.Faker is a C# port of the Ruby Faker gem [https://github.com/faker-ruby/faker](https://github.com/faker-ruby/faker). It also has some generators and methods that are not in the original Ruby Faker, e.g. Weather.
 
 RimuTec.Faker supports the following targets:
 - .NET Standard 2.0 (netstandard2.0)
@@ -83,7 +83,7 @@ The following 51 locales are supported out of the box (no extra files needed):
 
 bg, ca, ca-CAT, da-DK, de, de-AT, de-CH, ee, en, en-AU, en-au-ocker, en-BORK, en-CA, en-GB, en-IND, en-MS, en-NEP, en-NG, en-NZ, en-PAK, en-SG, en-UG, en-US, en-ZA, es, es-MX, fa, fi-FI, fr, fr-CA, fr-CH, he, id, it, ja, ko, lv, nb-NO, nl, no, pl, pt, pt-BR, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
 
-To set the locale use something like `Config.Locale = "de";`.
+To set the locale in C# use something like `Config.Locale = "de";`.
 
 In addition you can use custom locale files for methods that are marked with an asterisk. Ensure that the custom locale file (yml) is copied to the directory that also contains RimuTec.Faker.dll, usually the output directory of your test project.
 
@@ -101,4 +101,4 @@ Note: We use Visual Studio 2019 Community Edition. Other versions and editions m
 If you encounter issues with building the library please file an issue on GitHub, ideally with what you tried, what the expected and what the actual outcome was. Thank you!
 
 # Credits
-This project uses yaml source files from the [Ruby Faker gem](https://github.com/stympy/faker), licensed under the MIT license. Thank you to all their contributors!
+This project uses yaml source files from the [Ruby Faker gem](https://github.com/faker-ruby/faker), licensed under the MIT license. Thank you to all their contributors!
