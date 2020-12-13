@@ -578,7 +578,11 @@ namespace RimuTec.Faker.Tests
                { nameof(AddressTests.CityPrefix_HappyDays), "^$" },
                { nameof(AddressTests.CitySuffix_HappyDays), "^$" }
             });
-            // yield return new TestFixtureData("pt-BR", null);
+            yield return new TestFixtureData("pt-BR", new Dictionary<string, string>{
+               { nameof(AddressTests.Postcode_With_Default_Value), "^[0-9]{5}-[0-9]{3}$" },
+               { nameof(AddressTests.CityPrefix_HappyDays), "^[A-Z][a-z]+ ?[a-zí]+$" },
+               { nameof(AddressTests.CitySuffix_HappyDays), "^ d[oe]{1} [DNS][a-z]+( Senhora)?$" }
+            });
             // yield return new TestFixtureData("ru", null);
             // yield return new TestFixtureData("sk", null);
             // yield return new TestFixtureData("sv", null);
