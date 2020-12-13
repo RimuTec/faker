@@ -230,7 +230,7 @@ namespace RimuTec.Faker.Tests
       {
          var stateAbbr = Address.StateAbbr();
          Assert.AreEqual(1, Regex.Matches(stateAbbr, DefaultRegex[nameof(StateAbbr_HappyDays)]).Count,
-            $"Locale {Locale}: Incorrect value is: '{stateAbbr}'. Regex used: '{DefaultRegex[nameof(StateAbbr_HappyDays)]}'");
+            $"Locale '{Locale}': Incorrect value is: '{stateAbbr}'. Regex used: '{DefaultRegex[nameof(StateAbbr_HappyDays)]}'");
          // Assert.IsFalse(string.IsNullOrWhiteSpace(stateAbbr));
          // Assert.IsFalse(stateAbbr.Contains("#"));
          // Assert.IsFalse(stateAbbr.Contains("?"));
@@ -351,11 +351,6 @@ namespace RimuTec.Faker.Tests
          Assert.AreEqual(1, Regex.Matches(suffix, DefaultRegex[nameof(StreetSuffix_HappyDays)]).Count,
             $"Locale '{Locale}'. Value was '{suffix}'. Regex used '{DefaultRegex[nameof(StreetSuffix_HappyDays)]}'"
          );
-         // Assert.IsFalse(string.IsNullOrWhiteSpace(suffix));
-         // Assert.IsFalse(suffix.Contains("#"));
-         // Assert.IsFalse(suffix.Contains("?"));
-         // var suffixes = Fetch("address.street_suffix");
-         // Assert.IsTrue(suffixes.Contains(suffix));
       }
 
       [Test]
@@ -449,7 +444,8 @@ namespace RimuTec.Faker.Tests
          {
             yield return new TestFixtureData("ca", null);
             yield return new TestFixtureData("ca-CAT", new Dictionary<string, string>{
-               { nameof(AddressTests.BuildingNumber_HappyDays), "( s/n.)|(, [0-9]{1,2})|( [0-9]{1,2})" }
+               { nameof(AddressTests.BuildingNumber_HappyDays), "^( s/n.)|(, [0-9]{1,2})|( [0-9]{1,2})$" },
+               { nameof(AddressTests.StreetSuffix_HappyDays), "^[A-Z][a-zç]+$"}
             });
             yield return new TestFixtureData("da-DK", new Dictionary<string, string>{
                { nameof(AddressTests.BuildingNumber_HappyDays), "[0-9]{1,3}" },
@@ -636,18 +632,23 @@ namespace RimuTec.Faker.Tests
             });
             yield return new TestFixtureData("tr", null);
             yield return new TestFixtureData("uk", new Dictionary<string, string>{
-               //{ nameof(AddressTests.Postcode_With_Default_Value), "^[0-9]{4}$" },
-               { nameof(AddressTests.BuildingNumber_HappyDays), "[0-9]{1,2}|1[0-9]{2}" },
+               { nameof(AddressTests.BuildingNumber_HappyDays), "^[0-9]{1,2}|1[0-9]{2}$" },
                { nameof(AddressTests.CityPrefix_HappyDays), "^$" },
                { nameof(AddressTests.CitySuffix_HappyDays), "^$" },
                { nameof(AddressTests.StateAbbr_HappyDays), "^$" },
                { nameof(AddressTests.StreetSuffix_HappyDays), "^$"}
             });
             yield return new TestFixtureData("vi", new Dictionary<string, string>{
-               //{ nameof(AddressTests.BuildingNumber_HappyDays), "[0-9]{1,3}" },
                { nameof(AddressTests.Postcode_With_Default_Value), "^[A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}$" },
             });
-            // yield return new TestFixtureData("zh-CN", null);
+            yield return new TestFixtureData("zh-CN", new Dictionary<string, string>{
+               { nameof(AddressTests.BuildingNumber_HappyDays), "^[0-9]{1,5}$" },
+               { nameof(AddressTests.CityPrefix_HappyDays), "^长|上|南|西|北|诸|宁|珠|武|衡|成|福|厦|贵|吉|海|太|济|安|吉|包$" },
+               { nameof(AddressTests.CitySuffix_HappyDays), "^沙市|京市|宁市|安市|乡县|海市|码市|汉市|阳市|都市|州市|门市|阳市|口市|原市|南市|徽市|林市|头市$" },
+               { nameof(AddressTests.Postcode_With_Default_Value), "^[0-9]{6}$" },
+               { nameof(AddressTests.StateAbbr_HappyDays), "^京|沪|津|渝|黑|吉|辽|蒙|冀|新|甘|青|陕|宁|豫|鲁|晋|皖|鄂|湘|苏|川|黔|滇|桂|藏|浙|赣|粤|闽|琼|港|澳$" },
+               { nameof(AddressTests.StreetSuffix_HappyDays), "^巷|街|路|桥|侬|旁|中心|栋$"}
+            });
             // yield return new TestFixtureData("zh-TW", null);
          }
       }
