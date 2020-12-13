@@ -569,7 +569,9 @@ namespace RimuTec.Faker.Tests
             });
             // Not testing locale 'no' since the file no.yml has an incorrect format at the time of writing.
             //yield return new TestFixtureData("no", null);
-            //yield return new TestFixtureData("pl", null);
+            yield return new TestFixtureData("pl", new Dictionary<string, string>{
+               { nameof(AddressTests.Postcode_With_Default_Value), "^[0-9]{2}-[0-9]{3}$" }
+            });
             // yield return new TestFixtureData("pt", null);
             // yield return new TestFixtureData("pt-BR", null);
             // yield return new TestFixtureData("ru", null);
