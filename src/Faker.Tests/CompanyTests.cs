@@ -293,7 +293,7 @@ namespace RimuTec.Faker.Tests
             yield return new TestFixtureData("en-NEP", null);
             yield return new TestFixtureData("en-NG", null);
             yield return new TestFixtureData("en-NZ", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), @"^[-A-Za-z,' ]+(Ltd|Ltc|and Sons|Group|Brothers|Partners)?$" }
+               { nameof(CompanyTests.Name_HappyDays), "^[-A-Za-z,' ]+(Ltd|Ltc|and Sons|Group|Brothers|Partners)?$" }
             });
             yield return new TestFixtureData("en-PAK", null);
             yield return new TestFixtureData("en-SG", null);
@@ -301,10 +301,10 @@ namespace RimuTec.Faker.Tests
             yield return new TestFixtureData("en-US", null);
             yield return new TestFixtureData("en-ZA", null);
             yield return new TestFixtureData("es", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), @"^[A-Za-záéíúñ, ]+(S.L.|e Hijos|S.A.|Hermanos)?$" }
+               { nameof(CompanyTests.Name_HappyDays), "^[A-Za-záéíóúñ, ]+(S.L.|e Hijos|S.A.|Hermanos)?$" }
             });
             yield return new TestFixtureData("es-MX", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), @"^(Grupo|Sociedad|Grupo Financiero|Colegio|Fondo)?[A-ZÁa-záéíúñ, ]+(S.A.|S.A. de C.V.|S.R.L|S.A.B.|S.C.)?$" },
+               { nameof(CompanyTests.Name_HappyDays), "^(Grupo|Sociedad|Grupo Financiero|Colegio|Fondo)?[A-ZÁa-záéíóúñ, ]+(S.A.|S.A. de C.V.|S.R.L|S.A.B.|S.C.)?$" },
             });
             yield return new TestFixtureData("fa", new Dictionary<string, string>{
                { nameof(CompanyTests.Name_HappyDays), @"^[-\p{IsArabic}\u200CA-Za-z, ]+$" }
@@ -336,7 +336,7 @@ namespace RimuTec.Faker.Tests
             //yield return new TestFixtureData("no", null);
 
             yield return new TestFixtureData("pl", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), "^[-A-ZŻa-ząłńóśż, ]+(S.A.|sp. z o.o.|sp. j.|sp.p.|sp. k.|S.K.A.)?$" },
+               { nameof(CompanyTests.Name_HappyDays), "^[-A-ZŚŻa-ząęłńóśż, ]+(S.A.|sp. z o.o.|sp. j.|sp.p.|sp. k.|S.K.A.)?$" },
             });
             yield return new TestFixtureData("pt", null);
             yield return new TestFixtureData("pt-BR", new Dictionary<string, string>{
