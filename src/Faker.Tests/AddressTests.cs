@@ -592,9 +592,10 @@ namespace RimuTec.Faker.Tests
                { nameof(AddressTests.Postcode_With_Default_Value), "^[0-9]{5}|[0-9]{2} [0-9]{3}|[0-9]{3} [0-9]{2}$" },
             });
             yield return new TestFixtureData("sv", new Dictionary<string, string>{
+               { nameof(AddressTests.BuildingNumber_HappyDays), "[0-9]{1,3}" },
                { nameof(AddressTests.CityPrefix_HappyDays), "^[A-ZÖ][a-zäö]+$" },
             });
-            // yield return new TestFixtureData("tr", null);
+            yield return new TestFixtureData("tr", null);
             // yield return new TestFixtureData("uk", null);
             // yield return new TestFixtureData("vi", null);
             // yield return new TestFixtureData("zh-CN", null);
