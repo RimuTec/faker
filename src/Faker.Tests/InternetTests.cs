@@ -55,23 +55,20 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void Email_With_Specific_Name_LocaleEn()
+      public void Email_With_Specific_Name()
       {
-         Config.Locale = "en";
          var firstName = Name.FirstName(); // can also be any other name
+         var pattern = MakePattern(firstName);
          var emailAddress = Internet.Email(firstName);
          AllAssertions(emailAddress);
-         Assert.IsTrue(emailAddress.StartsWith($"{firstName.ToLower()}@"), $"Email address is: '{emailAddress}'");
+         Assert.IsTrue(Regex.Match(emailAddress, pattern).Success,
+            $"Locale {Locale}. First name is '{firstName}' Email address is: '{emailAddress}'. Pattern is '{pattern}'"
+         );
       }
 
-      [Test]
-      public void Email_With_Specific_Name_LocaleRu()
-      {
-         Config.Locale = "ru";
-         var firstName = Name.FirstName(); // can also be any other name
-         var emailAddress = Internet.Email(firstName);
-         AllAssertions(emailAddress);
-         Assert.IsTrue(emailAddress.StartsWith($"{firstName.ToLower()}@"), $"Email address is: '{emailAddress}'");
+      private static string MakePattern(string firstNames) {
+         var firstNamesAsArray = firstNames.Split(' ', '-').Select(s => s.ToLower());
+         return $"^{string.Join("[._]{1}", firstNamesAsArray)}";
       }
 
       [Test]
@@ -146,7 +143,9 @@ namespace RimuTec.Faker.Tests
       {
          var emailAddress = Internet.FreeEmail(string.Empty);
          AllAssertions(emailAddress);
-         Assert.IsTrue(Regex.Match(emailAddress, @".+.+@.+\.\w+").Success, $"{nameof(emailAddress)} is '{emailAddress}'");
+         Assert.IsTrue(Regex.Match(emailAddress, EmailRegex).Success,
+            $"Locale '{Locale}'. Invalid value is '{emailAddress}'"
+         );
          var freeEmail = Fetch("internet.free_email");
          Assert.IsTrue(freeEmail.Any(x => emailAddress.EndsWith(x)));
       }
@@ -158,8 +157,7 @@ namespace RimuTec.Faker.Tests
          while (tries-- > 0)
          {
             var ipv4address = Internet.IPv4Address();
-            var parts = ipv4address.Split('.');
-            foreach (var part in parts)
+            foreach (var part in ipv4address.Split('.'))
             {
                var value = int.Parse(part);
                Assert.GreaterOrEqual(value, 1, $"{nameof(ipv4address)} is '{ipv4address}'");
@@ -172,7 +170,7 @@ namespace RimuTec.Faker.Tests
       public void IPv4CIDR_HappyDays()
       {
          var ipV4cidr = Internet.IPv4CIDR();
-         Assert.AreEqual(1, RegexMatchesCount(ipV4cidr, @"/"));
+         Assert.AreEqual(1, RegexMatchesCount(ipV4cidr, "/"));
          Assert.AreEqual(3, RegexMatchesCount(ipV4cidr, @"\."));
       }
 
@@ -180,7 +178,7 @@ namespace RimuTec.Faker.Tests
       public void IPv6Address_HappyDays()
       {
          var ipV6Address = Internet.IPv6Address();
-         Assert.IsTrue(Regex.Match(ipV6Address, @"[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}").Success,
+         Assert.IsTrue(Regex.Match(ipV6Address, "[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}").Success,
             $"{nameof(ipV6Address)} is '{ipV6Address}'");
       }
 
@@ -188,7 +186,7 @@ namespace RimuTec.Faker.Tests
       public void IPv6CIDR_HappyDays()
       {
          var ipV6withMask = Internet.IPv6CIDR();
-         Assert.IsTrue(Regex.Match(ipV6withMask, @"[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}/[0-9]{1,3}").Success,
+         Assert.IsTrue(Regex.Match(ipV6withMask, "[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}:[0-9abcdef]{4}/[0-9]{1,3}").Success,
             $"{nameof(ipV6withMask)} is '{ipV6withMask}'");
       }
 
@@ -196,8 +194,8 @@ namespace RimuTec.Faker.Tests
       public void MacAddress_DefaultValues()
       {
          var macAddress = Internet.MacAddress();
-         Assert.AreEqual(5, RegexMatchesCount(macAddress, $":"));
-         Assert.AreEqual(12, RegexMatchesCount(macAddress, $"[0-9a-f]"));
+         Assert.AreEqual(5, RegexMatchesCount(macAddress, ":"));
+         Assert.AreEqual(12, RegexMatchesCount(macAddress, "[0-9a-f]"));
       }
 
       [Test]
@@ -244,15 +242,15 @@ namespace RimuTec.Faker.Tests
             var password = Internet.Password();
             Assert.GreaterOrEqual(password.Length, 8);
             Assert.LessOrEqual(password.Length, 15);
-            if (RegexMatchesCount(password, @"[A-Z]") > 0)
+            if (RegexMatchesCount(password, "[A-Z]") > 0)
             {
                usesUpperCase = true;
             }
-            if (RegexMatchesCount(password, @"[a-z]") > 0)
+            if (RegexMatchesCount(password, "[a-z]") > 0)
             {
                usesLowerCase = true;
             }
-            if (RegexMatchesCount(password, @"[!@#$%^&*]") > 0)
+            if (RegexMatchesCount(password, "[!@#$%^&*]") > 0)
             {
                usesSpecialChars = true;
             }
@@ -298,21 +296,22 @@ namespace RimuTec.Faker.Tests
       public void Password_Without_UpperCase_Letters()
       {
          var password = Internet.Password(mixCase: false, specialChars: false);
-         Assert.AreEqual(0, RegexMatchesCount(password, @"[A-Z]"));
+         Assert.AreEqual(0, RegexMatchesCount(password, "[A-Z]"));
       }
+
 
       [Test]
       public void Password_With_SpecialChars()
       {
          var password = Internet.Password(specialChars: true);
-         Assert.Greater(RegexMatchesCount(password, @"[!@#$%^&*]"), 0);
+         Assert.Greater(RegexMatchesCount(password, "[!@#$%^&*]"), 0);
       }
 
       [Test]
       public void Password_Without_SpecialChars()
       {
          var password = Internet.Password(specialChars: false);
-         Assert.AreEqual(0, RegexMatchesCount(password, @"[!@#$%^&*]"));
+         Assert.AreEqual(0, RegexMatchesCount(password, "[!@#$%^&*]"));
       }
 
       [Test]
@@ -338,12 +337,10 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void SafeEmail_With_Empty_String()
       {
-         const string emailRegex = "^(([^<>()\\[\\]\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\"]+)*)|(\".+\"))@(([^<>()[\\]\\.,;:\\s@\"]+\\.)+[^<>()[\\]\\.,;:\\s@\"]{2,})";
-         // Source for regex: https://stackoverflow.com/a/37320735/411428
          var expected = new string[] { "@example.org", "@example.net", "@example.com" };
          var emailAddress = Internet.SafeEmail(string.Empty);
          AllAssertions(emailAddress);
-         Assert.IsTrue(Regex.Match(emailAddress, emailRegex).Success,
+         Assert.IsTrue(Regex.Match(emailAddress, EmailRegex).Success,
             $"Locale {Locale}. Invalid value is '{emailAddress}'.");
          Assert.IsTrue(expected.Any(x => emailAddress.EndsWith(x)), $"{nameof(emailAddress)} is '{emailAddress}'");
       }
@@ -373,10 +370,10 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Slug_With_Glue()
       {
-         var desiredGlue = "+";
+         const string desiredGlue = "+";
          var slug = Internet.Slug(glue: desiredGlue);
          var words = slug.Split(new string[] { desiredGlue }, StringSplitOptions.None);
-         Assert.AreEqual(2, words.Count());
+         Assert.AreEqual(2, words.Length);
          Assert.AreEqual(1, RegexMatchesCount(slug, @"\+"));
       }
 
@@ -388,7 +385,7 @@ namespace RimuTec.Faker.Tests
          while (tries-- > 0)
          {
             var url = Internet.Url();
-            Assert.AreEqual(1, RegexMatchesCount(url, @"[a-z]{3,}://([a-z_]{1,}.){1,}[a-z_]{1,}/([a-z_]{0,}.)[a-z_]{1,}"), $"{nameof(url)} is '{url}'");
+            Assert.AreEqual(1, RegexMatchesCount(url, "[a-z]{3,}://([a-z_]{1,}.){1,}[a-z_]{1,}/([a-z_]{0,}.)[a-z_]{1,}"), $"{nameof(url)} is '{url}'");
          }
       }
 
@@ -406,7 +403,7 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Url_With_Host()
       {
-         var desiredHost = "abdcefg.org";
+         const string desiredHost = "abdcefg.org";
          var url = Internet.Url(desiredHost);
          Assert.IsTrue(url.Contains($"://{desiredHost}/"));
       }
@@ -414,7 +411,7 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Url_With_Path()
       {
-         var desiredPath = "/Home/Index.html";
+         const string desiredPath = "/Home/Index.html";
          var url = Internet.Url(path: desiredPath);
          Assert.IsTrue(url.EndsWith(desiredPath));
       }
@@ -422,7 +419,7 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Url_With_Scheme()
       {
-         var desiredScheme = "ftp";
+         const string desiredScheme = "ftp";
          var url = Internet.Url(scheme: desiredScheme);
          Assert.IsTrue(url.StartsWith($"{desiredScheme}://"));
       }
@@ -438,7 +435,7 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Url_With_WhiteSpace_Scheme()
       {
-         var desiredScheme = " ";
+         const string desiredScheme = " ";
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Url(scheme: desiredScheme));
          Assert.AreEqual("Must not be empty string or white spaces only. (Parameter 'scheme')", ex.Message);
       }
@@ -454,7 +451,7 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Url_With_WhiteSpace_Host()
       {
-         var desiredHost = " ";
+         const string desiredHost = " ";
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Internet.Url(host: desiredHost));
          Assert.AreEqual("Must not be empty string or white spaces only. (Parameter 'host')", ex.Message);
       }
@@ -463,7 +460,7 @@ namespace RimuTec.Faker.Tests
       public void Url_With_Empty_Path()
       {
          var desiredPath = string.Empty;
-         var url = Internet.Url(scheme: "ftp", host: "abcdef.org", path: desiredPath);
+         var url = Internet.Url(host: "abcdef.org", path: desiredPath, scheme: "ftp");
          Assert.AreEqual("ftp://abcdef.org", url);
       }
 
@@ -471,23 +468,23 @@ namespace RimuTec.Faker.Tests
       public void UserAgent_With_Default_Values()
       {
          var agent = Internet.UserAgent();
-         Assert.Greater(RegexMatchesCount(agent, @"Mozilla|Opera"), 0);
+         Assert.Greater(RegexMatchesCount(agent, "Mozilla|Opera"), 0);
       }
 
       [Test]
       public void UserAgent_With_Vendor()
       {
-         var desiredVendor = "opera";
+         const string desiredVendor = "opera";
          var agent = Internet.UserAgent(desiredVendor);
-         Assert.Greater(RegexMatchesCount(agent, @"Opera"), 0, $"{nameof(agent)} is '{agent}'");
+         Assert.Greater(RegexMatchesCount(agent, "Opera"), 0, $"{nameof(agent)} is '{agent}'");
       }
 
       [Test]
       public void UserAgent_With_Invalid_Vendor()
       {
-         var desiredVendor = "ie";
+         const string desiredVendor = "ie";
          var agent = Internet.UserAgent(desiredVendor);
-         Assert.Greater(RegexMatchesCount(agent, @"Mozilla|Opera"), 0);
+         Assert.Greater(RegexMatchesCount(agent, "Mozilla|Opera"), 0);
       }
 
       [Test]
@@ -605,7 +602,10 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(candidate.Contains("#"));
          Assert.IsFalse(candidate.Contains("?"));
          Assert.AreEqual(0, Regex.Matches(candidate, @"[\s]").Count, $"Candidate was {candidate}");
-         Assert.AreEqual(0, Regex.Matches(candidate, @"[A-Z]").Count, $"Candidate was {candidate}");
+         Assert.AreEqual(0, Regex.Matches(candidate, "[A-Z]").Count, $"Candidate was {candidate}");
       }
+
+      // Source for regex: https://stackoverflow.com/a/37320735/411428
+      private const string EmailRegex = "^(([^<>()\\[\\]\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\"]+)*)|(\".+\"))@(([^<>()[\\]\\.,;:\\s@\"]+\\.)+[^<>()[\\]\\.,;:\\s@\"]{2,})";
    }
 }

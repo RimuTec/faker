@@ -291,7 +291,9 @@ namespace RimuTec.Faker.Tests
             yield return new TestFixtureData("en-IND", null);
             yield return new TestFixtureData("en-MS", null);
             yield return new TestFixtureData("en-NEP", null);
-            yield return new TestFixtureData("en-NG", null);
+            yield return new TestFixtureData("en-NG", new Dictionary<string, string>{
+               { nameof(CompanyTests.Name_HappyDays), "^[-A-Za-z,' ]+(Inc|and Sons|LLC|Group)?$" }
+            });
             yield return new TestFixtureData("en-NZ", new Dictionary<string, string>{
                { nameof(CompanyTests.Name_HappyDays), "^[-A-Za-z,' ]+(Ltd|Ltc|and Sons|Group|Brothers|Partners)?$" }
             });

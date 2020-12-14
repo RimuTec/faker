@@ -88,5 +88,15 @@ namespace RimuTec.Faker.Tests.Extensions
          Assert.AreEqual(1, Regex.Matches(result, expectedPattern).Count,
             $"Incorrect value is: '{result}'. Regex used: '{expectedPattern}'");
       }
+
+      [Test]
+      public void EnsureMixCase()
+      {
+         const string example = "6a7r5e3f";
+         var result = Internet.EnsureMixCase(example);
+         Assert.GreaterOrEqual(Regex.Matches(result, "[A-Z]").Count, 1,
+            $"Invalid value '{result}'"
+         );
+      }
    }
 }
