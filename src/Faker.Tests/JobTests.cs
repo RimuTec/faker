@@ -4,13 +4,22 @@ using System.Linq;
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
+   [TestFixtureSource(typeof(DefaultFixtureData), nameof(DefaultFixtureData.FixtureParams))]
    public class JobTests
    {
+      public JobTests(string locale)
+      {
+         Locale = locale;
+      }
+
       [SetUp]
       public void SetUp()
       {
          RandomNumber.ResetSeed(42);
+         Config.Locale = Locale;
       }
+
+      private string Locale { get; }
 
       [Test]
       public void Title_HappyDays()
@@ -81,7 +90,9 @@ namespace RimuTec.Faker.Tests
       {
          var keySkill = Job.KeySkill();
          // As we seed the random number for each test, this should give us "Networking skills":
-         Assert.AreEqual("Networking skills", keySkill);
+         Assert.AreEqual("Networking skills", keySkill,
+            $"Locale '{Locale}'. Invalid value: '{keySkill}'"
+         );
       }
 
       [Test]
@@ -103,9 +114,14 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void EmploymentType_Twice_NotEqual()
       {
+         // const string locale = "zh-TW";
+         // RandomNumber.ResetSeed(42);
+         // Config.Locale = locale;
          var employmentType1 = Job.EmploymentType();
          var employmentType2 = Job.EmploymentType();
-         Assert.AreNotEqual(employmentType1, employmentType2);
+         Assert.AreNotEqual(employmentType1, employmentType2,
+            $"Locale '{Locale}'. employmentType1 '{employmentType1}'. employmentType2 '{employmentType2}'."
+         );
       }
 
       [Test]
