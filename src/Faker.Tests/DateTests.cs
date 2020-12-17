@@ -80,8 +80,8 @@ namespace RimuTec.Faker.Tests
          var maxDate = 1.Years().FromNow;
          var date = Date.BetweenExcept(minDate, maxDate, DateTime.Today);
          AssertIsDateOnly(date);
-         Assert.Greater(date, minDate);
-         Assert.Less(date, maxDate);
+         Assert.GreaterOrEqual(date, minDate);
+         Assert.LessOrEqual(date, maxDate);
       }
 
       [Test]

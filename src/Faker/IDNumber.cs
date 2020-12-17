@@ -64,14 +64,14 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string SsnValid()
       {
-         var ssn = @"[0-8]\d{2}-\d{2}-\d{4}".Regexify();
-         //We could still have all 0s in one segment or another
-         if (_invalid_SSN.Any(r => Regex.Matches(ssn, r).Count > 0))
+         var random1 = RandomNumber.Next(1, 899);
+         while(random1 == 666)
          {
-            _SSN_Valid_recursive = true;
-            ssn = SsnValid();
+            random1 = RandomNumber.Next(1, 899);
          }
-         return ssn;
+         var random2 = RandomNumber.Next(1, 99);
+         var random3 = RandomNumber.Next(1, 9999);
+         return $"{random1:000}-{random2:00}-{random3:00}";
       }
 
       internal static string[] _invalid_SSN = new string[] {
@@ -83,6 +83,6 @@ namespace RimuTec.Faker
       };
 
       internal static bool _SSN_Valid_recursive = false;
-      private static readonly string _checks = "TRWAGMYFPDXBNJZSQVHLCKE";
+      private const string _checks = "TRWAGMYFPDXBNJZSQVHLCKE";
    }
 }

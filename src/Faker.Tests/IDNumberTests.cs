@@ -34,19 +34,8 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Valid_SSN_Avoid_All_Zeros_In_One_Segment()
       {
-         // This test has no assertion. It calls SsnValid() often enough so that
-         // an invalid candidate number will be generated which will be discarded
-         // and a new one is generated recursively until a valid SSN has been
-         // generated.
-         var tries = 500;
-         IdNumber._SSN_Valid_recursive = false;
-         var recursive = false;
-         while (tries-- > 0 && !recursive)
-         {
-            _ = IdNumber.SsnValid();
-            recursive = IdNumber._SSN_Valid_recursive;
-         }
-         Assert.IsTrue(recursive);
+         var ssn = IdNumber.SsnValid();
+         Assert.IsFalse(Regex.Match(ssn, "000-[0-9]{2}-[0-9]{4}|[0-9]{3}-00-[0-9]{4}|[0-9]{3}-[0-9]{2}-0000|666-[0-9]{2}-[0-9]{4}|9[0-9]{2}-[0-9]{2}-[0-9]{4}").Success);
       }
 
       [Test]

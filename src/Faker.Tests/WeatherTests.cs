@@ -23,7 +23,8 @@ namespace RimuTec.Faker.Tests
          foreach(var daily in forecast)
          {
             Assert.IsTrue(daily.Date >= now);
-            Assert.IsTrue(daily.TemperatureC > -20 && daily.TemperatureC < 55);
+            Assert.IsTrue(daily.TemperatureC >= -20 && daily.TemperatureC < 55,
+               $"daily.TemperatureC is '{daily.TemperatureC}'");
             Assert.IsTrue(summaries.Contains(daily.Summary));
          }
       }

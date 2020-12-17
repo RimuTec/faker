@@ -67,8 +67,14 @@ namespace RimuTec.Faker.Tests
       }
 
       private static string MakePattern(string firstNames) {
-         var firstNamesAsArray = firstNames.Split(' ', '-').Select(s => s.ToLower());
-         return $"^{string.Join("[._]{1}", firstNamesAsArray)}";
+         // Example: John Patrick => ^(john[._]{1}patrick|patrick[._]{1}john)
+         var firstNamesAsArray = firstNames.Split(' ', '-', '\'').Select(s => s.ToLower()).ToArray();
+         if(firstNamesAsArray.Length == 1) {
+            return firstNamesAsArray[0];
+         }
+         var firstFirstName = firstNamesAsArray[0];
+         var secondFirstName = firstNamesAsArray[1];
+         return $"^({firstFirstName}[._]{{1}}{secondFirstName}|{secondFirstName}[._]{{1}}{firstFirstName})";
       }
 
       [Test]
@@ -574,21 +580,34 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void UserName_With_Common_Lengths()
+      public void UserName_With_ShortLength()
       {
-         for (int i = 8; i < 32; i++)
-         {
-            for (int j = i; j < 33; j++)
-            {
-               var minLength = i;
-               var maxLength = j;
-               var userName = Internet.UserName(minLength, maxLength);
-               int actualLength = userName.Length;
-               Assert.IsTrue(actualLength >= minLength && actualLength <= maxLength);
-            }
-         }
+         const int minLength = 1;
+         const int maxLength = 2;
+         var userName = Internet.UserName(minLength, maxLength);
+         int actualLength = userName.Length;
+         Assert.IsTrue(actualLength >= minLength && actualLength <= maxLength);
       }
 
+      [Test]
+      public void UserName_With_LongLength()
+      {
+         const int minLength = 32;
+         const int maxLength = 33;
+         var userName = Internet.UserName(minLength, maxLength);
+         int actualLength = userName.Length;
+         Assert.IsTrue(actualLength >= minLength && actualLength <= maxLength);
+      }
+
+      [Test]
+      public void UserName_With_ReasonableLength()
+      {
+         const int minLength = 8;
+         const int maxLength = 12;
+         var userName = Internet.UserName(minLength, maxLength);
+         int actualLength = userName.Length;
+         Assert.IsTrue(actualLength >= minLength && actualLength <= maxLength);
+      }
       [Test]
       public void UserName_With_Min_Greater_Than_Min()
       {

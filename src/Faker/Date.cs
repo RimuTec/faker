@@ -46,12 +46,13 @@ namespace RimuTec.Faker
       /// <summary>
       /// Random date between dates, except for a specific date.
       /// </summary>
-      /// <param name="from">Minimum date.</param>
+      /// <param name="from">Minimum date. Must be less than maximum and excepted date.</param>
       /// <param name="to">Maximum date. Must be greater than minimum and excepted date.</param>
       /// <param name="excepted">Excepted date.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentException">If <paramref name="from"/>, <paramref name="to"/> and <paramref name="excepted"/> are equal.</exception>
       /// <exception cref="ArgumentOutOfRangeException">If <paramref name="to"/> is less than <paramref name="from"/> or if <paramref name="excepted"/> outside of date range.</exception>
+      /// <remarks>Minimum date and maximum date are included in the range from which a random date is picked.</remarks>
       public static DateTime BetweenExcept(DateTime from, DateTime to, DateTime excepted)
       {
          DateTime fromDate = from.Date;
@@ -69,11 +70,11 @@ namespace RimuTec.Faker
          {
             throw new ArgumentOutOfRangeException(nameof(excepted), $"Must be between {nameof(from)} and {nameof(to)} date.");
          }
-         var timespan = toDate - fromDate;
+         var timespanDays = (int)(toDate - fromDate).TotalDays;
          DateTime result;
          do
          {
-            result = from.Date.AddDays(RandomNumber.Next((int)timespan.TotalDays)).Date;
+            result = from.Date.AddDays(RandomNumber.Next(timespanDays)).Date;
          } while (result == excepted);
          return result;
       }

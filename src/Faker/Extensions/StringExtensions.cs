@@ -146,6 +146,14 @@ namespace RimuTec.Faker.Extensions
          return sb.ToString().ToLower();
       }
 
+      internal static string TrimZWNJ(this string input)
+      {
+         // ZWNJ = Zero-width non-joiner. For more details see
+         // https://en.wikipedia.org/wiki/Zero-width_non-joiner
+         // Languages that may use this character include Persian (fa) and German.
+         return input.Trim('\u200C');
+      }
+
       private static string RomanizeCyrillicString(this string s)
       {
          // To be implemented.

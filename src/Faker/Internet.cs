@@ -324,15 +324,15 @@ namespace RimuTec.Faker
          var separator = separators.Sample(); // if space is sampled, it will be removed by Prepare()
          if (name != null)
          {
-            IEnumerable<string> parts = name.Scan(@"\w+").Shuffle();
-            return string.Join(separator, parts).ToLower();
+            IEnumerable<string> parts = name.Scan(@"\w+").Select(s => s.TrimZWNJ().ToLower()).Shuffle();
+            return string.Join(separator, parts);
          }
          else
          {
-            string firstNamePrepared = Name.FirstName().Prepare();
+            string firstNamePrepared = Name.FirstName().TrimZWNJ().Prepare();
             var candidates = new List<string> {
                firstNamePrepared,
-               firstNamePrepared + separator + Name.LastName().Prepare()
+               firstNamePrepared + separator + Name.LastName().TrimZWNJ().Prepare()
             };
             return Parse(candidates.Sample());
          }
@@ -360,10 +360,7 @@ namespace RimuTec.Faker
             result = UserName(null, "._");
             tries++;
          } while (result?.Length < minLength && tries < 7);
-         if (minLength > 0)
-         {
-            result = string.Concat(((minLength / result.Length) + 1).Times(_ => result));
-         }
+         result = string.Concat(((minLength / result.Length) + 1).Times(_ => result));
          return result;
       }
 
@@ -374,6 +371,7 @@ namespace RimuTec.Faker
       /// <param name="maxLength">Maximum length of the user name.</param>
       /// <returns>A user name</returns>
       /// <exception cref="ArgumentOutOfRangeException">If minLength or maxLength are outside of accepted ranges.</exception>
+      /// <remarks>If no username is available that has minimum length</remarks>
       public static string UserName(int minLength, int maxLength = int.MaxValue)
       {
          if (maxLength < minLength)
