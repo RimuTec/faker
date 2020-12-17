@@ -300,7 +300,7 @@ namespace RimuTec.Faker.Tests
             yield return new TestFixtureData("en-US", null);
             yield return new TestFixtureData("en-ZA", null);
             yield return new TestFixtureData("es", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), "^[A-Za-záéíóúñ, ]+(S.L.|e Hijos|S.A.|Hermanos)?$" }
+               { nameof(CompanyTests.Name_HappyDays), "^[A-ZÁa-záéíóúñ, ]+(S.L.|e Hijos|S.A.|Hermanos)?$" }
             });
             yield return new TestFixtureData("es-MX", new Dictionary<string, string>{
                { nameof(CompanyTests.Name_HappyDays), "^(Grupo|Sociedad|Grupo Financiero|Colegio|Fondo)?[A-ZÁa-záéíóúñ, ]+(S.A.|S.A. de C.V.|S.R.L|S.A.B.|S.C.)?$" },
