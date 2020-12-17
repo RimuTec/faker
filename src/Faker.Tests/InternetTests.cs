@@ -379,7 +379,9 @@ namespace RimuTec.Faker.Tests
          const string desiredGlue = "+";
          var slug = Internet.Slug(glue: desiredGlue);
          var words = slug.Split(new string[] { desiredGlue }, StringSplitOptions.None);
-         Assert.AreEqual(2, words.Length);
+         Assert.AreEqual(2, words.Length,
+            $"Desired glue is '{desiredGlue}'. Slug is {slug}. Words are {words}"
+         );
          Assert.AreEqual(1, RegexMatchesCount(slug, @"\+"));
       }
 
