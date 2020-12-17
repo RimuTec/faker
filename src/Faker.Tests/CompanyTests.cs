@@ -337,11 +337,11 @@ namespace RimuTec.Faker.Tests
             //yield return new TestFixtureData("no", null);
 
             yield return new TestFixtureData("pl", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), "^[-A-ZŚŻa-ząćęłńóśż, ]+(S.A.|sp. z o.o.|sp. j.|sp.p.|sp. k.|S.K.A.)?$" },
+               { nameof(CompanyTests.Name_HappyDays), "^[-A-ZŚŻa-ząćęłńóśżź, ]+(S.A.|sp. z o.o.|sp. j.|sp.p.|sp. k.|S.K.A.)?$" },
             });
             yield return new TestFixtureData("pt", null);
             yield return new TestFixtureData("pt-BR", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), "^[-A-ZÁa-záãêçóõú ]+(-| |, )+([A-ZÁa-záãêçóõú]+)?( e | e de | e da )?([A-ZÁa-záãêçóõú]+)?(S.A.|LTDA|e Associados|Comércio|EIRELI)?$" },
+               { nameof(CompanyTests.Name_HappyDays), "^[-A-ZÁa-záãêçóõú ]+(-| |, )+([A-ZÁa-záãêçóõú ]+)?( e | e de | e da )?([A-ZÁa-záãêçóõú]+)?(S.A.|LTDA|e Associados|Comércio|EIRELI)?$" },
             });
             yield return new TestFixtureData("ru", new Dictionary<string, string>{
                { nameof(CompanyTests.Name_HappyDays), @"^(ИП|ООО|ЗАО|ОАО|НКО|ТСЖ|ОП) [-\u0400-\u04FF ]+(Снаб|Торг|Пром|Трейд|Сбыт)?$" },

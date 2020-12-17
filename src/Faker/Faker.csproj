@@ -221,7 +221,6 @@
       <None Remove="locales\lv.yml" />
       <None Remove="locales\nb-NO.yml" />
       <None Remove="locales\nl.yml" />
-      <None Remove="locales\no.yml" />
       <None Remove="locales\pl.yml" />
       <None Remove="locales\pt-BR.yml" />
       <None Remove="locales\pt.yml" />
@@ -402,7 +401,6 @@
       <EmbeddedResource Include="locales\lv.yml" />
       <EmbeddedResource Include="locales\nb-NO.yml" />
       <EmbeddedResource Include="locales\nl.yml" />
-      <EmbeddedResource Include="locales\no.yml" />
       <EmbeddedResource Include="locales\pl.yml" />
       <EmbeddedResource Include="locales\pt-BR.yml" />
       <EmbeddedResource Include="locales\pt.yml" />

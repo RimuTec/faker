@@ -134,6 +134,10 @@ namespace RimuTec.Faker
             {
                var assemblyLocation = new FileInfo(executingAssembly.Location);
                var fileNamePath = Path.Combine(assemblyLocation.DirectoryName, $"{fileName}.yml");
+               if(!File.Exists(fileNamePath))
+               {
+                  fileNamePath = Path.Combine(assemblyLocation.DirectoryName, "locales", $"{fileName}.yml");
+               }
                if (File.Exists(fileNamePath))
                {
                   var yamlContent = File.ReadAllText(fileNamePath);

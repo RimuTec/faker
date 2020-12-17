@@ -29,7 +29,7 @@ namespace RimuTec.Faker.Tests
          Config.Locale = "de";
          var firstName = Name.FirstName();
          var firstNames = Fetch("name.first_name");
-         Assert.Greater(firstNames.Count(), 0);
+         Assert.Greater(firstNames.Count, 0);
          Assert.IsTrue(firstNames.Contains(firstName));
       }
 
@@ -39,7 +39,7 @@ namespace RimuTec.Faker.Tests
          Config.Locale = "de";
          var lastName = Name.LastName();
          var lastNames = Fetch("name.last_name");
-         Assert.Greater(lastNames.Count(), 0);
+         Assert.Greater(lastNames.Count, 0);
          Assert.IsTrue(lastNames.Contains(lastName));
       }
 
@@ -66,10 +66,10 @@ namespace RimuTec.Faker.Tests
          // Maori New Zealand locale, for more details see 
          // https://teara.govt.nz/en/matauranga-hangarau-information-technology/page-3
          // http://homepages.ihug.co.nz/~trmusson/maori.html
-         Config.Locale = "mi-NZ"; 
+         Config.Locale = "mi-NZ";
          var firstName = Name.FirstName();
          var firstNames = Fetch("name.first_name");
-         Assert.Greater(firstNames.Count(), 0);
+         Assert.Greater(firstNames.Count, 0);
          Assert.IsTrue(firstNames.Contains(firstName));
       }
 
@@ -82,7 +82,7 @@ namespace RimuTec.Faker.Tests
          var citySuffixes = Fetch("address.city_suffix");
          Assert.IsFalse(string.IsNullOrWhiteSpace(citySuffix));
          Assert.IsTrue(citySuffixes.Contains(citySuffix));
-         Assert.Greater(citySuffixes.Count(), 0);
+         Assert.Greater(citySuffixes.Count, 0);
       }
 
       [Test]

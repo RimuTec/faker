@@ -21,7 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="mi-NZ.yml">
+    <None Update="locales/mi-NZ.yml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="locales/no.yml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

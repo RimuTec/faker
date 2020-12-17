@@ -523,7 +523,7 @@ namespace RimuTec.Faker.Tests
             yield return new TestFixtureData("en-ZA", null);
             yield return new TestFixtureData("es", new Dictionary<string, string>{
                { nameof(AddressTests.BuildingNumber_HappyDays), "( s/n.)|(, [0-9]{1,2})|( [0-9]{1,2})" },
-               { nameof(AddressTests.CityPrefix_HappyDays), "[A-Z][a-záéó]+" },
+               { nameof(AddressTests.CityPrefix_HappyDays), "[A-ZÁ][a-záéó]+" },
                { nameof(AddressTests.StateAbbr_HappyDays), "^And|Ara|Ast|Bal|Can|Cbr|Man|Leo|Cat|Com|Ext|Gal|Rio|Mad|Nav|Vas|Mur$" },
                { nameof(AddressTests.StreetSuffix_HappyDays), "^[A-Z][a-zíó]+( [A-Z][a-zú]+)?$"}
             });
