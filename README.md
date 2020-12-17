@@ -79,23 +79,36 @@ Class to set the locale to be used:
 - [Config](https://github.com/RimuTec/Faker/wiki/Class-Config)
 
 # Locales and Customization
-The following 51 locales are supported out of the box (no extra files needed):
+The following 50 locales are supported out of the box (no extra files needed):
 
-bg, ca, ca-CAT, da-DK, de, de-AT, de-CH, ee, en, en-AU, en-au-ocker, en-BORK, en-CA, en-GB, en-IND, en-MS, en-NEP, en-NG, en-NZ, en-PAK, en-SG, en-UG, en-US, en-ZA, es, es-MX, fa, fi-FI, fr, fr-CA, fr-CH, he, id, it, ja, ko, lv, nb-NO, nl, no, pl, pt, pt-BR, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
+bg, ca, ca-CAT, da-DK, de, de-AT, de-CH, ee, en, en-AU, en-au-ocker, en-BORK, en-CA, en-GB, en-IND, en-MS, en-NEP, en-NG, en-NZ, en-PAK, en-SG, en-UG, en-US, en-ZA, es, es-MX, fa, fi-FI, fr, fr-CA, fr-CH, he, id, it, ja, ko, lv, nb-NO, nl, pl, pt, pt-BR, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
 
 To set the locale in C# use something like `Config.Locale = "de";`.
 
 In addition you can use custom locale files for methods that are marked with an asterisk. Ensure that the custom locale file (yml) is copied to the directory that also contains RimuTec.Faker.dll, usually the output directory of your test project.
 
+**Note:** With release 1.8 we removed support for locale 'no' as the language file has an incorrect format. Once this issue has been corrected at [Ruby Faker gem](https://github.com/faker-ruby/faker) we'll add it back in if all tests pass.
+
 # How To Build
-## Visual Studio 2019
-Open `Faker.sln` in Visual Studio, select the desired configuration ("Debug" or "Release") and then build the solution. Typically, you'd choose "Debug" when working on this code base.
+## Prerequisites
+- Docker Desktop (Windows and MacOS)
+- Docker Engine (Linux)
+- VS Code
+- Git client
+- VS Code extension "Remove Development", version 0.20.0 or later
 
-Note: We use Visual Studio 2019 Community Edition. Other versions and editions may work as well but we didn't test them.
+We are using a dev container to ensure better consistency across environments but also to avoid having to install development tools on the host. You may be able to build without a container but we don't officially support that setup.
 
-## Command Line
-1. Open Powershell and navigate to the directory containing `Faker.sln`
-2. Execute the command `dotnet build --configuration RELEASE Faker.sln`. Replace RELEASE with DEBUG if you want build the DEBUG configuration
+## Visual Studio Code
+1. Clone the repository into a linux file system.
+   - **Important note for Windows user:** Use a WSL or WSL2 distro. Also, do not clone into a path starting with `/mnt` as this is likely to cause issues with VS Code and some extensions. The background is that file change messages are not reliably propagated as of writing when mounting a non-Linux file system into a dev container which is Linux based. For more details about this see article ["Docker Desktop on WSL2: The Problem with Mixing File Systems"](https://levelup.gitconnected.com/docker-desktop-on-wsl2-the-problem-with-mixing-file-systems-a8b5dcd79b22?sk=53d24e33a9f247fd626e3aa6959de7d4).
+
+2. Navigate to the directory containing your local clone.
+   - **Windows only:** Use a WSL or WSL2 terminal to navigate to it. Do not use `\\wsl$` via File Explorer.
+
+3. Open the folder in VS Code using the command `code .` in the shell. When prompted re-open in the dev container
+
+4. To build, open a terminal inside VS Code, ensure you are in `/app` and execute `dotnet build` or `dotnet test`.
 
 ## Issues With Building
 If you encounter issues with building the library please file an issue on GitHub, ideally with what you tried, what the expected and what the actual outcome was. Thank you!
