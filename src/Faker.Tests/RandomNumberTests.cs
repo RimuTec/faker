@@ -35,7 +35,7 @@ namespace RimuTec.Faker.Tests
       public void NextDouble_MaxValue_Multithreaded()
       {
          // Although it's an internal
-         double d = 42.0;
+         const double d = 42.0;
          RunMultithreaded(() => RandomNumber.Next(d));
       }
 

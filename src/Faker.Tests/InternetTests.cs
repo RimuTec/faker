@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using RimuTec.Faker.Extensions;
 
 namespace RimuTec.Faker.Tests
 {
@@ -61,14 +62,20 @@ namespace RimuTec.Faker.Tests
          var pattern = MakePattern(firstName);
          var emailAddress = Internet.Email(firstName);
          AllAssertions(emailAddress);
-         Assert.IsTrue(Regex.Match(emailAddress, pattern).Success,
-            $"Locale {Locale}. First name is '{firstName}' Email address is: '{emailAddress}'. Pattern is '{pattern}'"
-         );
+         try{
+            Assert.IsTrue(Regex.Match(emailAddress, pattern).Success,
+               $"Locale {Locale}. First name is '{firstName}' Email address is: '{emailAddress}'. Pattern is '{pattern}'"
+            );
+         }
+         catch(Exception ex)
+         {
+            Assert.Fail($"Locale {Locale}. First name is '{firstName}' Email address is: '{emailAddress}'. Pattern is '{pattern}'. Exception '{ex}'");
+         }
       }
 
       private static string MakePattern(string firstNames) {
          // Example: John Patrick => ^(john[._]{1}patrick|patrick[._]{1}john)
-         var firstNamesAsArray = firstNames.Split(' ', '-', '\'').Select(s => s.ToLower()).ToArray();
+         var firstNamesAsArray = firstNames.Split(' ', '-', '\'').Select(s => s.TrimZWNJ().ToLower()).ToArray();
          if(firstNamesAsArray.Length == 1) {
             return firstNamesAsArray[0];
          }
@@ -305,7 +312,6 @@ namespace RimuTec.Faker.Tests
          Assert.AreEqual(0, RegexMatchesCount(password, "[A-Z]"));
       }
 
-
       [Test]
       public void Password_With_SpecialChars()
       {
@@ -380,34 +386,25 @@ namespace RimuTec.Faker.Tests
          var slug = Internet.Slug(glue: desiredGlue);
          var words = slug.Split(new string[] { desiredGlue }, StringSplitOptions.None);
          Assert.AreEqual(2, words.Length,
-            $"Desired glue is '{desiredGlue}'. Slug is {slug}. Words are {words}"
+            $"Locale '{Locale}'. Desired glue is '{desiredGlue}'. Slug is {slug}. Words are '{string.Join('|', words.ToArray())}'."
          );
          Assert.AreEqual(1, RegexMatchesCount(slug, @"\+"));
       }
 
       [Test]
-      public void Url_With_Default_Values_LocaleEn()
+      public void Url_With_Default_Values()
       {
-         Config.Locale = "en";
+         const string pattern = "[a-z]{3,}://([a-z]{1}[-a-z0-9_]*.){1,}[a-z_]{1,}/[A-Za-z0-9_%]+";
          var tries = 100;
          while (tries-- > 0)
          {
             var url = Internet.Url();
-            Assert.AreEqual(1, RegexMatchesCount(url, "[a-z]{3,}://([a-z_]{1,}.){1,}[a-z_]{1,}/([a-z_]{0,}.)[a-z_]{1,}"), $"{nameof(url)} is '{url}'");
+            Assert.AreEqual(1, RegexMatchesCount(url, pattern),
+               $"Locale '{Locale}'. {nameof(url)} is '{url}'. Pattern used '{pattern}'"
+            );
          }
       }
 
-      [Test]
-      public void Url_With_Default_Values_LocalRu()
-      {
-         Config.Locale = "ru";
-         var tries = 100;
-         while (tries-- > 0)
-         {
-            var url = Internet.Url();
-            Assert.AreEqual(1, RegexMatchesCount(url, "[a-z]{3,}://([a-z][-a-z0-9_]{1,}.){1,}[a-z_]{1,}/((%([A-Z0-9]){2,2}){0,}|([a-z_]{0,}.)[a-z_]{1,})"), $"{nameof(url)} is '{url}'");
-         }
-      }
       [Test]
       public void Url_With_Host()
       {

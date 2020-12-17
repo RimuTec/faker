@@ -32,7 +32,6 @@ namespace RimuTec.Faker.Tests
          Assert.AreEqual('B', array[1]);
       }
 
-
       [Test]
       public void Range2_With_Integers()
       {

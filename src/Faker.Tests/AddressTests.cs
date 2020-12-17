@@ -505,7 +505,7 @@ namespace RimuTec.Faker.Tests
             });
             yield return new TestFixtureData("en-NEP", null);
             yield return new TestFixtureData("en-NG", new Dictionary<string, string>{
-               { nameof(AddressTests.StreetSuffix_HappyDays), "^[A-Z][a-z]+( [A-Z][a-z]+)?$"}
+               { nameof(AddressTests.StreetSuffix_HappyDays), "^[A-Z]{3}|([A-Z][a-z]+( [A-Z][a-z]+)?)$"}
             });
             yield return new TestFixtureData("en-NZ", new Dictionary<string, string>{
                { nameof(AddressTests.BuildingNumber_HappyDays), "([0-9]{2,4})|([0-9]/[0-9]{1,2})|([0-9][a-z])|([a-z]/[0-9]{2,2}[a-z]{0,1})" },

@@ -5,8 +5,22 @@ using System.Linq;
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
+   [TestFixtureSource(typeof(DefaultFixtureData), nameof(DefaultFixtureData.FixtureParams))]
    public class WeatherTests
    {
+      public WeatherTests(string locale)
+      {
+         Locale = locale;
+      }
+
+      [SetUp]
+      public void SetUp()
+      {
+         Config.Locale = Locale;
+      }
+
+      private string Locale { get; }
+
       [Test]
       public void Summary_HappyDays()
       {
@@ -41,7 +55,7 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Forecast_10Days()
       {
-         var numberOfDays = 10;
+         const int numberOfDays = 10;
          var forecast = Weather.Forecast(numberOfDays);
          Assert.AreEqual(numberOfDays, forecast.Count());
       }
