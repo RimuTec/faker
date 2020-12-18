@@ -347,7 +347,7 @@ namespace RimuTec.Faker.Tests
                { nameof(CompanyTests.Name_HappyDays), @"^(ИП|ООО|ЗАО|ОАО|НКО|ТСЖ|ОП) [-\u0400-\u04FF ]+(Снаб|Торг|Пром|Трейд|Сбыт)?$" },
             });
             yield return new TestFixtureData("sk", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), "^[A-Za-zČŠáčéďíľňšý' ]+(s.r.o.|a.s.|v.o.s.)$" },
+               { nameof(CompanyTests.Name_HappyDays), "^[A-Za-zČŠáčéďíľňšúý' ]+(s.r.o.|a.s.|v.o.s.)$" },
             });
             yield return new TestFixtureData("sv", null);
             yield return new TestFixtureData("tr", null);
