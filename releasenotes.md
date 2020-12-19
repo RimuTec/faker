@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 1.9.0
+- Smaller fixes for Name generator that affected a small number of locales
+
 ## Version 1.8.0
 - **Fix** [issue #4 Methods-Locales combinations throwing exceptions](https://github.com/RimuTec/Faker/issues/4) for remaining classes
 - We removed the locale 'no' since it's content is invalid. Once the source of this file at [https://github.com/faker-ruby/faker](https://github.com/faker-ruby/faker) has been fixed, we intend to re-add it.
