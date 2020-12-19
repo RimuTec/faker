@@ -12,14 +12,18 @@ namespace RimuTec.Faker
    public class Lorem : GeneratorBase<Lorem>
    {
       private Lorem() { }
-      
+
       /// <summary>
       /// Generates a random word. Example: "repellendus".
       /// </summary>
       /// <returns></returns>
       public static string Word()
       {
-         return Fetch("lorem.words");
+         // Split() and Trim() compensate for some problems in yaml files, e.g.
+         // words: [ "one", "two, three" ]
+         // In this case "two, three" would be treated as one word while in fact it is two words.
+         var toTrim = PunctuationSpace() + PunctuationPeriod() + ". ";
+         return Fetch("lorem.words").Split(',')[0].Trim(toTrim.ToCharArray());
       }
 
       /// <summary>
@@ -38,14 +42,33 @@ namespace RimuTec.Faker
          var result = new List<string>();
          if (supplemental)
          {
-            var combined = wordCount.Times(x => Word()).Concat(wordCount.Times(x => Fetch("lorem.supplemental")));
-            result.AddRange(combined.Shuffle().Take(wordCount));
+            var tries = 10;
+            var supplementalWordList = FetchList("lorem.supplemental");
+            IEnumerable<string> candidates;
+            do {
+               var combined = wordCount.Times(_ => Word()).Concat(wordCount.Times(_ => SupplementalWord()));
+               candidates = combined.Shuffle().Take(wordCount);
+            } while(--tries > 0
+            && candidates.All(w => !supplementalWordList.Contains(w)));
+            result.AddRange(candidates);
          }
          else
          {
-            result.AddRange(wordCount.Times(x => Word()));
+            result.AddRange(wordCount.Times(_ => Word()).Take(wordCount));
          }
          return result;
+      }
+
+      internal static string SupplementalWord()
+      {
+         var loremWords = Fetch("lorem.words").Split(',').Select(w => w.Trim('.', ' '));
+         var tries = 100;
+         string supplemental = Fetch("lorem.supplemental").Split(',')[0].Trim('.', ' ');
+         while(--tries > 0 && loremWords.Contains(supplemental))
+         {
+            supplemental = Fetch("lorem.supplemental").Split(',')[0].Trim('.', ' ');
+         }
+         return supplemental;
       }
 
       /// <summary>
@@ -54,7 +77,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Multibyte()
       {
-         return new String(new char[] { En.Multibyte() });
+         return new string(new char[] { En.Multibyte() });
       }
 
       /// <summary>
@@ -79,17 +102,17 @@ namespace RimuTec.Faker
          {
             throw new ArgumentOutOfRangeException(nameof(charCount), "Must be equal to or greater than zero.");
          }
-         return string.Join(string.Empty, charCount.Times(x => _characters.Sample()));
+         return string.Join(string.Empty, charCount.Times(_ => _characters.Sample()));
       }
 
       /// <summary>
-      /// Generates a capitalised sentence of random words. To specify an exact word count for a 
-      /// sentence, set wordCount to the number you want and randomWordsToAdd equal to 0. By 
+      /// Generates a capitalised sentence of random words. To specify an exact word count for a
+      /// sentence, set wordCount to the number you want and randomWordsToAdd equal to 0. By
       /// default (i.e. a call without any parameter values), sentences will have 4 words.
       /// </summary>
       /// <param name="wordCount">Minimum number of words in the sentence. Default is 4.</param>
       /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
-      /// <param name="randomWordsToAdd">The 'randomWordsToAdd' argument increases the sentence's word 
+      /// <param name="randomWordsToAdd">The 'randomWordsToAdd' argument increases the sentence's word
       /// count by a random value within the range (0..randomWordsToAdd). Default value is 0.</param>
       /// <returns></returns>
       /// <exception cref="ArgumentOutOfRangeException">If either 'wordCount' or 'randomWordsToAdd' is less than zero.</exception>
@@ -103,17 +126,18 @@ namespace RimuTec.Faker
          {
             throw new ArgumentOutOfRangeException(nameof(randomWordsToAdd), "Must be equal to or greater than zero.");
          }
-         string sentence = string.Join(Fetch("lorem.punctuation.space"), Words(wordCount + RandomNumber.Next(randomWordsToAdd), supplemental).ToArray()).Capitalise();
+         //string sentence = string.Join(Fetch("lorem.punctuation.space"), Words(wordCount + RandomNumber.Next(randomWordsToAdd), supplemental).ToArray()).Capitalise();
+         string sentence = string.Join(PunctuationSpace(), Words(wordCount + RandomNumber.Next(randomWordsToAdd), supplemental).ToArray()).Capitalise();
          if (sentence.Length > 0)
          {
-            sentence += Fetch("lorem.punctuation.period");
+            sentence += PunctuationPeriod();
          }
          return sentence;
       }
 
       /// <summary>
-      /// Generates a set of random sentences, optionally considering words from a supplementary list of 
-      /// Lorem-like words. Example: Sentences() returns array similar to "["Vero earum commodi soluta.", 
+      /// Generates a set of random sentences, optionally considering words from a supplementary list of
+      /// Lorem-like words. Example: Sentences() returns array similar to "["Vero earum commodi soluta.",
       /// "Quaerat fuga cumque et vero eveniet omnis ut.", "Cumque sit dolor ut est consequuntur."]"
       /// </summary>
       /// <param name="sentenceCount">Number of sentences. Zero is a valid value. Default value is 3.</param>
@@ -126,12 +150,12 @@ namespace RimuTec.Faker
          {
             throw new ArgumentOutOfRangeException(nameof(sentenceCount), "Must be equal to or greater than zero.");
          }
-         return sentenceCount.Times(x => Sentence(3, supplemental));
+         return sentenceCount.Times(_ => Sentence(3, supplemental));
       }
 
       /// <summary>
       /// Generates a random paragraph, optionally considering words from a supplementary list of
-      /// Lorem-like words. Example: Paragraph() returns a sentence similar to "Neque dicta enim quasi. 
+      /// Lorem-like words. Example: Paragraph() returns a sentence similar to "Neque dicta enim quasi.
       /// Qui corrupti est quisquam. Facere animi quod aut. Qui nulla consequuntur consectetur sapiente."
       /// </summary>
       /// <param name="sentenceCount">Number of sentences. Zero is a valid value. Default value is 3.</param>
@@ -150,13 +174,13 @@ namespace RimuTec.Faker
             throw new ArgumentOutOfRangeException(nameof(randomSentencesToAdd), "Must be equal to or greater than zero.");
          }
 
-         return string.Join(Fetch("lorem.punctuation.space"), Sentences(sentenceCount + RandomNumber.Next(randomSentencesToAdd), supplemental).ToArray());
+         return string.Join(PunctuationSpace(), Sentences(sentenceCount + RandomNumber.Next(randomSentencesToAdd), supplemental).ToArray());
       }
 
       /// <summary>
       /// Generates a collection of random paragraphs, optionally considering words from a supplementary
-      /// list of Lorem-like words. Example: Paragraphs() returns something like: ["Dolores quis quia ad quo voluptates. 
-      /// Maxime delectus totam numquam. Necessitatibus vel atque qui dolore.", "Id neque nemo. Dolores iusto facere est ad. 
+      /// list of Lorem-like words. Example: Paragraphs() returns something like: ["Dolores quis quia ad quo voluptates.
+      /// Maxime delectus totam numquam. Necessitatibus vel atque qui dolore.", "Id neque nemo. Dolores iusto facere est ad.
       /// Accusamus ipsa dolor ut.", "Et officiis ut hic. Sunt asperiores minus distinctio debitis ipsa dolor. Minima eos deleniti."]
       /// </summary>
       /// <param name="paragraphCount">Number of paragraphs. Zero is a valid valie. Default value is 3.</param>
@@ -169,15 +193,15 @@ namespace RimuTec.Faker
          {
             throw new ArgumentOutOfRangeException(nameof(paragraphCount), "Must be equal to or greater than zero.");
          }
-         return paragraphCount.Times(x => Paragraph(supplemental: supplemental));
+         return paragraphCount.Times(_ => Paragraph(supplemental: supplemental));
       }
 
       /// <summary>
       /// Returns a paragraph with a specified amount of characters, optionally considering words
-      /// from a supplementary list of Lorem-like words. If needed the last word may be truncated. 
-      /// Example: ParagraphByChars() returns something similar to "Truffaut stumptown trust fund 8-bit 
-      /// messenger bag portland. Meh kombucha selvage swag biodiesel. Lomo kinfolk jean shorts 
-      /// asymmetrical diy. Wayfarers portland twee stumptown. Wes anderson biodiesel retro 90's pabst. 
+      /// from a supplementary list of Lorem-like words. If needed the last word may be truncated.
+      /// Example: ParagraphByChars() returns something similar to "Truffaut stumptown trust fund 8-bit
+      /// messenger bag portland. Meh kombucha selvage swag biodiesel. Lomo kinfolk jean shorts
+      /// asymmetrical diy. Wayfarers portland twee stumptown. Wes anderson biodiesel retro 90's pabst.
       /// Diy echo 90's mixtape semiotics. Cornho."
       /// </summary>
       /// <param name="chars">Number of characters in the paragraph. Zero is a valid value. Default value is 256.</param>
@@ -194,46 +218,48 @@ namespace RimuTec.Faker
          var paragraph = Paragraph(3, supplemental);
          while (paragraph.Length < chars)
          {
-            paragraph += Fetch("lorem.punctuation.space") + Paragraph(3, supplemental);
+            paragraph += PunctuationSpace() + Paragraph(3, supplemental);
          }
          paragraph = paragraph.Substring(0, chars);
-         if (paragraph.EndsWith(Fetch("lorem.punctuation.space")))
+         if (paragraph.EndsWith(PunctuationSpace()))
          {
             // pad with random letter if paragraph would end in " ." otherwise
             paragraph = paragraph.Trim() + _characters[RandomNumber.Next(10, _characters.Length)];
          }
          if (!string.IsNullOrWhiteSpace(paragraph))
          {
-            paragraph += Fetch("lorem.punctuation.period");
+            paragraph += PunctuationPeriod();
          }
          return paragraph;
       }
 
       /// <summary>
       /// Generates a question with random words, optionally considering words from a supplementary
-      /// list of Lorem-like words. Example: Question() returns something similar to "Aliquid culpa 
+      /// list of Lorem-like words. Example: Question() returns something similar to "Aliquid culpa
       /// aut ipsam unde ullam labore?"
       /// </summary>
       /// <param name="wordCount">Number of words in the question. Zero is a valid value. Default value is 4</param>
       /// <param name="supplemental">Flag to indicate whether to consider words from a supplementary list of Lorem-like words. Default is false.</param>
-      /// <param name="randomWordsToAdd">The 'randomWordsToAdd' argument increases the sentence's word 
+      /// <param name="randomWordsToAdd">The 'randomWordsToAdd' argument increases the sentence's word
       /// count by a random value within the range (0..randomWordsToAdd). Default value is 0.</param>
       /// <returns></returns>
       public static string Question(int wordCount = 4, bool supplemental = false, int randomWordsToAdd = 0)
       {
          string question = Sentence(wordCount, supplemental, randomWordsToAdd)
-            .Trim(Fetch("lorem.punctuation.period").ToCharArray());
+            .Trim(PunctuationPeriod().ToCharArray());
+            //.Trim(Fetch("lorem.punctuation.period").ToCharArray());
          if (!string.IsNullOrWhiteSpace(question))
          {
-            question = question + Fetch("lorem.punctuation.question_mark");
+            question += PunctuationQuestionMark();
+//            question += Fetch("lorem.punctuation.question_mark");
          }
          return question;
       }
 
       /// <summary>
       /// Generates questions with random words, optionally considering words from a supplementary
-      /// list of Lorem-like words. Example: Questions(3) returns something similar to ["Necessitatibus 
-      /// deserunt animi?", "At hic dolores autem consequatur ut?", "Aliquam velit ex adipisci voluptatem 
+      /// list of Lorem-like words. Example: Questions(3) returns something similar to ["Necessitatibus
+      /// deserunt animi?", "At hic dolores autem consequatur ut?", "Aliquam velit ex adipisci voluptatem
       /// placeat?"]
       /// </summary>
       /// <param name="questionCount">Number of questions. Zero is a valid value. Default value is 3.</param>
@@ -245,7 +271,22 @@ namespace RimuTec.Faker
          {
             throw new ArgumentOutOfRangeException(nameof(questionCount), "Must be equal to or greater than zero.");
          }
-         return questionCount.Times(x => Question(supplemental: supplemental));
+         return questionCount.Times(_ => Question(supplemental: supplemental));
+      }
+
+      internal static string PunctuationSpace()
+      {
+         return Fetch("lorem.punctuation.space");
+      }
+
+      internal static string PunctuationPeriod()
+      {
+         return Fetch("lorem.punctuation.period");
+      }
+
+      internal static string PunctuationQuestionMark()
+      {
+         return Fetch("lorem.punctuation.question_mark");
       }
 
       private static readonly char[] _characters = "0123456789abcdefghijklmnopqrstuvwxyz".ToCharArray();

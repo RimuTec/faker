@@ -63,6 +63,10 @@ namespace RimuTec.Faker
 
             template = ReplaceFirst(template, placeHolder, replacement);
          }
+         // Parsing may have replace a place holder with a different place holder:
+         if(Regex.Matches(template, "#{([a-zA-Z._]{1,})}").Count > 0) {
+            template = Parse(template);
+         }
          return template;
       }
 
@@ -176,7 +180,7 @@ namespace RimuTec.Faker
          if (yamlNode is YamlSequenceNode sequenceNode)
          {
             IEnumerable<string> enumerable = sequenceNode.Children.Select(c => c.ToString());
-            var arr = enumerable.ToArray();
+            _ = enumerable.ToArray();
             return enumerable.Sample();
          }
          else if (yamlNode is YamlScalarNode scalarNode)
@@ -248,5 +252,74 @@ namespace RimuTec.Faker
          }
          return new List<KeyValuePair<string, string[]>>();
       }
+
+      internal static List<string> FetchList(string locator)
+      {
+         LoadLocale(Config.Locale);
+
+         var key = Config.Locale;
+         if (Config.Locale == "en")
+         {
+            key = $"{Config.Locale}.{locator.Split('.')[0]}";
+         }
+         key = key.ToLower();
+         if (Dictionary.ContainsKey(key))
+         {
+            try
+            {
+               var yamlNode = Dictionary[key];
+               var locatorParts = locator.Split('.');
+               return FetchList(yamlNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
+            }
+            catch
+            {
+               // // fall back to locale "en"
+               // LoadLocale("en");
+               // var fileName = typeof(T).Name.FromPascalCasing();
+               // fileName = $"en.{fileName}";
+
+               // key = fileName.ToPascalCasing().ToLower();
+
+               // fakerNode = Library._dictionary[key];
+               // var locatorParts = locator.Split('.');
+               // return Fetch(fakerNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
+
+               // Fall back to locale "en"
+               //_ = GeneratorBase<Lorem>.Fetch(locator);
+
+               LoadLocale("en");
+               var fileName = typeof(T).Name.FromPascalCasing();
+               fileName = $"en.{fileName}";
+               key = fileName.ToPascalCasing().ToLower();
+
+               var fakerNode = Library._dictionary[key];
+               var locatorParts = locator.Split('.');
+               return FetchList(fakerNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
+
+               // var locatorParts = locator.Split('.');
+               // string fallbackKey = $"en.{locatorParts[0].ToLowerInvariant()}";
+               // var yamlNode = Dictionary[fallbackKey];
+               //return Fetch22(yamlNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
+            }
+         }
+         throw new Exception($"Entry for locale {Config.Locale} not found.");
+      }
+
+      internal static List<string> FetchList(YamlNode yamlNode, string[] locatorParts)
+      {
+         if (locatorParts.Length > 0)
+         {
+            return FetchList(yamlNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
+         }
+         if (yamlNode is YamlSequenceNode sequenceNode)
+         {
+            IEnumerable<string> enumerable = sequenceNode.Children.Select(c => c.ToString()/*.Trim(',', ' ', '.')*/);
+            var arr = enumerable.ToArray();
+            return enumerable.ToList();
+         }
+         return new List<string>();
+      }
+
+      internal static Dictionary<string, YamlNode> Dictionary => Library._dictionary;
    }
 }

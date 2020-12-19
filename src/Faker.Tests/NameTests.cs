@@ -41,7 +41,7 @@ namespace RimuTec.Faker.Tests
          Config.Locale = "de";
          var fullName = Name.FullName();
          var parts = fullName.Split(' ');
-         var firstNames = Fetch("name.first_name");
+         var firstNames = Name.FetchList("name.first_name");
          Assert.IsTrue(firstNames.Contains("Wiebke"));
          foreach(var part in parts)
          {
@@ -59,7 +59,7 @@ namespace RimuTec.Faker.Tests
          RandomNumber.ResetSeed(42);
          Config.Locale = "de";
          var fullName = Name.FullName();
-         var nobilityTitles = Fetch("name.nobility_title");
+         var nobilityTitles = Name.FetchList("name.nobility_title");
          var tries = 1;
          while(!fullName.Split(' ').Any(x => nobilityTitles.Contains(x))) {
             tries++;
@@ -177,7 +177,7 @@ namespace RimuTec.Faker.Tests
       {
          Config.Locale = "de";
          var prefix = Name.Prefix();
-         var prefixes = Fetch("name.prefix");
+         var prefixes = Name.FetchList("name.prefix");
          Assert.IsTrue(prefixes.Contains("Dipl.-Ing."));
          Assert.IsTrue(prefixes.Contains(prefix));
       }

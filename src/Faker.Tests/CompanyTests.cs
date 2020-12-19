@@ -266,7 +266,9 @@ namespace RimuTec.Faker.Tests
          get
          {
             yield return new TestFixtureData("bg", null);
-            yield return new TestFixtureData("ca", null);
+            yield return new TestFixtureData("ca", new Dictionary<string, string>{
+               { nameof(CompanyTests.Name_HappyDays), "^[-A-ZÀa-zàèéíïòó, ]+$" },
+            });
             yield return new TestFixtureData("ca-CAT", null);
             yield return new TestFixtureData("da-DK", null);
             yield return new TestFixtureData("de", null);
@@ -306,7 +308,7 @@ namespace RimuTec.Faker.Tests
                { nameof(CompanyTests.Name_HappyDays), "^(Grupo|Sociedad|Grupo Financiero|Colegio|Fondo)?[A-ZÁa-záéíóúñ, ]+(S.A.|S.A. de C.V.|S.R.L|S.A.B.|S.C.)?$" },
             });
             yield return new TestFixtureData("fa", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), @"^[-\p{IsArabic}\u200CA-Za-z, ]+$" }
+               { nameof(CompanyTests.Name_HappyDays), @"^[-\p{IsArabic}\u200CA-Za-z\(\), ]+$" }
             });
             yield return new TestFixtureData("fi-FI", null);
             yield return new TestFixtureData("fr", null);
@@ -347,7 +349,7 @@ namespace RimuTec.Faker.Tests
                { nameof(CompanyTests.Name_HappyDays), @"^(ИП|ООО|ЗАО|ОАО|НКО|ТСЖ|ОП) [-\u0400-\u04FF ]+(Снаб|Торг|Пром|Трейд|Сбыт)?$" },
             });
             yield return new TestFixtureData("sk", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), "^[A-Za-zČŠáčéďíľňšúý' ]+(s.r.o.|a.s.|v.o.s.)$" },
+               { nameof(CompanyTests.Name_HappyDays), "^[A-Za-zČŠáčéďíľňšúýž' ]+(s.r.o.|a.s.|v.o.s.)$" },
             });
             yield return new TestFixtureData("sv", null);
             yield return new TestFixtureData("tr", null);

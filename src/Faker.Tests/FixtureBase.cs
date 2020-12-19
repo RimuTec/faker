@@ -15,50 +15,51 @@ namespace RimuTec.Faker.Tests
          return Regex.Matches(input, pattern, RegexOptions.Compiled).Count;
       }
 
-      protected static List<string> Fetch(string locator)
-      {
-         var key = Config.Locale;
-         if (Config.Locale == "en")
-         {
-            key = $"{Config.Locale}.{locator.Split('.')[0]}";
-         }
-         key = key.ToLower();
-         if (Dictionary.ContainsKey(key))
-         {
-            try
-            {
-               var yamlNode = Dictionary[key];
-               var locatorParts = locator.Split('.');
-               return Fetch(yamlNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
-            }
-            catch
-            {
-               // Fall back to locale "en"
-               var locatorParts = locator.Split('.');
-               string fallbackKey = $"en.{locatorParts[0].ToLowerInvariant()}";
-               var yamlNode = Dictionary[fallbackKey];
-               return Fetch(yamlNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
-            }
-         }
-         throw new Exception($"Entry for locale {Config.Locale} not found.");
-      }
+//       protected static List<string> Fetch22(string locator)
+//       {
+//          var key = Config.Locale;
+//          if (Config.Locale == "en")
+//          {
+//             key = $"{Config.Locale}.{locator.Split('.')[0]}";
+//          }
+//          key = key.ToLower();
+// //         if (Dictionary.ContainsKey(key))
+//          {
+//             try
+//             {
+//                var yamlNode = Dictionary[key];
+//                var locatorParts = locator.Split('.');
+//                return Fetch22(yamlNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
+//             }
+//             catch
+//             {
+//                // Fall back to locale "en"
+//                _ = GeneratorBase<Lorem>.Fetch(locator);
+//                var locatorParts = locator.Split('.');
+//                string fallbackKey = $"en.{locatorParts[0].ToLowerInvariant()}";
+//                var yamlNode = Dictionary[fallbackKey];
+//                return Fetch22(yamlNode[locatorParts[0].ToLowerInvariant()], locatorParts.Skip(1).ToArray());
+//             }
+//          }
+// //         throw new Exception($"Entry for locale {Config.Locale} not found.");
+//       }
 
-      protected static List<string> Fetch(YamlNode yamlNode, string[] locatorParts)
-      {
-         if (locatorParts.Length > 0)
-         {
-            return Fetch(yamlNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
-         }
-         if (yamlNode is YamlSequenceNode sequenceNode)
-         {
-            IEnumerable<string> enumerable = sequenceNode.Children.Select(c => c.ToString());
-            var arr = enumerable.ToArray();
-            return enumerable.ToList();
-         }
-         return new List<string>();
-      }
+//       protected static List<string> Fetch22(YamlNode yamlNode, string[] locatorParts)
+//       {
+//          if (locatorParts.Length > 0)
+//          {
+//             return Fetch22(yamlNode[locatorParts[0]], locatorParts.Skip(1).ToArray());
+//          }
+//          if (yamlNode is YamlSequenceNode sequenceNode)
+//          {
+//             IEnumerable<string> enumerable = sequenceNode.Children.Select(c => c.ToString().Trim(',', ' ', '.'));
+//             var arr = enumerable.ToArray();
+//             return enumerable.ToList();
+//          }
+//          return new List<string>();
+//       }
 
-      protected static Dictionary<string, YamlNode> Dictionary => Library._dictionary;
+//       protected static Dictionary<string, YamlNode> Dictionary => Library._dictionary;
    }
 
    public static class DefaultFixtureData

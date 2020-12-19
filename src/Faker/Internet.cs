@@ -258,7 +258,7 @@ namespace RimuTec.Faker
       {
          glue = glue ?? "-_.".Sample();
          words = words ?? string.Join(" ", Lorem.Words(2));
-         return words.Replace(",", "").Replace(".", "").Replace(" ", glue).ToLower();
+         return words.Replace(",", string.Empty).Replace(".", string.Empty).Replace(" ", glue).ToLower();
       }
 
       /// <summary>

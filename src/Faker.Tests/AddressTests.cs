@@ -97,7 +97,7 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(country));
          Assert.IsFalse(country.Contains("#"));
          Assert.IsFalse(country.Contains("?"));
-         var countries = Fetch("address.country");
+         var countries = Address.FetchList("address.country");
          Assert.IsTrue(countries.Contains(country));
       }
 
@@ -108,7 +108,7 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(countryCode));
          Assert.IsFalse(countryCode.Contains("#"));
          Assert.IsFalse(countryCode.Contains("?"));
-         var countryCodes = Fetch("address.country_code");
+         var countryCodes = Address.FetchList("address.country_code");
          Assert.IsTrue(countryCodes.Contains(countryCode));
       }
 
@@ -119,7 +119,7 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(countryCodeLong));
          Assert.IsFalse(countryCodeLong.Contains("#"));
          Assert.IsFalse(countryCodeLong.Contains("?"));
-         var countryCodesLong = Fetch("address.country_code_long");
+         var countryCodesLong = Address.FetchList("address.country_code_long");
          Assert.IsTrue(countryCodesLong.Contains(countryCodeLong));
       }
 
@@ -220,7 +220,7 @@ namespace RimuTec.Faker.Tests
          Assert.IsFalse(string.IsNullOrWhiteSpace(state));
          Assert.IsFalse(state.Contains("#"));
          Assert.IsFalse(state.Contains("?"));
-         var states = Fetch("address.state");
+         var states = Address.FetchList("address.state");
          Assert.IsTrue(states.Contains(state));
       }
 
@@ -238,9 +238,8 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void StreetAddress_With_Default_Values_LocaleEn()
+      public void StreetAddress_With_Default_Values()
       {
-         Config.Locale = "en";
          var streetAddress = Address.StreetAddress();
          Assert.IsFalse(string.IsNullOrWhiteSpace(streetAddress));
          Assert.IsFalse(streetAddress.Contains("#"));
@@ -248,98 +247,45 @@ namespace RimuTec.Faker.Tests
       }
 
       [Test]
-      public void StreetAddress_With_Default_Values_LocaleRu()
+      public void StreetAddress_With_SecondaryAddress()
       {
-         Config.Locale = "ru";
-         var streetAddress = Address.StreetAddress();
-         Assert.IsFalse(string.IsNullOrWhiteSpace(streetAddress));
-         Assert.IsFalse(streetAddress.Contains("#"));
-         Assert.IsFalse(streetAddress.Contains("?"));
-      }
-
-      [Test]
-      public void StreetAddress_With_SecondaryAddress_LocaleEn()
-      {
-         Config.Locale = "en";
+         string[] secondaryAddressPatternParts = FetchSecondaryAddressPartsForLocale();
          var streetAddress = Address.StreetAddress(true);
          Assert.IsFalse(streetAddress.Contains("#"));
          Assert.IsFalse(streetAddress.Contains("?"));
-         var words = streetAddress.Split(' ');
-         var suffixes = Fetch("address.street_suffix");
-         var intersect = words.Intersect(suffixes);
-         Assert.Greater(intersect.Count(), 0, $"words were '{string.Join("|", words)}' - suffixes were '{string.Join("|", suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
+         Assert.IsTrue(secondaryAddressPatternParts.Any(p => streetAddress.Contains(p)),
+            $"Locale {Locale}. streetAddress is '{streetAddress}'. parts are '{string.Join("|", secondaryAddressPatternParts)}'"
+         );
+      }
+
+      private static string[] FetchSecondaryAddressPartsForLocale()
+      {
+         var seps = new List<char>();
+         seps.AddRange(Lorem.PunctuationSpace().ToCharArray());
+         seps.Add(' ');
+         var secondaryAddressPatternParts = string.Join(Lorem.PunctuationSpace(), Address.FetchList("address.secondary_address")).Split(seps.ToArray());
+         for (var i = 0; i < secondaryAddressPatternParts.Length; i++)
+         {
+            secondaryAddressPatternParts[i] = secondaryAddressPatternParts[i].Replace("#", string.Empty);
+         }
+
+         return secondaryAddressPatternParts;
       }
 
       [Test]
-      public void StreetAddress_With_SecondaryAddress_LocaleRu()
+      public void StreetAddress()
       {
-         Config.Locale = "ru";
-         var streetAddress = Address.StreetAddress(true);
-         Assert.IsFalse(streetAddress.Contains("#"));
-         Assert.IsFalse(streetAddress.Contains("?"));
-         var words = streetAddress.Split(' ', ',');
-         var suffixes = Fetch("address.street_suffix");
-         var intersect = words.Intersect(suffixes);
-         Assert.Greater(intersect.Count(), 0, $"words were '{string.Join("|", words)}' - suffixes were '{string.Join("|", suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
-      }
-
-      [Test]
-      public void StreetAddress_With_SecondaryAddress_LocalePl()
-      {
-         Config.Locale = "pl";
-         var streetAddress = Address.StreetAddress(true);
-         Assert.IsFalse(streetAddress.Contains("#"));
-         Assert.IsFalse(streetAddress.Contains("?"));
-         var words = streetAddress.Split(' ');
-         var suffixes = Fetch("address.street_prefix"); // pl has no 'street_suffix'
-         var intersect = words.Intersect(suffixes);
-         Assert.Greater(intersect.Count(), 0, $"words were '{string.Join("|", words)}' - suffixes were '{string.Join("|", suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
-      }
-
-      [Test]
-      public void StreetAddress_With_SecondaryAddress_LocaleDe()
-      {
-         Config.Locale = "de";
-         var streetAddress = Address.StreetAddress(true);
-         Assert.IsFalse(streetAddress.Contains("#"));
-         Assert.IsFalse(streetAddress.Contains("?"));
-         var words = streetAddress.Split(' ');
-         var suffixes = new string[] { "Apt.", "Zimmer", "OG" }; // de has no 'street_suffix'
-         var intersect = words.Intersect(suffixes);
-         Assert.Greater(intersect.Count(), 0, $"words were '{string.Join("|", words)}' - suffixes were '{string.Join("|", suffixes.ToArray())}' - streetAddress was '{streetAddress}'");
-      }
-
-      [Test]
-      public void StreetAddress_With_LocaleEn()
-      {
-         Config.Locale = "en";
          Address.StreetAddress(); // should not fail
       }
 
       [Test]
-      public void StreetAddress_With_LocaleRu()
+      public void StreetName()
       {
-         Config.Locale = "ru";
-         Address.StreetAddress(); // should not fail
-      }
-
-      [Test]
-      public void StreetName_With_LocaleEn()
-      {
-         Config.Locale = "en";
          var streetName = Address.StreetName();
          Assert.IsFalse(string.IsNullOrWhiteSpace(streetName));
-         Assert.IsFalse(streetName.Contains("#"));
-         Assert.IsFalse(streetName.Contains("?"));
-      }
-
-      [Test]
-      public void StreetName_With_LocaleRu()
-      {
-         Config.Locale = "ru";
-         var streetName = Address.StreetName();
-         Assert.IsFalse(string.IsNullOrWhiteSpace(streetName));
-         Assert.IsFalse(streetName.Contains("#"));
+         Assert.IsFalse(streetName.Contains("#"),
+            $"Locale '{Locale}'. streetName is '{streetName}'"
+         );
          Assert.IsFalse(streetName.Contains("?"));
       }
 

@@ -523,7 +523,7 @@ namespace RimuTec.Faker.Tests
       {
          Func<object>[] actions = new[]
          {
-            new Func<object>(() => PhoneNumber.CellPhone()), 
+            new Func<object>(() => PhoneNumber.CellPhone()),
             new Func<object>(() => PhoneNumber.LandLine())
          };
 
@@ -566,7 +566,8 @@ namespace RimuTec.Faker.Tests
          }
          catch(Exception ex)
          {
-            Console.WriteLine($"Error while using Locale '{locale}': {ex.Message} => {ex.InnerException?.Message}");
+            Assert.Fail($"Error while using Locale '{locale}': {ex.Message} => {ex.InnerException?.Message}");
+            //Console.WriteLine($"Error while using Locale '{locale}': {ex.Message} => {ex.InnerException?.Message}");
             return false;
          }
       }

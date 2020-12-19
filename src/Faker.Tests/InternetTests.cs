@@ -136,7 +136,7 @@ namespace RimuTec.Faker.Tests
       {
          var emailAddress = Internet.FreeEmail();
          AllAssertions(emailAddress);
-         var freeEmail = Fetch("internet.free_email");
+         var freeEmail = Internet.FetchList("internet.free_email");
          Assert.IsTrue(freeEmail.Any(x => emailAddress.EndsWith(x)));
       }
 
@@ -147,7 +147,7 @@ namespace RimuTec.Faker.Tests
          var emailAddress = Internet.FreeEmail(desiredFirstName);
          AllAssertions(emailAddress);
          Assert.IsTrue(emailAddress.StartsWith(desiredFirstName.ToLower()));
-         var freeEmail = Fetch("internet.free_email");
+         var freeEmail = Internet.FetchList("internet.free_email");
          Assert.IsTrue(freeEmail.Any(x => emailAddress.EndsWith(x)));
       }
 
@@ -159,8 +159,13 @@ namespace RimuTec.Faker.Tests
          Assert.IsTrue(Regex.Match(emailAddress, EmailRegex).Success,
             $"Locale '{Locale}'. Invalid value is '{emailAddress}'"
          );
-         var freeEmail = Fetch("internet.free_email");
-         Assert.IsTrue(freeEmail.Any(x => emailAddress.EndsWith(x)));
+         try {
+            var freeEmail = Internet.FetchList("internet.free_email");
+            Assert.IsTrue(freeEmail.Any(x => emailAddress.EndsWith(x)));
+         }
+         catch {
+            Assert.Fail($"Locale {Locale}");
+         }
       }
 
       [Test]

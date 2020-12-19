@@ -26,7 +26,7 @@ namespace RimuTec.Faker.Tests
          Config.Locale = "en";
          Console.Write($"#################### Locale is {Config.Locale} ####################");
          var colorName = Color.ColorName();
-         var colors = Fetch("color.name");
+         var colors = Color.FetchList("color.name");
          Assert.IsTrue(colors.Contains(colorName));
       }
 
@@ -35,7 +35,7 @@ namespace RimuTec.Faker.Tests
       {
          Config.Locale = "ru";
          var colorName = Color.ColorName();
-         var colors = Fetch("color.name");
+         var colors = Color.FetchList("color.name");
          Assert.IsTrue(colors.Contains(colorName));
       }
 
@@ -44,7 +44,7 @@ namespace RimuTec.Faker.Tests
       {
          Config.Locale = "ru";
          Color.LoadLocale("ru");
-         Fetch("color.name");
+         Color.FetchList("color.name");
       }
 
       [Test]

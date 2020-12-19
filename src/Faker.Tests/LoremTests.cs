@@ -1,23 +1,32 @@
 ﻿using NUnit.Framework;
 using RimuTec.Faker.Tests.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
+   [TestFixtureSource(typeof(DefaultFixtureData), nameof(DefaultFixtureData.FixtureParams))]
    public class LoremTests : FixtureBase
    {
-      [OneTimeSetUp]
-      public void FixtureSetUp()
+      public LoremTests(string locale)
       {
+         Locale = locale;
       }
 
       [SetUp]
       public void SetUp()
       {
-         RandomNumber.ResetSeed(42);
+         Config.Locale = Locale;
+      }
+
+      private string Locale { get; }
+
+      [OneTimeSetUp]
+      public void FixtureSetUp()
+      {
       }
 
       [Test]
@@ -62,7 +71,7 @@ namespace RimuTec.Faker.Tests
       public void Word_HappyDays()
       {
          var word = Lorem.Word();
-         Assert.AreEqual("libero", word);
+         Assert.False(word.Length == 0);
       }
 
       [Test]
@@ -78,7 +87,6 @@ namespace RimuTec.Faker.Tests
       {
          var words = Lorem.Words();
          Assert.AreEqual(3, words.Count());
-         Assert.AreEqual("libero qui consequuntur", string.Join(" ", words));
          Assert.AreEqual(0, words.Count(x => string.IsNullOrWhiteSpace(x)));
       }
 
@@ -95,7 +103,9 @@ namespace RimuTec.Faker.Tests
             {
                continue;
             }
-            Assert.True(WordList.Contains(word));
+            Assert.True(WordList.Contains(word),
+               $"Locale '{Locale}'. Word missing from word list '{word}'"
+            );
             Assert.False(SupplementalWordList.Contains(word));
          }
       }
@@ -103,7 +113,7 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Words_With_Invalid_WordCount()
       {
-         var invalidWordCount = -1;
+         const int invalidWordCount = -1;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Lorem.Words(invalidWordCount));
          Assert.AreEqual("Must be equal to or greater than zero. (Parameter 'wordCount')", ex.Message);
       }
@@ -121,7 +131,6 @@ namespace RimuTec.Faker.Tests
          const int defaultWordCount = 3;
          var words = Lorem.Words(supplemental: true);
          Assert.AreEqual(defaultWordCount, words.Count());
-         Assert.AreEqual("consequuntur argentum canonicus", string.Join(" ", words));
       }
 
       [Test]
@@ -142,10 +151,12 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Words_Uses_Words_From_Basic_List_Only()
       {
-         var words = Lorem.Words(WordList.Count(), supplemental: false);
+         var words = Lorem.Words(WordList.Length, supplemental: false);
          foreach (var word in words)
          {
-            Assert.IsTrue(WordList.Contains(word));
+            Assert.IsTrue(WordList.Contains(word),
+               $"Locale '{Locale}'. Word missing from word list '{word}'"
+            );
          }
       }
 
@@ -178,11 +189,11 @@ namespace RimuTec.Faker.Tests
       public void Sentence_HappyDays()
       {
          var sentence = Lorem.Sentence(/* 4 is default */);
-         Assert.IsTrue(sentence.EndsWith("."));
+         Assert.IsTrue(sentence.EndsWith(Lorem.PunctuationPeriod()));
          Assert.AreEqual(0, Regex.Match(sentence, "^[A-Z]").Index); // first letter to be upper case
-         var matches = Regex.Matches(sentence, "[a-z]+");
-         Assert.GreaterOrEqual(matches.Count, 4);
-         Assert.GreaterOrEqual(sentence.Count(c => c == ' '), 3);
+         var words = sentence.Split(Lorem.PunctuationSpace());
+         Assert.GreaterOrEqual(words.Length, 4);
+         Assert.GreaterOrEqual(sentence.Count(c => c.ToString() == Lorem.PunctuationSpace()), 3);
       }
 
       [Test]
@@ -190,24 +201,27 @@ namespace RimuTec.Faker.Tests
       {
          const int minimumWordCount = 42;
          var sentence = Lorem.Sentence(minimumWordCount);
-         var matches = Regex.Matches(sentence, "[a-zA-Z]+");
-         Assert.GreaterOrEqual(matches.Count, minimumWordCount);
+         var words = sentence.Split(Lorem.PunctuationSpace());
+         Assert.GreaterOrEqual(words.Length, minimumWordCount);
       }
 
       [Test]
       public void Sentence_With_Exact_WordCount()
       {
-         var randomWordCount = RandomNumber.Next(42);
+         var localeSpecificSpace = Lorem.PunctuationSpace();
+         var randomWordCount = RandomNumber.Next(1, 42);
          var sentence = Lorem.Sentence(randomWordCount, randomWordsToAdd: 0);
-         var matches = Regex.Matches(sentence, "[a-zA-Z]+");
-         Assert.AreEqual(randomWordCount, matches.Count);
+         var words = sentence.Split(localeSpecificSpace.ToCharArray());
+         Assert.AreEqual(randomWordCount, words.Length,
+            $"Locale {Locale}. randomWordCount is '{randomWordCount}' Sentence is '{sentence}'"
+         );
       }
 
       [Test]
       public void Sentence_With_Words_From_Supplementary_List()
       {
          RandomNumber.ResetSeed(42);
-         var wordCount = 42;
+         const int wordCount = 42;
          var sentence = Lorem.Sentence(wordCount, supplemental: true).ToLower();
          var checkCount = 0;
          foreach (var word in sentence.ToWordList())
@@ -250,8 +264,10 @@ namespace RimuTec.Faker.Tests
          const int sentenceCount = 7;
          var sentences = Lorem.Sentences(sentenceCount);
          Assert.AreEqual(sentenceCount, sentences.Count());
-         Assert.AreEqual(sentenceCount, sentences.Count(x => x.EndsWith(".")));
-         Assert.AreEqual(sentenceCount, sentences.Count(x => x.Contains(" ")));
+         Assert.AreEqual(sentenceCount, sentences.Count(x => x.EndsWith(Lorem.PunctuationPeriod())),
+            $"Locale {Locale}"
+         );
+         Assert.AreEqual(sentenceCount, sentences.Count(x => x.Contains(Lorem.PunctuationSpace())));
       }
 
       [Test]
@@ -271,8 +287,7 @@ namespace RimuTec.Faker.Tests
          {
             foreach (var word in sentence.ToWordList())
             {
-               if (SupplementalWordList.Contains(word)
-                  && !JointWords.Contains(word))
+               if (SupplementalWordList.Contains(word))
                {
                   return;
                }
@@ -280,7 +295,7 @@ namespace RimuTec.Faker.Tests
             }
          }
          Assert.Greater(checkCount, 0);
-         Assert.Fail("Sentences() does not make use of supplementary list.");
+         Assert.Fail($"Locale {Locale}. Sentences() does not make use of supplementary words.");
       }
 
       [Test]
@@ -301,8 +316,8 @@ namespace RimuTec.Faker.Tests
       public void Paragraph_HappyDays()
       {
          var paragraph = Lorem.Paragraph(/* 3 is default */);
-         Assert.AreEqual(3, paragraph.Count(c => c == '.'));
-         Assert.AreEqual(8, paragraph.Count(c => c == ' '));
+         Assert.AreEqual(3, paragraph.Count(c => c.ToString() == Lorem.PunctuationPeriod()));
+         Assert.AreEqual(8, paragraph.Count(c => c.ToString() == Lorem.PunctuationSpace()));
       }
 
       [Test]
@@ -310,15 +325,18 @@ namespace RimuTec.Faker.Tests
       {
          const int sentenceCount = 42;
          var paragraph = Lorem.Paragraph(sentenceCount);
-         Assert.GreaterOrEqual(paragraph.Count(c => c == '.'), sentenceCount);
+         Assert.GreaterOrEqual(paragraph.Count(c => c.ToString() == Lorem.PunctuationPeriod()), sentenceCount);
+         var wordListLower = WordList.Select(w => w.ToLower());
          foreach (var word in paragraph.ToWordList())
          {
-            if (SupplementalWordList.Contains(word))
+            if(paragraph.ToLower().Contains(word + Lorem.PunctuationPeriod()))
             {
+               // Last word in sentence might be truncated or padded.
                continue;
             }
-            Assert.IsTrue(WordList.Contains(word));
-            Assert.IsFalse(SupplementalWordList.Contains(word));
+            Assert.IsTrue(wordListLower.Contains(word.ToLower()),
+               $"Locale is '{Locale}'. Missing word is '{word}'. Paragraph is '{paragraph}'"
+            );
          }
       }
 
@@ -367,8 +385,8 @@ namespace RimuTec.Faker.Tests
          const int paragraphCount = 7;
          var paragraphs = Lorem.Paragraphs(paragraphCount);
          Assert.AreEqual(paragraphCount, paragraphs.Count());
-         Assert.AreEqual(paragraphCount, paragraphs.Count(x => x.EndsWith(".")));
-         Assert.AreEqual(paragraphCount, paragraphs.Count(x => x.Contains(" ")));
+         Assert.AreEqual(paragraphCount, paragraphs.Count(x => x.EndsWith(Lorem.PunctuationPeriod())));
+         Assert.AreEqual(paragraphCount, paragraphs.Count(x => x.Contains(Lorem.PunctuationSpace())));
       }
 
       [Test]
@@ -440,10 +458,14 @@ namespace RimuTec.Faker.Tests
          var paragraph = Lorem.ParagraphByChars();
          Assert.AreEqual(defaultChars, paragraph.Length);
          var checkCount = 0;
-         foreach (var word in paragraph.ToWordList())
+         //var supplementalInLower = SupplementalWordList.Select(w => w.ToLower());
+         IEnumerable<string> wordList = paragraph.ToWordList();
+         foreach (var word in wordList.Take(wordList.Count() - 1)) // last word may be truncated or padded
          {
             checkCount++;
-            Assert.IsFalse(SupplementalWordList.Contains(word));
+            Assert.IsTrue(wordList.Contains(word),
+               $"Locale '{Locale}'. Missing word is '{word}'. Paragraph is '{paragraph}'."
+            );
          }
          Assert.Greater(checkCount, 10);
       }
@@ -467,9 +489,9 @@ namespace RimuTec.Faker.Tests
       {
          RandomNumber.ResetSeed(42);
          var maxWordLength = 0;
-         WordList.All(x => { maxWordLength = Math.Max(maxWordLength, x.Length); return true; });
-         SupplementalWordList.All(x => { maxWordLength = Math.Max(maxWordLength, x.Length); return true; });
-         var startValue = 50;
+         _ = WordList.All(x => { maxWordLength = Math.Max(maxWordLength, x.Length); return true; });
+         _ = SupplementalWordList.All(x => { maxWordLength = Math.Max(maxWordLength, x.Length); return true; });
+         const int startValue = 50;
          var charCount = startValue;
          while (charCount++ <= startValue + maxWordLength)
          {
@@ -490,18 +512,21 @@ namespace RimuTec.Faker.Tests
       {
          var paragraph = Lorem.ParagraphByChars(supplemental: false);
          var checkCount = 0;
+         var wordListAsLower = WordList.Select(w => w.ToLower());
          foreach (var word in paragraph.ToWordList())
          {
-            checkCount++;
-            if (paragraph.ToLower().EndsWith(word + "."))
+            if (paragraph.ToLower().EndsWith(word + Lorem.PunctuationPeriod()))
             {
                // don't check last word as it might be truncated or padded
                return;
             }
             // but check all others
-            Assert.IsTrue(WordList.Contains(word));
+            checkCount++;
+            Assert.IsTrue(wordListAsLower.Contains(word),
+               $"Locale {Locale}. word is '{word}'. paraggraph is '{paragraph}'"
+            );
          }
-         Assert.AreEqual(checkCount, paragraph.ToWordList());
+         Assert.AreEqual(checkCount, paragraph.ToWordList().Count());
       }
 
       [Test]
@@ -523,8 +548,8 @@ namespace RimuTec.Faker.Tests
       public void Question_With_Default_Values()
       {
          var question = Lorem.Question();
-         Assert.AreEqual(4, question.Split(' ').Count());
-         Assert.IsTrue(question.EndsWith("?"));
+         Assert.AreEqual(4, question.Split(Lorem.PunctuationSpace()).Length);
+         Assert.IsTrue(question.EndsWith(Lorem.PunctuationQuestionMark()));
       }
 
       [Test]
@@ -543,7 +568,9 @@ namespace RimuTec.Faker.Tests
          foreach (var word in question.ToWordList())
          {
             checkCount++;
-            Assert.IsTrue(WordList.Contains(word));
+            Assert.IsTrue(WordList.Contains(word),
+               $"Locale '{Locale}'. Missing word is '{word}'"
+            );
          }
          Assert.AreEqual(wordCount, checkCount);
       }
@@ -593,12 +620,15 @@ namespace RimuTec.Faker.Tests
       {
          var questions = Lorem.Questions(supplemental: false);
          var checkCount = 0;
+         var wordListLower = WordList.Select(w => w.ToLower());
          foreach (var question in questions)
          {
             foreach (var word in question.ToWordList())
             {
                checkCount++;
-               Assert.IsTrue(WordList.Contains(word));
+               Assert.IsTrue(wordListLower.Contains(word.ToLower()),
+                  $"Locale '{Locale}'. Missing word is {word}. Question is '{question}'"
+               );
             }
          }
       }
@@ -635,7 +665,6 @@ namespace RimuTec.Faker.Tests
       {
          var questions = Lorem.Questions(0);
          Assert.AreEqual(0, questions.Count());
-         ;
       }
 
       [Test]
@@ -648,16 +677,22 @@ namespace RimuTec.Faker.Tests
       /// <summary>
       /// Words in the standard list. Duplicates removed.
       /// </summary>
-      public string[] WordList { get {
-            if(_wordList == null)
+      public string[] WordList
+      {
+         get
+         {
+            if (_wordList == null)
             {
-               var wordList = Fetch("lorem.words");
-               _wordList = wordList.Distinct().ToArray();
+               var temp = new List<string>();
+               foreach(var word in Lorem.FetchList("lorem.words"))
+               {
+                  temp.AddRange(word.Split(',').Select(w => w.Trim('.', ' ')));
+               }
+               _wordList = temp.ToArray();
             }
             return _wordList;
          }
       }
-
 
       /// <summary>
       /// Words in the supplementary list. Duplicates are removed.
@@ -668,8 +703,12 @@ namespace RimuTec.Faker.Tests
          {
             if (_supplementalWordList == null)
             {
-               var supplementaryList = Fetch("lorem.supplemental");
-               _supplementalWordList = supplementaryList.Distinct().ToArray();
+               var temp = new List<string>();
+               foreach(var word in Lorem.FetchList("lorem.supplemental"))
+               {
+                  temp.AddRange(word.Split(',').Select(w => w.Trim('.', ' ')));
+               }
+               _supplementalWordList = temp.ToArray();
             }
             return _supplementalWordList;
          }
