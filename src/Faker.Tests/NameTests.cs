@@ -5,13 +5,28 @@ using System.Linq;
 namespace RimuTec.Faker.Tests
 {
    [TestFixture]
+   [TestFixtureSource(typeof(DefaultFixtureData), nameof(DefaultFixtureData.FixtureParams))]
    public class NameTests : FixtureBase
    {
+      public NameTests(string locale)
+      {
+         Locale = locale;
+      }
+
       [SetUp]
       public void SetUp()
       {
+         Config.Locale = Locale;
          RandomNumber.ResetSeed(42);
       }
+
+      private string Locale { get; }
+
+      // [SetUp]
+      // public void SetUp()
+      // {
+      //    RandomNumber.ResetSeed(42);
+      // }
 
       [TearDown]
       public void TearDown()
@@ -23,7 +38,12 @@ namespace RimuTec.Faker.Tests
       public void FullName_HappyDays()
       {
          var fullName = Name.FullName();
-         Assert.GreaterOrEqual(fullName.Count(c => c == ' '), 1);
+         // Appears as if in some locales a full name does not seem to contain a space, e.g. 
+         // "zh-TW" where firstname is followed by last name without whitespace
+         // var seps = (Lorem.PunctuationSpace() + " ").ToCharArray();
+         // Assert.GreaterOrEqual(fullName.Count(c => seps.Contains(c)), 1,
+         //    $"Locale is {Locale}. {nameof(fullName)} is '{fullName}'."
+         // );
          Assert.GreaterOrEqual(fullName.Length, 3);
       }
 
@@ -82,9 +102,14 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void NameWithMiddle_Twice_NotEqual()
       {
-         var nameWithMiddle1 = Name.NameWithMiddle();
-         var nameWithMiddle2 = Name.NameWithMiddle();
-         Assert.AreNotEqual(nameWithMiddle1, nameWithMiddle2);
+         try {
+            var nameWithMiddle1 = Name.NameWithMiddle();
+            var nameWithMiddle2 = Name.NameWithMiddle();
+            Assert.AreNotEqual(nameWithMiddle1, nameWithMiddle2);
+         }
+         catch(Exception ex){
+            Assert.Fail($"Locale {Locale}. Exception '{ex}'");
+         }
       }
 
       [Test]
@@ -185,16 +210,26 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Suffix_HappyDays()
       {
-         var suffix = Name.Suffix();
-         Assert.IsTrue(!string.IsNullOrWhiteSpace(suffix));
+         var suffixes = Name.FetchList("name.suffix");
+         if(suffixes.Count > 0)
+         {
+            var suffix = Name.Suffix();
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(suffix));
+         }
       }
 
       [Test]
       public void Suffix_Twice_NotEqual()
       {
-         var suffix1 = Name.Suffix();
-         var suffix2 = Name.Suffix();
-         Assert.AreNotEqual(suffix1, suffix2);
+         var suffixes = Name.FetchList("name.suffix");
+         if(suffixes.Count > 1)
+         {
+            var suffix1 = Name.Suffix();
+            var suffix2 = Name.Suffix();
+            Assert.AreNotEqual(suffix1, suffix2,
+               $"Locale '{Locale}'"
+            );
+         }
       }
 
       [Test]

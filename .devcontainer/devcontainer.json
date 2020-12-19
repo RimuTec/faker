@@ -6,12 +6,13 @@
     "service": "rimutec-faker",
     "workspaceFolder": "/app",
     "extensions": [
-        "ms-dotnettools.csharp",
-        "josefpihrt-vscode.roslynator",
-        "formulahendry.dotnet-test-explorer",
         "fernandoescolar.vscode-solution-explorer",
+        "formulahendry.dotnet-test-explorer",
         "eamodio.gitlens",
         "editorconfig.editorconfig",
+        "josefpihrt-vscode.roslynator",
+        "k--kato.docomment",
+        "ms-dotnettools.csharp",
 		"ms-vscode.powershell",
 		"shd101wyy.markdown-preview-enhanced"
     ],

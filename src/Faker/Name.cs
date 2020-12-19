@@ -72,7 +72,7 @@ namespace RimuTec.Faker
       /// <returns></returns>
       public static string Suffix()
       {
-         return Fetch("name.suffix");
+         return Fetch("name.suffix") ?? string.Empty;
       }
 
       /// <summary>

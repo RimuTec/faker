@@ -43,7 +43,7 @@ namespace RimuTec.Faker
             var method = token.Split('.')[1].ToPascalCasing();
 
             string replacement = null;
-            var type = typeof(YamlLoader).Assembly.GetTypes().FirstOrDefault(t => string.Compare(t.Name, className, true) == 0);
+            var type = Array.Find(typeof(YamlLoader).Assembly.GetTypes(), t => string.Compare(t.Name, className, true) == 0);
             if (type != null)
             {
                var methodInfo = type.GetMethod(method, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
@@ -51,7 +51,7 @@ namespace RimuTec.Faker
                {
                   // invoke statics method, if needed with default parameter values
                   // Ref: https://stackoverflow.com/a/9916197/411428
-                  var paramCount = methodInfo.GetParameters().Count();
+                  var paramCount = methodInfo.GetParameters().Length;
                   object[] parameters = Enumerable.Repeat(Type.Missing, paramCount).ToArray();
                   replacement = methodInfo.Invoke(null, parameters).ToString();
                }
