@@ -425,7 +425,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="System.Threading" Version="4.3.0" />
-      <PackageReference Include="YamlDotNet" Version="8.1.1" />
+      <PackageReference Include="YamlDotNet" Version="9.1.1" />
    </ItemGroup>
 
 </Project>
