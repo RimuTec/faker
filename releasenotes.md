@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 1.10.0
+- Upgraded package reference for YamlDotNet to version 9.1.1
+
 ## Version 1.9.0
 - Smaller fixes for Name generator that affected a small number of locales
 
