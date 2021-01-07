@@ -5,7 +5,7 @@ namespace RimuTec.Faker
    /// <summary>
    /// Generators for business related data
    /// </summary>
-   public class Business : GeneratorBase<Business>
+   public sealed class Business : GeneratorBase<Business>
    {
       private Business() { }
 

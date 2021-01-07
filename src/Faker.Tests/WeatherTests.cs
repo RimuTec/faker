@@ -34,7 +34,7 @@ namespace RimuTec.Faker.Tests
          var now = DateTime.UtcNow;
          var forecast = Weather.Forecast();
          Assert.AreEqual(5, forecast.Count());
-         foreach(var daily in forecast)
+         foreach (var daily in forecast)
          {
             Assert.IsTrue(daily.Date >= now);
             Assert.IsTrue(daily.TemperatureC >= -20 && daily.TemperatureC < 55,
@@ -46,7 +46,7 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Forecost_MultipleTimes()
       {
-         for(var i = 0; i < 100; i++)
+         for (var i = 0; i < 100; i++)
          {
             Weather.Forecast();
          }
@@ -63,11 +63,11 @@ namespace RimuTec.Faker.Tests
       [Test]
       public void Forecast_Rejects_Negative_NumberOfDays()
       {
-         var numberOfDays = -1;
+         const int numberOfDays = -1;
          var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Weather.Forecast(numberOfDays));
          Assert.AreEqual("Must not be negative. (Parameter 'numberOfDays')", ex.Message);
       }
 
-      private string[] summaries = new string[]{"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"};
+      private readonly string[] summaries = new string[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
    }
 }

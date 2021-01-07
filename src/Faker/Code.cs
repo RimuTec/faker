@@ -2,14 +2,13 @@
 using RimuTec.Faker.Helper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RimuTec.Faker
 {
    /// <summary>
    /// Generators for different types of codes, e.g. ISBN, EAN, IMEI, ASIN, etc.
    /// </summary>
-   public class Code : GeneratorBase<Code>
+   public sealed class Code : GeneratorBase<Code>
    {
       private Code() { }
 
@@ -46,7 +45,7 @@ namespace RimuTec.Faker
          // Reporting Body Identifier list: http://en.wikipedia.org/wiki/Reporting_Body_Identifier
          int reportingBodyIdentifier = _RBI.Sample();
          var arr = $"{reportingBodyIdentifier}".PadLeft(2, '0').ToDigitList();
-         12.TimesDo(x => arr.Add(RandomNumber.Next(0, 10)));
+         12.TimesDo(_ => arr.Add(RandomNumber.Next(0, 10)));
          var digits = arr.AppendLuhnCheckDigit();
          return string.Join("", digits);
       }
@@ -100,7 +99,7 @@ namespace RimuTec.Faker
          var values = birthyear.ToString().Substring(2,2); // get last two digits
          values += @"\d{5}".Regexify();
          var checkAlpha = GenerateNricCheckAlphabet(values.ToDigitList(), prefix);
-         return $"{prefix}{values}{checkAlpha}";
+         return prefix + values + checkAlpha;
       }
 
       /// <summary>
@@ -115,7 +114,7 @@ namespace RimuTec.Faker
       }
 
       /// <summary>
-      /// Generates Social Insurance Number issued in Canada. 
+      /// Generates Social Insurance Number issued in Canada.
       /// </summary>
       /// <returns></returns>
       public static string Sin()
@@ -129,7 +128,7 @@ namespace RimuTec.Faker
          var digits = new List<int> { new Range2<int>(1, 9).AsArray().Sample() };
 
          // generate 2nd to 8th
-         7.TimesDo(x => digits.Add(RandomNumber.Next(0, 10)));
+         7.TimesDo(_ => digits.Add(RandomNumber.Next(0, 10)));
 
          // generate 9th digit
          digits.Add(GenerateSinCheckDigit(digits));
@@ -147,7 +146,7 @@ namespace RimuTec.Faker
          // https://www.vesic.org/english/blog-eng/net/verifying-chilean-rut-code-tax-number/
          var digits = value.ToDigitList();
          var total = 0;
-         for (var i = 0; i < digits.Count(); i++)
+         for (var i = 0; i < digits.Count; i++)
          {
             total += digits[i] * _rutCheckDigit[i];
          }
@@ -182,13 +181,13 @@ namespace RimuTec.Faker
          var values = @"\d{7}".Regexify();
          var digits = values.ToDigitList();
          var remainder = 0;
-         for (var i = 0; i < digits.Count(); i++)
+         for (var i = 0; i < digits.Count; i++)
          {
             remainder += _eanCheckDigit8[i] * digits[i];
          }
-         remainder = 10 - remainder % 10;
+         remainder = 10 - (remainder % 10);
          var remainderAsString = remainder == 10 ? "0" : $"{remainder}";
-         return $"{values}{remainderAsString}";
+         return values + remainderAsString;
       }
 
       private static string GenerateBase13Ean()
@@ -196,20 +195,20 @@ namespace RimuTec.Faker
          var values = @"\d{12}".Regexify();
          var digits = values.ToDigitList();
          var remainder = 0;
-         for (var i = 0; i < digits.Count(); i++)
+         for (var i = 0; i < digits.Count; i++)
          {
             remainder += _eanCheckDigit13[i] * digits[i];
          }
-         remainder = 10 - remainder % 10;
+         remainder = 10 - (remainder % 10);
          var remainderAsString = remainder == 10 ? "0" : $"{remainder}";
-         return $"{values}{remainderAsString}";
+         return values + remainderAsString;
       }
 
       private static string GenerateNricCheckAlphabet(IList<int> digits, string prefix)
       {
          var weight = "2765432".ToDigitList();
          var total = 0;
-         for (var i = 0; i < digits.Count(); i++)
+         for (var i = 0; i < digits.Count; i++)
          {
             total += weight[i] * digits[i];
          }
@@ -225,7 +224,7 @@ namespace RimuTec.Faker
          // https://en.wikipedia.org/wiki/Check_digit#ISBN_13
          // https://isbn-information.com/check-digit-for-the-13-digit-isbn.html
          var remainder = 0;
-         for (var index = 0; index < digits.Count(); index++)
+         for (var index = 0; index < digits.Count; index++)
          {
             int current = digits[index];
             if (index.IsEven())
@@ -237,7 +236,7 @@ namespace RimuTec.Faker
                remainder += current * 3;
             }
          }
-         remainder = remainder % 10;
+         remainder %= 10;
          int checkDigit = 0;
          if (remainder != 0)
          {
@@ -252,14 +251,13 @@ namespace RimuTec.Faker
          // https://en.wikipedia.org/wiki/Check_digit#ISBN_10
          // https://isbn-information.com/the-10-digit-isbn.html
          var remainder = 0;
-         for (var index = 0; index < digits.Count(); index++)
+         for (var index = 0; index < digits.Count; index++)
          {
             int current = digits[index];
-            int multiplier = (10 - index);
+            int multiplier = 10 - index;
             remainder += multiplier * current;
          }
          remainder %= 11;
-         var checkDigit = 11 - remainder;
          return remainder == 10 ? "X" : remainder.ToString();
       }
 

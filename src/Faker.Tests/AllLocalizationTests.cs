@@ -123,8 +123,8 @@ namespace RimuTec.Faker.Tests
       {
          Func<object>[] businessActions = new[]
          {
-            () => Business.CreditCardExpiryDate(), 
-            Business.CreditCardNumber, 
+            () => Business.CreditCardExpiryDate(),
+            Business.CreditCardNumber,
             new Func<object>(Business.CreditCardType)
          };
 

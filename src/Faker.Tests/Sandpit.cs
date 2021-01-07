@@ -240,7 +240,7 @@ namespace RimuTec.Faker.Tests.OtherTests
       {
          Config.Locale = "ja";
          const int wordCount = 3;
-         var combined = Faker.Extensions.IntExtensions.Times(wordCount, _ => Lorem.Word()).Concat(Faker.Extensions.IntExtensions.Times(wordCount, _ => Lorem.SupplementalWord())).ToArray();
+         var combined = wordCount.Times(_ => Lorem.Word()).Concat(wordCount.Times(_ => Lorem.SupplementalWord())).ToArray();
          //result.AddRange(combined.Shuffle().Take(wordCount));
       }
 

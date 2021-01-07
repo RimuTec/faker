@@ -32,7 +32,7 @@ namespace RimuTec.Faker.Tests
          }
       }
 
-      private readonly Dictionary<string, string> DefaultRegex = new Dictionary<string, string>();
+      private readonly Dictionary<string, string> DefaultRegex = new();
 
       private string Locale { get; }
 
