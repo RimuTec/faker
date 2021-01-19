@@ -12,7 +12,7 @@ namespace RimuTec.Faker.Tests.OtherTests
 {
    /// <summary>
    /// The sandpit class contains random code for experiments. Although written like tests,
-   /// these are not considered a part of the test suite for RimuTec.Faker.
+   /// these are not considered to be part of the test suite for RimuTec.Faker.
    /// </summary>
    [TestFixture]
    public class Sandpit
