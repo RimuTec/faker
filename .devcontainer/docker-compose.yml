@@ -5,8 +5,8 @@ services:
         container_name: rimutec-faker-dev
         build:
             context: .
-        working_dir: /app
+        working_dir: /src
         volumes:
-            - ..:/app:cached
+            - ..:/src:cached
         command: >
-            bash -c "pwsh /app/.devcontainer/setversion.ps1 && sleep infinity"
+            bash -c "pwsh /src/.devcontainer/setversion.ps1 && sleep infinity"

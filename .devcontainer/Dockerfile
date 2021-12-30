@@ -1,7 +1,17 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0.302
+FROM mcr.microsoft.com/dotnet/sdk:6.0.101
+# Version last checked on 30 Dec 2021
+# More recent images may be available at https://hub.docker.com/_/microsoft-dotnet-sdk/
 
 RUN apt-get update && \
-    apt-get install -y procps
+   apt-get upgrade -y && \
+   apt-get install -y \
+      procps \
+      iputils-ping \
+      net-tools
+# procps: to support command 'ps'
+# iputils-ping: to support command 'ping' (https://linuxconfig.org/ping-command-not-found-on-ubuntu-20-04-focal-fossa-linux) [Manfred, 19sep2021]
+# net-tools: to support command such as 'arp', 'ifconfig', 'netstat', etc. (https://helpmanual.io/packages/apt/net-tools/) [Manfred, 26sep2021]
+# You can safely remove the packages you don't want. [Manfred, 08oct2021]
 
 # Create non-root user
 RUN groupadd -g 1000 -r faker && \
@@ -12,12 +22,12 @@ RUN groupadd -g 1000 -r faker && \
 
 # Create working directory. Ownership will be changed in entrypoint.sh which
 # executes *after* the volume has been mounted.
-RUN mkdir /app
-RUN mkdir /app/dev
+RUN mkdir /src
 
 # Copy entrypoint script into container, make it executable, then execute it:
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+# Option '+x' adds executable flag to the file
 ENTRYPOINT ["/entrypoint.sh"]
 
 # There is an issue with dotnet-test-explorer not finding tests when targeting .NET 5.0

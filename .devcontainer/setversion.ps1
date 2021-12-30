@@ -1,3 +1,4 @@
+#!/usr/bin/pwsh
 Write-Host "Setting build number"
 
 

@@ -4,7 +4,7 @@
       "docker-compose.yml"
    ],
    "service": "rimutec-faker",
-   "workspaceFolder": "/app",
+   "workspaceFolder": "/src",
    "extensions": [
       "fernandoescolar.vscode-solution-explorer",
       "formulahendry.dotnet-test-explorer",

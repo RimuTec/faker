@@ -18,8 +18,8 @@ namespace RimuTec.Faker.Helper
 
       public T[] AsArray()
       {
-         var min = (dynamic)MinValue;
-         var max = (dynamic)MaxValue;
+         dynamic min = MinValue;
+         dynamic max = MaxValue;
          var arr = new T[max - min + 1];
          var currentValue = min;
          for (var i = 0; i <= max - min; i++)
