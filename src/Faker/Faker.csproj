@@ -19,43 +19,7 @@
       <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
       <PackageLicenseUrl />
       <PackageLicenseFile>LICENSE</PackageLicenseFile>
-   </PropertyGroup>
-
-   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
-      <DebugType>full</DebugType>
-      <DebugSymbols>true</DebugSymbols>
-      <DocumentationFile>bin\Debug\netstandard2.1\RimuTec.Faker.xml</DocumentationFile>
-   </PropertyGroup>
-
-   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-      <DocumentationFile>bin\Release\netstandard2.1\RimuTec.Faker.xml</DocumentationFile>
-      <DefineConstants>TRACE;RELEASE;NETFRAMEWORK;NETSTANDARD2_1</DefineConstants>
-      <Optimize>true</Optimize>
-   </PropertyGroup>
-
-   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-      <DebugType>full</DebugType>
-      <DebugSymbols>true</DebugSymbols>
-      <DocumentationFile>bin\Debug\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
-   </PropertyGroup>
-
-   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-      <DocumentationFile>bin\Release\netstandard2.0\RimuTec.Faker.xml</DocumentationFile>
-      <DebugType>full</DebugType>
-      <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
-      <Optimize>true</Optimize>
-   </PropertyGroup>
-
-   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net462|AnyCPU'">
-      <DebugType>full</DebugType>
-      <DebugSymbols>true</DebugSymbols>
-      <DocumentationFile>bin\Debug\net462\RimuTec.Faker.xml</DocumentationFile>
-   </PropertyGroup>
-
-   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
-      <DocumentationFile>bin\Release\net462\RimuTec.Faker.xml</DocumentationFile>
-      <DefineConstants>TRACE;RELEASE;NETFRAMEWORK;NET462</DefineConstants>
-      <Optimize>true</Optimize>
+      <GenerateDocumentationfile>true</GenerateDocumentationfile>
    </PropertyGroup>
 
    <ItemGroup>
