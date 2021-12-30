@@ -9,4 +9,4 @@ services:
         volumes:
             - ..:/app:cached
         command: >
-            bash -c "pwsh /app/dev/setversion.ps1 && sleep infinity"
+            bash -c "pwsh /app/.devcontainer/setversion.ps1 && sleep infinity"

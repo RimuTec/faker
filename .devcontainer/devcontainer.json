@@ -1,21 +1,21 @@
 {
-    "name": "RimuTec.Faker",
-    "dockerComposeFile": [
-        "../dev/docker-compose.yml"
-    ],
-    "service": "rimutec-faker",
-    "workspaceFolder": "/app",
-    "extensions": [
-        "fernandoescolar.vscode-solution-explorer",
-        "formulahendry.dotnet-test-explorer",
-        "eamodio.gitlens",
-        "editorconfig.editorconfig",
-        "josefpihrt-vscode.roslynator",
-        "k--kato.docomment",
-        "ms-dotnettools.csharp",
-		"ms-vscode.powershell",
-		"shd101wyy.markdown-preview-enhanced"
-    ],
-    "remoteUser": "faker",
-    "shutdownAction": "stopCompose"
+   "name": "RimuTec.Faker",
+   "dockerComposeFile": [
+      "docker-compose.yml"
+   ],
+   "service": "rimutec-faker",
+   "workspaceFolder": "/app",
+   "extensions": [
+      "fernandoescolar.vscode-solution-explorer",
+      "formulahendry.dotnet-test-explorer",
+      "eamodio.gitlens",
+      "editorconfig.editorconfig",
+      "josefpihrt-vscode.roslynator",
+      "k--kato.docomment",
+      "ms-dotnettools.csharp",
+      "ms-vscode.powershell",
+      "shd101wyy.markdown-preview-enhanced"
+   ],
+   "remoteUser": "faker",
+   "shutdownAction": "stopCompose"
 }
