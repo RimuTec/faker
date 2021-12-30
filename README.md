@@ -5,7 +5,7 @@ RimuTec.Faker is a C# port of the Ruby Faker gem [https://github.com/faker-ruby/
 
 RimuTec.Faker supports the following targets:
 - .NET Standard 2.0 (netstandard2.0)
-- .NET Stnadard 2.1 (netstandard2.1)
+- .NET Standard 2.1 (netstandard2.1)
 - .NET Framework 4.6.2 (net462)
 - .NET 5.0 (net5.0)
 
