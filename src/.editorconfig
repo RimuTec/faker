@@ -1,9 +1,0 @@
-[*]
-indent_style = space
-indent_size = 3
-tab_width = 3
-end_of_line = lf
-insert_final_newline = true
-
-[*.cs]
-csharp_new_line_before_open_brace = all

@@ -341,7 +341,7 @@ namespace RimuTec.Faker.Tests
             });
             yield return new TestFixtureData("pt", null);
             yield return new TestFixtureData("pt-BR", new Dictionary<string, string>{
-               { nameof(CompanyTests.Name_HappyDays), "^[-A-ZÁa-záãêçóõú ]+(-| |, )+([A-ZÁa-záãêçóõú ]+)?( e | e de | e da )?([A-ZÁa-záãêçóõú]+)?(S.A.|LTDA|e Associados|Comércio|EIRELI)?$" },
+               { nameof(CompanyTests.Name_HappyDays), "^[-A-ZÁa-záãêíçóõú ]+(-| |, )+([A-ZÁa-záãêíçóõú ]+)?( e | e de | e da )?([A-ZÁa-záãêíçóõú]+)?(S.A.|LTDA|e Associados|Comércio|EIRELI)?$" },
             });
             yield return new TestFixtureData("ru", new Dictionary<string, string>{
                { nameof(CompanyTests.Name_HappyDays), @"^(ИП|ООО|ЗАО|ОАО|НКО|ТСЖ|ОП) [-\u0400-\u04FF ]+(Снаб|Торг|Пром|Трейд|Сбыт)?$" },

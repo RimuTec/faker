@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faker.Tests", "src\Faker.Tests\Faker.Tests.csproj", "{15A173FA-3799-4790-A9E0-B8E31A385633}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "docs", "docs\docs.csproj", "{3E5FB4C8-77D6-4D1D-BA9F-BE8C8D908086}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16CC7303-78D9-4DF3-9D70-93D1FD06A9E7}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig

@@ -3,10 +3,15 @@ root = true
 
 # Unix-style newlines with a newline ending every file
 [*]
-end_of_line = lf
 indent_style = space
 indent_size = 3
+tab_width = 3
+end_of_line = lf
 insert_final_newline = true
 file_header_template = Copyright (c) 2021 RimuTec Ltd. See file LICENSE in this repo for details.
 # Do not add the following without confirming that nullable warnings and errors are still honored
 # generated_code = true
+
+
+[*.cs]
+csharp_new_line_before_open_brace = all
