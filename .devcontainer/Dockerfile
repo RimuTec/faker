@@ -3,14 +3,16 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0.101
 # More recent images may be available at https://hub.docker.com/_/microsoft-dotnet-sdk/
 
 RUN apt-get update && \
-   apt-get upgrade -y && \
-   apt-get install -y \
-      procps \
-      iputils-ping \
-      net-tools
+    apt-get upgrade -y && \
+    apt-get install -y \
+               procps \
+               iputils-ping \
+               net-tools \
+               lsb-release
 # procps: to support command 'ps'
 # iputils-ping: to support command 'ping' (https://linuxconfig.org/ping-command-not-found-on-ubuntu-20-04-focal-fossa-linux) [Manfred, 19sep2021]
 # net-tools: to support command such as 'arp', 'ifconfig', 'netstat', etc. (https://helpmanual.io/packages/apt/net-tools/) [Manfred, 26sep2021]
+# lsb-release: to support commmand 'lsb_release -a' [Manfred, 15jan2022]
 # You can safely remove the packages you don't want. [Manfred, 08oct2021]
 
 # Create non-root user
