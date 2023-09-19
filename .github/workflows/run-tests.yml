@@ -12,4 +12,6 @@ jobs:
       needs: setup-env
       steps:
          - name: Test (this will run for several minutes)
-           run: dotnet test Faker.sln --configuration Release --no-restore --no-build --verbosity normal
+           run: |
+              pwd 
+              dotnet test Faker.sln --configuration Release --no-restore --no-build --verbosity normal
