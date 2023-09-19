@@ -3,6 +3,7 @@ version: '3.7'
 services:
     rimutec-faker:
         container_name: rimutec-faker-dev
+        hostname: rimutec-faker-dev.local~
         build:
             context: .
         working_dir: /src
