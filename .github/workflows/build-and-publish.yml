@@ -2,8 +2,10 @@ name: Build and Publish NuGet Package
 
 on:
    push:
-       branches:
-          - master
+      branches:
+         - master
+      # paths:
+      #    - "Faker/Faker.csproj"
 
 jobs:
    build-and-publish:
@@ -28,4 +30,4 @@ jobs:
 
          - name: Publish NuGet package
          #   if: ${{ changes.directory.build.props }}
-           run: dotnet nuget push ./path/to/nuget/package/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+           run: dotnet nuget push Faker/bin/Release/RimuTec.Faker.1.11.0.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
