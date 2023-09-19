@@ -5,17 +5,29 @@
    ],
    "service": "rimutec-faker",
    "workspaceFolder": "/src",
-   "extensions": [
-      "fernandoescolar.vscode-solution-explorer",
-      "formulahendry.dotnet-test-explorer",
-      "eamodio.gitlens",
-      "editorconfig.editorconfig",
-      "josefpihrt-vscode.roslynator",
-      "k--kato.docomment",
-      "ms-dotnettools.csharp",
-      "ms-vscode.powershell",
-      "shd101wyy.markdown-preview-enhanced"
-   ],
+   "customizations": {
+      "vscode": {
+         "extensions": [
+            // In alphabetical order:
+            "donjayamanne.githistory",
+            "editorconfig.editorconfig",
+            "fernandoescolar.vscode-solution-explorer",
+            "formulahendry.dotnet-test-explorer",
+            "github.copilot@prerelease",
+            "github.copilot-chat@prerelease",
+            "github.copilot-labs@prerelease",
+            "github.vscode-github-actions",
+            "josefpihrt-vscode.roslynator",
+            "k--kato.docomment",
+            "mhutchie.git-graph",
+            "ms-dotnettools.csharp",
+            "ms-vscode.powershell",
+            "mutantdino.resourcemonitor",
+            "shd101wyy.markdown-preview-enhanced",
+            "usernamehw.errorlens"
+         ]
+      }
+   },
    "remoteUser": "faker",
    "shutdownAction": "stopCompose"
 }
