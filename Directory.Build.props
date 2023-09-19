@@ -1,5 +1,7 @@
+<!-- To publish a new NuGet package, change the version number in this file. Generally,
+     incrementing the minor version will do. [Manfred, 19sep2023] -->
 <Project>
-  <PropertyGroup>
-    <Version>0.9.1357.0602</Version>
-  </PropertyGroup>
+   <PropertyGroup>
+      <Version>1.11.0</Version>
+   </PropertyGroup>
 </Project>

@@ -1,13 +1,13 @@
 version: '3.7'
 
 services:
-    rimutec-faker:
-        container_name: rimutec-faker-dev
-        hostname: rimutec-faker-dev.local~
-        build:
-            context: .
-        working_dir: /src
-        volumes:
-            - ..:/src:cached
-        command: >
-            bash -c "pwsh /src/.devcontainer/setversion.ps1 && sleep infinity"
+   rimutec-faker:
+      container_name: rimutec-faker-dev
+      hostname: rimutec-faker-dev.local~
+      build:
+         context: .
+      working_dir: /src
+      volumes:
+         - ..:/src:cached
+      command: >
+         bash -c "sleep infinity"
