@@ -25,3 +25,7 @@ jobs:
 
          - name: Test (this will run for several minutes)
            run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
+
+         - name: Publish NuGet package
+         #   if: ${{ changes.directory.build.props }}
+           run: dotnet nuget push ./path/to/nuget/package/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
