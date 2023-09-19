@@ -13,5 +13,6 @@ jobs:
       steps:
          - name: Test (this will run for several minutes)
            run: |
-              pwd 
+              pwd
+              ls -la 
               dotnet test Faker.sln --configuration Release --no-restore --no-build --verbosity normal
