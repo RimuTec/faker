@@ -10,7 +10,7 @@ on:
       #    - "Directory.Build.props"
 
 jobs:
-   build-and-publish:
+   build-and-test:
       runs-on: ubuntu-latest
       steps:
          - name: Checkout code
