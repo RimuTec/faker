@@ -27,7 +27,7 @@ jobs:
    build-and-test:
       runs-on: ubuntu-latest
       outputs:
-         nuget-package-path: ${{ steps.build-and-test.outputs.nuget-package-path }}
+         nuget-package-path: ${{ steps.build-and-test.outputs.NUGET_PACKAGE_PATH }}
       steps:
          - name: Checkout code
            uses: actions/checkout@v3
