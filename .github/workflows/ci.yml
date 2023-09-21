@@ -4,11 +4,10 @@ on:
    push:
       branches:
          - master
-      paths:
-         - "*"
-         - "!README.md"
-         - "!LICENSE"
-         - "!docs/**"
+      paths-ignore:
+         - "README.md"
+         - "LICENSE"
+         - "docs/**"
 
 jobs:
    # Based on the example from https://how.wtf/run-workflow-step-or-job-based-on-file-changes-github-actions.html
