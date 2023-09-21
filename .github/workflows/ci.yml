@@ -52,6 +52,13 @@ jobs:
               dotnet pack --configuration Release --no-build --no-restore
               echo "NUGET_PACKAGE_PATH=$(find . -name '*.nupkg' -print -quit)"
               echo "NUGET_PACKAGE_PATH=$(find . -name '*.nupkg' -print -quit)" >> "$GITHUB_OUTPUT"
+         
+         - name: print env variable
+           id: print-env
+           env:
+              NUGET_PACKAGE_PATH: ${{ steps.publish.outputs.NUGET_PACKAGE_PATH }}
+           run: |
+              echo "NUGET_PACKAGE_PATH=$NUGET_PACKAGE_PATH"
 
    deploy:
       needs: 
