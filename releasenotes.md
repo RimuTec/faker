@@ -1,5 +1,14 @@
 # Release Notes
 
+## Version 1.12.0
+- upgrade dependencies
+- add net7.0 as supported target framework
+- upgrade dev container to SDK 7.0.401
+
+## Version 1.11.0
+- upgrade dependencies
+- upgrade dev container to SDK 5.0.102
+
 ## Version 1.10.0
 - Upgraded package reference for YamlDotNet to version 9.1.1
 
