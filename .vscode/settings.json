@@ -3,4 +3,8 @@
    "editor.tabSize": 3,
    "editor.formatOnSave": true,
    "editor.indentSize": "tabSize",
+   "github-actions.workflows.pinned.refresh.enabled": true,
+   "github-actions.workflows.pinned.workflows": [
+      "ci.yml"
+   ],
 }
