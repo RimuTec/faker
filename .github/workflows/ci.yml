@@ -49,7 +49,7 @@ jobs:
          - name: Publish NuGet package
            id: publish
            run: |
-              pwd
+              pwd | echo
               dotnet pack --configuration Release --no-build --no-restore
               echo "::set-output name=nuget-package-path::$(find . -name '*.nupkg' -print -quit)"         
 
