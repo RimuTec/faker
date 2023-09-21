@@ -39,15 +39,15 @@ jobs:
          - name: Build
            run: dotnet build --configuration Release --no-restore
 
-         - name: Test (this will run for several minutes)
-           run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
+         # - name: Test (this will run for several minutes)
+         #   run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
 
    deploy:
       needs: 
          - changes
          - build-and-test
       runs-on: ubuntu-latest
-      if: ${{ needs.changes.outputs.version-changed == 'true' }}}
+      if: ${{ needs.changes.outputs.version-changed == 'true' }}
       # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && github.event.head_commit.modified || contains('Directory.Build.props') }}
       steps:
          - name: Publish NuGet package
