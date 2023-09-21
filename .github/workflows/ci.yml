@@ -4,8 +4,10 @@ on:
    push:
       branches:
          - master
-      # paths:
-      #    - "Directory.Build.props"
+      paths:
+         - "!README.md"
+         - "!LICENSE"
+         - "!docs/**"
 
 jobs:
    # Based on the example from https://how.wtf/run-workflow-step-or-job-based-on-file-changes-github-actions.html
