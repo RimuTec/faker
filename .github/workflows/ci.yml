@@ -39,8 +39,8 @@ jobs:
          - name: Build
            run: dotnet build --configuration Release --no-restore
 
-         # - name: Test (this will run for several minutes)
-         #   run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
+         - name: Test (this will run for several minutes)
+           run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
 
    deploy:
       needs: 
