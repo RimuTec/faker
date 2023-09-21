@@ -46,6 +46,12 @@ jobs:
          # - name: Test (this will run for several minutes)
          #   run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
 
+         - name: Publish NuGet package
+           id: publish
+           run: |
+              dotnet pack --configuration Release --no-build --no-restore
+              echo "::set-output name=nuget-package-path::$(find . -name '*.nupkg' -print -quit)"         
+
    deploy:
       needs: 
          - changes
@@ -58,4 +64,4 @@ jobs:
            run: |
               pwd
               ls -la
-              dotnet nuget push ${{needs.build-and-test.outputs.nuget-package-path }} --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+              dotnet nuget push ${{ needs.build-and-test.outputs.nuget-package-path }} --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
