@@ -49,9 +49,9 @@ jobs:
          - name: Publish NuGet package
            id: publish
            run: |
-              pwd | echo
               dotnet pack --configuration Release --no-build --no-restore
-              echo "::set-output name=nuget-package-path::$(find . -name '*.nupkg' -print -quit)"         
+              echo "NUGET_PACKAGE_PATH=$(find . -name '*.nupkg' -print -quit)"
+              echo "NUGET_PACKAGE_PATH=$(find . -name '*.nupkg' -print -quit)" >> "$GITHUB_OUTPUT"
 
    deploy:
       needs: 
@@ -62,7 +62,8 @@ jobs:
       # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && github.event.head_commit.modified || contains('Directory.Build.props') }}
       steps:
          - name: Publish NuGet package
+           env:
+            NUGET_PACKAGE_PATH: ${{ needs.build-and-test.outputs.NUGET_PACKAGE_PATH }}
            run: |
-              pwd
-              ls -la
-              dotnet nuget push ${{ needs.build-and-test.outputs.nuget-package-path }} --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+              echo "NuGet package path: $NUGET_PACKAGE_PATH"
+              dotnet nuget push $NUGET_PACKAGE_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
