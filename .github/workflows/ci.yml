@@ -28,7 +28,7 @@ jobs:
    build-and-test:
       runs-on: ubuntu-latest
       outputs:
-         nuget-package-path: ${{ steps.publish.outputs.NUGET_PACKAGE_PATH }}
+         nuget-package-path: ${{ steps.create-package.outputs.NUPKG_PATH }}
       steps:
          - name: Checkout code
            uses: actions/checkout@v3
@@ -53,21 +53,21 @@ jobs:
               dotnet pack --configuration Release --no-build --no-restore
               NUPKG_PATH=$(find . -name '*.nupkg' -type f -execdir readlink -f {} \;)
               echo "NuGet package path: $NUPKG_PATH"
-              echo "NUGET_PACKAGE_PATH=$(find . -name '*.nupkg' -print -quit)"
-              echo "NUGET_PACKAGE_PATH=$(find . -name '*.nupkg' -print -quit)" >> "$GITHUB_OUTPUT"
+              echo "NUPKG_PATH=$NUPKG_PATH" >> "$GITHUB_OUTPUT" 
          
-         - name: print env variable
+         - name: Print Env Variable
            id: print-env
            env:
-              NUGET_PACKAGE_PATH: ${{ steps.create-package.outputs.NUGET_PACKAGE_PATH }}
+              NUGET_PACKAGE_PATH: ${{ steps.create-package.outputs.NUPKG_PATH }}
            run: |
-              echo "NUGET_PACKAGE_PATH=$NUGET_PACKAGE_PATH"
+              echo "NUPKG_PATH=$NUPKG_PATH"
 
-         - name: upload artifact
+         - name: Upload Artifact
            uses: actions/upload-artifact@v3
            with:
               name: nuget-package
-              path: ${{ steps.create-package.outputs.NUGET_PACKAGE_PATH }}
+              path: ${{ steps.create-package.outputs.NUPKG_PATH }}
+              retention-days: 7
 
    deploy:
       needs: 
@@ -77,7 +77,7 @@ jobs:
       if: ${{ needs.changes.outputs.version-changed == 'true' }}
       # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && github.event.head_commit.modified || contains('Directory.Build.props') }}
       steps:
-         - name: download artifact
+         - name: Download Artifact
            uses: actions/download-artifact@v3
            with:
               name: nuget-package
