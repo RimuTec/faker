@@ -75,9 +75,11 @@ jobs:
            env:
               NUGET_PACKAGE_PATH: ${{ needs.build-and-test.outputs.nuget-package-path }}
            run: |
-              echo "NuGet package path: $NUGET_PACKAGE_PATH"
-              echo "NUGET_PACKAGE_PATH=$(find . -name '*.nupkg' -print -quit)"
-              dotnet nuget push $NUGET_PACKAGE_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+              echo "NuGet package path (passed from previous job): $NUGET_PACKAGE_PATH"
+              NUPKG_PATH=$(find . -name '*.nupkg' -type f -execdir readlink -f {} \;)
+              echo "NuGet package path (as found in this job): $NUPKG_PATH"
+              echo "Placeholder for publishing NuGet package"
          #   run: |
          #      echo "NuGet package path: $NUGET_PACKAGE_PATH"
-         #      echo "Placeholder for publishing NuGet package"
+         #      echo "NUGET_PACKAGE_PATH=$(find . -name '*.nupkg' -print -quit)"
+         #      dotnet nuget push $NUGET_PACKAGE_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
