@@ -74,7 +74,7 @@ jobs:
               NUGET_PACKAGE_PATH: ${{ needs.build-and-test.outputs.nuget-package-path }}
            run: |
               echo "NuGet package path: $NUGET_PACKAGE_PATH"
-              echo "Placeholder for publishing NuGet package"
-            # run: |
-            #    echo "NuGet package path: $NUGET_PACKAGE_PATH"
-            #    dotnet nuget push $NUGET_PACKAGE_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+              dotnet nuget push $NUGET_PACKAGE_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+         #   run: |
+         #      echo "NuGet package path: $NUGET_PACKAGE_PATH"
+         #      echo "Placeholder for publishing NuGet package"
