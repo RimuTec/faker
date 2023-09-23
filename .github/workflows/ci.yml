@@ -58,7 +58,7 @@ jobs:
          - name: Print Env Variable
            id: print-env
            env:
-              NUGET_PACKAGE_PATH: ${{ steps.create-package.outputs.NUPKG_PATH }}
+              NUPKG_PATH: ${{ steps.create-package.outputs.NUPKG_PATH }}
            run: |
               echo "NUPKG_PATH=$NUPKG_PATH"
 
