@@ -8,6 +8,7 @@ on:
          - "README.md"
          - "LICENSE"
          - "docs/**"
+         - ".github/workflows/jobs-example.yml"
 
 jobs:
    # Based on the example from https://how.wtf/run-workflow-step-or-job-based-on-file-changes-github-actions.html
