@@ -28,7 +28,7 @@ jobs:
    build-and-test:
       runs-on: ubuntu-latest
       outputs:
-         nuget-package-path: ${{ steps.build-and-test.outputs.NUGET_PACKAGE_PATH }}
+         nuget-package-path: ${{ steps.publish.outputs.NUGET_PACKAGE_PATH }}
       steps:
          - name: Checkout code
            uses: actions/checkout@v3
@@ -47,7 +47,7 @@ jobs:
          # - name: Test (this will run for several minutes)
          #   run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
 
-         - name: Publish NuGet package
+         - name: Create NuGet package
            id: publish
            run: |
               dotnet pack --configuration Release --no-build --no-restore
@@ -71,7 +71,9 @@ jobs:
       steps:
          - name: Publish NuGet package
            env:
-            NUGET_PACKAGE_PATH: ${{ needs.build-and-test.outputs.NUGET_PACKAGE_PATH }}
+              NUGET_PACKAGE_PATH: ${{ needs.build-and-test.outputs.nuget-package-path }}
            run: |
               echo "NuGet package path: $NUGET_PACKAGE_PATH"
-              dotnet nuget push $NUGET_PACKAGE_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+            # run: |
+            #    echo "NuGet package path: $NUGET_PACKAGE_PATH"
+            #    dotnet nuget push $NUGET_PACKAGE_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
