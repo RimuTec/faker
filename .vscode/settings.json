@@ -5,6 +5,7 @@
    "editor.indentSize": "tabSize",
    "github-actions.workflows.pinned.refresh.enabled": true,
    "github-actions.workflows.pinned.workflows": [
-      "ci.yml"
+      "ci.yml",
+      ".github/workflows/ci.yml"
    ],
 }

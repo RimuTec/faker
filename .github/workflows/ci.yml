@@ -48,7 +48,7 @@ jobs:
          #   run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
 
          - name: Create NuGet package
-           id: publish
+           id: create-package
            run: |
               dotnet pack --configuration Release --no-build --no-restore
               NUPKG_PATH=$(find . -name '*.nupkg' -type f -execdir readlink -f {} \;)
@@ -59,9 +59,15 @@ jobs:
          - name: print env variable
            id: print-env
            env:
-              NUGET_PACKAGE_PATH: ${{ steps.publish.outputs.NUGET_PACKAGE_PATH }}
+              NUGET_PACKAGE_PATH: ${{ steps.create-package.outputs.NUGET_PACKAGE_PATH }}
            run: |
               echo "NUGET_PACKAGE_PATH=$NUGET_PACKAGE_PATH"
+
+         - name: upload artifact
+           uses: actions/upload-artifact@v3
+           with:
+              name: nuget-package
+              path: ${{ steps.create-package.outputs.NUGET_PACKAGE_PATH }}
 
    deploy:
       needs: 
@@ -71,6 +77,12 @@ jobs:
       if: ${{ needs.changes.outputs.version-changed == 'true' }}
       # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && github.event.head_commit.modified || contains('Directory.Build.props') }}
       steps:
+         - name: download artifact
+           uses: actions/download-artifact@v3
+           with:
+              name: nuget-package
+              path: ${{ github.workspace }}
+
          - name: Publish NuGet package
            env:
               NUGET_PACKAGE_PATH: ${{ needs.build-and-test.outputs.nuget-package-path }}
