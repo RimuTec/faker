@@ -2,6 +2,6 @@
      incrementing the minor version will do. [Manfred, 19sep2023] -->
 <Project>
    <PropertyGroup>
-      <Version>1.11.99</Version>
+      <Version>1.11.98</Version>
    </PropertyGroup>
 </Project>

@@ -27,8 +27,8 @@ jobs:
 
    build-and-test:
       runs-on: ubuntu-latest
-      outputs:
-         nuget-package-path: ${{ steps.create-package.outputs.NUPKG_PATH }}
+      # outputs:
+      #    nuget-package-path: ${{ steps.create-package.outputs.NUPKG_PATH }}
       steps:
          - name: Checkout code
            uses: actions/checkout@v3
@@ -85,14 +85,15 @@ jobs:
               path: ${{ github.workspace }}
 
          - name: Publish NuGet package
-           env:
-              NUGET_PACKAGE_PATH: ${{ needs.build-and-test.outputs.nuget-package-path }}
+         #   env:
+         #      NUGET_PACKAGE_PATH: ${{ needs.build-and-test.outputs.nuget-package-path }}
+         #   run: |
+         #      echo "NuGet package path (passed from previous job): $NUGET_PACKAGE_PATH"
+         #      NUPKG_PATH=$(find . -name '*.nupkg' -type f -execdir readlink -f {} \;)
+         #      echo "NuGet package path (as found in this job): $NUPKG_PATH"
+         #      echo "Placeholder for publishing NuGet package"
            run: |
-              echo "NuGet package path (passed from previous job): $NUGET_PACKAGE_PATH"
-              NUPKG_PATH=$(find . -name '*.nupkg' -type f -execdir readlink -f {} \;)
+              NUPKG_PATH=$(find . -name '*.nupkg' -print -quit)
               echo "NuGet package path (as found in this job): $NUPKG_PATH"
               echo "Placeholder for publishing NuGet package"
-         #   run: |
-         #      echo "NuGet package path: $NUGET_PACKAGE_PATH"
-         #      echo "NUGET_PACKAGE_PATH=$(find . -name '*.nupkg' -print -quit)"
-         #      dotnet nuget push $NUGET_PACKAGE_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+         # dotnet nuget push $NUGET_PACKAGE_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
