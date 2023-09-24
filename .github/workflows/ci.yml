@@ -95,5 +95,5 @@ jobs:
            run: |
               NUPKG_PATH=$(find . -name '*.nupkg' -print -quit)
               echo "NuGet package path (as found in this job): $NUPKG_PATH"
-              echo "Placeholder for publishing NuGet package"
-         # dotnet nuget push $NUGET_PACKAGE_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+              dotnet nuget push $NUPKG_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+         # echo "Placeholder for publishing NuGet package"
