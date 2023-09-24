@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 2.0.0
+- remove support for .NET 5.0 as it is deprecated
+
 ## Version 1.12.0
 - upgrade dependencies
 - add net7.0 as supported target framework
@@ -8,6 +11,7 @@
 ## Version 1.11.0
 - upgrade dependencies
 - upgrade dev container to SDK 5.0.102
+- add github action to deploy new package versions when version number is bumped
 
 ## Version 1.10.0
 - Upgraded package reference for YamlDotNet to version 9.1.1

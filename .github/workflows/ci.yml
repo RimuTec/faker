@@ -27,14 +27,12 @@ jobs:
 
    build-and-test:
       runs-on: ubuntu-latest
-      # outputs:
-      #    nuget-package-path: ${{ steps.create-package.outputs.NUPKG_PATH }}
       steps:
          - name: Checkout code
            uses: actions/checkout@v3
          
          - name: Setup .NET Core
-           uses: actions/setup-dotnet@v1
+           uses: actions/setup-dotnet@v3
            with:
               dotnet-version: 7.0.401
          
@@ -48,26 +46,19 @@ jobs:
          #   run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
 
          # I believe this step is superfluous, as the package is created in the build step:
-         - name: Create NuGet package
-           id: create-package
+         - name: Find NuGet package
+           id: find-package
            run: |
-              dotnet pack --configuration Release --no-build --no-restore
-              NUPKG_PATH=$(find . -name '*.nupkg' -type f -execdir readlink -f {} \;)
-              echo "NuGet package path: $NUPKG_PATH"
+              NUPKG_PATH=$(find . -name '*.nupkg' -print -quit)
+              echo "NuGet package is at path: $NUPKG_PATH"
               echo "NUPKG_PATH=$NUPKG_PATH" >> "$GITHUB_OUTPUT" 
+         # dotnet pack --configuration Release --no-build --no-restore
          
-         - name: Print Env Variable
-           id: print-env
-           env:
-              NUPKG_PATH: ${{ steps.create-package.outputs.NUPKG_PATH }}
-           run: |
-              echo "NUPKG_PATH=$NUPKG_PATH"
-
          - name: Upload Artifact
            uses: actions/upload-artifact@v3
            with:
-              name: nuget-package
-              path: ${{ steps.create-package.outputs.NUPKG_PATH }}
+              name: nuget-package.nupkg
+              path: ${{ steps.find-package.outputs.NUPKG_PATH }}
               retention-days: 7
 
    deploy:
@@ -81,7 +72,7 @@ jobs:
          - name: Download Artifact
            uses: actions/download-artifact@v3
            with:
-              name: nuget-package
+              name: nuget-package.nupkg
               path: ${{ github.workspace }}
 
          - name: Publish NuGet package
@@ -95,5 +86,5 @@ jobs:
            run: |
               NUPKG_PATH=$(find . -name '*.nupkg' -print -quit)
               echo "NuGet package path (as found in this job): $NUPKG_PATH"
-              dotnet nuget push $NUPKG_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-         # echo "Placeholder for publishing NuGet package"
+              echo "Placeholder for publishing NuGet package"
+         # dotnet nuget push $NUPKG_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

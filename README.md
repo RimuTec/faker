@@ -7,9 +7,8 @@ RimuTec.Faker supports the following targets:
 - .NET Standard 2.0 (netstandard2.0)
 - .NET Standard 2.1 (netstandard2.1)
 - .NET Framework 4.6.2 (net462)
-- .NET 5.0 (net5.0)
 - .NET 6.0 (net6.0)
-- .NET 7.0 (net7.0) (package to be released)
+- .NET 7.0 (net7.0) (from version 1.12.0 onwards)
 
 In case you need support for other targets, please file an issue at [https://github.com/RimuTec/Faker/issues](https://github.com/RimuTec/Faker/issues) and we'll check if we can support the target you need as well. Thank you!
 
