@@ -42,17 +42,15 @@ jobs:
          - name: Build
            run: dotnet build --configuration Release --no-restore
 
-         # - name: Test (this will run for several minutes)
-         #   run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
+         - name: Test (this will run for several minutes)
+           run: dotnet test  --configuration Release --no-restore --no-build --verbosity normal
 
-         # I believe this step is superfluous, as the package is created in the build step:
          - name: Find NuGet package
            id: find-package
            run: |
               NUPKG_PATH=$(find . -name '*.nupkg' -print -quit)
               echo "NuGet package is at path: $NUPKG_PATH"
               echo "NUPKG_PATH=$NUPKG_PATH" >> "$GITHUB_OUTPUT" 
-         # dotnet pack --configuration Release --no-build --no-restore
          
          - name: Upload Artifact
            uses: actions/upload-artifact@v3
@@ -76,15 +74,8 @@ jobs:
               path: ${{ github.workspace }}
 
          - name: Publish NuGet package
-         #   env:
-         #      NUGET_PACKAGE_PATH: ${{ needs.build-and-test.outputs.nuget-package-path }}
-         #   run: |
-         #      echo "NuGet package path (passed from previous job): $NUGET_PACKAGE_PATH"
-         #      NUPKG_PATH=$(find . -name '*.nupkg' -type f -execdir readlink -f {} \;)
-         #      echo "NuGet package path (as found in this job): $NUPKG_PATH"
-         #      echo "Placeholder for publishing NuGet package"
            run: |
               NUPKG_PATH=$(find . -name '*.nupkg' -print -quit)
               echo "NuGet package path (as found in this job): $NUPKG_PATH"
-              echo "Placeholder for publishing NuGet package"
-         # dotnet nuget push $NUPKG_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+              dotnet nuget push $NUPKG_PATH --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+         # echo "Placeholder for publishing NuGet package"
