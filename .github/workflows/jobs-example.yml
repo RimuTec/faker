@@ -8,8 +8,6 @@ on:
          - '.github/workflows/jobs-example.yml'
 
 # Example from https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
-
-
 jobs:
    job1:
      runs-on: ubuntu-latest
