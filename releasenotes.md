@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 2.1.0
+- Upgrade dependencies
+
 ## Version 2.0.0
 - remove support for .NET 5.0 as it is deprecated
 
